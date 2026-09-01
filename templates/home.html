@@ -1,0 +1,833 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BuildConnect – Raw Material Trading &amp; Transportation Platform</title>
+  <meta name="description" content="BuildConnect is India's integrated platform for raw material trading, vehicle rental, and driver hiring." />
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/home.css'%}" />
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<nav class="navbar navbar-expand-lg fixed-top bc-navbar" id="mainNavbar">
+  <div class="container">
+
+    <!-- Brand / Logo -->
+    <a class="navbar-brand" href="#home">
+    <img src="{% static 'images/logo.png' %}"
+         alt="BuildConnect"
+         class="bc-navbar-logo">
+</a>
+
+    <!-- Mobile Toggler -->
+    <button class="navbar-toggler bc-toggler border-0 shadow-none" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="bc-toggler-bar"></span>
+      <span class="bc-toggler-bar"></span>
+      <span class="bc-toggler-bar"></span>
+    </button>
+
+    <!-- Nav Links + Controls -->
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item">
+          <a class="nav-link bc-nav-link active" href="#home" data-en="Home" data-hi="होम">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link bc-nav-link" href="#about" data-en="About" data-hi="परिचय">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link bc-nav-link" href="#services" data-en="Services" data-hi="सेवाएं">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link bc-nav-link" href="#how" data-en="How It Works" data-hi="कैसे काम करता है">How It Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link bc-nav-link" href="#contact" data-en="Contact" data-hi="संपर्क">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Right Controls -->
+      <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+        <!-- Language Selector -->
+        <!-- Language Switcher -->
+<div class="bc-language-switcher">
+
+    <span class="bc-language-label" id="hindiLabel">हिन्दी</span>
+
+    <label class="bc-switch">
+        <input type="checkbox" id="languageSwitch">
+        <span class="bc-switch-slider"></span>
+    </label>
+
+    <span class="bc-language-label" id="englishLabel">English</span>
+
+</div>
+        <a href="{% url 'login' %}" class="btn bc-btn-outline" data-en="Login" data-hi="लॉग इन करें">Login</a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO SECTION
+============================================================ -->
+<section class="bc-hero" id="home">
+  <div class="bc-hero-bg-blobs" aria-hidden="true">
+    <div class="bc-blob bc-blob-1"></div>
+    <div class="bc-blob bc-blob-2"></div>
+    <div class="bc-blob bc-blob-3"></div>
+  </div>
+
+  <div class="container bc-hero-container">
+    <div class="row align-items-center g-5 min-vh-hero">
+
+      <!-- Left: Text Content -->
+      <div class="col-lg-6 fade-in">
+        <div class="bc-hero-eyebrow">
+          <span class="bc-eyebrow-dot"></span>
+          <span data-en="India's #1 Supplier" data-hi="भारत का #1 सप्लायर">
+            India's #1 Supplier
+          </span>
+        </div>
+
+        <h1 class="bc-hero-heading">
+          <span class="bc-heading-main" data-en="BuildConnect" data-hi="बिल्डकनेक्ट">BuildConnect</span>
+          <span class="bc-heading-sub"
+                data-en="Connecting Raw Material Suppliers, Customers, Vehicle Owners &amp; Drivers"
+                data-hi="कच्चे माल आपूर्तिकर्ताओं, ग्राहकों, वाहन मालिकों और ड्राइवरों को जोड़ना">
+            Connecting Raw Material Suppliers, Customers,<br class="d-none d-xl-block" />
+            Vehicle Owners &amp; Drivers
+          </span>
+        </h1>
+
+        <p class="bc-hero-desc"
+           data-en="BuildConnect is an integrated web platform designed to simplify construction material trading and transportation services through a single, secure digital solution."
+           data-hi="BuildConnect एक एकीकृत वेब प्लेटफॉर्म है जो एक ही सुरक्षित डिजिटल समाधान के माध्यम से निर्माण सामग्री व्यापार और परिवहन सेवाओं को सरल बनाने के लिए डिज़ाइन किया गया है।">
+          BuildConnect is an integrated web platform designed to simplify construction material
+          trading and transportation services through a single, secure digital solution.
+        </p>
+
+        <div class="bc-hero-actions">
+          <a href="#services" class="btn bc-btn-hero-primary">
+            <i class="bi bi-rocket-takeoff-fill me-2"></i>
+            <span data-en="Get Started" data-hi="शुरू करें">Get Started</span>
+          </a>
+          <a href="#about" class="btn bc-btn-hero-ghost">
+            <span data-en="Learn More" data-hi="और जानें">Learn More</span>
+            <i class="bi bi-arrow-right ms-2"></i>
+          </a>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="bc-trust-row">
+          <div class="bc-trust-item">
+            <i class="bi bi-shield-check-fill"></i>
+            <span data-en="Secure Platform" data-hi="सुरक्षित प्लेटफॉर्म">Secure Platform</span>
+          </div>
+          <div class="bc-trust-divider"></div>
+          <div class="bc-trust-item">
+            <i class="bi bi-people-fill"></i>
+            <span data-en="500+ Verified Sellers" data-hi="500+ सत्यापित विक्रेता">500+ Verified Sellers</span>
+          </div>
+          <div class="bc-trust-divider"></div>
+          <div class="bc-trust-item">
+            <i class="bi bi-truck-front-fill"></i>
+            <span data-en="1200+ Vehicles" data-hi="1200+ वाहन">1200+ Vehicles</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right: Illustration Panel -->
+      <div class="col-lg-6 fade-in delay-2 d-flex justify-content-center">
+        <div class="bc-hero-panel">
+          <!-- Panel Header -->
+          <div class="bc-panel-header">
+            <div class="bc-panel-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="bc-panel-title" data-en="Construction Ecosystem" data-hi="निर्माण पारिस्थितिकी तंत्र">Construction Ecosystem</span>
+          </div>
+
+          <!-- Platform Network Grid -->
+          <div class="bc-network-grid">
+            <!-- Center Hub -->
+            <div class="bc-hub-center">
+              
+              <div class="bc-hub-core">
+    <img src="{% static 'images/buildconnect-logo.png' %}"
+         alt="BuildConnect - Connecting Materials, People, Opportunities"
+         class="bc-hub-logo">
+</div>
+            </div>
+
+            <!-- Node: Customer -->
+            <div class="bc-node bc-node-customer" style="--angle:45deg">
+              <div class="bc-node-icon"><i class="bi bi-person-fill"></i></div>
+              <span data-en="Customer" data-hi="ग्राहक">Customer</span>
+            </div>
+            <!-- Node: Seller -->
+            <div class="bc-node bc-node-seller" style="--angle:135deg">
+              <div class="bc-node-icon"><i class="bi bi-shop"></i></div>
+              <span data-en="Seller" data-hi="विक्रेता">Seller</span>
+            </div>
+            <!-- Node: Vehicle Owner -->
+            <div class="bc-node bc-node-vehicle" style="--angle:225deg">
+              <div class="bc-node-icon"><i class="bi bi-truck-front-fill"></i></div>
+              <span data-en="Vehicle Owner" data-hi="वाहन मालिक">Vehicle Owner</span>
+            </div>
+            <!-- Node: Driver -->
+            <div class="bc-node bc-node-driver" style="--angle:315deg">
+              <div class="bc-node-icon"><i class="bi bi-person-badge-fill"></i></div>
+              <span data-en="Driver" data-hi="ड्राइवर">Driver</span>
+            </div>
+          </div>
+
+          <!-- Material / Service Tags -->
+          <div class="bc-panel-tags">
+            <span class="bc-ptag bc-ptag-blue"><i class="bi bi-hexagon-fill me-1"></i><span data-en="Coal" data-hi="कोयला">Coal</span></span>
+            <span class="bc-ptag bc-ptag-amber"><i class="bi bi-circle-fill me-1"></i><span data-en="Sand" data-hi="रेत">Sand</span></span>
+            <span class="bc-ptag bc-ptag-slate"><i class="bi bi-layers-fill me-1"></i><span data-en="Stone" data-hi="पत्थर">Stone</span></span>
+            <span class="bc-ptag bc-ptag-gray"><i class="bi bi-cloud-fill me-1"></i><span data-en="Fly Ash" data-hi="फ्लाई ऐश">Fly Ash</span></span>
+            <span class="bc-ptag bc-ptag-brown"><i class="bi bi-globe-americas me-1"></i><span data-en="Soil" data-hi="मिट्टी">Soil</span></span>
+            <span class="bc-ptag bc-ptag-orange"><i class="bi bi-truck-front-fill me-1"></i><span data-en="Truck" data-hi="ट्रक">Truck</span></span>
+            <span class="bc-ptag bc-ptag-green"><i class="bi bi-gear-wide-connected me-1"></i><span>JCB</span></span>
+          </div>
+
+          <!-- Floating Status Card -->
+          <div class="bc-status-card bc-status-card-1">
+            <div class="bc-status-pulse"></div>
+            <span data-en="Platform Live" data-hi="प्लेटफॉर्म लाइव">Platform Live</span>
+          </div>
+          <div class="bc-status-card bc-status-card-2">
+            <i class="bi bi-check-circle-fill text-success me-1"></i>
+            <span data-en="Verified & Secure" data-hi="सत्यापित और सुरक्षित">Verified &amp; Secure</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section> 
+
+<!-- ============================================================
+     STATS BAR
+============================================================ -->
+<div class="bc-stats-bar">
+  <div class="container">
+    <div class="row g-0 align-items-center text-center">
+      <div class="col-6 col-md-3 bc-stat-item fade-in">
+        <span class="bc-stat-num" data-target="200" data-suffix="+">0+</span>
+        <span class="bc-stat-lbl" data-en="Verified Sellers" data-hi="सत्यापित विक्रेता">Verified Sellers</span>
+      </div>
+      <div class="col-6 col-md-3 bc-stat-item fade-in delay-1">
+        <span class="bc-stat-num" data-target="1000" data-suffix="+">0+</span>
+        <span class="bc-stat-lbl" data-en="Vehicles Listed" data-hi="सूचीबद्ध वाहन">Vehicles Listed</span>
+      </div>
+      <div class="col-6 col-md-3 bc-stat-item fade-in delay-2">
+        <span class="bc-stat-num" data-target="300" data-suffix="+">0+</span>
+        <span class="bc-stat-lbl" data-en="Orders Completed" data-hi="ऑर्डर पूर्ण">Orders Completed</span>
+      </div>
+      <div class="col-6 col-md-3 bc-stat-item fade-in delay-3">
+        <span class="bc-stat-num" data-target="4" data-suffix=" Roles">0 Roles</span>
+        <span class="bc-stat-lbl" data-en="User Types Served" data-hi="उपयोगकर्ता प्रकार">User Types Served</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     ABOUT SECTION
+============================================================ -->
+<section class="bc-section bc-about" id="about">
+  <div class="container">
+
+    <div class="bc-section-header text-center fade-in">
+      <span class="bc-section-tag" data-en="Who We Are" data-hi="हम कौन हैं">Who We Are</span>
+      <h2 class="bc-section-title" data-en="About BuildConnect" data-hi="BuildConnect के बारे में">About BuildConnect</h2>
+      <p class="bc-section-sub"
+         data-en="BuildConnect is a centralized digital platform developed to streamline raw material trading and transportation services. It enables seamless collaboration between customers, sellers, vehicle owners, and drivers through a secure and user-friendly web application."
+         data-hi="BuildConnect एक केंद्रीकृत डिजिटल प्लेटफॉर्म है जो कच्चे माल व्यापार और परिवहन सेवाओं को सुव्यवस्थित करने के लिए विकसित किया गया है।">
+        BuildConnect is a centralized digital platform developed to streamline raw material
+        trading and transportation services. It enables seamless collaboration between customers,
+        sellers, vehicle owners, and drivers through a secure and user-friendly web application.
+      </p>
+    </div>
+
+    <!-- Info Cards Row -->
+    <div class="row g-4 mt-2 mb-5">
+      <div class="col-md-4 fade-in">
+        <div class="bc-info-card">
+          <div class="bc-info-icon" style="--ic:#2563eb;--ib:#dbeafe">
+            <i class="bi bi-patch-check-fill"></i>
+          </div>
+          <h5 data-en="Reliable Platform" data-hi="विश्वसनीय प्लेटफॉर्म">Reliable Platform</h5>
+          <p data-en="Built for scale with industry-grade reliability, ensuring zero downtime for your critical business operations."
+             data-hi="उद्योग-ग्रेड विश्वसनीयता के साथ बनाया गया, आपके महत्वपूर्ण व्यावसायिक संचालन के लिए शून्य डाउनटाइम सुनिश्चित करता है।">
+            Built for scale with industry-grade reliability, ensuring zero downtime for your critical business operations.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 fade-in delay-1">
+        <div class="bc-info-card">
+          <div class="bc-info-icon" style="--ic:#10b981;--ib:#d1fae5">
+            <i class="bi bi-shield-lock-fill"></i>
+          </div>
+          <h5 data-en="Secure Services" data-hi="सुरक्षित सेवाएं">Secure Services</h5>
+          <p data-en="End-to-end encrypted transactions, KYC-verified users, and data privacy compliance at every layer."
+             data-hi="हर स्तर पर एंड-टू-एंड एन्क्रिप्टेड लेनदेन, KYC-सत्यापित उपयोगकर्ता और डेटा गोपनीयता अनुपालन।">
+            End-to-end encrypted transactions, KYC-verified users, and data privacy compliance at every layer.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 fade-in delay-2">
+        <div class="bc-info-card">
+          <div class="bc-info-icon" style="--ic:#f59e0b;--ib:#fef3c7">
+            <i class="bi bi-chat-dots-fill"></i>
+          </div>
+          <h5 data-en="Easy Communication" data-hi="आसान संचार">Easy Communication</h5>
+          <p data-en="Seamless messaging between buyers, sellers, vehicle owners, and drivers — all within one unified platform."
+             data-hi="खरीदारों, विक्रेताओं, वाहन मालिकों और ड्राइवरों के बीच सहज संदेश — सब एक ही एकीकृत प्लेटफॉर्म में।">
+            Seamless messaging between buyers, sellers, vehicle owners, and drivers — all within one unified platform.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Role Cards -->
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-3 fade-in">
+        <div class="bc-role-card bc-role-customer">
+          <div class="bc-role-topbar"></div>
+          <div class="bc-role-icon-wrap"><i class="bi bi-person-fill"></i></div>
+          <h4 class="bc-role-title" data-en="Customer" data-hi="ग्राहक">Customer</h4>
+          <ul class="bc-role-list">
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="Browse Materials" data-hi="सामग्री देखें">Browse Materials</span></li>
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="Place Orders" data-hi="ऑर्डर दें">Place Orders</span></li>
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="Rent Vehicles" data-hi="वाहन किराए पर लें">Rent Vehicles</span></li>
+          </ul>
+          <a href="#" class="bc-role-btn" data-en="Get Started" data-hi="शुरू करें">Get Started</a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 fade-in delay-1">
+        <div class="bc-role-card bc-role-seller">
+          <div class="bc-role-topbar"></div>
+          <div class="bc-role-icon-wrap"><i class="bi bi-shop-window"></i></div>
+          <h4 class="bc-role-title" data-en="Seller" data-hi="विक्रेता">Seller</h4>
+          <ul class="bc-role-list">
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="Manage Stock" data-hi="स्टॉक प्रबंधित करें">Manage Stock</span></li>
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="Receive Orders" data-hi="ऑर्डर प्राप्त करें">Receive Orders</span></li>
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="Hire Drivers" data-hi="ड्राइवर नियुक्त करें">Hire Drivers</span></li>
+          </ul>
+          <a href="#" class="bc-role-btn" data-en="Get Started" data-hi="शुरू करें">Get Started</a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 fade-in delay-2">
+        <div class="bc-role-card bc-role-vehicle">
+          <div class="bc-role-topbar"></div>
+          <div class="bc-role-icon-wrap"><i class="bi bi-truck-front-fill"></i></div>
+          <h4 class="bc-role-title" data-en="Vehicle Owner" data-hi="वाहन मालिक">Vehicle Owner</h4>
+          <ul class="bc-role-list">
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="Rent Truck" data-hi="ट्रक किराए पर दें">Rent Truck</span></li>
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="Rent JCB" data-hi="JCB किराए पर दें">Rent JCB</span></li>
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="Manage Bookings" data-hi="बुकिंग प्रबंधित करें">Manage Bookings</span></li>
+          </ul>
+          <a href="#" class="bc-role-btn" data-en="Get Started" data-hi="शुरू करें">Get Started</a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 fade-in delay-3">
+        <div class="bc-role-card bc-role-driver">
+          <div class="bc-role-topbar"></div>
+          <div class="bc-role-icon-wrap"><i class="bi bi-person-badge-fill"></i></div>
+          <h4 class="bc-role-title" data-en="Driver" data-hi="ड्राइवर">Driver</h4>
+          <ul class="bc-role-list">
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="View Jobs" data-hi="नौकरियां देखें">View Jobs</span></li>
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="Apply Online" data-hi="ऑनलाइन आवेदन करें">Apply Online</span></li>
+            <li><i class="bi bi-check-circle-fill"></i><span data-en="Track Earnings" data-hi="कमाई ट्रैक करें">Track Earnings</span></li>
+          </ul>
+          <a href="#" class="bc-role-btn" data-en="Get Started" data-hi="शुरू करें">Get Started</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     OUR SERVICES
+============================================================ -->
+<section class="bc-section bc-services-sec" id="services">
+  <div class="container">
+    <div class="bc-section-header text-center fade-in">
+      <span class="bc-section-tag" data-en="What We Offer" data-hi="हम क्या प्रदान करते हैं">What We Offer</span>
+      <h2 class="bc-section-title" data-en="Our Services" data-hi="हमारी सेवाएं">Our Services</h2>
+      <p class="bc-section-sub"
+         data-en="A complete digital ecosystem connecting every stakeholder in the construction supply chain."
+         data-hi="निर्माण आपूर्ति श्रृंखला में हर हितधारक को जोड़ने वाला एक संपूर्ण डिजिटल पारिस्थितिकी तंत्र।">
+        A complete digital ecosystem connecting every stakeholder in the construction supply chain.
+      </p>
+    </div>
+
+    <div class="row g-4 mt-2">
+
+      <!-- Service 1: Raw Material Trading -->
+      <div class="col-lg-4 fade-in">
+        <div class="bc-service-card">
+          <div class="bc-svc-accent bc-svc-accent-1"></div>
+          <div class="bc-svc-icon bc-svc-icon-1">
+            <i class="bi bi-boxes"></i>
+          </div>
+          <h4 data-en="Raw Material Trading" data-hi="कच्चे माल का व्यापार">Raw Material Trading</h4>
+          <p data-en="A digital construction material marketplace connecting buyers and verified sellers. Browse coal, sand, stone, fly ash, and soil — all in one place."
+             data-hi="खरीदारों और सत्यापित विक्रेताओं को जोड़ने वाला एक डिजिटल निर्माण सामग्री बाज़ार। कोयला, रेत, पत्थर, फ्लाई ऐश और मिट्टी — सब एक ही जगह।">
+            A digital construction material marketplace connecting buyers and verified sellers. Browse coal, sand, stone, fly ash, and soil — all in one place.
+          </p>
+          <ul class="bc-svc-list">
+            <li><i class="bi bi-check2-circle"></i><span data-en="Real-time inventory updates" data-hi="रीयल-टाइम इन्वेंटरी अपडेट">Real-time inventory updates</span></li>
+            <li><i class="bi bi-check2-circle"></i><span data-en="KYC-verified suppliers" data-hi="KYC-सत्यापित आपूर्तिकर्ता">KYC-verified suppliers</span></li>
+            <li><i class="bi bi-check2-circle"></i><span data-en="Bulk order management" data-hi="बल्क ऑर्डर प्रबंधन">Bulk order management</span></li>
+          </ul>
+          <a href="#" class="bc-svc-link">
+            <span data-en="Explore Materials" data-hi="सामग्री देखें">Explore Materials</span>
+            <i class="bi bi-arrow-right-circle-fill ms-2"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Service 2: Vehicle Rental (Featured) -->
+      <div class="col-lg-4 fade-in delay-1">
+        <div class="bc-service-card bc-service-featured">
+          <div class="bc-featured-ribbon" data-en="Most Popular" data-hi="सबसे लोकप्रिय">Most Popular</div>
+          <div class="bc-svc-icon bc-svc-icon-2">
+            <i class="bi bi-truck-front-fill"></i>
+          </div>
+          <h4 data-en="Vehicle Rental" data-hi="वाहन किराया">Vehicle Rental</h4>
+          <p data-en="Rent heavy-duty trucks, JCBs, and construction vehicles on demand. Flexible daily or hourly rates with real-time availability and booking confirmation."
+             data-hi="मांग पर भारी-शुल्क ट्रक, JCB और निर्माण वाहन किराए पर लें। रीयल-टाइम उपलब्धता और बुकिंग पुष्टि के साथ लचीली दैनिक या प्रति घंटे की दरें।">
+            Rent heavy-duty trucks, JCBs, and construction vehicles on demand. Flexible daily or hourly rates with real-time availability and booking confirmation.
+          </p>
+          <ul class="bc-svc-list">
+            <li><i class="bi bi-check2-circle"></i><span data-en="Trucks, JCBs &amp; more" data-hi="ट्रक, JCB और अधिक">Trucks, JCBs &amp; more</span></li>
+            <li><i class="bi bi-check2-circle"></i><span data-en="Hourly &amp; daily rates" data-hi="प्रति घंटे और दैनिक दरें">Hourly &amp; daily rates</span></li>
+            <li><i class="bi bi-check2-circle"></i><span data-en="GPS-tracked vehicles" data-hi="GPS-ट्रैक किए गए वाहन">GPS-tracked vehicles</span></li>
+          </ul>
+          <a href="#" class="bc-svc-link bc-svc-link-light">
+            <span data-en="Book a Vehicle" data-hi="वाहन बुक करें">Book a Vehicle</span>
+            <i class="bi bi-arrow-right-circle-fill ms-2"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Service 3: Driver Hiring -->
+      <div class="col-lg-4 fade-in delay-2">
+        <div class="bc-service-card">
+          <div class="bc-svc-accent bc-svc-accent-3"></div>
+          <div class="bc-svc-icon bc-svc-icon-3">
+            <i class="bi bi-person-badge-fill"></i>
+          </div>
+          <h4 data-en="Driver Hiring" data-hi="ड्राइवर भर्ती">Driver Hiring</h4>
+          <p data-en="Connect with trained, licensed, and background-verified drivers for your transport needs. Drivers can browse available job listings and apply directly online."
+             data-hi="अपनी परिवहन जरूरतों के लिए प्रशिक्षित, लाइसेंस प्राप्त और बैकग्राउंड-सत्यापित ड्राइवरों से जुड़ें।">
+            Connect with trained, licensed, and background-verified drivers for your transport needs. Drivers can browse available job listings and apply directly online.
+          </p>
+          <ul class="bc-svc-list">
+            <li><i class="bi bi-check2-circle"></i><span data-en="Background-verified drivers" data-hi="बैकग्राउंड सत्यापित ड्राइवर">Background-verified drivers</span></li>
+            <li><i class="bi bi-check2-circle"></i><span data-en="Licensed professionals only" data-hi="केवल लाइसेंस प्राप्त पेशेवर">Licensed professionals only</span></li>
+            <li><i class="bi bi-check2-circle"></i><span data-en="Online job applications" data-hi="ऑनलाइन नौकरी आवेदन">Online job applications</span></li>
+          </ul>
+          <a href="#" class="bc-svc-link">
+            <span data-en="Hire a Driver" data-hi="ड्राइवर नियुक्त करें">Hire a Driver</span>
+            <i class="bi bi-arrow-right-circle-fill ms-2"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY BUILDCONNECT
+============================================================ -->
+<section class="bc-section bc-why-sec">
+  <div class="container">
+    <div class="bc-section-header text-center fade-in">
+      <span class="bc-section-tag" data-en="Our Advantage" data-hi="हमारा लाभ">Our Advantage</span>
+      <h2 class="bc-section-title" data-en="Why Choose BuildConnect?" data-hi="BuildConnect क्यों चुनें?">Why Choose BuildConnect?</h2>
+      <p class="bc-section-sub"
+         data-en="Built for the construction industry, designed for simplicity, and trusted by professionals across India."
+         data-hi="निर्माण उद्योग के लिए बनाया गया, सरलता के लिए डिज़ाइन किया गया, और पूरे भारत के पेशेवरों द्वारा भरोसेमंद।">
+        Built for the construction industry, designed for simplicity, and trusted by professionals across India.
+      </p>
+    </div>
+
+    <div class="row g-4 mt-2">
+      <div class="col-sm-6 col-lg-4 fade-in">
+        <div class="bc-why-card">
+          <div class="bc-why-icon" style="--c1:#2563eb;--c2:#dbeafe"><i class="bi bi-shield-lock-fill"></i></div>
+          <h5 data-en="Secure Platform" data-hi="सुरक्षित प्लेटफॉर्म">Secure Platform</h5>
+          <p data-en="End-to-end encryption and KYC verification ensure every transaction is safe and traceable." data-hi="एंड-टू-एंड एन्क्रिप्शन और KYC सत्यापन सुनिश्चित करता है कि हर लेनदेन सुरक्षित है।">End-to-end encryption and KYC verification ensure every transaction is safe and traceable.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 fade-in delay-1">
+        <div class="bc-why-card">
+          <div class="bc-why-icon" style="--c1:#10b981;--c2:#d1fae5"><i class="bi bi-hand-thumbs-up-fill"></i></div>
+          <h5 data-en="Easy to Use" data-hi="उपयोग में आसान">Easy to Use</h5>
+          <p data-en="Intuitive design that works for everyone — from tech-savvy professionals to first-time digital users." data-hi="सहज डिज़ाइन जो सभी के लिए काम करता है — टेक-सेवी पेशेवरों से पहली बार डिजिटल उपयोगकर्ताओं तक।">Intuitive design that works for everyone — from tech-savvy professionals to first-time digital users.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 fade-in delay-2">
+        <div class="bc-why-card">
+          <div class="bc-why-icon" style="--c1:#f59e0b;--c2:#fef3c7"><i class="bi bi-lightning-charge-fill"></i></div>
+          <h5 data-en="Fast Communication" data-hi="तेज़ संचार">Fast Communication</h5>
+          <p data-en="Real-time notifications and messaging keep buyers, sellers, and drivers connected at every step." data-hi="रीयल-टाइम सूचनाएं और संदेश खरीदारों, विक्रेताओं और ड्राइवरों को हर कदम पर जोड़े रखते हैं।">Real-time notifications and messaging keep buyers, sellers, and drivers connected at every step.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 fade-in delay-3">
+        <div class="bc-why-card">
+          <div class="bc-why-icon" style="--c1:#8b5cf6;--c2:#ede9fe"><i class="bi bi-diagram-3-fill"></i></div>
+          <h5 data-en="Trusted Network" data-hi="विश्वसनीय नेटवर्क">Trusted Network</h5>
+          <p data-en="All participants are verified. Sellers, vehicle owners, and drivers pass strict onboarding checks." data-hi="सभी प्रतिभागी सत्यापित हैं। विक्रेता, वाहन मालिक और ड्राइवर सख्त ऑनबोर्डिंग जांच से गुज़रते हैं।">All participants are verified. Sellers, vehicle owners, and drivers pass strict onboarding checks.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 fade-in delay-4">
+        <div class="bc-why-card">
+          <div class="bc-why-icon" style="--c1:#ef4444;--c2:#fee2e2"><i class="bi bi-person-gear-fill"></i></div>
+          <h5 data-en="Role Based Access" data-hi="भूमिका आधारित पहुंच">Role Based Access</h5>
+          <p data-en="Every user gets a personalized dashboard — Customer, Seller, Vehicle Owner, or Driver." data-hi="हर उपयोगकर्ता को एक व्यक्तिगत डैशबोर्ड मिलता है — ग्राहक, विक्रेता, वाहन मालिक या ड्राइवर।">Every user gets a personalized dashboard — Customer, Seller, Vehicle Owner, or Driver.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 fade-in delay-5">
+        <div class="bc-why-card">
+          <div class="bc-why-icon" style="--c1:#06b6d4;--c2:#cffafe"><i class="bi bi-phone-fill"></i></div>
+          <h5 data-en="Responsive Design" data-hi="रिस्पॉन्सिव डिज़ाइन">Responsive Design</h5>
+          <p data-en="Fully optimized for desktop, tablet, and mobile — seamless experience on any device." data-hi="डेस्कटॉप, टैबलेट और मोबाइल के लिए पूरी तरह से अनुकूलित — किसी भी डिवाइस पर सहज अनुभव।">Fully optimized for desktop, tablet, and mobile — seamless experience on any device.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOW IT WORKS
+============================================================ -->
+<section class="bc-section bc-how-sec" id="how">
+  <div class="container">
+    <div class="bc-section-header text-center fade-in">
+      <span class="bc-section-tag" data-en="Simple Process" data-hi="सरल प्रक्रिया">Simple Process</span>
+      <h2 class="bc-section-title" data-en="How BuildConnect Works" data-hi="BuildConnect कैसे काम करता है">How BuildConnect Works</h2>
+      <p class="bc-section-sub"
+         data-en="Get started in minutes. No complicated setup, no paperwork — just register, choose your role, and go."
+         data-hi="मिनटों में शुरू करें। कोई जटिल सेटअप नहीं, कोई कागजी कार्रवाई नहीं — बस रजिस्टर करें, अपनी भूमिका चुनें, और शुरू करें।">
+        Get started in minutes. No complicated setup, no paperwork — just register, choose your role, and go.
+      </p>
+    </div>
+
+    <!-- Desktop Timeline -->
+    <div class="bc-how-timeline fade-in mt-5">
+      <div class="bc-how-line" aria-hidden="true"></div>
+
+      <!-- Step 1 -->
+      <div class="bc-how-step">
+        <div class="bc-how-step-num">01</div>
+        <div class="bc-how-icon-wrap bc-how-icon-1">
+          <i class="bi bi-person-plus-fill"></i>
+        </div>
+        <div class="bc-how-content">
+          <h6 data-en="Register / Login" data-hi="रजिस्टर / लॉगिन">Register / Login</h6>
+          <p data-en="Create your free account in seconds with email or phone verification." data-hi="ईमेल या फोन सत्यापन के साथ कुछ सेकंड में अपना मुफ्त खाता बनाएं।">Create your free account in seconds.</p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="bc-how-step">
+        <div class="bc-how-step-num">02</div>
+        <div class="bc-how-icon-wrap bc-how-icon-2">
+          <i class="bi bi-person-fill-gear"></i>
+        </div>
+        <div class="bc-how-content">
+          <h6 data-en="Choose Your Role" data-hi="अपनी भूमिका चुनें">Choose Your Role</h6>
+          <p data-en="Select Customer, Seller, Vehicle Owner, or Driver to access your personalized dashboard." data-hi="अपने व्यक्तिगत डैशबोर्ड तक पहुंचने के लिए ग्राहक, विक्रेता, वाहन मालिक या ड्राइवर चुनें।">Select your role and get a tailored dashboard.</p>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="bc-how-step">
+        <div class="bc-how-step-num">03</div>
+        <div class="bc-how-icon-wrap bc-how-icon-3">
+          <i class="bi bi-grid-1x2-fill"></i>
+        </div>
+        <div class="bc-how-content">
+          <h6 data-en="Access Services" data-hi="सेवाओं तक पहुंचें">Access Services</h6>
+          <p data-en="Browse materials, book vehicles, post jobs, or apply for driver positions." data-hi="सामग्री देखें, वाहन बुक करें, नौकरियां पोस्ट करें, या ड्राइवर पदों के लिए आवेदन करें।">Browse materials, book vehicles, or post driver jobs.</p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="bc-how-step">
+        <div class="bc-how-step-num">04</div>
+        <div class="bc-how-icon-wrap bc-how-icon-4">
+          <i class="bi bi-trophy-fill"></i>
+        </div>
+        <div class="bc-how-content">
+          <h6 data-en="Complete Your Requirement" data-hi="अपनी आवश्यकता पूरी करें">Complete Your Requirement</h6>
+          <p data-en="Place orders, confirm bookings, and track progress — all from your dashboard." data-hi="ऑर्डर करें, बुकिंग की पुष्टि करें, और अपने डैशबोर्ड से प्रगति ट्रैक करें।">Place orders and track everything from your dashboard.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-5 fade-in">
+      <a href="#" class="btn bc-btn-hero-primary me-3">
+        <i class="bi bi-rocket-takeoff-fill me-2"></i>
+        <span data-en="Start for Free" data-hi="मुफ्त में शुरू करें">Start for Free</span>
+      </a>
+      <a href="#contact" class="btn bc-btn-hero-ghost">
+        <span data-en="Talk to Us" data-hi="हमसे बात करें">Talk to Us</span>
+        <i class="bi bi-chat-dots-fill ms-2"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT SECTION
+============================================================ -->
+<section class="bc-section bc-contact-sec" id="contact">
+  <div class="container">
+    <div class="bc-section-header text-center fade-in">
+      <span class="bc-section-tag" data-en="Get In Touch" data-hi="संपर्क करें">Get In Touch</span>
+      <h2 class="bc-section-title" data-en="Contact BuildConnect" data-hi="BuildConnect से संपर्क करें">Contact BuildConnect</h2>
+      <p class="bc-section-sub"
+         data-en="Have a question about our platform? Our team is ready to help you get started."
+         data-hi="हमारे प्लेटफॉर्म के बारे में कोई प्रश्न है? हमारी टीम आपको शुरू करने में मदद करने के लिए तैयार है।">
+        Have a question about our platform? Our team is ready to help you get started.
+      </p>
+    </div>
+
+    <div class="row g-5 mt-2 align-items-start">
+
+      <!-- Contact Info -->
+      <div class="col-lg-5 fade-in">
+        <div class="bc-contact-info-wrap">
+
+          <div class="bc-contact-item">
+            <div class="bc-contact-icon-wrap" style="--ic:#2563eb;--ib:#dbeafe">
+              <i class="bi bi-envelope-fill"></i>
+            </div>
+            <div>
+              <span class="bc-contact-label" data-en="Email Us" data-hi="ईमेल करें">Email Us</span>
+              <span class="bc-contact-value">info@buildconnect.in</span>
+            </div>
+          </div>
+
+          <div class="bc-contact-item">
+            <div class="bc-contact-icon-wrap" style="--ic:#10b981;--ib:#d1fae5">
+              <i class="bi bi-telephone-fill"></i>
+            </div>
+            <div>
+              <span class="bc-contact-label" data-en="Call Us" data-hi="कॉल करें">Call Us</span>
+              <span class="bc-contact-value">7004253835</span>
+            </div>
+          </div>
+
+          <div class="bc-contact-item">
+            <div class="bc-contact-icon-wrap" style="--ic:#f59e0b;--ib:#fef3c7">
+              <i class="bi bi-geo-alt-fill"></i>
+            </div>
+            <div>
+              <span class="bc-contact-label" data-en="Office Address" data-hi="कार्यालय पता">Office Address</span>
+              <span class="bc-contact-value" data-en="Ranchi, Jharkhand, India data-hi="रांची,झारखंड, भारत">Ranchi, Jharkhand, India</span>
+            </div>
+          </div>
+
+          <!-- Map Placeholder -->
+          <div class="bc-map-placeholder">
+            <i class="bi bi-map-fill"></i>
+            <span data-en="Ranchi, Jharkhand, India" data-hi="रांची,झारखंड, भारत">Ranchi, Jharkhand, India</span>
+          </div>
+
+          <!-- Social Links -->
+          <div class="bc-social-row">
+            <a href="#" class="bc-social-btn" aria-label="Twitter / X"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="bc-social-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            <a href="#" class="bc-social-btn" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="bc-social-btn" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="bc-social-btn" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="col-lg-7 fade-in delay-1">
+        <div class="bc-contact-form-card">
+          <form id="contactForm" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="bc-form-label" data-en="Full Name" data-hi="पूरा नाम">Full Name</label>
+                <input type="text" class="form-control bc-form-input" required
+                       placeholder="Your Name"
+                       data-en-placeholder="Your Name"
+                       data-hi-placeholder="आपका नाम" />
+                <div class="invalid-feedback" data-en="Please enter your name." data-hi="कृपया अपना नाम दर्ज करें।">Please enter your name.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="bc-form-label" data-en="Email Address" data-hi="ईमेल पता">Email Address</label>
+                <input type="email" class="form-control bc-form-input" required
+                       placeholder="you@example.com"
+                       data-en-placeholder="you@example.com"
+                       data-hi-placeholder="आपका ईमेल" />
+                <div class="invalid-feedback" data-en="Please enter a valid email." data-hi="कृपया एक मान्य ईमेल दर्ज करें।">Please enter a valid email.</div>
+              </div>
+              <div class="col-12">
+                <label class="bc-form-label" data-en="Message" data-hi="संदेश">Message</label>
+                <textarea class="form-control bc-form-input" rows="5" required
+                          placeholder="How can we help you?"
+                          data-en-placeholder="How can we help you?"
+                          data-hi-placeholder="हम आपकी कैसे मदद कर सकते हैं?"></textarea>
+                <div class="invalid-feedback" data-en="Please enter your message." data-hi="कृपया अपना संदेश दर्ज करें।">Please enter your message.</div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn bc-btn-hero-primary w-100 bc-submit-btn">
+                  <i class="bi bi-send-fill me-2"></i>
+                  <span data-en="Send Message" data-hi="संदेश भेजें">Send Message</span>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div id="formSuccess" class="bc-form-success d-none" role="alert">
+            <i class="bi bi-check-circle-fill"></i>
+            <span data-en="Message sent successfully! We'll get back to you within 24 hours."
+                  data-hi="संदेश सफलतापूर्वक भेजा गया! हम 24 घंटों के भीतर आपसे संपर्क करेंगे।">
+              Message sent successfully! We'll get back to you within 24 hours.
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="bc-footer" id="footer">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Brand Column -->
+      <div class="col-lg-4">
+        <a class="d-flex align-items-center gap-2 mb-3 text-decoration-none" href="#home">
+          <div class="bc-logo-icon bc-logo-icon-dark">
+            <i class="bi bi-building-fill-gear"></i>
+          </div>
+          <span class="bc-brand-text-dark">BuildConnect</span>
+        </a>
+        <p class="bc-footer-desc"
+           data-en="India's integrated platform for raw material trading, vehicle rental, and driver hiring. Connecting construction professionals through a single digital solution."
+           data-hi="कच्चे माल व्यापार, वाहन किराया और ड्राइवर भर्ती के लिए भारत का एकीकृत प्लेटफॉर्म।">
+          India's integrated platform for raw material trading, vehicle rental, and driver hiring.
+          Connecting construction professionals through a single digital solution.
+        </p>
+        <div class="bc-footer-badge">
+          <i class="bi bi-shield-fill-check text-success me-2"></i>
+          <span data-en="Secure &amp; Verified Platform" data-hi="सुरक्षित और सत्यापित प्लेटफॉर्म">Secure &amp; Verified Platform</span>
+        </div>
+        <div class="bc-footer-socials mt-4">
+          <a href="#" class="bc-footer-social-btn" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="bc-footer-social-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="bc-footer-social-btn" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="bc-footer-social-btn" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-6 col-lg-2">
+        <h6 class="bc-footer-heading" data-en="Quick Links" data-hi="त्वरित लिंक">Quick Links</h6>
+        <ul class="bc-footer-list">
+          <li><a href="#home"     data-en="Home"         data-hi="होम">Home</a></li>
+          <li><a href="#about"    data-en="About"        data-hi="परिचय">About</a></li>
+          <li><a href="#services" data-en="Services"     data-hi="सेवाएं">Services</a></li>
+          <li><a href="#how"      data-en="How It Works" data-hi="कैसे काम करता है">How It Works</a></li>
+          <li><a href="#contact"  data-en="Contact"      data-hi="संपर्क">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="col-6 col-lg-2">
+        <h6 class="bc-footer-heading" data-en="Services" data-hi="सेवाएं">Services</h6>
+        <ul class="bc-footer-list">
+          <li><a href="#" data-en="Buy Materials"  data-hi="सामग्री खरीदें">Buy Materials</a></li>
+          <li><a href="#" data-en="Sell Materials" data-hi="सामग्री बेचें">Sell Materials</a></li>
+          <li><a href="#" data-en="Rent Vehicles"  data-hi="वाहन किराए पर लें">Rent Vehicles</a></li>
+          <li><a href="#" data-en="Hire Drivers"   data-hi="ड्राइवर नियुक्त करें">Hire Drivers</a></li>
+          <li><a href="#" data-en="Driver Jobs"    data-hi="ड्राइवर नौकरियां">Driver Jobs</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-lg-4">
+        <h6 class="bc-footer-heading" data-en="Contact Information" data-hi="संपर्क जानकारी">Contact Information</h6>
+        <ul class="bc-footer-contact">
+          <li>
+            <i class="bi bi-envelope-fill"></i>
+            <span>info@buildconnect.in</span>
+          </li>
+          <li>
+            <i class="bi bi-telephone-fill"></i>
+            <span>+91 7004253835</span>
+          </li>
+          <li>
+            <i class="bi bi-geo-alt-fill"></i>
+            <span data-en="Ranchi,Jharkhand, India" data-hi="रांची,झारखंड, भारत">Ranchi, Jharkhand, India</span>
+          </li>
+          <li>
+            <i class="bi bi-clock-fill"></i>
+            <span data-en="Mon – Sat: 9:00 AM – 6:00 PM" data-hi="सोम – शनि: 9:00 AM – 6:00 PM">Mon – Sat: 9:00 AM – 6:00 PM</span>
+          </li>
+        </ul>
+      </div>
+
+    </div><!-- /row -->
+
+    <!-- Footer Bottom -->
+    <div class="bc-footer-bottom">
+      <p class="mb-0"
+         data-en="© 2026 BuildConnect. All Rights Reserved. Developed as Ankit Kumar."
+         data-hi="© 2026 BuildConnect। सभी अधिकार सुरक्षित। अंकित कुमार द्वारा विकसित।।">
+        © 2026 BuildConnect. All Rights Reserved. Developed as Ankit Kumar.
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- Bootstrap 5 Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+<script src="{% static 'js/home.js'%}"></script>
+
+</body>
+</html>

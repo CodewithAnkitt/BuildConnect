@@ -1,0 +1,496 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Register – BuildConnect</title>
+  <meta name="description" content="Login or Register to BuildConnect – India's platform for materials, vehicle rentals and driver opportunities." />
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Login CSS -->
+  <link rel="stylesheet" href="{% static 'css/login.css'%}" />
+</head>
+<body>
+
+<!-- ============================================================
+     MAIN LOGIN PAGE WRAPPER
+============================================================ -->
+<div class="bc-login-page">
+
+  <!-- ── LEFT PANEL: Branding ── -->
+  <div class="bc-login-left">
+
+    <!-- Back to Home -->
+    <a href="{% url 'home' %}" class="bc-back-home">
+      <i class="bi bi-arrow-left"></i>
+      Back to Home
+    </a>
+
+    <!-- Logo -->
+    <div class="bc-login-brand">
+      <img src="{% static 'images/logo.png' %}" alt="BuildConnect" class="bc-login-logo" />
+    </div>
+
+    <!-- Headline -->
+    <div class="bc-login-headline">
+      <h1>Connecting Materials,<br />People &amp; Opportunities.</h1>
+      <p>One platform for materials, vehicle rentals and driver opportunities across India.</p>
+    </div>
+
+    <!-- Feature List -->
+    <div class="bc-login-features">
+
+      <div class="bc-login-feature-item">
+        <div class="bc-lf-icon">
+          <i class="bi bi-boxes"></i>
+        </div>
+        <div class="bc-lf-text">
+          <span class="bc-lf-title">Materials</span>
+          <span class="bc-lf-desc">Buy and sell construction materials</span>
+        </div>
+      </div>
+
+      <div class="bc-login-feature-item">
+        <div class="bc-lf-icon">
+          <i class="bi bi-truck-front-fill"></i>
+        </div>
+        <div class="bc-lf-text">
+          <span class="bc-lf-title">Vehicle Rental</span>
+          <span class="bc-lf-desc">Rent trucks and JCBs on demand</span>
+        </div>
+      </div>
+
+      <div class="bc-login-feature-item">
+        <div class="bc-lf-icon">
+          <i class="bi bi-person-badge-fill"></i>
+        </div>
+        <div class="bc-lf-text">
+          <span class="bc-lf-title">Driver Jobs</span>
+          <span class="bc-lf-desc">Find driver opportunities near you</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Left Panel Footer -->
+    <div class="bc-login-left-footer">
+      <span>© 2025 BuildConnect. All rights reserved.</span>
+    </div>
+
+  </div><!-- /bc-login-left -->
+
+
+  <!-- ── RIGHT PANEL: Auth Area ── -->
+  <div class="bc-login-right">
+    <div class="bc-auth-container">
+
+      <!-- ================================================
+           SCREEN 1: ROLE SELECTION
+      ================================================ -->
+      <div class="bc-screen bc-screen-roles" id="bcScreenRoles">
+
+        <div class="bc-auth-header">
+          <div class="bc-auth-logo-sm">
+            <img src="{% static 'images/logo.png' %}" alt="BuildConnect" />
+          </div>
+          <h2>Welcome to BuildConnect</h2>
+          <p>Choose Your Role</p>
+          <span class="bc-auth-sub">Select your role to continue</span>
+        </div>
+
+        <!-- Role Cards Grid -->
+        <div class="bc-role-grid" id="bcRoleGrid">
+
+          <!-- Seller -->
+          <div class="bc-role-card-auth" data-role="Seller" data-icon="bi-shop-window" tabindex="0" role="button" aria-label="Select Seller role">
+            <div class="bc-rca-circle">
+              <i class="bi bi-shop-window"></i>
+            </div>
+            <span class="bc-rca-name">Seller</span>
+            <span class="bc-rca-desc">Sell materials</span>
+          </div>
+
+          <!-- Customer -->
+          <div class="bc-role-card-auth" data-role="Customer" data-icon="bi-person-fill" tabindex="0" role="button" aria-label="Select Customer role">
+            <div class="bc-rca-circle">
+              <i class="bi bi-person-fill"></i>
+            </div>
+            <span class="bc-rca-name">Customer</span>
+            <span class="bc-rca-desc">Buy materials</span>
+          </div>
+
+          <!-- Driver -->
+          <div class="bc-role-card-auth" data-role="Driver" data-icon="bi-person-badge-fill" tabindex="0" role="button" aria-label="Select Driver role">
+            <div class="bc-rca-circle">
+              <i class="bi bi-person-badge-fill"></i>
+            </div>
+            <span class="bc-rca-name">Driver</span>
+            <span class="bc-rca-desc">Find driver jobs</span>
+          </div>
+
+          <!-- Vehicle Owner -->
+          <div class="bc-role-card-auth" data-role="Vehicle Owner" data-icon="bi-truck-front-fill" tabindex="0" role="button" aria-label="Select Vehicle Owner role">
+            <div class="bc-rca-circle">
+              <i class="bi bi-truck-front-fill"></i>
+            </div>
+            <span class="bc-rca-name">Vehicle Owner</span>
+            <span class="bc-rca-desc">Rent your vehicles</span>
+          </div>
+
+        </div><!-- /bc-role-grid -->
+
+      </div><!-- /bc-screen-roles -->
+
+
+      <!-- ================================================
+           SCREEN 2: AUTH FORMS (Login + Register)
+      ================================================ -->
+      <div class="bc-screen bc-screen-auth" id="bcScreenAuth">
+
+        <!-- Auth Screen Header: Role Badge + Change Role -->
+        <div class="bc-auth-role-bar" id="bcAuthRoleBar">
+          <button class="bc-change-role-btn" id="bcChangeRoleBtn" type="button" aria-label="Change role">
+            <i class="bi bi-arrow-left"></i>
+            Change Role
+          </button>
+          <div class="bc-selected-role-badge" id="bcSelectedRoleBadge">
+            <div class="bc-srb-icon" id="bcSrbIcon">
+              <i class="bi bi-person-fill" id="bcSrbIconEl"></i>
+            </div>
+            <span id="bcSrbName">Customer</span>
+          </div>
+        </div>
+
+
+        <!-- ──────────────────────────────────────────────
+             FORMS WRAPPER (for slide animation)
+        ────────────────────────────────────────────── -->
+        <div class="bc-forms-wrapper" id="bcFormsWrapper">
+
+          <!-- ── LOGIN FORM ── -->
+          <div class="bc-form-panel" id="bcLoginPanel">
+
+            <div class="bc-form-header">
+              <h3>Login as</h3>
+              <span class="bc-form-role-name" id="bcLoginRoleName">Customer</span>
+            </div>
+
+            <form id="bcLoginForm" novalidate autocomplete="off">
+
+              <!-- Phone Number -->
+              <div class="bc-field-group">
+                <label class="bc-field-label" for="bcLoginPhone">
+                  <i class="bi bi-phone-fill"></i> Phone Number
+                </label>
+                <div class="bc-input-wrap">
+                  <span class="bc-input-prefix">+91</span>
+                  <input
+                    type="tel"
+                    id="bcLoginPhone"
+                    class="bc-input"
+                    placeholder="Enter 10-digit mobile number"
+                    maxlength="10"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                  />
+                </div>
+                <span class="bc-field-error" id="bcLoginPhoneErr"></span>
+              </div>
+
+              <!-- Password -->
+              <div class="bc-field-group">
+                <label class="bc-field-label" for="bcLoginPassword">
+                  <i class="bi bi-lock-fill"></i> Password
+                </label>
+                <div class="bc-input-wrap bc-input-password">
+                  <input
+                    type="password"
+                    id="bcLoginPassword"
+                    class="bc-input"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                  />
+                  <button type="button" class="bc-eye-btn" id="bcLoginEyeBtn" aria-label="Show/hide password">
+                    <i class="bi bi-eye-fill" id="bcLoginEyeIcon"></i>
+                  </button>
+                </div>
+                <span class="bc-field-error" id="bcLoginPasswordErr"></span>
+              </div>
+
+              <!-- CAPTCHA -->
+              <div class="bc-field-group">
+                <label class="bc-field-label" for="bcLoginCaptchaInput">
+                  <i class="bi bi-shield-check-fill"></i> CAPTCHA Verification
+                </label>
+                <div class="bc-captcha-row">
+                  <div class="bc-captcha-display" id="bcCaptchaDisplay" aria-label="CAPTCHA code"></div>
+                  <button type="button" class="bc-captcha-refresh-btn" id="bcCaptchaRefreshBtn" title="Refresh CAPTCHA" aria-label="Refresh CAPTCHA">
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </button>
+                </div>
+                <input
+                  type="text"
+                  id="bcLoginCaptchaInput"
+                  class="bc-input"
+                  placeholder="Enter the code shown above"
+                  maxlength="6"
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+                <span class="bc-field-error" id="bcLoginCaptchaErr"></span>
+              </div>
+
+              <!-- Remember Me + Forgot Password -->
+              <div class="bc-login-extras">
+                <label class="bc-checkbox-label" for="bcRememberMe">
+                  <input type="checkbox" id="bcRememberMe" class="bc-checkbox" />
+                  <span class="bc-checkbox-custom"></span>
+                  Remember me
+                </label>
+                <button type="button" class="bc-forgot-btn" id="bcForgotBtn">Forgot Password?</button>
+              </div>
+
+              <!-- Submit -->
+              <button type="submit" class="bc-auth-submit" id="bcLoginSubmit">
+                <i class="bi bi-box-arrow-in-right me-2"></i>
+                Login to BuildConnect
+              </button>
+
+            </form>
+
+            <!-- Switch to Register -->
+            <div class="bc-form-switch">
+              <span>Don't have an account?</span>
+              <button type="button" class="bc-switch-btn" id="bcGoRegister">Create Account</button>
+            </div>
+
+          </div><!-- /bcLoginPanel -->
+
+
+          <!-- ── REGISTER FORM ── -->
+          <div class="bc-form-panel bc-form-panel-hidden" id="bcRegisterPanel">
+
+            <div class="bc-form-header">
+              <h3>Create Account as</h3>
+              <span class="bc-form-role-name" id="bcRegisterRoleName">Customer</span>
+            </div>
+
+            <form id="bcRegisterForm" novalidate autocomplete="off">
+
+              <!-- First Name + Last Name -->
+              <div class="bc-field-row">
+                <div class="bc-field-group bc-field-half">
+                  <label class="bc-field-label" for="bcRegFirstName">First Name</label>
+                  <input type="text" id="bcRegFirstName" class="bc-input" placeholder="First name" autocomplete="given-name" />
+                  <span class="bc-field-error" id="bcRegFirstNameErr"></span>
+                </div>
+                <div class="bc-field-group bc-field-half">
+                  <label class="bc-field-label" for="bcRegLastName">Last Name</label>
+                  <input type="text" id="bcRegLastName" class="bc-input" placeholder="Last name" autocomplete="family-name" />
+                  <span class="bc-field-error" id="bcRegLastNameErr"></span>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="bc-field-group">
+                <label class="bc-field-label" for="bcRegEmail">
+                  <i class="bi bi-envelope-fill"></i> Email Address
+                </label>
+                <input type="email" id="bcRegEmail" class="bc-input" placeholder="you@example.com" autocomplete="email" />
+                <span class="bc-field-error" id="bcRegEmailErr"></span>
+              </div>
+
+              <!-- Phone Number -->
+              <div class="bc-field-group">
+                <label class="bc-field-label" for="bcRegPhone">
+                  <i class="bi bi-phone-fill"></i> Phone Number
+                </label>
+                <div class="bc-input-wrap">
+                  <span class="bc-input-prefix">+91</span>
+                  <input
+                    type="tel"
+                    id="bcRegPhone"
+                    class="bc-input"
+                    placeholder="10-digit mobile number"
+                    maxlength="10"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                  />
+                </div>
+                <span class="bc-field-error" id="bcRegPhoneErr"></span>
+              </div>
+
+              <!-- WhatsApp Number -->
+              <div class="bc-field-group">
+                <label class="bc-field-label" for="bcRegWhatsapp">
+                  <i class="bi bi-whatsapp"></i> WhatsApp Number
+                </label>
+                <div class="bc-input-wrap">
+                  <span class="bc-input-prefix">+91</span>
+                  <input
+                    type="tel"
+                    id="bcRegWhatsapp"
+                    class="bc-input"
+                    placeholder="10-digit WhatsApp number"
+                    maxlength="10"
+                    inputmode="numeric"
+                    autocomplete="off"
+                  />
+                </div>
+                <span class="bc-field-error" id="bcRegWhatsappErr"></span>
+
+                <!-- Same as Phone Number checkbox -->
+                <label class="bc-checkbox-label bc-checkbox-whatsapp" for="bcSameAsPhone">
+                  <input type="checkbox" id="bcSameAsPhone" class="bc-checkbox" />
+                  <span class="bc-checkbox-custom"></span>
+                  Same as Phone Number
+                </label>
+              </div>
+
+              <!-- Password -->
+              <div class="bc-field-group">
+                <label class="bc-field-label" for="bcRegPassword">
+                  <i class="bi bi-lock-fill"></i> Password
+                </label>
+                <div class="bc-input-wrap bc-input-password">
+                  <input
+                    type="password"
+                    id="bcRegPassword"
+                    class="bc-input"
+                    placeholder="Minimum 8 characters"
+                    autocomplete="new-password"
+                  />
+                  <button type="button" class="bc-eye-btn" id="bcRegEyeBtn" aria-label="Show/hide password">
+                    <i class="bi bi-eye-fill" id="bcRegEyeIcon"></i>
+                  </button>
+                </div>
+                <span class="bc-field-error" id="bcRegPasswordErr"></span>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="bc-field-group">
+                <label class="bc-field-label" for="bcRegConfirmPassword">
+                  <i class="bi bi-lock-fill"></i> Confirm Password
+                </label>
+                <div class="bc-input-wrap bc-input-password">
+                  <input
+                    type="password"
+                    id="bcRegConfirmPassword"
+                    class="bc-input"
+                    placeholder="Re-enter your password"
+                    autocomplete="new-password"
+                  />
+                  <button type="button" class="bc-eye-btn" id="bcRegConfirmEyeBtn" aria-label="Show/hide confirm password">
+                    <i class="bi bi-eye-fill" id="bcRegConfirmEyeIcon"></i>
+                  </button>
+                </div>
+                <span class="bc-field-error" id="bcRegConfirmPasswordErr"></span>
+              </div>
+
+              <!-- Terms & Conditions -->
+              <div class="bc-field-group">
+                <label class="bc-checkbox-label" for="bcRegTerms">
+                  <input type="checkbox" id="bcRegTerms" class="bc-checkbox" />
+                  <span class="bc-checkbox-custom"></span>
+                  I agree to the <a href="#" class="bc-terms-link" id="bcTermsLink">Terms &amp; Conditions</a>
+                </label>
+                <span class="bc-field-error" id="bcRegTermsErr"></span>
+              </div>
+
+              <!-- Submit -->
+              <button type="submit" class="bc-auth-submit" id="bcRegisterSubmit">
+                <i class="bi bi-person-plus-fill me-2"></i>
+                Create Account
+              </button>
+
+            </form>
+
+            <!-- Switch to Login -->
+            <div class="bc-form-switch">
+              <span>Already have an account?</span>
+              <button type="button" class="bc-switch-btn" id="bcGoLogin">Login</button>
+            </div>
+
+          </div><!-- /bcRegisterPanel -->
+
+        </div><!-- /bc-forms-wrapper -->
+
+      </div><!-- /bc-screen-auth -->
+
+    </div><!-- /bc-auth-container -->
+  </div><!-- /bc-login-right -->
+
+</div><!-- /bc-login-page -->
+
+
+<!-- ============================================================
+     FORGOT PASSWORD MODAL
+============================================================ -->
+<div class="bc-modal-overlay" id="bcForgotModal" role="dialog" aria-modal="true" aria-labelledby="bcForgotModalTitle">
+  <div class="bc-modal-box">
+    <div class="bc-modal-icon">
+      <i class="bi bi-key-fill"></i>
+    </div>
+    <h4 id="bcForgotModalTitle">Forgot Password?</h4>
+    <p>Password reset via OTP/Email will be available once the Django backend is connected.</p>
+    <p class="bc-modal-note">Please contact support or try a different login method for now.</p>
+    <button type="button" class="bc-modal-close-btn" id="bcForgotModalClose">Got it</button>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     TERMS & CONDITIONS MODAL
+============================================================ -->
+<div class="bc-modal-overlay" id="bcTermsModal" role="dialog" aria-modal="true" aria-labelledby="bcTermsModalTitle">
+  <div class="bc-modal-box bc-modal-terms">
+    <h4 id="bcTermsModalTitle">Terms &amp; Conditions</h4>
+    <div class="bc-terms-content">
+      <p><strong>BuildConnect Platform Usage Agreement</strong></p>
+      <p>By registering on BuildConnect, you agree to the following terms:</p>
+      <ul>
+        <li>You will provide accurate and truthful information during registration.</li>
+        <li>Your account credentials are your responsibility and must not be shared.</li>
+        <li>All transactions on the platform must comply with applicable Indian laws.</li>
+        <li>BuildConnect reserves the right to suspend accounts for policy violations.</li>
+        <li>Materials listed must be genuine and as described.</li>
+        <li>Vehicle owners must list vehicles with valid documentation.</li>
+        <li>Drivers must have a valid license to apply for driver positions.</li>
+        <li>BuildConnect is not liable for disputes between buyers and sellers.</li>
+      </ul>
+      <p>For full terms, please visit our website or contact support.</p>
+    </div>
+    <button type="button" class="bc-modal-close-btn" id="bcTermsModalClose">Close</button>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     SUCCESS MESSAGE
+============================================================ -->
+<div class="bc-success-toast" id="bcSuccessToast" role="alert" aria-live="polite">
+  <div class="bc-success-inner">
+    <div class="bc-success-icon"><i class="bi bi-check-circle-fill"></i></div>
+    <div class="bc-success-text">
+      <strong id="bcSuccessTitle">Action Successful</strong>
+      <span id="bcSuccessMsg">Your request has been processed.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Login JS -->
+<script src="{% static 'js/login.js' %}"></script>
+
+</body>
+</html>
