@@ -18,7 +18,7 @@ urlpatterns = [
     ),
 
     path(
-        "customer-dashboard/",
+        "customer/dashboard/",
         views.customer_dashboard,
         name="customer_dashboard"
     ),

@@ -1,68 +1,102 @@
 /* =========================================================
    BUILD CONNECT
    MY ORDERS PAGE
+   PREMIUM DEEP TEAL + ANTIQUE GOLD THEME
    ========================================================= */
+
+
+/* =========================================================
+   ROOT COLORS
+========================================================= */
 
 :root {
 
-    --deep-teal: #0d3030;
-    --deep-teal-2: #102f2f;
-    --teal-light: #164545;
+    --deep-teal: #0b3432;
+    --deep-teal-dark: #082827;
+    --deep-teal-light: #174946;
 
-    --gold: #b8862d;
-    --gold-dark: #9b6e20;
-    --gold-light: #f5e6c8;
+    --gold: #b88324;
+    --gold-dark: #966819;
+    --gold-light: #f5e6c7;
+    --gold-soft: #fbf4e7;
 
     --ivory: #f7f4ec;
-    --cream: #fbf9f4;
+    --cream: #fbfaf6;
 
     --white: #ffffff;
 
-    --text-dark: #14202b;
-    --text: #34414d;
-    --text-light: #73808b;
+    --text-dark: #13232d;
+    --text: #354957;
+    --text-light: #71808b;
 
-    --border: #e4e2dc;
+    --border: #e1e1dc;
+    --border-light: #ecebe7;
 
-    --green: #15935b;
-    --green-light: #e1f5e9;
+    --green: #11945a;
+    --green-light: #e2f5eb;
 
-    --blue: #1689e8;
-    --blue-light: #e1f2ff;
+    --blue: #1688e5;
+    --blue-light: #e3f2ff;
 
-    --yellow: #b47a14;
-    --yellow-light: #fff1cf;
+    --yellow: #b47b18;
+    --yellow-light: #fff1d2;
 
-    --danger: #bd5b4c;
+    --danger: #c45b4f;
 
     --shadow:
-        0 3px 15px rgba(20, 30, 30, 0.05);
+        0 3px 15px rgba(20, 35, 35, 0.055);
 
     --shadow-hover:
-        0 8px 25px rgba(20, 30, 30, 0.09);
+        0 8px 28px rgba(20, 35, 35, 0.10);
 
 }
 
 
 /* =========================================================
-   RESET
+   GLOBAL RESET
 ========================================================= */
 
 * {
+
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
+
 }
 
 
 html {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    overflow-x: hidden;
+
     scroll-behavior: smooth;
+
 }
 
 
 body {
 
-    font-family: "DM Sans", sans-serif;
+    width: 100%;
+
+    max-width: 100%;
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 0;
+
+    overflow-x: hidden;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
 
     background:
         var(--ivory);
@@ -70,28 +104,32 @@ body {
     color:
         var(--text-dark);
 
-    min-height: 100vh;
-
 }
 
 
 button,
 input,
 select {
+
     font-family: inherit;
+
 }
 
 
 button {
+
     cursor: pointer;
+
 }
 
 
 a {
-    text-decoration: none;
-    color: inherit;
-}
 
+    text-decoration: none;
+
+    color: inherit;
+
+}
 
 
 /* =========================================================
@@ -103,21 +141,16 @@ a {
     position: fixed;
 
     left: 0;
+
     top: 0;
+
     bottom: 0;
 
     width: 247px;
 
-    background:
-        linear-gradient(
-            180deg,
-            #102d2d 0%,
-            #0b2525 100%
-        );
+    height: 100vh;
 
-    color: white;
-
-    z-index: 1000;
+    overflow: hidden;
 
     display: flex;
 
@@ -125,15 +158,31 @@ a {
 
     padding: 20px 12px 18px;
 
+    color: white;
+
+    background:
+        linear-gradient(
+            180deg,
+            #0d3533 0%,
+            #082b2a 100%
+        );
+
+    z-index: 1000;
+
 }
 
 
+/* =========================================================
+   SIDEBAR BRAND
+========================================================= */
+
 .sidebar-brand {
 
-    padding: 0 12px 22px;
+    padding:
+        0 12px 21px;
 
     border-bottom:
-        1px solid rgba(255,255,255,0.13);
+        1px solid rgba(255,255,255,0.14);
 
 }
 
@@ -175,24 +224,26 @@ a {
 
     line-height: 1;
 
-    letter-spacing: -0.5px;
+    letter-spacing: -0.6px;
 
 }
 
 
 .brand-text span {
 
+    margin-top: 5px;
+
     font-size: 9px;
 
-    color: rgba(255,255,255,0.72);
-
-    margin-top: 5px;
+    color:
+        rgba(255,255,255,0.72);
 
 }
 
 
-
-/* USER */
+/* =========================================================
+   SIDEBAR USER
+========================================================= */
 
 .sidebar-user {
 
@@ -202,7 +253,8 @@ a {
 
     gap: 12px;
 
-    padding: 20px 12px 22px;
+    padding:
+        20px 12px 21px;
 
 }
 
@@ -213,7 +265,7 @@ a {
 
     height: 48px;
 
-    border-radius: 50%;
+    flex-shrink: 0;
 
     display: flex;
 
@@ -221,16 +273,20 @@ a {
 
     justify-content: center;
 
+    border-radius: 50%;
+
     background:
         linear-gradient(
             135deg,
-            #c99a4d,
-            #8d6428
+            #c99846,
+            #8c6225
         );
 
-    font-weight: 600;
+    color: white;
 
     font-size: 16px;
+
+    font-weight: 600;
 
 }
 
@@ -255,17 +311,19 @@ a {
 
 .user-info span {
 
+    margin-top: 3px;
+
     font-size: 11px;
 
-    color: rgba(255,255,255,0.67);
-
-    margin-top: 3px;
+    color:
+        rgba(255,255,255,0.68);
 
 }
 
 
-
-/* NAV */
+/* =========================================================
+   SIDEBAR NAVIGATION
+========================================================= */
 
 .sidebar-nav {
 
@@ -273,7 +331,7 @@ a {
 
     flex-direction: column;
 
-    gap: 6px;
+    gap: 5px;
 
 }
 
@@ -282,7 +340,8 @@ a {
 
     min-height: 50px;
 
-    padding: 0 18px;
+    padding:
+        0 18px;
 
     display: flex;
 
@@ -293,13 +352,12 @@ a {
     border-radius: 8px;
 
     color:
-        rgba(255,255,255,0.92);
+        rgba(255,255,255,0.94);
 
     font-size: 14px;
 
     transition:
-        background 0.2s ease,
-        color 0.2s ease;
+        all 0.2s ease;
 
 }
 
@@ -307,6 +365,8 @@ a {
 .sidebar-link i {
 
     width: 20px;
+
+    flex-shrink: 0;
 
     font-size: 21px;
 
@@ -316,7 +376,7 @@ a {
 .sidebar-link:hover {
 
     background:
-        rgba(255,255,255,0.07);
+        rgba(255,255,255,0.075);
 
 }
 
@@ -327,40 +387,176 @@ a {
         linear-gradient(
             135deg,
             #f1ce91,
-            #e3b55f
+            #e2b35b
         );
 
     color:
-        #15252a;
+        #17282a;
 
     font-weight: 600;
 
 }
 
 
+/* =========================================================
+   SIDEBAR PROMOTIONAL IMAGE
+   ---------------------------------------------------------
+   Your image should be:
+
+   static/images/sidebar.jpg
+
+   If your extension is PNG, change .jpg to .png.
+========================================================= */
+
+.sidebar-promo {
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 68px;
+
+    height: 360px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    padding:
+        0 20px 72px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(8,40,39,0.08) 0%,
+            rgba(8,40,39,0.30) 22%,
+            rgba(8,40,39,0.78) 60%,
+            rgba(8,40,39,0.98) 100%
+        ),
+        url("/static/images/sidebar.png");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+}
+
+
+/*
+   Adds an additional teal transparent layer.
+   This gives the image the same look as your reference.
+*/
+
+.sidebar-promo::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(4,36,35,0.25),
+            rgba(4,36,35,0.05)
+        );
+
+    pointer-events: none;
+
+}
+
+
+.sidebar-promo-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 190px;
+
+}
+
+
+.sidebar-promo-content h3 {
+
+    color: white;
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 25px;
+
+    line-height: 1.16;
+
+    font-weight: 500;
+
+}
+
+
+.sidebar-promo-content .promo-line {
+
+    width: 42px;
+
+    height: 3px;
+
+    margin-top: 17px;
+
+    background:
+        #d5a548;
+
+}
+
+
+/* =========================================================
+   SIDEBAR BOTTOM
+========================================================= */
+
 .sidebar-bottom {
 
-    margin-top: auto;
+    position: absolute;
+
+    left: 12px;
+
+    right: 12px;
+
+    bottom: 0;
+
+    height: 68px;
+
+    padding:
+        15px 7px 8px;
 
     border-top:
         1px solid rgba(255,255,255,0.18);
 
-    padding-top: 18px;
+    background:
+        #082b2a;
+
+    z-index: 5;
 
 }
 
 
 .logout-link {
 
-    min-height: 48px;
-
-    padding: 0 18px;
+    height: 45px;
 
     display: flex;
 
     align-items: center;
 
     gap: 17px;
+
+    padding:
+        0 12px;
 
     color: white;
 
@@ -376,19 +572,25 @@ a {
 }
 
 
-
 /* =========================================================
-   MAIN
+   MAIN CONTENT
 ========================================================= */
 
 .main-content {
 
-    margin-left: 247px;
+    width:
+        calc(100% - 247px);
+
+    max-width:
+        calc(100% - 247px);
 
     min-height: 100vh;
 
-}
+    margin-left: 247px;
 
+    overflow-x: hidden;
+
+}
 
 
 /* =========================================================
@@ -397,21 +599,24 @@ a {
 
 .top-header {
 
+    width: 100%;
+
     height: 72px;
-
-    background:
-        rgba(255,255,255,0.97);
-
-    border-bottom:
-        1px solid #eceae5;
 
     display: flex;
 
     align-items: center;
 
-    padding: 0 28px;
-
     gap: 25px;
+
+    padding:
+        0 28px;
+
+    background:
+        rgba(255,255,255,0.98);
+
+    border-bottom:
+        1px solid #e8e6e1;
 
     position: sticky;
 
@@ -424,10 +629,6 @@ a {
 
 .menu-button {
 
-    border: 0;
-
-    background: transparent;
-
     width: 30px;
 
     height: 35px;
@@ -437,6 +638,10 @@ a {
     align-items: center;
 
     justify-content: center;
+
+    border: 0;
+
+    background: transparent;
 
     color:
         var(--text-dark);
@@ -452,18 +657,19 @@ a {
 
     height: 40px;
 
-    border-radius: 10px;
-
-    background:
-        #f1f2f3;
-
     display: flex;
 
     align-items: center;
 
-    padding: 0 15px;
-
     gap: 11px;
+
+    padding:
+        0 15px;
+
+    border-radius: 10px;
+
+    background:
+        #f1f2f3;
 
 }
 
@@ -477,17 +683,18 @@ a {
 
 .header-search input {
 
+    width: 100%;
+
     border: 0;
 
     outline: 0;
 
     background: transparent;
 
-    width: 100%;
+    color:
+        var(--text-dark);
 
     font-size: 13px;
-
-    color: var(--text-dark);
 
 }
 
@@ -511,15 +718,16 @@ a {
 
     height: 38px;
 
+    position: relative;
+
     border: 0;
 
     background: transparent;
 
-    position: relative;
+    color:
+        var(--text-dark);
 
     font-size: 22px;
-
-    color: var(--text-dark);
 
 }
 
@@ -528,27 +736,28 @@ a {
 
     position: absolute;
 
-    top: 1px;
+    top: 0;
 
-    right: 0;
+    right: -1px;
 
     min-width: 17px;
 
     height: 17px;
-
-    border-radius: 50%;
-
-    background: #bf302b;
-
-    color: white;
-
-    font-size: 9px;
 
     display: flex;
 
     align-items: center;
 
     justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        #c62e2e;
+
+    color: white;
+
+    font-size: 9px;
 
     font-weight: 700;
 
@@ -569,15 +778,15 @@ a {
 
 .profile-button {
 
-    border: 0;
-
-    background: transparent;
-
     display: flex;
 
     align-items: center;
 
     gap: 10px;
+
+    border: 0;
+
+    background: transparent;
 
 }
 
@@ -588,18 +797,18 @@ a {
 
     height: 44px;
 
-    border-radius: 50%;
-
-    background:
-        #85602d;
-
-    color: white;
-
     display: flex;
 
     align-items: center;
 
     justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        #88632e;
+
+    color: white;
 
     font-weight: 600;
 
@@ -626,9 +835,12 @@ a {
 
 .profile-details span {
 
+    margin-top: 2px;
+
     font-size: 11px;
 
-    color: var(--text-light);
+    color:
+        var(--text-light);
 
 }
 
@@ -642,21 +854,24 @@ a {
 }
 
 
-
 /* =========================================================
-   PAGE
+   ORDERS PAGE
 ========================================================= */
 
 .orders-page {
 
-    padding: 13px 31px 25px;
+    width: 100%;
 
-    max-width: 1600px;
+    max-width: 100%;
 
-    margin: auto;
+    margin: 0;
+
+    padding:
+        13px 31px 25px;
+
+    overflow-x: hidden;
 
 }
-
 
 
 /* =========================================================
@@ -673,9 +888,10 @@ a {
 
     gap: 11px;
 
-    font-size: 12px;
+    color:
+        var(--text-light);
 
-    color: var(--text-light);
+    font-size: 12px;
 
 }
 
@@ -689,12 +905,12 @@ a {
 
 .breadcrumb strong {
 
-    color: var(--text-dark);
+    color:
+        var(--text-dark);
 
     font-weight: 500;
 
 }
-
 
 
 /* =========================================================
@@ -703,26 +919,35 @@ a {
 
 .orders-hero {
 
-    height: 105px;
+    width: 100%;
+
+    height: 125px;
 
     display: flex;
 
     align-items: stretch;
 
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+
+    overflow: hidden;
 
 }
 
 
 .hero-content {
 
-    width: 48%;
+    flex:
+        0 0 48%;
+
+    min-width: 0;
 
     display: flex;
 
     flex-direction: column;
 
     justify-content: center;
+
+    padding-right: 25px;
 
 }
 
@@ -739,6 +964,9 @@ a {
 
     letter-spacing: -1.3px;
 
+    color:
+        var(--text-dark);
+
 }
 
 
@@ -754,61 +982,74 @@ a {
 
     margin-top: 10px;
 
-    font-size: 17px;
-
     color:
         #2e3c48;
+
+    font-size: 17px;
 
 }
 
 
+/* =========================================================
+   CONSTRUCTION BANNER
+========================================================= */
+
 .hero-banner {
 
-    flex: 1;
+    flex:
+        1 1 52%;
+
+    min-width: 0;
+
+    height: 125px;
 
     position: relative;
 
     overflow: hidden;
 
-    background:
-        linear-gradient(
-            90deg,
-            rgba(247,244,236,1) 0%,
-            rgba(247,244,236,0.2) 15%,
-            rgba(255,255,255,0) 100%
-        ),
-        url("/static/images/construction-banner.jpg");
-
     background-size: cover;
 
-    background-position: center;
+    background-position: center center;
+
+    background-repeat: no-repeat;
 
 }
 
 
-.hero-quote {
+/*
+   Transparent ivory fade on left.
+   This blends the banner naturally into
+   the My Orders section.
+*/
+
+.hero-banner::before {
+
+    content: "";
 
     position: absolute;
 
-    left: 8%;
+    inset: 0;
 
-    top: 25px;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(247,244,236,0.94) 0%,
+            rgba(247,244,236,0.60) 10%,
+            rgba(247,244,236,0.10) 28%,
+            rgba(247,244,236,0.00) 50%
+        );
 
-    display: flex;
+    z-index: 1;
 
-    flex-direction: column;
-
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-style: italic;
-
-    font-size: 18px;
-
-    line-height: 1.35;
+    pointer-events: none;
 
 }
+
+
+/* =========================================================
+   HERO QUOTE
+========================================================= */
+
 
 
 .quote-line {
@@ -817,13 +1058,12 @@ a {
 
     height: 3px;
 
+    margin-top: 14px;
+
     background:
         var(--gold);
 
-    margin-top: 14px;
-
 }
-
 
 
 /* =========================================================
@@ -832,17 +1072,28 @@ a {
 
 .order-tabs {
 
+    width: 100%;
+
+    min-width: 0;
+
     display: flex;
 
     align-items: center;
 
     gap: 12px;
 
-    margin-top: 8px;
-
     margin-bottom: 13px;
 
     overflow-x: auto;
+
+    scrollbar-width: none;
+
+}
+
+
+.order-tabs::-webkit-scrollbar {
+
+    display: none;
 
 }
 
@@ -851,22 +1102,23 @@ a {
 
     height: 41px;
 
-    padding: 0 17px;
+    flex-shrink: 0;
 
-    background:
-        #fff;
+    padding:
+        0 17px;
 
     border:
-        1px solid #e2e0db;
+        1px solid #deddd8;
 
     border-radius: 8px;
+
+    background:
+        white;
 
     color:
         #4b5661;
 
     font-size: 13px;
-
-    white-space: nowrap;
 
     transition:
         all 0.2s ease;
@@ -884,13 +1136,13 @@ a {
 
 .order-tab.active {
 
+    border-color:
+        var(--deep-teal);
+
     background:
         var(--deep-teal);
 
     color: white;
-
-    border-color:
-        var(--deep-teal);
 
 }
 
@@ -904,23 +1156,14 @@ a {
 
 .history-button {
 
-    margin-left: auto;
-
     height: 41px;
 
-    padding: 0 17px;
+    flex-shrink: 0;
 
-    border:
-        1px solid var(--gold);
+    margin-left: auto;
 
-    background: white;
-
-    color:
-        #9b6e20;
-
-    border-radius: 8px;
-
-    font-size: 13px;
+    padding:
+        0 17px;
 
     display: flex;
 
@@ -928,10 +1171,22 @@ a {
 
     gap: 8px;
 
+    border:
+        1px solid var(--gold);
+
+    border-radius: 8px;
+
+    background:
+        white;
+
+    color:
+        var(--gold-dark);
+
+    font-size: 13px;
+
     white-space: nowrap;
 
 }
-
 
 
 /* =========================================================
@@ -940,13 +1195,17 @@ a {
 
 .filters-row {
 
+    width: 100%;
+
+    min-width: 0;
+
     display: grid;
 
     grid-template-columns:
-        2fr
-        1fr
-        0.9fr
-        1fr;
+        minmax(0, 2fr)
+        minmax(150px, 1fr)
+        minmax(130px, 0.9fr)
+        minmax(150px, 1fr);
 
     gap: 15px;
 
@@ -957,14 +1216,11 @@ a {
 
 .orders-search {
 
+    width: 100%;
+
+    min-width: 0;
+
     height: 43px;
-
-    background: white;
-
-    border:
-        1px solid #deddda;
-
-    border-radius: 8px;
 
     display: flex;
 
@@ -972,7 +1228,16 @@ a {
 
     gap: 11px;
 
-    padding: 0 14px;
+    padding:
+        0 14px;
+
+    border:
+        1px solid #deddda;
+
+    border-radius: 8px;
+
+    background:
+        white;
 
 }
 
@@ -986,24 +1251,33 @@ a {
 
 .orders-search input {
 
+    width: 100%;
+
+    min-width: 0;
+
     border: 0;
 
     outline: 0;
 
-    width: 100%;
+    background: transparent;
+
+    color:
+        var(--text-dark);
 
     font-size: 13px;
-
-    background: transparent;
 
 }
 
 
 .filter-box {
 
-    position: relative;
+    width: 100%;
+
+    min-width: 0;
 
     height: 43px;
+
+    position: relative;
 
 }
 
@@ -1014,24 +1288,25 @@ a {
 
     height: 100%;
 
-    border:
-        1px solid #deddda;
-
-    background: white;
-
-    border-radius: 8px;
-
     padding:
         0 40px 0 15px;
 
     appearance: none;
 
-    font-size: 13px;
+    border:
+        1px solid #deddda;
+
+    border-radius: 8px;
+
+    outline: 0;
+
+    background:
+        white;
 
     color:
         var(--text-dark);
 
-    outline: none;
+    font-size: 13px;
 
 }
 
@@ -1051,12 +1326,15 @@ a {
 }
 
 
-
 /* =========================================================
-   ORDER CARD
+   ORDERS LIST
 ========================================================= */
 
 .orders-list {
+
+    width: 100%;
+
+    min-width: 0;
 
     display: flex;
 
@@ -1067,32 +1345,41 @@ a {
 }
 
 
+/* =========================================================
+   ORDER CARD
+========================================================= */
+
 .order-card {
 
-    background:
-        rgba(255,255,255,0.95);
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 113px;
+
+    padding:
+        10px 13px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(260px, 2.1fr)
+        minmax(100px, 0.9fr)
+        minmax(100px, 0.85fr)
+        minmax(240px, 1.6fr)
+        minmax(150px, 1fr);
+
+    align-items: center;
+
+    gap: 15px;
 
     border:
         1px solid #ebe9e3;
 
     border-radius: 10px;
 
-    min-height: 113px;
-
-    padding: 10px 13px;
-
-    display: grid;
-
-    grid-template-columns:
-        2.1fr
-        0.9fr
-        0.85fr
-        1.6fr
-        1fr;
-
-    align-items: center;
-
-    gap: 15px;
+    background:
+        rgba(255,255,255,0.97);
 
     box-shadow:
         var(--shadow);
@@ -1115,18 +1402,19 @@ a {
 }
 
 
-
-/* MATERIAL */
+/* =========================================================
+   MATERIAL
+========================================================= */
 
 .order-material {
+
+    min-width: 0;
 
     display: flex;
 
     align-items: center;
 
     gap: 14px;
-
-    min-width: 0;
 
 }
 
@@ -1137,11 +1425,11 @@ a {
 
     height: 89px;
 
+    flex-shrink: 0;
+
     object-fit: cover;
 
     border-radius: 7px;
-
-    flex-shrink: 0;
 
 }
 
@@ -1166,9 +1454,9 @@ a {
 
 .order-basic h4 {
 
-    font-size: 16px;
-
     margin-top: 1px;
+
+    font-size: 16px;
 
     font-weight: 700;
 
@@ -1177,18 +1465,18 @@ a {
 
 .order-basic p {
 
-    font-size: 12px;
+    margin-top: 5px;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
 
     color:
         #64717c;
 
-    margin-top: 5px;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
+    font-size: 12px;
 
 }
 
@@ -1200,15 +1488,13 @@ a {
 }
 
 
-
-/* INFO */
+/* =========================================================
+   ORDER INFORMATION
+========================================================= */
 
 .order-info {
 
-    border-left:
-        1px solid #e9e7e2;
-
-    padding-left: 15px;
+    min-width: 0;
 
     display: flex;
 
@@ -1216,11 +1502,15 @@ a {
 
     gap: 12px;
 
+    padding-left: 15px;
+
+    border-left:
+        1px solid #e9e7e2;
+
 }
 
 
-.order-info div,
-.order-amount {
+.order-info div {
 
     display: flex;
 
@@ -1234,10 +1524,10 @@ a {
 .order-info span,
 .order-amount span {
 
-    font-size: 11px;
-
     color:
         #68737d;
+
+    font-size: 11px;
 
 }
 
@@ -1249,12 +1539,24 @@ a {
 }
 
 
+/* =========================================================
+   AMOUNT
+========================================================= */
+
 .order-amount {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    padding-left: 15px;
 
     border-left:
         1px solid #e9e7e2;
-
-    padding-left: 15px;
 
 }
 
@@ -1266,17 +1568,9 @@ a {
 }
 
 
-
 /* =========================================================
-   STATUS
+   STATUS BADGE
 ========================================================= */
-
-.order-progress {
-
-    min-width: 0;
-
-}
-
 
 .status-badge {
 
@@ -1286,9 +1580,12 @@ a {
 
     gap: 7px;
 
-    border-radius: 20px;
+    width: fit-content;
 
-    padding: 7px 13px;
+    padding:
+        7px 13px;
+
+    border-radius: 20px;
 
     font-size: 12px;
 
@@ -1331,14 +1628,18 @@ a {
 }
 
 
+/* =========================================================
+   PROGRESS
+========================================================= */
+
 .progress-line {
+
+    position: relative;
 
     display: grid;
 
     grid-template-columns:
         repeat(4, 1fr);
-
-    position: relative;
 
     margin-top: 15px;
 
@@ -1351,16 +1652,16 @@ a {
 
     position: absolute;
 
-    height: 2px;
-
-    background:
-        #d7d9d9;
-
     left: 10px;
 
     right: 10px;
 
     top: 6px;
+
+    height: 2px;
+
+    background:
+        #d7d9d9;
 
     z-index: 0;
 
@@ -1384,17 +1685,18 @@ a {
 
     height: 13px;
 
+    display: block;
+
+    margin:
+        0 auto;
+
+    border:
+        2px solid white;
+
     border-radius: 50%;
 
     background:
         #dedfe0;
-
-    display: block;
-
-    margin: 0 auto;
-
-    border:
-        2px solid white;
 
 }
 
@@ -1431,22 +1733,23 @@ a {
 
     margin-top: 6px;
 
-    font-size: 9px;
-
     color:
         #58636d;
+
+    font-size: 9px;
 
     white-space: nowrap;
 
 }
 
 
-
 /* =========================================================
-   ACTIONS
+   ACTION BUTTONS
 ========================================================= */
 
 .order-actions {
+
+    min-width: 0;
 
     display: flex;
 
@@ -1463,6 +1766,14 @@ a {
 
     height: 40px;
 
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
     border: 0;
 
     border-radius: 7px;
@@ -1474,14 +1785,6 @@ a {
 
     font-size: 12px;
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 9px;
-
     transition:
         background 0.2s ease;
 
@@ -1491,7 +1794,7 @@ a {
 .view-button:hover {
 
     background:
-        #164545;
+        var(--deep-teal-light);
 
 }
 
@@ -1502,18 +1805,6 @@ a {
 
     height: 38px;
 
-    border:
-        1px solid var(--gold);
-
-    border-radius: 7px;
-
-    background: white;
-
-    color:
-        #a16f1d;
-
-    font-size: 12px;
-
     display: flex;
 
     align-items: center;
@@ -1522,21 +1813,31 @@ a {
 
     gap: 7px;
 
+    border:
+        1px solid var(--gold);
+
+    border-radius: 7px;
+
+    background:
+        white;
+
+    color:
+        var(--gold-dark);
+
+    font-size: 12px;
+
 }
 
 
 .secondary-button:hover {
 
     background:
-        #fff8eb;
+        var(--gold-soft);
 
 }
 
 
 .secondary-button.disabled {
-
-    color:
-        #aab0b4;
 
     border-color:
         #ccd0d2;
@@ -1544,21 +1845,24 @@ a {
     background:
         #f1f2f2;
 
+    color:
+        #aab0b4;
+
     cursor: not-allowed;
 
 }
 
 
-
 /* =========================================================
-   EMPTY
+   EMPTY STATE
 ========================================================= */
 
 .empty-orders {
 
     display: none;
 
-    padding: 60px 20px;
+    padding:
+        60px 20px;
 
     text-align: center;
 
@@ -1580,6 +1884,12 @@ a {
 
     margin: auto;
 
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     border-radius: 50%;
 
     background:
@@ -1587,12 +1897,6 @@ a {
 
     color:
         var(--gold);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
 
     font-size: 28px;
 
@@ -1624,19 +1928,19 @@ a {
 
     margin-top: 18px;
 
+    padding:
+        10px 18px;
+
     border: 0;
+
+    border-radius: 7px;
 
     background:
         var(--deep-teal);
 
     color: white;
 
-    padding: 10px 18px;
-
-    border-radius: 7px;
-
 }
-
 
 
 /* =========================================================
@@ -1645,11 +1949,11 @@ a {
 
 .orders-footer {
 
+    min-height: 55px;
+
     display: flex;
 
     align-items: center;
-
-    min-height: 55px;
 
     gap: 20px;
 
@@ -1658,10 +1962,10 @@ a {
 
 .orders-footer p {
 
-    font-size: 12px;
-
     color:
         #5c6973;
+
+    font-size: 12px;
 
 }
 
@@ -1712,9 +2016,9 @@ a {
     border:
         1px solid #deddda;
 
-    background: white;
-
     border-radius: 7px;
+
+    background: white;
 
     color:
         #63707a;
@@ -1731,10 +2035,10 @@ a {
 
 .pagination .active {
 
-    background:
+    border-color:
         var(--gold);
 
-    border-color:
+    background:
         var(--gold);
 
     color: white;
@@ -1742,9 +2046,8 @@ a {
 }
 
 
-
 /* =========================================================
-   MODAL
+   ORDER MODAL
 ========================================================= */
 
 .modal-overlay {
@@ -1752,9 +2055,6 @@ a {
     position: fixed;
 
     inset: 0;
-
-    background:
-        rgba(7, 23, 23, 0.62);
 
     z-index: 2000;
 
@@ -1765,6 +2065,9 @@ a {
     justify-content: center;
 
     padding: 20px;
+
+    background:
+        rgba(7,23,23,0.62);
 
     backdrop-filter:
         blur(3px);
@@ -1785,14 +2088,14 @@ a {
 
     max-width: 100%;
 
-    background:
-        white;
-
-    border-radius: 14px;
+    position: relative;
 
     padding: 30px;
 
-    position: relative;
+    border-radius: 14px;
+
+    background:
+        white;
 
     box-shadow:
         0 25px 70px rgba(0,0,0,0.25);
@@ -1814,10 +2117,10 @@ a {
 
     border: 0;
 
+    border-radius: 50%;
+
     background:
         #f3f3f1;
-
-    border-radius: 50%;
 
     color:
         #59636b;
@@ -1827,14 +2130,14 @@ a {
 
 .modal-label {
 
-    font-size: 10px;
-
-    letter-spacing: 1.5px;
-
     color:
         var(--gold);
 
+    font-size: 10px;
+
     font-weight: 700;
+
+    letter-spacing: 1.5px;
 
 }
 
@@ -1850,10 +2153,10 @@ a {
 
 .modal-header p {
 
+    margin-top: 2px;
+
     color:
         var(--text-light);
-
-    margin-top: 2px;
 
 }
 
@@ -1869,7 +2172,8 @@ a {
 
     display: inline-flex;
 
-    padding: 7px 14px;
+    padding:
+        7px 14px;
 
     border-radius: 20px;
 
@@ -1888,14 +2192,14 @@ a {
 
 .modal-details-grid {
 
-    margin-top: 22px;
-
     display: grid;
 
     grid-template-columns:
         repeat(2, 1fr);
 
     gap: 18px;
+
+    margin-top: 22px;
 
 }
 
@@ -1932,10 +2236,11 @@ a {
 
     height: 1px;
 
+    margin:
+        25px 0;
+
     background:
         #e8e6e1;
-
-    margin: 25px 0;
 
 }
 
@@ -1949,14 +2254,14 @@ a {
 
 .modal-track-line {
 
+    position: relative;
+
     display: grid;
 
     grid-template-columns:
         repeat(4, 1fr);
 
     margin-top: 22px;
-
-    position: relative;
 
 }
 
@@ -1983,11 +2288,11 @@ a {
 
 .track-item {
 
-    text-align: center;
-
     position: relative;
 
     z-index: 1;
+
+    text-align: center;
 
 }
 
@@ -2002,13 +2307,13 @@ a {
 
     margin: auto;
 
+    border:
+        2px solid white;
+
     border-radius: 50%;
 
     background:
         #ddd;
-
-    border:
-        2px solid white;
 
 }
 
@@ -2025,23 +2330,23 @@ a {
 
     display: block;
 
-    font-size: 10px;
-
     margin-top: 8px;
 
     color:
         #66727b;
+
+    font-size: 10px;
 
 }
 
 
 .modal-close-button {
 
-    margin-top: 27px;
-
     width: 100%;
 
     height: 42px;
+
+    margin-top: 27px;
 
     border: 0;
 
@@ -2057,7 +2362,6 @@ a {
 }
 
 
-
 /* =========================================================
    TOAST
 ========================================================= */
@@ -2070,9 +2374,17 @@ a {
 
     bottom: 25px;
 
+    z-index: 3000;
+
     width: 330px;
 
-    background: white;
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px;
 
     border:
         1px solid #e4e1db;
@@ -2082,25 +2394,17 @@ a {
 
     border-radius: 10px;
 
-    padding: 13px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
+    background: white;
 
     box-shadow:
         0 10px 35px rgba(0,0,0,0.15);
 
-    z-index: 3000;
-
-    transform:
-        translateY(130px);
-
     opacity: 0;
 
     pointer-events: none;
+
+    transform:
+        translateY(130px);
 
     transition:
         all 0.3s ease;
@@ -2110,10 +2414,10 @@ a {
 
 .bc-toast.show {
 
+    opacity: 1;
+
     transform:
         translateY(0);
-
-    opacity: 1;
 
 }
 
@@ -2124,6 +2428,14 @@ a {
 
     height: 34px;
 
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     border-radius: 50%;
 
     background:
@@ -2131,12 +2443,6 @@ a {
 
     color:
         var(--green);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
 
 }
 
@@ -2150,12 +2456,12 @@ a {
 
 .bc-toast p {
 
-    font-size: 11px;
+    margin-top: 2px;
 
     color:
         var(--text-light);
 
-    margin-top: 2px;
+    font-size: 11px;
 
 }
 
@@ -2176,9 +2482,8 @@ a {
 }
 
 
-
 /* =========================================================
-   MOBILE OVERLAY
+   MOBILE SIDEBAR OVERLAY
 ========================================================= */
 
 .sidebar-overlay {
@@ -2189,10 +2494,10 @@ a {
 
     inset: 0;
 
+    z-index: 900;
+
     background:
         rgba(0,0,0,0.45);
-
-    z-index: 900;
 
 }
 
@@ -2204,7 +2509,6 @@ body.sidebar-open .sidebar-overlay {
 }
 
 
-
 /* =========================================================
    RESPONSIVE
 ========================================================= */
@@ -2214,15 +2518,16 @@ body.sidebar-open .sidebar-overlay {
     .order-card {
 
         grid-template-columns:
-            2fr
-            0.8fr
-            0.8fr
-            1.4fr
-            0.9fr;
+            minmax(240px, 2fr)
+            minmax(100px, 0.8fr)
+            minmax(100px, 0.8fr)
+            minmax(210px, 1.4fr)
+            minmax(135px, 0.9fr);
 
         gap: 10px;
 
     }
+
 
     .order-material img {
 
@@ -2231,6 +2536,7 @@ body.sidebar-open .sidebar-overlay {
         height: 80px;
 
     }
+
 
     .order-basic h3,
     .order-basic h4 {
@@ -2242,7 +2548,7 @@ body.sidebar-open .sidebar-overlay {
 }
 
 
-@media (max-width: 1050px) {
+@media (max-width: 1100px) {
 
     .sidebar {
 
@@ -2250,30 +2556,44 @@ body.sidebar-open .sidebar-overlay {
 
     }
 
+
     .main-content {
+
+        width:
+            calc(100% - 220px);
+
+        max-width:
+            calc(100% - 220px);
 
         margin-left: 220px;
 
     }
 
-    .orders-page {
 
-        padding-left: 20px;
+    .hero-content {
 
-        padding-right: 20px;
+        flex-basis: 44%;
 
     }
+
+
+    .filters-row {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
 
     .order-card {
 
         grid-template-columns:
-            1.8fr
+            1.7fr
             0.8fr
             0.8fr;
 
-        padding: 13px;
-
     }
+
 
     .order-progress {
 
@@ -2282,20 +2602,13 @@ body.sidebar-open .sidebar-overlay {
 
     }
 
+
     .order-actions {
 
-        grid-column:
-            3;
+        grid-column: 3;
 
         grid-row:
             1 / span 2;
-
-    }
-
-    .filters-row {
-
-        grid-template-columns:
-            1fr 1fr;
 
     }
 
@@ -2306,6 +2619,8 @@ body.sidebar-open .sidebar-overlay {
 
     .sidebar {
 
+        width: 247px;
+
         transform:
             translateX(-100%);
 
@@ -2314,6 +2629,7 @@ body.sidebar-open .sidebar-overlay {
 
     }
 
+
     body.sidebar-open .sidebar {
 
         transform:
@@ -2321,17 +2637,25 @@ body.sidebar-open .sidebar-overlay {
 
     }
 
+
     .main-content {
+
+        width: 100%;
+
+        max-width: 100%;
 
         margin-left: 0;
 
     }
 
+
     .top-header {
 
-        padding: 0 17px;
+        padding:
+            0 17px;
 
     }
+
 
     .header-search {
 
@@ -2339,15 +2663,24 @@ body.sidebar-open .sidebar-overlay {
 
     }
 
+
     .profile-details {
 
         display: none;
 
     }
 
+
     .profile-button > i {
 
         margin-left: 0;
+
+    }
+
+
+    .sidebar-promo {
+
+        height: 350px;
 
     }
 
@@ -2362,11 +2695,14 @@ body.sidebar-open .sidebar-overlay {
 
     }
 
+
     .orders-page {
 
-        padding: 10px 14px 20px;
+        padding:
+            10px 14px 20px;
 
     }
+
 
     .orders-hero {
 
@@ -2376,13 +2712,18 @@ body.sidebar-open .sidebar-overlay {
 
     }
 
+
     .hero-content {
 
         width: 100%;
 
-        padding: 15px 0;
+        flex-basis: 100%;
+
+        padding:
+            15px 0;
 
     }
+
 
     .hero-content h1 {
 
@@ -2390,11 +2731,13 @@ body.sidebar-open .sidebar-overlay {
 
     }
 
+
     .hero-content p {
 
         font-size: 14px;
 
     }
+
 
     .hero-banner {
 
@@ -2402,17 +2745,13 @@ body.sidebar-open .sidebar-overlay {
 
     }
 
+
     .history-button {
 
         display: none;
 
     }
 
-    .order-tabs {
-
-        padding-bottom: 3px;
-
-    }
 
     .filters-row {
 
@@ -2420,6 +2759,7 @@ body.sidebar-open .sidebar-overlay {
             1fr;
 
     }
+
 
     .order-card {
 
@@ -2429,15 +2769,10 @@ body.sidebar-open .sidebar-overlay {
 
         align-items: stretch;
 
-    }
-
-    .order-material img {
-
-        width: 90px;
-
-        height: 85px;
+        gap: 12px;
 
     }
+
 
     .order-info {
 
@@ -2446,15 +2781,15 @@ body.sidebar-open .sidebar-overlay {
         border-top:
             1px solid #e9e7e2;
 
-        padding-left: 0;
-
-        padding-top: 12px;
+        padding:
+            12px 0 0;
 
         flex-direction: row;
 
         justify-content: space-between;
 
     }
+
 
     .order-amount {
 
@@ -2463,11 +2798,11 @@ body.sidebar-open .sidebar-overlay {
         border-top:
             1px solid #e9e7e2;
 
-        padding-left: 0;
-
-        padding-top: 12px;
+        padding:
+            12px 0 0;
 
     }
+
 
     .order-progress {
 
@@ -2478,21 +2813,24 @@ body.sidebar-open .sidebar-overlay {
 
     }
 
+
     .order-actions {
 
         flex-direction: row;
 
     }
 
-    .footer-right {
-
-        display: none;
-
-    }
 
     .orders-footer {
 
         justify-content: space-between;
+
+    }
+
+
+    .footer-right {
+
+        display: none;
 
     }
 
@@ -2507,12 +2845,14 @@ body.sidebar-open .sidebar-overlay {
 
     }
 
+
     .modal-details-grid {
 
         grid-template-columns:
             1fr;
 
     }
+
 
     .order-modal {
 
