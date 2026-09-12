@@ -505,22 +505,16 @@ document.addEventListener("DOMContentLoaded", function () {
            case "orders":
              window.location.href = "/customer/orders/";
 
-            break;
+    break;
 
 
             /* =============================================
                VEHICLES
             ============================================== */
 
-            case "vehicles":
-
-                showToast(
-                    "Rent a Vehicle",
-                    "Vehicle rental services will be available here."
-                );
-
-                break;
-
+           case "vehicles":
+    window.location.href = "/customer/vehicles/";
+    break;
 
             /* =============================================
                RENTALS

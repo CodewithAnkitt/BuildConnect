@@ -109,6 +109,7 @@ def logout_view(request):
 
     return redirect("home")
 
+# Customer page 
 
 def customer_dashboard(request):
     return render(request, "customer/dashboard.html")
@@ -119,3 +120,6 @@ def materials(request):
 
 def orders(request):
     return render(request, "customer/orders.html")
+
+def vehicles(request):
+    return render(request, "customer/vehicles.html")

@@ -17,6 +17,8 @@ urlpatterns = [
         name="login"
     ),
 
+    #customer 
+
     path(
         "customer/dashboard/",
         views.customer_dashboard,
@@ -34,5 +36,16 @@ urlpatterns = [
     views.orders,
     name="orders"
 ),
+
+path(
+    "customer/vehicles/",
+    views.vehicles,
+    name="vehicles"
+),
+path(
+        "logout/",
+        views.logout_view,
+        name="logout"
+    ),
 
 ]
