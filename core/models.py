@@ -33,6 +33,10 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.username} - {self.get_role_display()}"
 
+    # ============================================================
+# DRIVER PROFILE
+# ============================================================
+
 class DriverProfile(models.Model):
 
     class VerificationStatus(models.TextChoices):
@@ -61,9 +65,13 @@ class DriverProfile(models.Model):
         default=VerificationStatus.PENDING
     )
 
-    rejection_reason = models.TextField(blank=True)
+    rejection_reason = models.TextField(
+        blank=True
+    )
 
-    uploaded_at = models.DateTimeField(auto_now_add=True)
+    uploaded_at = models.DateTimeField(
+        auto_now_add=True
+    )
 
     verified_at = models.DateTimeField(
         blank=True,
@@ -72,6 +80,8 @@ class DriverProfile(models.Model):
 
     def __str__(self):
         return f"{self.driver.username} - {self.verification_status}"
+
+
 # ============================================================
 # MATERIAL
 # ============================================================
@@ -133,7 +143,7 @@ class MaterialListing(models.Model):
         decimal_places=2
     )
 
-    unit_price = models.DecimalField(
+    price_per_unit = models.DecimalField(
         max_digits=12,
         decimal_places=2
     )
@@ -159,7 +169,7 @@ class MaterialListing(models.Model):
     )
 
     def __str__(self):
-        return f"{self.material.name} - {self.seller}"
+        return f"{self.material.name} - {self.seller.username}"
 
 
 # ============================================================
@@ -192,7 +202,7 @@ class Order(models.Model):
         default=0
     )
 
-    shipping_address = models.TextField()
+    delivery_address = models.TextField()
 
     created_at = models.DateTimeField(
         auto_now_add=True
@@ -203,7 +213,7 @@ class Order(models.Model):
     )
 
     def __str__(self):
-        return f"Order #{self.id}"
+        return f"Order #{self.id} - {self.customer.username}"
 
 
 # ============================================================
@@ -240,7 +250,7 @@ class OrderItem(models.Model):
     )
 
     def __str__(self):
-        return f"Order #{self.order.id} - {self.listing.material.name}"
+        return f"{self.listing.material.name} - Order #{self.order.id}"
 
 
 # ============================================================
@@ -272,6 +282,11 @@ class Vehicle(models.Model):
     model_name = models.CharField(
         max_length=100
     )
+    vehicle_image = models.ImageField(
+    upload_to="vehicles/",
+    blank=True,
+    null=True
+)
 
     rental_price_per_day = models.DecimalField(
         max_digits=12,
@@ -295,7 +310,7 @@ class Vehicle(models.Model):
     )
 
     def __str__(self):
-        return f"{self.vehicle_type} - {self.registration_number}"
+        return f"{self.registration_number} - {self.vehicle_type}"
 
 
 # ============================================================
@@ -343,7 +358,7 @@ class VehicleRental(models.Model):
     )
 
     def __str__(self):
-        return f"Rental #{self.id} - {self.vehicle.registration_number}"
+        return f"{self.vehicle.registration_number} - {self.customer.username}"
 
 
 # ============================================================
@@ -417,7 +432,7 @@ class DriverApplication(models.Model):
     driver = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="driver_applications"
+        related_name="job_applications"
     )
 
     status = models.CharField(
@@ -439,4 +454,4 @@ class DriverApplication(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.driver} - {self.job.title}"
+        return f"{self.driver.username} - {self.job.title}"

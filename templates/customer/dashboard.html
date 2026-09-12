@@ -1,0 +1,1483 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Customer Dashboard | BuildConnect</title>
+
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Customer Dashboard CSS -->
+    <link
+        rel="stylesheet"
+        href="{% static 'customer/css/dashboard.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     SIDEBAR OVERLAY
+========================================================= -->
+
+<div
+    id="sidebarOverlay"
+    class="sidebar-overlay"
+></div>
+
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside
+    id="sidebar"
+    class="bc-sidebar"
+>
+
+
+    <!-- Customer Profile -->
+
+    <div class="sidebar-profile">
+
+        <div class="sidebar-avatar">
+            <i class="bi bi-person-fill"></i>
+        </div>
+
+        <div class="sidebar-profile-text">
+
+            <strong>
+                {{ request.user.first_name|default:"Customer" }}
+                {{ request.user.last_name }}
+            </strong>
+
+            <span>
+                Customer Account
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SIDEBAR NAVIGATION
+    ====================================================== -->
+
+    <nav class="sidebar-nav">
+
+
+        <!-- Dashboard -->
+
+        <a
+            href="#"
+            class="sidebar-link active"
+            data-action="dashboard"
+        >
+
+            <span class="sidebar-icon">
+                <i class="bi bi-grid-1x2-fill"></i>
+            </span>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+
+        <!-- =================================================
+             MATERIALS
+             
+             IMPORTANT:
+             This now directly opens Django Materials page.
+        ================================================== -->
+
+        <a
+            href="{% url 'materials' %}"
+            class="sidebar-link"
+        >
+
+            <span class="sidebar-icon">
+                <i class="bi bi-layers-fill"></i>
+            </span>
+
+            <span>
+                Browse Materials
+            </span>
+
+        </a>
+
+
+
+        <!-- Orders -->
+
+        <a
+            href="{% url 'orders' %}"
+            class="sidebar-link"
+            data-action="orders"
+        >
+
+            <span class="sidebar-icon">
+                <i class="bi bi-file-earmark-text-fill"></i>
+            </span>
+
+            <span>
+                My Orders
+            </span>
+
+        </a>
+
+
+
+        <!-- Vehicles -->
+
+        <a
+            href="#"
+            class="sidebar-link"
+            data-action="vehicles"
+        >
+
+            <span class="sidebar-icon">
+                <i class="bi bi-truck-front-fill"></i>
+            </span>
+
+            <span>
+                Rent Vehicles
+            </span>
+
+        </a>
+
+
+
+        <!-- Rentals -->
+
+        <a
+            href="#"
+            class="sidebar-link"
+            data-action="rentals"
+        >
+
+            <span class="sidebar-icon">
+                <i class="bi bi-calendar-check-fill"></i>
+            </span>
+
+            <span>
+                My Rentals
+            </span>
+
+        </a>
+
+
+
+        <!-- Profile -->
+
+        <a
+            href="#"
+            class="sidebar-link"
+            data-action="profile"
+        >
+
+            <span class="sidebar-icon">
+                <i class="bi bi-person-fill"></i>
+            </span>
+
+            <span>
+                Profile
+            </span>
+
+        </a>
+
+
+
+        <!-- Settings -->
+
+        <a
+            href="#"
+            class="sidebar-link"
+            data-action="settings"
+        >
+
+            <span class="sidebar-icon">
+                <i class="bi bi-gear-fill"></i>
+            </span>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         SIDEBAR BOTTOM
+    ====================================================== -->
+
+    <div class="sidebar-bottom">
+
+        <div class="sidebar-divider"></div>
+
+
+        <!-- Logout -->
+
+        <a
+            href="#"
+            class="sidebar-link logout-link"
+            id="logoutBtn"
+        >
+
+            <span class="sidebar-icon">
+                <i class="bi bi-box-arrow-right"></i>
+            </span>
+
+            <span>
+                Logout
+            </span>
+
+        </a>
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN WRAPPER
+========================================================= -->
+
+<div
+    id="mainWrapper"
+    class="main-wrapper"
+>
+
+
+
+    <!-- =====================================================
+         TOP HEADER
+    ====================================================== -->
+
+    <header class="top-header">
+
+
+        <!-- Header Left -->
+
+        <div class="header-left">
+
+
+            <!-- Hamburger -->
+
+            <button
+                type="button"
+                id="sidebarToggle"
+                class="menu-button"
+                aria-label="Toggle sidebar"
+            >
+
+                <i class="bi bi-list"></i>
+
+            </button>
+
+
+
+            <!-- BuildConnect Logo -->
+
+            <a
+                href="/"
+                class="brand"
+            >
+
+                <img
+                    src="{% static 'images/nav-logo.png' %}"
+                    alt="BuildConnect"
+                    class="nav-logo"
+                >
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             HEADER RIGHT
+        ================================================== -->
+
+        <div class="header-right">
+
+
+            <!-- Notification -->
+
+            <button
+                class="notification-button"
+                id="notificationBtn"
+                type="button"
+                title="Notifications"
+            >
+
+                <i class="bi bi-bell"></i>
+
+                <span class="notification-dot"></span>
+
+            </button>
+
+
+            <div class="header-divider"></div>
+
+
+
+            <!-- Customer Profile -->
+
+            <button
+                class="header-user"
+                id="profileDropdownBtn"
+                type="button"
+            >
+
+                <div class="header-avatar">
+
+                    {% if request.user.first_name %}
+
+                        {{ request.user.first_name|first|upper }}
+
+                    {% else %}
+
+                        C
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="header-user-info">
+
+                    <strong>
+                        {{ request.user.first_name|default:"Customer" }}
+                    </strong>
+
+                    <span>
+                        Customer
+                    </span>
+
+                </div>
+
+
+                <i class="bi bi-chevron-down header-chevron"></i>
+
+            </button>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN DASHBOARD
+    ====================================================== -->
+
+    <main class="dashboard-content">
+
+
+
+        <!-- =================================================
+             WELCOME SECTION
+        ================================================== -->
+
+        <section class="welcome-section">
+
+
+            <!-- Welcome Text -->
+
+            <div class="welcome-content">
+
+
+                <div class="section-eyebrow">
+                    CUSTOMER DASHBOARD
+                </div>
+
+
+                <h1>
+
+                    Welcome back,
+
+                    <span>
+                        {{ request.user.first_name|default:"Customer" }}!
+                    </span>
+
+                    <span class="wave">
+                        👋
+                    </span>
+
+                </h1>
+
+
+                <p>
+                    What would you like to do today?
+                </p>
+
+
+            </div>
+
+
+
+            <!-- Date -->
+
+            <div class="welcome-side">
+
+                <div class="date-card">
+
+                    <div class="date-icon">
+                        <i class="bi bi-calendar3"></i>
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            {% now "D, d M, Y" %}
+                        </strong>
+
+                        <span>
+                            Have a productive day!
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="stats-grid">
+
+
+            <!-- Total Orders -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon beige">
+                    <i class="bi bi-cart-fill"></i>
+                </div>
+
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        Total Orders
+                    </span>
+
+                    <strong class="stat-number">
+                        0
+                    </strong>
+
+                    <small>
+                        No orders yet
+                    </small>
+
+                </div>
+
+
+                <button
+                    class="stat-arrow"
+                    data-action="orders"
+                >
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- Active Orders -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    <i class="bi bi-box-seam-fill"></i>
+                </div>
+
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        Active Orders
+                    </span>
+
+                    <strong class="stat-number">
+                        0
+                    </strong>
+
+                    <small>
+                        Currently active
+                    </small>
+
+                </div>
+
+
+                <button
+                    class="stat-arrow"
+                    data-action="orders"
+                >
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- Vehicle Rentals -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    <i class="bi bi-truck-front-fill"></i>
+                </div>
+
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        Vehicle Rentals
+                    </span>
+
+                    <strong class="stat-number">
+                        0
+                    </strong>
+
+                    <small>
+                        Active rentals
+                    </small>
+
+                </div>
+
+
+                <button
+                    class="stat-arrow"
+                    data-action="rentals"
+                >
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- Pending Requests -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon pink">
+                    <i class="bi bi-clock-fill"></i>
+                </div>
+
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        Pending Requests
+                    </span>
+
+                    <strong class="stat-number">
+                        0
+                    </strong>
+
+                    <small>
+                        Awaiting confirmation
+                    </small>
+
+                </div>
+
+
+                <button
+                    class="stat-arrow"
+                    data-action="rentals"
+                >
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================== -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-heading-row">
+
+                <div>
+
+                    <div class="section-eyebrow">
+                        GET STARTED
+                    </div>
+
+                    <h2>
+                        Quick Actions
+                    </h2>
+
+                </div>
+
+
+                <span class="section-side-text">
+                    Everything you need, in one place.
+                </span>
+
+            </div>
+
+
+
+            <div class="quick-actions-grid">
+
+
+
+                <!-- =================================================
+                     BROWSE MATERIALS
+
+                     FIXED:
+                     Uses Django URL directly.
+                ================================================== -->
+
+                <a
+                    href="{% url 'materials' %}"
+                    class="quick-card"
+                >
+
+                    <div class="quick-icon">
+                        <i class="bi bi-layers-fill"></i>
+                    </div>
+
+
+                    <div class="quick-info">
+
+                        <h3>
+                            Browse Materials
+                        </h3>
+
+                        <p>
+                            Find construction materials
+                            from verified sellers.
+                        </p>
+
+                    </div>
+
+
+                    <span class="card-arrow">
+                        <i class="bi bi-arrow-right"></i>
+                    </span>
+
+                </a>
+
+
+
+                <!-- Rent Vehicle -->
+
+                <button
+                    class="quick-card"
+                    data-action="vehicles"
+                >
+
+                    <div class="quick-icon">
+                        <i class="bi bi-truck-front-fill"></i>
+                    </div>
+
+
+                    <div class="quick-info">
+
+                        <h3>
+                            Rent a Vehicle
+                        </h3>
+
+                        <p>
+                            Find vehicles for your
+                            construction work.
+                        </p>
+
+                    </div>
+
+
+                    <span class="card-arrow">
+                        <i class="bi bi-arrow-right"></i>
+                    </span>
+
+                </button>
+
+
+
+                <!-- Orders -->
+
+                <button
+                    class="quick-card"
+                    data-action="orders"
+                >
+
+                    <div class="quick-icon">
+                        <i class="bi bi-file-earmark-text-fill"></i>
+                    </div>
+
+
+                    <div class="quick-info">
+
+                        <h3>
+                            View My Orders
+                        </h3>
+
+                        <p>
+                            Track your material orders
+                            and deliveries.
+                        </p>
+
+                    </div>
+
+
+                    <span class="card-arrow">
+                        <i class="bi bi-arrow-right"></i>
+                    </span>
+
+                </button>
+
+
+
+                <!-- Rentals -->
+
+                <button
+                    class="quick-card"
+                    data-action="rentals"
+                >
+
+                    <div class="quick-icon">
+                        <i class="bi bi-calendar-check-fill"></i>
+                    </div>
+
+
+                    <div class="quick-info">
+
+                        <h3>
+                            My Rentals
+                        </h3>
+
+                        <p>
+                            Check your vehicle
+                            rental requests.
+                        </p>
+
+                    </div>
+
+
+                    <span class="card-arrow">
+                        <i class="bi bi-arrow-right"></i>
+                    </span>
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             CONSTRUCTION MATERIALS
+        ================================================== -->
+
+        <section
+            class="dashboard-section"
+            id="materialsSection"
+        >
+
+
+            <div class="section-heading-row">
+
+
+                <div>
+
+                    <div class="section-eyebrow">
+                        CONSTRUCTION MATERIALS
+                    </div>
+
+                    <h2>
+                        Browse Materials
+                    </h2>
+
+                    <p class="section-description">
+                        Choose from the materials available
+                        on BuildConnect.
+                    </p>
+
+                </div>
+
+
+
+                <!-- FIXED VIEW ALL BUTTON -->
+
+                <a
+                    href="{% url 'materials' %}"
+                    class="view-all-btn"
+                >
+
+                    View All
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MATERIAL CARDS
+            ================================================== -->
+
+            <div class="materials-grid">
+
+
+
+                <!-- COAL -->
+
+                <button
+                    class="material-card"
+                    data-material="Coal"
+                >
+
+                    <div class="material-image">
+
+                        <img
+                            src="{% static 'images/coal.png' %}"
+                            alt="Coal"
+                        >
+
+                    </div>
+
+
+                    <div class="material-info">
+
+                        <div class="material-icon">
+
+                            <i class="bi bi-circle-fill"></i>
+
+                        </div>
+
+
+                        <div class="material-text">
+
+                            <h3>
+                                Coal
+                            </h3>
+
+                            <p>
+                                Quality coal from
+                                trusted suppliers.
+                            </p>
+
+                        </div>
+
+
+                        <span class="material-arrow">
+
+                            <i class="bi bi-chevron-right"></i>
+
+                        </span>
+
+                    </div>
+
+                </button>
+
+
+
+                <!-- SAND -->
+
+                <button
+                    class="material-card"
+                    data-material="Sand"
+                >
+
+                    <div class="material-image">
+
+                        <img
+                            src="{% static 'images/sand.png' %}"
+                            alt="Construction Sand"
+                        >
+
+                    </div>
+
+
+                    <div class="material-info">
+
+                        <div class="material-icon sand-icon">
+
+                            <i class="bi bi-triangle-fill"></i>
+
+                        </div>
+
+
+                        <div class="material-text">
+
+                            <h3>
+                                Sand
+                            </h3>
+
+                            <p>
+                                Construction sand
+                                for all your needs.
+                            </p>
+
+                        </div>
+
+
+                        <span class="material-arrow">
+
+                            <i class="bi bi-chevron-right"></i>
+
+                        </span>
+
+                    </div>
+
+                </button>
+
+
+
+                <!-- CRUSHED STONE -->
+
+                <button
+                    class="material-card"
+                    data-material="Crushed Stone"
+                >
+
+                    <div class="material-image">
+
+                        <img
+                            src="{% static 'images/crushed-stone.png' %}"
+                            alt="Crushed Stone"
+                        >
+
+                    </div>
+
+
+                    <div class="material-info">
+
+                        <div class="material-icon stone-icon">
+
+                            <i class="bi bi-gem"></i>
+
+                        </div>
+
+
+                        <div class="material-text">
+
+                            <h3>
+                                Crushed Stone
+                            </h3>
+
+                            <p>
+                                Reliable crushed stone
+                                for construction work.
+                            </p>
+
+                        </div>
+
+
+                        <span class="material-arrow">
+
+                            <i class="bi bi-chevron-right"></i>
+
+                        </span>
+
+                    </div>
+
+                </button>
+
+
+
+                <!-- FLY ASH -->
+
+                <button
+                    class="material-card"
+                    data-material="Fly Ash"
+                >
+
+                    <div class="material-image">
+
+                        <img
+                            src="{% static 'images/fly-ash.png' %}"
+                            alt="Fly Ash"
+                        >
+
+                    </div>
+
+
+                    <div class="material-info">
+
+                        <div class="material-icon flyash-icon">
+
+                            <i class="bi bi-buildings-fill"></i>
+
+                        </div>
+
+
+                        <div class="material-text">
+
+                            <h3>
+                                Fly Ash
+                            </h3>
+
+                            <p>
+                                Construction-grade
+                                fly ash from suppliers.
+                            </p>
+
+                        </div>
+
+
+                        <span class="material-arrow">
+
+                            <i class="bi bi-chevron-right"></i>
+
+                        </span>
+
+                    </div>
+
+                </button>
+
+
+
+                <!-- SOIL -->
+
+                <button
+                    class="material-card"
+                    data-material="Soil"
+                >
+
+                    <div class="material-image">
+
+                        <img
+                            src="{% static 'images/soil.png' %}"
+                            alt="Construction Soil"
+                        >
+
+                    </div>
+
+
+                    <div class="material-info">
+
+                        <div class="material-icon soil-icon">
+
+                            <i class="bi bi-leaf-fill"></i>
+
+                        </div>
+
+
+                        <div class="material-text">
+
+                            <h3>
+                                Soil
+                            </h3>
+
+                            <p>
+                                Suitable soil for
+                                construction and site work.
+                            </p>
+
+                        </div>
+
+
+                        <span class="material-arrow">
+
+                            <i class="bi bi-chevron-right"></i>
+
+                        </span>
+
+                    </div>
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             VEHICLES
+        ================================================== -->
+
+        <section class="dashboard-section vehicles-section">
+
+
+            <div class="section-heading-row">
+
+                <div>
+
+                    <div class="section-eyebrow">
+                        CONSTRUCTION VEHICLES
+                    </div>
+
+                    <h2>
+                        Rent a Vehicle
+                    </h2>
+
+                    <p class="section-description">
+                        Find the right vehicle for your
+                        construction work.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="view-all-btn"
+                    data-action="vehicles"
+                >
+
+                    View All
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+
+
+            <div class="vehicles-grid">
+
+
+                <!-- Dumper -->
+
+                <button
+                    class="vehicle-card"
+                    data-action="vehicles"
+                >
+
+                    <div class="vehicle-icon dumper">
+                        <i class="bi bi-truck-front-fill"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Dumper
+                        </h3>
+
+                        <p>
+                            Heavy material transportation
+                        </p>
+
+                    </div>
+
+                    <span>
+                        <i class="bi bi-arrow-up-right"></i>
+                    </span>
+
+                </button>
+
+
+
+                <!-- Tractor -->
+
+                <button
+                    class="vehicle-card"
+                    data-action="vehicles"
+                >
+
+                    <div class="vehicle-icon tractor">
+                        <i class="bi bi-truck"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Tractor
+                        </h3>
+
+                        <p>
+                            Reliable site transportation
+                        </p>
+
+                    </div>
+
+                    <span>
+                        <i class="bi bi-arrow-up-right"></i>
+                    </span>
+
+                </button>
+
+
+
+                <!-- JCB -->
+
+                <button
+                    class="vehicle-card"
+                    data-action="vehicles"
+                >
+
+                    <div class="vehicle-icon jcb">
+                        <i class="bi bi-cone-striped"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            JCB
+                        </h3>
+
+                        <p>
+                            Excavation and construction work
+                        </p>
+
+                    </div>
+
+                    <span>
+                        <i class="bi bi-arrow-up-right"></i>
+                    </span>
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECENT ORDERS
+        ================================================== -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-heading-row">
+
+                <div>
+
+                    <div class="section-eyebrow">
+                        ACTIVITY
+                    </div>
+
+                    <h2>
+                        Recent Orders
+                    </h2>
+
+                </div>
+
+
+                <button
+                    class="view-all-btn"
+                    data-action="orders"
+                >
+
+                    View Orders
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+
+
+            <div class="empty-card">
+
+
+                <div class="empty-icon">
+
+                    <i class="bi bi-receipt"></i>
+
+                </div>
+
+
+                <h3>
+                    No orders yet
+                </h3>
+
+
+                <p>
+                    Your material orders will
+                    appear here.
+                </p>
+
+
+
+                <!-- FIXED BROWSE MATERIALS BUTTON -->
+
+                <a
+                    href="{% url 'materials' %}"
+                    class="gold-button"
+                >
+
+                    Browse Materials
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="dashboard-footer">
+
+
+            <div>
+
+                <strong>
+                    BuildConnect
+                </strong>
+
+                <span>
+                    Construction. Connected.
+                </span>
+
+            </div>
+
+
+            <p>
+                © 2026 BuildConnect.
+                All rights reserved.
+            </p>
+
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    id="bcToast"
+    class="bc-toast"
+>
+
+
+    <div class="toast-icon">
+
+        <i class="bi bi-check-lg"></i>
+
+    </div>
+
+
+    <div>
+
+        <strong id="toastTitle">
+            Coming Soon
+        </strong>
+
+        <span id="toastMessage">
+            This section will be available soon.
+        </span>
+
+    </div>
+
+
+    <button id="toastClose">
+
+        <i class="bi bi-x"></i>
+
+    </button>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="{% static 'customer/js/dashboard.js' %}"></script>
+
+
+</body>
+
+</html>

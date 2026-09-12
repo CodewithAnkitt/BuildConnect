@@ -70,7 +70,7 @@ class MaterialListingAdmin(admin.ModelAdmin):
         "material",
         "seller",
         "quantity_available",
-        "unit_price",
+       "price_per_unit",
         "location",
         "is_available",
         "created_at",

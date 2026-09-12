@@ -1,0 +1,572 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Browse Materials | BuildConnect</title>
+
+    <link rel="stylesheet" href="{% static 'customer/css/materials.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="top-header">
+
+    <div class="header-left">
+
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <a href="{% url 'home' %}" class="header-logo">
+            <img src="{% static 'images/nav-logo.png' %}" alt="BuildConnect">
+        </a>
+
+    </div>
+
+    <div class="header-right">
+
+        <button class="notification-btn" aria-label="Notifications">
+            <span class="bell">♧</span>
+            <span class="notification-dot"></span>
+        </button>
+
+        <div class="header-divider"></div>
+
+        <div class="user-menu">
+            <div class="user-avatar">C</div>
+
+            <div class="user-name">
+                <strong>Customer</strong>
+                <span>Customer Account</span>
+            </div>
+
+            <span class="chevron">⌄</span>
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-profile">
+
+        <div class="profile-avatar">●</div>
+
+        <div>
+            <h3>Customer</h3>
+            <p>Customer Account</p>
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a href="/customer/dashboard/" class="nav-item">
+            <span class="nav-icon">▣</span>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="/customer/materials/" class="nav-item active">
+            <span class="nav-icon">◆</span>
+            <span>Browse Materials</span>
+        </a>
+
+        <a href="/customer/orders/" class="nav-item">
+            <span class="nav-icon">▤</span>
+            <span>My Orders</span>
+        </a>
+
+        <a href="/customer/vehicles/" class="nav-item">
+            <span class="nav-icon">▱</span>
+            <span>Rent Vehicles</span>
+        </a>
+
+        <a href="/customer/rentals/" class="nav-item">
+            <span class="nav-icon">▥</span>
+            <span>My Rentals</span>
+        </a>
+
+        <a href="/customer/profile/" class="nav-item">
+            <span class="nav-icon">●</span>
+            <span>Profile</span>
+        </a>
+
+        <a href="/customer/settings/" class="nav-item">
+            <span class="nav-icon">⚙</span>
+            <span>Settings</span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="sidebar-line"></div>
+
+        <button class="logout-btn" id="logoutBtn">
+            <span>↪</span>
+            <span>Logout</span>
+        </button>
+
+    </div>
+
+</aside>
+
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+
+<!-- ================= MAIN ================= -->
+<main class="main-content">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="/customer/dashboard/">Dashboard</a>
+        <span>›</span>
+        <strong>Materials</strong>
+    </div>
+
+
+    <!-- Page heading -->
+    <section class="page-heading">
+
+        <h1>Browse Materials</h1>
+
+        <p>
+            Find quality construction materials from trusted suppliers.
+        </p>
+
+    </section>
+
+
+    <!-- ================= FILTER BAR ================= -->
+    <section class="filter-bar">
+
+        <div class="search-box">
+
+            <span class="search-icon">⌕</span>
+
+            <input
+                type="text"
+                id="materialSearch"
+                placeholder="Search materials (e.g., sand, coal...)"
+            >
+
+        </div>
+
+
+        <select id="categoryFilter">
+            <option value="all">All Categories</option>
+            <option value="coal">Coal</option>
+            <option value="sand">Sand</option>
+            <option value="crushed-stone">Crushed Stone</option>
+            <option value="fly-ash">Fly Ash</option>
+            <option value="soil">Soil</option>
+        </select>
+
+
+        <select id="locationFilter">
+            <option value="all">All Locations</option>
+            <option value="Ranchi">Ranchi, Jharkhand</option>
+            <option value="Dhanbad">Dhanbad, Jharkhand</option>
+            <option value="Jamshedpur">Jamshedpur, Jharkhand</option>
+        </select>
+
+
+        <select id="sortFilter">
+            <option value="default">Sort By</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name">Name: A to Z</option>
+        </select>
+
+    </section>
+
+
+    <!-- ================= MATERIAL GRID ================= -->
+    <section class="materials-grid" id="materialsGrid">
+
+
+        <!-- COAL -->
+        <article
+            class="material-card"
+            data-name="Coal"
+            data-category="coal"
+            data-location="Dhanbad"
+            data-price="1250"
+            data-material="coal"
+        >
+
+            <div class="material-image">
+                <img src="{% static 'images/coal.png' %}" alt="Coal">
+                <span class="stock-badge">● In Stock</span>
+            </div>
+
+            <div class="material-info">
+
+                <h2>Coal</h2>
+
+                <p class="material-description">
+                    Quality coal suitable for industrial and construction requirements.
+                </p>
+
+                <div class="price">
+                    ₹ 1,250 <span>/ Ton</span>
+                </div>
+
+                <div class="location">
+                    <span>⌖</span>
+                    Dhanbad, Jharkhand
+                </div>
+
+                <button class="details-btn">
+                    View Details <span>→</span>
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- SAND -->
+        <article
+            class="material-card"
+            data-name="Sand"
+            data-category="sand"
+            data-location="Ranchi"
+            data-price="850"
+            data-material="sand"
+        >
+
+            <div class="material-image">
+                <img src="{% static 'images/sand.png' %}" alt="Construction Sand">
+                <span class="stock-badge">● In Stock</span>
+            </div>
+
+            <div class="material-info">
+
+                <h2>Construction Sand</h2>
+
+                <p class="material-description">
+                    High-quality sand for residential, commercial and infrastructure projects.
+                </p>
+
+                <div class="price">
+                    ₹ 850 <span>/ Ton</span>
+                </div>
+
+                <div class="location">
+                    <span>⌖</span>
+                    Ranchi, Jharkhand
+                </div>
+
+                <button class="details-btn">
+                    View Details <span>→</span>
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- CRUSHED STONE -->
+        <article
+            class="material-card"
+            data-name="Crushed Stone"
+            data-category="crushed-stone"
+            data-location="Jamshedpur"
+            data-price="1100"
+            data-material="crushed-stone"
+        >
+
+            <div class="material-image">
+                <img src="{% static 'images/crushed-stone.png' %}" alt="Crushed Stone">
+                <span class="stock-badge">● In Stock</span>
+            </div>
+
+            <div class="material-info">
+
+                <h2>Crushed Stone</h2>
+
+                <p class="material-description">
+                    Strong and durable crushed stone for concrete and road construction.
+                </p>
+
+                <div class="price">
+                    ₹ 1,100 <span>/ Ton</span>
+                </div>
+
+                <div class="location">
+                    <span>⌖</span>
+                    Jamshedpur, Jharkhand
+                </div>
+
+                <button class="details-btn">
+                    View Details <span>→</span>
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- FLY ASH -->
+        <article
+            class="material-card"
+            data-name="Fly Ash"
+            data-category="fly-ash"
+            data-location="Dhanbad"
+            data-price="620"
+            data-material="fly-ash"
+        >
+
+            <div class="material-image">
+                <img src="{% static 'images/fly-ash.png' %}" alt="Fly Ash">
+                <span class="stock-badge">● In Stock</span>
+            </div>
+
+            <div class="material-info">
+
+                <h2>Fly Ash</h2>
+
+                <p class="material-description">
+                    High-quality fly ash from trusted suppliers for construction applications.
+                </p>
+
+                <div class="price">
+                    ₹ 620 <span>/ Ton</span>
+                </div>
+
+                <div class="location">
+                    <span>⌖</span>
+                    Dhanbad, Jharkhand
+                </div>
+
+                <button class="details-btn">
+                    View Details <span>→</span>
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- SOIL -->
+        <article
+            class="material-card"
+            data-name="Soil"
+            data-category="soil"
+            data-location="Ranchi"
+            data-price="300"
+            data-material="soil"
+        >
+
+            <div class="material-image">
+                <img src="{% static 'images/soil.png' %}" alt="Construction Soil">
+                <span class="stock-badge">● In Stock</span>
+            </div>
+
+            <div class="material-info">
+
+                <h2>Construction Soil</h2>
+
+                <p class="material-description">
+                    Suitable soil for construction, filling and site development work.
+                </p>
+
+                <div class="price">
+                    ₹ 300 <span>/ Ton</span>
+                </div>
+
+                <div class="location">
+                    <span>⌖</span>
+                    Ranchi, Jharkhand
+                </div>
+
+                <button class="details-btn">
+                    View Details <span>→</span>
+                </button>
+
+            </div>
+
+        </article>
+
+
+    </section>
+
+
+    <div class="no-results" id="noResults">
+        <div>⌕</div>
+        <h3>No materials found</h3>
+        <p>Try changing your search or filters.</p>
+    </div>
+
+</main>
+
+
+<!-- ================= DETAILS MODAL ================= -->
+<div class="modal-overlay" id="materialModal">
+
+    <div class="material-modal">
+
+        <button class="modal-close" id="modalClose">×</button>
+
+
+        <div class="modal-left">
+
+            <div class="modal-main-image">
+                <img id="modalImage" src="" alt="">
+            </div>
+
+            <div class="thumbnail-row">
+
+                <button class="thumbnail-arrow" id="prevImage">‹</button>
+
+                <div class="thumbnail active">
+                    <img id="thumb1" src="" alt="">
+                </div>
+
+                <div class="thumbnail">
+                    <img id="thumb2" src="" alt="">
+                </div>
+
+                <div class="thumbnail">
+                    <img id="thumb3" src="" alt="">
+                </div>
+
+                <button class="thumbnail-arrow" id="nextImage">›</button>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-right">
+
+            <div class="modal-stock">
+                <span>●</span> In Stock
+            </div>
+
+            <h2 id="modalTitle">Construction Sand</h2>
+
+            <p class="modal-subtitle" id="modalSubtitle">
+                High quality sand for all construction needs.
+            </p>
+
+
+            <div class="modal-price-box">
+
+                <strong id="modalPrice">₹ 850</strong>
+
+                <span>/ Ton</span>
+
+                <small>(Inclusive of all taxes)</small>
+
+            </div>
+
+
+            <div class="details-list">
+
+                <div class="detail-row">
+                    <span class="detail-label">♙ &nbsp; Available Quantity</span>
+                    <strong id="modalQuantityAvailable">500 Ton</strong>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">♙ &nbsp; Material Type</span>
+                    <span id="modalType">River Sand</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">⌖ &nbsp; Location</span>
+                    <span id="modalLocation">Ranchi, Jharkhand</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">♙ &nbsp; Supplier</span>
+                    <span id="modalSupplier">Sharma Enterprises</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">▣ &nbsp; Delivery Option</span>
+                    <strong>Available <small>(Extra charges)</small></strong>
+                </div>
+
+            </div>
+
+
+            <div class="description-section">
+
+                <h3>Description</h3>
+
+                <p id="modalDescription">
+                    Clean, high-quality construction sand suitable for residential,
+                    commercial, and infrastructure projects. Properly graded and
+                    free from major impurities.
+                </p>
+
+            </div>
+
+
+            <div class="quantity-section">
+
+                <label>Select Quantity <span>(Ton)</span></label>
+
+                <div class="quantity-control">
+
+                    <button id="minusBtn">−</button>
+
+                    <input type="number" id="orderQuantity" value="1" min="1" max="500">
+
+                    <button id="plusBtn">+</button>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button class="close-action" id="closeAction">
+                    Close
+                </button>
+
+                <button class="order-action" id="addToOrder">
+                    🛒 &nbsp; Add to Order
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast">
+    <span>✓</span>
+    <div>
+        <strong id="toastTitle">Added to Order</strong>
+        <p id="toastMessage">Material added successfully.</p>
+    </div>
+</div>
+
+
+<script src="{% static 'customer/js/materials.js' %}"></script>
+
+</body>
+</html>

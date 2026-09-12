@@ -1,0 +1,1435 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders | BuildConnect</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Orders CSS -->
+    <link
+        rel="stylesheet"
+        href="{% static 'customer/css/orders.css' %}"
+    >
+</head>
+
+<body>
+
+<!-- =====================================================
+     MOBILE OVERLAY
+====================================================== -->
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+
+<!-- =====================================================
+     SIDEBAR
+====================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <!-- BRAND -->
+    <div class="sidebar-brand">
+
+        <a href="{% url 'customer_dashboard' %}" class="brand-link">
+
+            <img
+                src="{% static 'images/nav-logo.png' %}"
+                alt="BuildConnect"
+            >
+
+            <div class="brand-text">
+                <strong>BuildConnect</strong>
+                <span>Build Today. Better Tomorrow.</span>
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- USER -->
+    <div class="sidebar-user">
+
+        <div class="user-avatar">
+            AK
+        </div>
+
+        <div class="user-info">
+            <strong>Ankit Kumar</strong>
+            <span>Customer Account</span>
+        </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+    <nav class="sidebar-nav">
+
+        <a
+            href="{% url 'customer_dashboard' %}"
+            class="sidebar-link"
+        >
+            <i class="bi bi-house"></i>
+            <span>Dashboard</span>
+        </a>
+
+
+        <a
+            href="{% url 'materials' %}"
+            class="sidebar-link"
+        >
+            <i class="bi bi-grid"></i>
+            <span>Browse Materials</span>
+        </a>
+
+
+        <a
+            href="{% url 'orders' %}"
+            class="sidebar-link active"
+        >
+            <i class="bi bi-calendar2-check"></i>
+            <span>My Orders</span>
+        </a>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+            data-action="vehicles"
+        >
+            <i class="bi bi-truck"></i>
+            <span>Rent Vehicles</span>
+        </a>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+            data-action="rentals"
+        >
+            <i class="bi bi-briefcase"></i>
+            <span>My Rentals</span>
+        </a>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+            data-action="profile"
+        >
+            <i class="bi bi-person"></i>
+            <span>Profile</span>
+        </a>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+            data-action="settings"
+        >
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+        </a>
+
+    </nav>
+
+
+    <!-- LOGOUT -->
+    <div class="sidebar-bottom">
+
+        <a
+            href="/login/"
+            class="logout-link"
+            id="logoutBtn"
+        >
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN AREA
+====================================================== -->
+
+<main class="main-content">
+
+
+    <!-- =================================================
+         TOP HEADER
+    ================================================== -->
+
+    <header class="top-header">
+
+        <button
+            class="menu-button"
+            id="sidebarToggle"
+            aria-label="Open menu"
+        >
+            <i class="bi bi-list"></i>
+        </button>
+
+
+        <!-- SEARCH -->
+        <div class="header-search">
+
+            <i class="bi bi-search"></i>
+
+            <input
+                type="text"
+                placeholder="Search orders, materials, suppliers..."
+                id="headerSearch"
+            >
+
+        </div>
+
+
+        <!-- HEADER RIGHT -->
+        <div class="header-right">
+
+            <button
+                class="notification-button"
+                id="notificationBtn"
+            >
+                <i class="bi bi-bell"></i>
+                <span class="notification-dot">3</span>
+            </button>
+
+
+            <div class="header-divider"></div>
+
+
+            <button
+                class="profile-button"
+                id="profileDropdownBtn"
+            >
+
+                <div class="profile-avatar">
+                    AK
+                </div>
+
+                <div class="profile-details">
+                    <strong>Ankit Kumar</strong>
+                    <span>Customer</span>
+                </div>
+
+                <i class="bi bi-chevron-down"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         PAGE
+    ================================================== -->
+
+    <section class="orders-page">
+
+
+        <!-- =================================================
+             BREADCRUMB
+        ================================================== -->
+
+        <div class="breadcrumb">
+
+            <span>Customer Dashboard</span>
+
+            <i class="bi bi-chevron-right"></i>
+
+            <strong>My Orders</strong>
+
+        </div>
+
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="orders-hero">
+
+            <div class="hero-content">
+
+                <h1>
+                    My <span>Orders</span>
+                </h1>
+
+                <p>
+                    Track your material orders and deliveries in one place.
+                </p>
+
+            </div>
+
+
+            <div class="hero-banner">
+
+                <div class="hero-quote">
+
+                    <span>
+                        Stronger Projects
+                    </span>
+
+                    <span>
+                        With Trusted Materials
+                    </span>
+
+                    <div class="quote-line"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ORDER TABS
+        ================================================== -->
+
+        <div class="order-tabs">
+
+            <button class="order-tab active" data-status="all">
+                All Orders <span>(5)</span>
+            </button>
+
+            <button class="order-tab" data-status="pending">
+                Pending <span>(1)</span>
+            </button>
+
+            <button class="order-tab" data-status="confirmed">
+                Confirmed <span>(1)</span>
+            </button>
+
+            <button class="order-tab" data-status="transit">
+                In Transit <span>(1)</span>
+            </button>
+
+            <button class="order-tab" data-status="delivered">
+                Delivered <span>(2)</span>
+            </button>
+
+            <button class="order-tab" data-status="cancelled">
+                Cancelled <span>(0)</span>
+            </button>
+
+
+            <button class="history-button">
+
+                <i class="bi bi-calendar2-week"></i>
+
+                Order History
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FILTERS
+        ================================================== -->
+
+        <div class="filters-row">
+
+
+            <!-- SEARCH -->
+            <div class="orders-search">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="orderSearch"
+                    placeholder="Search orders (Order ID, material, supplier...)"
+                >
+
+            </div>
+
+
+            <!-- MATERIAL FILTER -->
+            <div class="filter-box">
+
+                <select id="materialFilter">
+
+                    <option value="all">
+                        All Materials
+                    </option>
+
+                    <option value="Coal">
+                        Coal
+                    </option>
+
+                    <option value="Sand">
+                        Sand
+                    </option>
+
+                    <option value="Crushed Stone">
+                        Crushed Stone
+                    </option>
+
+                    <option value="Fly Ash">
+                        Fly Ash
+                    </option>
+
+                    <option value="Soil">
+                        Soil
+                    </option>
+
+                </select>
+
+                <i class="bi bi-chevron-down"></i>
+
+            </div>
+
+
+            <!-- DATE FILTER -->
+            <div class="filter-box">
+
+                <select id="timeFilter">
+
+                    <option value="all">
+                        All Time
+                    </option>
+
+                    <option value="7">
+                        Last 7 Days
+                    </option>
+
+                    <option value="30">
+                        Last 30 Days
+                    </option>
+
+                    <option value="90">
+                        Last 3 Months
+                    </option>
+
+                </select>
+
+                <i class="bi bi-chevron-down"></i>
+
+            </div>
+
+
+            <!-- SORT -->
+            <div class="filter-box">
+
+                <select id="sortFilter">
+
+                    <option value="newest">
+                        Newest First
+                    </option>
+
+                    <option value="oldest">
+                        Oldest First
+                    </option>
+
+                    <option value="amount-high">
+                        Highest Amount
+                    </option>
+
+                    <option value="amount-low">
+                        Lowest Amount
+                    </option>
+
+                </select>
+
+                <i class="bi bi-chevron-down"></i>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ORDERS LIST
+        ================================================== -->
+
+        <div class="orders-list" id="ordersList">
+
+
+            <!-- =================================================
+                 ORDER 1 - COAL
+            ================================================== -->
+
+            <article
+                class="order-card"
+                data-status="pending"
+                data-material="Coal"
+                data-date="2025-09-12"
+                data-amount="62500"
+            >
+
+                <div class="order-material">
+
+                    <img
+                        src="{% static 'images/coal.jpg' %}"
+                        alt="Coal"
+                    >
+
+                    <div class="order-basic">
+
+                        <h3>
+                            Order #BC25091201
+                        </h3>
+
+                        <h4>
+                            Coal
+                        </h4>
+
+                        <p>
+                            <i class="bi bi-person"></i>
+                            Eastern Coal Suppliers
+                        </p>
+
+                        <p>
+                            <i class="bi bi-geo-alt"></i>
+                            Dhanbad, Jharkhand
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-info">
+
+                    <div>
+
+                        <span>Quantity</span>
+
+                        <strong>
+                            50 Ton
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span>Order Date</span>
+
+                        <strong>
+                            12 Sep 2025
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-amount">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong>
+                        ₹ 62,500
+                    </strong>
+
+                </div>
+
+
+                <!-- STATUS -->
+                <div class="order-progress">
+
+                    <div class="status-badge pending">
+                        <i class="bi bi-clock"></i>
+                        Pending
+                    </div>
+
+
+                    <div class="progress-line">
+
+                        <div class="progress-step completed current">
+                            <span></span>
+                            <label>Pending</label>
+                        </div>
+
+                        <div class="progress-step">
+                            <span></span>
+                            <label>Confirmed</label>
+                        </div>
+
+                        <div class="progress-step">
+                            <span></span>
+                            <label>In Transit</label>
+                        </div>
+
+                        <div class="progress-step">
+                            <span></span>
+                            <label>Delivered</label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+                <div class="order-actions">
+
+                    <button
+                        class="view-button"
+                        data-order="BC25091201"
+                    >
+                        View Details
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+
+                    <button class="secondary-button cancel-button">
+                        <i class="bi bi-x-circle"></i>
+                        Cancel Order
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 ORDER 2 - SAND
+            ================================================== -->
+
+            <article
+                class="order-card"
+                data-status="confirmed"
+                data-material="Sand"
+                data-date="2025-09-11"
+                data-amount="85000"
+            >
+
+                <div class="order-material">
+
+                    <img
+                        src="{% static 'images/sand.jpg' %}"
+                        alt="Sand"
+                    >
+
+                    <div class="order-basic">
+
+                        <h3>
+                            Order #BC25091108
+                        </h3>
+
+                        <h4>
+                            Sand
+                        </h4>
+
+                        <p>
+                            <i class="bi bi-person"></i>
+                            Shree Balaji Traders
+                        </p>
+
+                        <p>
+                            <i class="bi bi-geo-alt"></i>
+                            Ranchi, Jharkhand
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-info">
+
+                    <div>
+
+                        <span>Quantity</span>
+
+                        <strong>
+                            100 Ton
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span>Order Date</span>
+
+                        <strong>
+                            11 Sep 2025
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-amount">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong>
+                        ₹ 85,000
+                    </strong>
+
+                </div>
+
+
+                <div class="order-progress">
+
+                    <div class="status-badge confirmed">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Confirmed
+                    </div>
+
+
+                    <div class="progress-line">
+
+                        <div class="progress-step completed">
+                            <span></span>
+                            <label>Pending</label>
+                        </div>
+
+                        <div class="progress-step completed current">
+                            <span></span>
+                            <label>Confirmed</label>
+                        </div>
+
+                        <div class="progress-step">
+                            <span></span>
+                            <label>In Transit</label>
+                        </div>
+
+                        <div class="progress-step">
+                            <span></span>
+                            <label>Delivered</label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-actions">
+
+                    <button
+                        class="view-button"
+                        data-order="BC25091108"
+                    >
+                        View Details
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+
+                    <button class="secondary-button cancel-button">
+                        <i class="bi bi-x-circle"></i>
+                        Cancel Order
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 ORDER 3 - CRUSHED STONE
+            ================================================== -->
+
+            <article
+                class="order-card"
+                data-status="transit"
+                data-material="Crushed Stone"
+                data-date="2025-09-08"
+                data-amount="52500"
+            >
+
+                <div class="order-material">
+
+                    <img
+                        src="{% static 'images/crushed-stone.jpg' %}"
+                        alt="Crushed Stone"
+                    >
+
+                    <div class="order-basic">
+
+                        <h3>
+                            Order #BC25090816
+                        </h3>
+
+                        <h4>
+                            Crushed Stone
+                        </h4>
+
+                        <p>
+                            <i class="bi bi-person"></i>
+                            Jharkhand Minerals
+                        </p>
+
+                        <p>
+                            <i class="bi bi-geo-alt"></i>
+                            Bokaro, Jharkhand
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-info">
+
+                    <div>
+
+                        <span>Quantity</span>
+
+                        <strong>
+                            75 Ton
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span>Order Date</span>
+
+                        <strong>
+                            08 Sep 2025
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-amount">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong>
+                        ₹ 52,500
+                    </strong>
+
+                </div>
+
+
+                <div class="order-progress">
+
+                    <div class="status-badge transit">
+                        <i class="bi bi-truck"></i>
+                        In Transit
+                    </div>
+
+
+                    <div class="progress-line">
+
+                        <div class="progress-step completed">
+                            <span></span>
+                            <label>Pending</label>
+                        </div>
+
+                        <div class="progress-step completed">
+                            <span></span>
+                            <label>Confirmed</label>
+                        </div>
+
+                        <div class="progress-step completed current">
+                            <span></span>
+                            <label>In Transit</label>
+                        </div>
+
+                        <div class="progress-step">
+                            <span></span>
+                            <label>Delivered</label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-actions">
+
+                    <button
+                        class="view-button"
+                        data-order="BC25090816"
+                    >
+                        View Details
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+
+                    <button
+                        class="secondary-button disabled"
+                        disabled
+                    >
+                        <i class="bi bi-x-circle"></i>
+                        Cancel Order
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 ORDER 4 - FLY ASH
+            ================================================== -->
+
+            <article
+                class="order-card"
+                data-status="delivered"
+                data-material="Fly Ash"
+                data-date="2025-09-05"
+                data-amount="36000"
+            >
+
+                <div class="order-material">
+
+                    <img
+                        src="{% static 'images/fly-ash.jpg' %}"
+                        alt="Fly Ash"
+                    >
+
+                    <div class="order-basic">
+
+                        <h3>
+                            Order #BC25090511
+                        </h3>
+
+                        <h4>
+                            Fly Ash
+                        </h4>
+
+                        <p>
+                            <i class="bi bi-person"></i>
+                            ABC Cement Supplies
+                        </p>
+
+                        <p>
+                            <i class="bi bi-geo-alt"></i>
+                            Patna, Bihar
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-info">
+
+                    <div>
+
+                        <span>Quantity</span>
+
+                        <strong>
+                            60 Ton
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span>Order Date</span>
+
+                        <strong>
+                            05 Sep 2025
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-amount">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong>
+                        ₹ 36,000
+                    </strong>
+
+                </div>
+
+
+                <div class="order-progress">
+
+                    <div class="status-badge delivered">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Delivered
+                    </div>
+
+
+                    <div class="progress-line">
+
+                        <div class="progress-step completed">
+                            <span></span>
+                            <label>Pending</label>
+                        </div>
+
+                        <div class="progress-step completed">
+                            <span></span>
+                            <label>Confirmed</label>
+                        </div>
+
+                        <div class="progress-step completed">
+                            <span></span>
+                            <label>In Transit</label>
+                        </div>
+
+                        <div class="progress-step completed current">
+                            <span></span>
+                            <label>Delivered</label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-actions">
+
+                    <button
+                        class="view-button"
+                        data-order="BC25090511"
+                    >
+                        View Details
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+
+                    <button class="secondary-button reorder-button">
+                        <i class="bi bi-arrow-repeat"></i>
+                        Reorder
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 ORDER 5 - SOIL
+            ================================================== -->
+
+            <article
+                class="order-card"
+                data-status="delivered"
+                data-material="Soil"
+                data-date="2025-09-01"
+                data-amount="48000"
+            >
+
+                <div class="order-material">
+
+                    <img
+                        src="{% static 'images/soil.jpg' %}"
+                        alt="Soil"
+                    >
+
+                    <div class="order-basic">
+
+                        <h3>
+                            Order #BC25090104
+                        </h3>
+
+                        <h4>
+                            Soil
+                        </h4>
+
+                        <p>
+                            <i class="bi bi-person"></i>
+                            Local Suppliers
+                        </p>
+
+                        <p>
+                            <i class="bi bi-geo-alt"></i>
+                            Ranchi, Jharkhand
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-info">
+
+                    <div>
+
+                        <span>Quantity</span>
+
+                        <strong>
+                            120 Ton
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span>Order Date</span>
+
+                        <strong>
+                            01 Sep 2025
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-amount">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong>
+                        ₹ 48,000
+                    </strong>
+
+                </div>
+
+
+                <div class="order-progress">
+
+                    <div class="status-badge delivered">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Delivered
+                    </div>
+
+
+                    <div class="progress-line">
+
+                        <div class="progress-step completed">
+                            <span></span>
+                            <label>Pending</label>
+                        </div>
+
+                        <div class="progress-step completed">
+                            <span></span>
+                            <label>Confirmed</label>
+                        </div>
+
+                        <div class="progress-step completed">
+                            <span></span>
+                            <label>In Transit</label>
+                        </div>
+
+                        <div class="progress-step completed current">
+                            <span></span>
+                            <label>Delivered</label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-actions">
+
+                    <button
+                        class="view-button"
+                        data-order="BC25090104"
+                    >
+                        View Details
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+
+                    <button class="secondary-button reorder-button">
+                        <i class="bi bi-arrow-repeat"></i>
+                        Reorder
+                    </button>
+
+                </div>
+
+            </article>
+
+        </div>
+
+
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <div
+            class="empty-orders"
+            id="emptyOrders"
+        >
+
+            <div class="empty-icon">
+                <i class="bi bi-box-seam"></i>
+            </div>
+
+            <h3>
+                No Orders Found
+            </h3>
+
+            <p>
+                We couldn't find any orders matching your search.
+            </p>
+
+            <button
+                class="clear-filter-button"
+                id="clearFilters"
+            >
+                Clear Filters
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FOOTER / PAGINATION
+        ================================================== -->
+
+        <div class="orders-footer">
+
+            <p id="orderCount">
+                Showing 1–5 of 5 orders
+            </p>
+
+
+            <div class="footer-right">
+
+                <span>
+                    BuildConnect
+                </span>
+
+                <i>|</i>
+
+                <span>
+                    Construction Connected.
+                </span>
+
+            </div>
+
+
+            <div class="pagination">
+
+                <button disabled>
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+
+                <button class="page-number active">
+                    1
+                </button>
+
+                <button>
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     ORDER DETAILS MODAL
+====================================================== -->
+
+<div
+    class="modal-overlay"
+    id="orderModal"
+>
+
+    <div class="order-modal">
+
+        <button
+            class="modal-close"
+            id="modalClose"
+        >
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+
+        <div class="modal-header">
+
+            <span class="modal-label">
+                ORDER DETAILS
+            </span>
+
+            <h2 id="modalOrderTitle">
+                Order #BC25091201
+            </h2>
+
+            <p id="modalOrderMaterial">
+                Coal
+            </p>
+
+        </div>
+
+
+        <div class="modal-status">
+            <span id="modalStatusBadge">
+                Pending
+            </span>
+        </div>
+
+
+        <div class="modal-details-grid">
+
+            <div>
+                <span>Supplier</span>
+                <strong id="modalSupplier">
+                    Eastern Coal Suppliers
+                </strong>
+            </div>
+
+            <div>
+                <span>Location</span>
+                <strong id="modalLocation">
+                    Dhanbad, Jharkhand
+                </strong>
+            </div>
+
+            <div>
+                <span>Quantity</span>
+                <strong id="modalQuantity">
+                    50 Ton
+                </strong>
+            </div>
+
+            <div>
+                <span>Total Amount</span>
+                <strong id="modalAmount">
+                    ₹ 62,500
+                </strong>
+            </div>
+
+            <div>
+                <span>Order Date</span>
+                <strong id="modalDate">
+                    12 Sep 2025
+                </strong>
+            </div>
+
+            <div>
+                <span>Delivery</span>
+                <strong>
+                    Available
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="modal-divider"></div>
+
+
+        <div class="modal-tracking">
+
+            <h3>
+                Delivery Tracking
+            </h3>
+
+            <div class="modal-track-line">
+
+                <div class="track-item active">
+                    <span>
+                        <i class="bi bi-check"></i>
+                    </span>
+                    <label>Pending</label>
+                </div>
+
+                <div class="track-item">
+                    <span></span>
+                    <label>Confirmed</label>
+                </div>
+
+                <div class="track-item">
+                    <span></span>
+                    <label>In Transit</label>
+                </div>
+
+                <div class="track-item">
+                    <span></span>
+                    <label>Delivered</label>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button class="modal-close-button" id="modalCloseBottom">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     TOAST
+====================================================== -->
+
+<div
+    class="bc-toast"
+    id="bcToast"
+>
+
+    <div class="toast-icon">
+        <i class="bi bi-check-lg"></i>
+    </div>
+
+    <div>
+
+        <strong id="toastTitle">
+            BuildConnect
+        </strong>
+
+        <p id="toastMessage">
+            Action completed.
+        </p>
+
+    </div>
+
+    <button id="toastClose">
+        <i class="bi bi-x"></i>
+    </button>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script src="{% static 'customer/js/orders.js' %}"></script>
+
+</body>
+</html>
