@@ -897,9 +897,9 @@ a {
 
     flex: 1;
 
-    min-width: 0;
+    min-width: 50px;
 
-    height: 175px;
+    height: 295px;
 
     position: relative;
 
