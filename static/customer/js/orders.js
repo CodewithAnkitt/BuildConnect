@@ -202,48 +202,10 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    function getActionTitle(action) {
-
-        const titles = {
-
-            vehicles: "Rent Vehicles",
-
-            rentals: "My Rentals",
-
-            profile: "Profile",
-
-            settings: "Settings"
-
-        };
-
-        return titles[action] ||
-            "BuildConnect";
-
-    }
+   
 
 
-    function getActionMessage(action) {
-
-        const messages = {
-
-            vehicles:
-                "Vehicle rental services will be available here.",
-
-            rentals:
-                "Your vehicle rental requests will appear here.",
-
-            profile:
-                "Your customer profile will be available here.",
-
-            settings:
-                "Dashboard settings will be available here."
-
-        };
-
-        return messages[action] ||
-            "This feature is coming soon.";
-
-    }
+    
 
 
 

@@ -522,11 +522,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             case "rentals":
 
-                showToast(
-                    "My Rentals",
-                    "Your vehicle rental requests will appear here."
-                );
-
+               case "vehicles":
+                window.location.href = "/customer/rentals/";
                 break;
 
 
@@ -536,26 +533,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
             case "profile":
 
-                showToast(
-                    "Profile",
-                    "Your customer profile will be available here."
-                );
-
+                case "vehicles":
+                window.location.href = "/customer/profile/";
                 break;
 
 
-            /* =============================================
-               SETTINGS
-            ============================================== */
+            // /* =============================================
+            //    SETTINGS
+            // ============================================== */
 
-            case "settings":
+            // case "settings":
 
-                showToast(
-                    "Settings",
-                    "Dashboard settings will be available here."
-                );
+            //     showToast(
+            //         "Settings",
+            //         "Dashboard settings will be available here."
+            //     );
 
-                break;
+            //     break;
 
 
             /* =============================================

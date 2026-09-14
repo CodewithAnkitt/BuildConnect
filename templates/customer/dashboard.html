@@ -204,7 +204,7 @@
         <!-- Profile -->
 
         <a
-            href="#"
+            href="{% url 'profile' %}"
             class="sidebar-link"
             data-action="profile"
         >
@@ -221,7 +221,7 @@
 
 
 
-        <!-- Settings -->
+        {% comment %} <!-- Settings -->
 
         <a
             href="#"
@@ -237,7 +237,7 @@
                 Settings
             </span>
 
-        </a>
+        </a> {% endcomment %}
 
 
     </nav>

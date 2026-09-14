@@ -143,23 +143,23 @@
 
 
         <a
-            href="#"
+            href="{% url 'profile' %}"
             class="sidebar-link"
-            data-action="profile"
+           
         >
             <i class="bi bi-person"></i>
             <span>Profile</span>
         </a>
 
 
-        <a
+        {% comment %} <a
             href="#"
             class="sidebar-link"
             data-action="settings"
         >
             <i class="bi bi-gear"></i>
             <span>Settings</span>
-        </a>
+        </a> {% endcomment %}
 
     </nav>
 

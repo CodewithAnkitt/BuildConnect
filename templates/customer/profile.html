@@ -1,0 +1,1105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | BuildConnect</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'customer/css/profile.css' %}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- Logo -->
+
+        <div class="sidebar-logo">
+
+            <a href="{% url 'customer_dashboard' %}">
+
+                <div class="logo-icon">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+
+                <div class="logo-text">
+                    <span>Build<span>Connect</span></span>
+                    <small>Materials. Machines. Made Easy.</small>
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'customer_dashboard' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="{% url 'materials' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Browse Materials</span>
+
+            </a>
+
+            <a href="{% url 'orders' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-box"></i>
+                <span>My Orders</span>
+
+            </a>
+
+
+            <a href="{% url 'vehicles' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-truck"></i>
+                <span>Rent Vehicles</span>
+
+            </a>
+
+
+            <a href="{% url 'rentals' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>My Rentals</span>
+
+            </a>
+
+
+            
+
+
+            <a href="{% url 'profile' %}"
+               class="sidebar-link active">
+
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+
+            </a>
+
+
+            {% comment %} <a href="#"
+               class="sidebar-link coming-soon">
+
+                <i class="fa-solid fa-headset"></i>
+                <span>Help & Support</span>
+
+            </a> {% endcomment %}
+
+        </nav>
+
+
+        <!-- Sidebar Promo -->
+
+        <div class="sidebar-promo">
+
+            <div class="promo-overlay"></div>
+
+            <div class="promo-content">
+
+                <span>BUILDCONNECT</span>
+
+                <h3>
+                    Strong Infrastructure
+                    <br>
+                    Brighter Tomorrow
+                </h3>
+
+                <div class="promo-line"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Logout -->
+
+        <a href="{% url 'logout' %}"
+           class="logout-link">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+
+        </a>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN AREA
+    ====================================================== -->
+
+    <main class="main-area">
+
+
+        <!-- =================================================
+             TOP HEADER
+        ================================================== -->
+
+        <header class="top-header">
+
+            <button class="menu-btn"
+                    id="menuBtn">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+            <div class="global-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    placeholder="Search materials, vehicles, orders..."
+                >
+
+            </div>
+
+
+            <div class="header-right">
+
+                <button class="notification-btn"
+                        id="notificationBtn">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span>3</span>
+
+                </button>
+
+
+                <div class="profile-mini">
+
+                    <div class="profile-avatar">
+                        AK
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong>Ankit Kumar</strong>
+                        <small>Customer</small>
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+
+        <section class="page-content">
+
+
+            <!-- Breadcrumb -->
+
+            <div class="breadcrumb">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Dashboard</span>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+                <strong>Profile</strong>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PROFILE HERO
+            ================================================== -->
+
+            <div class="profile-hero">
+
+                <div class="hero-background"></div>
+
+                <div class="hero-content">
+
+                    <div class="hero-icon">
+
+                        <i class="fa-regular fa-user"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h1>My Profile</h1>
+
+                        <p>
+                            Manage your personal information,
+                            preferences and account settings.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TOP PROFILE SECTION
+            ================================================== -->
+
+            <div class="profile-top-grid">
+
+
+                <!-- PROFILE CARD -->
+
+                <div class="profile-card">
+
+                    <div class="profile-cover"></div>
+
+
+                    <div class="profile-photo-wrapper">
+
+                        <div class="profile-photo">
+                            AK
+                        </div>
+
+                        <button class="camera-btn"
+                                title="Change Profile Photo">
+
+                            <i class="fa-solid fa-camera"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="profile-main-info">
+
+                        <h2>Ankit Kumar</h2>
+
+                        <span class="role-badge">
+                            <i class="fa-solid fa-user"></i>
+                            Customer
+                        </span>
+
+                        <p class="profile-quote">
+                            “Building dreams, one project at a time.”
+                        </p>
+
+
+                        <div class="gold-line"></div>
+
+
+                        <div class="contact-list">
+
+                            <div>
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>ankitkumar123@gmail.com</span>
+                            </div>
+
+                            <div>
+                                <i class="fa-solid fa-phone"></i>
+                                <span>+91 98765 43210</span>
+                            </div>
+
+                            <div>
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>Noida, Uttar Pradesh</span>
+                            </div>
+
+                            <div>
+                                <i class="fa-regular fa-calendar"></i>
+                                <span>Member since Aug 2025</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Statistics -->
+
+                    <div class="profile-stats">
+
+                        <div>
+
+                            <strong>5</strong>
+                            <span>Total Rentals</span>
+
+                        </div>
+
+                        <div>
+
+                            <strong>8</strong>
+                            <span>Orders Placed</span>
+
+                        </div>
+
+                        <div>
+
+                            <strong>4</strong>
+                            <span>Saved Items</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PERSONAL INFORMATION -->
+
+                <div class="information-card">
+
+                    <div class="card-heading">
+
+                        <div class="heading-icon yellow">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>Personal Information</h2>
+
+                            <p>
+                                Update your personal details
+                                and contact information.
+                            </p>
+
+                        </div>
+
+                        <button class="save-btn"
+                                id="saveProfileBtn">
+
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Save Changes
+
+                        </button>
+
+                    </div>
+
+
+                    <form id="profileForm">
+
+
+                        <div class="form-grid">
+
+
+                            <!-- Full Name -->
+
+                            <div class="form-group">
+
+                                <label>
+                                    Full Name <span>*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <i class="fa-regular fa-user"></i>
+
+                                    <input
+                                        type="text"
+                                        id="fullName"
+                                        value="Ankit Kumar"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- Account Type -->
+
+                            <div class="form-group">
+
+                                <label>Account Type</label>
+
+                                <div class="input-wrapper disabled">
+
+                                    <i class="fa-regular fa-user"></i>
+
+                                    <input
+                                        type="text"
+                                        value="Customer"
+                                        disabled
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- Email -->
+
+                            <div class="form-group">
+
+                                <label>
+                                    Email Address <span>*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <i class="fa-regular fa-envelope"></i>
+
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        value="ankitkumar123@gmail.com"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- Alternate Phone -->
+
+                            <div class="form-group">
+
+                                <label>
+                                    Alternate Phone
+                                    <small>(Optional)</small>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <i class="fa-solid fa-mobile-screen"></i>
+
+                                    <input
+                                        type="tel"
+                                        id="alternatePhone"
+                                        placeholder="+91 XXXXX XXXXX"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- Phone -->
+
+                            <div class="form-group">
+
+                                <label>
+                                    Phone Number <span>*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <i class="fa-solid fa-mobile-screen"></i>
+
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        value="+91 98765 43210"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- Address -->
+
+                            <div class="form-group">
+
+                                <label>
+                                    Address <span>*</span>
+                                </label>
+
+                                <div class="input-wrapper textarea-wrapper">
+
+                                    <i class="fa-solid fa-location-dot"></i>
+
+                                    <textarea
+                                        id="address"
+                                        required
+                                    >Sector 62, Noida, Uttar Pradesh</textarea>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- Date of Birth -->
+
+                            <div class="form-group">
+
+                                <label>Date of Birth</label>
+
+                                <div class="input-wrapper">
+
+                                    <i class="fa-regular fa-calendar"></i>
+
+                                    <input
+                                        type="date"
+                                        id="dob"
+                                        value="2003-03-15"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- Pincode -->
+
+                            <div class="form-group">
+
+                                <label>
+                                    Pincode <span>*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <i class="fa-solid fa-location-dot"></i>
+
+                                    <input
+                                        type="text"
+                                        id="pincode"
+                                        value="201309"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BOTTOM GRID
+            ================================================== -->
+
+            <div class="bottom-grid">
+
+
+                <!-- =================================================
+                     QUICK ACTIONS
+                ================================================== -->
+
+                <div class="bottom-card">
+
+                    <div class="bottom-card-heading">
+
+                        <div class="heading-icon yellow">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>Quick Actions</h2>
+
+                            <p>
+                                Manage your account and preferences.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+
+                        <button class="quick-action"
+                                data-action="edit">
+
+                            <div class="quick-icon blue">
+                                <i class="fa-solid fa-pen"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>Edit Profile</strong>
+
+                                <span>
+                                    Update your personal information
+                                </span>
+
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right arrow"></i>
+
+                        </button>
+
+
+
+                        <button class="quick-action"
+                                data-action="password">
+
+                            <div class="quick-icon purple">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>Change Password</strong>
+
+                                <span>
+                                    Keep your account secure
+                                </span>
+
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right arrow"></i>
+
+                        </button>
+
+
+
+                        <button class="quick-action"
+                                data-action="notifications">
+
+                            <div class="quick-icon orange">
+                                <i class="fa-regular fa-bell"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>Notification Settings</strong>
+
+                                <span>
+                                    Manage your preferences
+                                </span>
+
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right arrow"></i>
+
+                        </button>
+
+
+
+                        <button class="quick-action delete-action"
+                                data-action="delete">
+
+                            <div class="quick-icon red">
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>Delete Account</strong>
+
+                                <span>
+                                    Permanently delete your account
+                                </span>
+
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right arrow"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PREFERENCES
+                ================================================== -->
+
+                <div class="bottom-card">
+
+                    <div class="bottom-card-heading">
+
+                        <div class="heading-icon yellow">
+                            <i class="fa-solid fa-gear"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>Preferences</h2>
+
+                            <p>
+                                Customize your experience on BuildConnect.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="preferences-list">
+
+
+                        <!-- Email -->
+
+                        <div class="preference-row">
+
+                            <div class="preference-icon">
+                                <i class="fa-regular fa-envelope"></i>
+                            </div>
+
+                            <div class="preference-info">
+
+                                <strong>Email Notifications</strong>
+
+                                <span>
+                                    Receive updates about orders,
+                                    rentals and offers
+                                </span>
+
+                            </div>
+
+                            <label class="toggle">
+
+                                <input
+                                    type="checkbox"
+                                    checked
+                                    data-preference="email"
+                                >
+
+                                <span></span>
+
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- SMS -->
+
+                        <div class="preference-row">
+
+                            <div class="preference-icon">
+                                <i class="fa-solid fa-mobile-screen"></i>
+                            </div>
+
+                            <div class="preference-info">
+
+                                <strong>SMS Notifications</strong>
+
+                                <span>
+                                    Get important alerts on your phone
+                                </span>
+
+                            </div>
+
+                            <label class="toggle">
+
+                                <input
+                                    type="checkbox"
+                                    checked
+                                    data-preference="sms"
+                                >
+
+                                <span></span>
+
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- Marketing -->
+
+                        <div class="preference-row">
+
+                            <div class="preference-icon">
+                                <i class="fa-solid fa-bullhorn"></i>
+                            </div>
+
+                            <div class="preference-info">
+
+                                <strong>Marketing Updates</strong>
+
+                                <span>
+                                    Receive latest offers and promotions
+                                </span>
+
+                            </div>
+
+                            <label class="toggle">
+
+                                <input
+                                    type="checkbox"
+                                    data-preference="marketing"
+                                >
+
+                                <span></span>
+
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- Dark Mode -->
+
+                        <div class="preference-row">
+
+                            <div class="preference-icon">
+                                <i class="fa-regular fa-moon"></i>
+                            </div>
+
+                            <div class="preference-info">
+
+                                <strong>Dark Mode</strong>
+
+                                <span>
+                                    Switch to dark theme
+                                </span>
+
+                            </div>
+
+                            <label class="toggle">
+
+                                <input
+                                    type="checkbox"
+                                    data-preference="dark"
+                                >
+
+                                <span></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     CHANGE PASSWORD
+                ================================================== -->
+
+                <div class="bottom-card password-card">
+
+                    <div class="bottom-card-heading">
+
+                        <div class="heading-icon yellow">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>Change Password</h2>
+
+                            <p>
+                                Update your password to keep
+                                your account secure.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <form id="passwordForm">
+
+
+                        <!-- Current Password -->
+
+                        <div class="password-group">
+
+                            <label>
+                                Current Password <span>*</span>
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-lock"></i>
+
+                                <input
+                                    type="password"
+                                    id="currentPassword"
+                                    placeholder="Enter current password"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-eye"
+                                    data-target="currentPassword">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- New Password -->
+
+                        <div class="password-group">
+
+                            <label>
+                                New Password <span>*</span>
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-lock"></i>
+
+                                <input
+                                    type="password"
+                                    id="newPassword"
+                                    placeholder="Enter new password"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-eye"
+                                    data-target="newPassword">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- Confirm Password -->
+
+                        <div class="password-group">
+
+                            <label>
+                                Confirm New Password <span>*</span>
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-lock"></i>
+
+                                <input
+                                    type="password"
+                                    id="confirmPassword"
+                                    placeholder="Confirm new password"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-eye"
+                                    data-target="confirmPassword">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="update-password-btn">
+
+                            <i class="fa-solid fa-key"></i>
+
+                            Update Password
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FOOTER
+            ================================================== -->
+
+            <footer class="page-footer">
+
+                <span>
+                    © 2025 BuildConnect. All rights reserved.
+                </span>
+
+                <div>
+
+                    <a href="#">Terms & Conditions</a>
+
+                    <span>|</span>
+
+                    <a href="#">Privacy Policy</a>
+
+                    <span>|</span>
+
+                    <a href="#">Contact Us</a>
+
+                </div>
+
+            </footer>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- JavaScript -->
+
+<script src="{% static 'customer/js/profile.js' %}"></script>
+
+</body>
+</html>

@@ -126,3 +126,6 @@ def vehicles(request):
 
 def rentals(request):
     return render(request, "customer/rentals.html")
+
+def profile(request):
+    return render(request, "customer/profile.html")

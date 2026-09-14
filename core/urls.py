@@ -54,4 +54,10 @@ path(
     name="rentals"
 ),
 
+path(
+    "customer/profile/",
+    views.profile,
+    name="profile"
+),
+
 ]

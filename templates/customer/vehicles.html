@@ -160,9 +160,9 @@
 
 
         <a
-            href="#"
+            href="{% url 'profile' %}"
             class="sidebar-link"
-            data-coming-soon
+            
         >
 
             <i class="bi bi-person"></i>
@@ -172,7 +172,7 @@
         </a>
 
 
-        <a
+        {% comment %} <a
             href="#"
             class="sidebar-link"
             data-coming-soon
@@ -182,7 +182,7 @@
 
             <span>Settings</span>
 
-        </a>
+        </a> {% endcomment %}
 
     </nav>
 
