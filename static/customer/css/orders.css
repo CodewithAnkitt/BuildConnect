@@ -338,7 +338,7 @@ a {
 
 .sidebar-link {
 
-    min-height: 50px;
+    min-height: 40px;
 
     padding:
         0 18px;
@@ -349,7 +349,7 @@ a {
 
     gap: 17px;
 
-    border-radius: 8px;
+    border-radius: 50px;
 
     color:
         rgba(255,255,255,0.94);
@@ -416,9 +416,9 @@ a {
 
     right: 0;
 
-    bottom: 68px;
+    bottom: 40px;
 
-    height: 360px;
+    height: 350px;
 
     overflow: hidden;
 
@@ -492,7 +492,7 @@ a {
         "Playfair Display",
         serif;
 
-    font-size: 25px;
+    font-size: 20px;
 
     line-height: 1.16;
 

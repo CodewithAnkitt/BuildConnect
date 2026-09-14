@@ -48,4 +48,10 @@ path(
         name="logout"
     ),
 
+path(
+    "customer/rentals/",
+    views.rentals,
+    name="rentals"
+),
+
 ]

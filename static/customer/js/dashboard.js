@@ -511,10 +511,10 @@ document.addEventListener("DOMContentLoaded", function () {
             /* =============================================
                VEHICLES
             ============================================== */
-
-           case "vehicles":
-    window.location.href = "/customer/vehicles/";
-    break;
+             
+            case "vehicles":
+                window.location.href = "/customer/vehicles/";
+                break;
 
             /* =============================================
                RENTALS

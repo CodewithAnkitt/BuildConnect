@@ -123,3 +123,6 @@ def orders(request):
 
 def vehicles(request):
     return render(request, "customer/vehicles.html")
+
+def rentals(request):
+    return render(request, "customer/rentals.html")

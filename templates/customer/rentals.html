@@ -1,0 +1,1047 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Rentals | BuildConnect</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="{% static 'customer/css/rentals.css' %}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <!-- Logo -->
+        <div class="sidebar-logo">
+            <a href="{% url 'customer_dashboard' %}">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+
+                <div class="logo-text">
+                    <span>Build<span>Connect</span></span>
+                    <small>Materials. Machines. Made Easy.</small>
+                </div>
+            </a>
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'customer_dashboard' %}" class="sidebar-link">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{% url 'materials' %}" class="sidebar-link">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Browse Materials</span>
+            </a>
+
+             <a href="{% url 'orders' %}" class="sidebar-link">
+                <i class="fa-solid fa-box"></i>
+                <span>My Orders</span>
+            </a>
+
+            <a href="{% url 'vehicles' %}" class="sidebar-link">
+                <i class="fa-solid fa-truck"></i>
+                <span>Rent Vehicles</span>
+            </a>
+
+            <a href="{% url 'rentals' %}" class="sidebar-link active">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>My Rentals</span>
+            </a>
+
+           
+
+            <a href="#" class="sidebar-link">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <i class="fa-solid fa-headset"></i>
+                <span>Setting</span>
+            </a>
+
+        </nav>
+
+
+        <!-- Sidebar Promo -->
+
+        <div class="sidebar-promo">
+
+            <div class="promo-overlay"></div>
+
+            <div class="promo-content">
+                <p>BuildConnect</p>
+
+                <h3>
+                    Strong Infrastructure
+                    <br>
+                    Brighter Tomorrow
+                </h3>
+
+                <div class="promo-line"></div>
+            </div>
+
+        </div>
+
+
+        <!-- Logout -->
+
+        <a href="{% url 'logout' %}" class="logout-link">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+
+    </aside>
+
+
+    <!-- ================= MAIN AREA ================= -->
+
+    <main class="main-area">
+
+
+        <!-- ================= TOP HEADER ================= -->
+
+        <header class="top-header">
+
+            <button class="menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+
+            <div class="global-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    placeholder="Search materials, vehicles, orders..."
+                >
+
+            </div>
+
+
+            <div class="header-right">
+
+                <button class="notification-btn">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span>3</span>
+
+                </button>
+
+
+                <div class="profile-mini">
+
+                    <div class="profile-avatar">
+                        AK
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong>Ankit Kumar</strong>
+                        <small>Customer</small>
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= PAGE CONTENT ================= -->
+
+        <section class="page-content">
+
+
+            <!-- Breadcrumb -->
+
+            <div class="breadcrumb">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Dashboard</span>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+                <strong>My Rentals</strong>
+
+            </div>
+
+
+
+            <!-- Page Heading -->
+
+            <div class="page-heading">
+
+                <div class="heading-left">
+
+                    <div class="heading-icon">
+                        <i class="fa-regular fa-calendar"></i>
+                    </div>
+
+                    <div>
+
+                        <h1>My Rentals</h1>
+
+                        <p>
+                            Track and manage all your rented vehicles in one place.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a href="{% url 'vehicles' %}" class="rent-btn">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Rent a Vehicle
+
+                </a>
+
+            </div>
+
+
+
+            <!-- ================= SUMMARY CARDS ================= -->
+
+            <div class="summary-grid">
+
+
+                <!-- Active -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon active-icon">
+                        <i class="fa-solid fa-truck"></i>
+                    </div>
+
+                    <div class="summary-info">
+
+                        <strong>2</strong>
+
+                        <span>Active Rentals</span>
+
+                        <small>Currently in use</small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Upcoming -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon upcoming-icon">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+
+                    <div class="summary-info">
+
+                        <strong>1</strong>
+
+                        <span>Upcoming Rental</span>
+
+                        <small>Starting soon</small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Completed -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon completed-icon">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+
+                    <div class="summary-info">
+
+                        <strong>2</strong>
+
+                        <span>Completed Rentals</span>
+
+                        <small>Successfully finished</small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Total -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon total-icon">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+
+                    <div class="summary-info">
+
+                        <strong>5</strong>
+
+                        <span>Total Rentals</span>
+
+                        <small>Till date</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= FILTER BAR ================= -->
+
+            <div class="filter-area">
+
+
+                <div class="filter-tabs">
+
+                    <button class="filter-tab active">
+                        <i class="fa-solid fa-calendar"></i>
+                        All Rentals <b>(5)</b>
+                    </button>
+
+                    <button class="filter-tab">
+                        <span class="status-dot green"></span>
+                        Active <b>(2)</b>
+                    </button>
+
+                    <button class="filter-tab">
+                        <span class="status-dot blue"></span>
+                        Upcoming <b>(1)</b>
+                    </button>
+
+                    <button class="filter-tab">
+                        <span class="status-dot gray"></span>
+                        Completed <b>(2)</b>
+                    </button>
+
+                </div>
+
+
+                <div class="rental-search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        placeholder="Search your rentals..."
+                    >
+
+                </div>
+
+
+                <select class="sort-select">
+
+                    <option>Sort by</option>
+                    <option>Newest First</option>
+                    <option>Oldest First</option>
+                    <option>Highest Amount</option>
+                    <option>Lowest Amount</option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ================= RENTAL LIST ================= -->
+
+            <div class="rentals-list">
+
+
+                <!-- ===== RENTAL 1 ===== -->
+
+                <div class="rental-card">
+
+                    <div class="vehicle-image">
+
+                        <span class="vehicle-status active">
+                            <span></span>
+                            Active
+                        </span>
+
+                        <img
+                            src="{% static 'customer/vehicle_images/backhoeloader.png' %}"
+                            alt=" Backhoe Loader"
+                        >
+
+                    </div>
+
+
+                    <div class="vehicle-details">
+
+                        <h3> Backhoe Loader</h3>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-user-gear"></i>
+                                Model
+                            </span>
+                            <strong>JCB 3DX</strong>
+                        </div>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-gas-pump"></i>
+                                Fuel Type
+                            </span>
+                            <strong>Diesel</strong>
+                        </div>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-weight-hanging"></i>
+                                Capacity
+                            </span>
+                            <strong>1.1 m³</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-info">
+
+                        <div>
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <div>
+                                <small>Site Location</small>
+                                <strong>Construction Site, Noida</strong>
+                            </div>
+                        </div>
+
+                        <div>
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+
+                            <div>
+                                <small>Purpose</small>
+                                <strong>Digging and earthwork</strong>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-period">
+
+                        <div>
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <span>
+                                12 Sep 2025
+                                <br>
+                                <b>to</b>
+                                <br>
+                                15 Sep 2025
+                            </span>
+                        </div>
+
+                        <small>(4 days)</small>
+
+                    </div>
+
+
+                    <div class="rental-price">
+
+                        <strong>₹ 28,000</strong>
+
+                        <span>₹ 7,000 / day</span>
+
+                        <div class="remaining">
+                            2 days remaining
+                        </div>
+
+                        <div class="progress">
+                            <span style="width: 60%;"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-actions">
+
+                        <button class="view-btn">
+                            <i class="fa-solid fa-eye"></i>
+                            View Details
+                        </button>
+
+                        <button class="secondary-btn">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                            Extend Rental
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ===== RENTAL 2 ===== -->
+
+                <div class="rental-card">
+
+                    <div class="vehicle-image">
+
+                        <span class="vehicle-status upcoming">
+                            <span></span>
+                            Upcoming
+                        </span>
+
+                        <img
+                            src="{% static 'customer/vehicle_images/tipper.png' %}"
+                            alt="Tipper"
+                        >
+
+                    </div>
+
+
+                    <div class="vehicle-details">
+
+                        <h3>Tipper (6 Wheeler)</h3>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-user-gear"></i>
+                                Model
+                            </span>
+                            <strong>Tata 1616</strong>
+                        </div>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-weight-hanging"></i>
+                                Capacity
+                            </span>
+                            <strong>10 Ton</strong>
+                        </div>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-gas-pump"></i>
+                                Fuel Type
+                            </span>
+                            <strong>Diesel</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-info">
+
+                        <div>
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <div>
+                                <small>Site Location</small>
+                                <strong>Sector 62, Noida</strong>
+                            </div>
+                        </div>
+
+                        <div>
+                            <i class="fa-solid fa-flag"></i>
+
+                            <div>
+                                <small>Purpose</small>
+                                <strong>Soil transportation</strong>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-period">
+
+                        <div>
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <span>
+                                05 Sep 2025
+                                <br>
+                                <b>to</b>
+                                <br>
+                                10 Sep 2025
+                            </span>
+                        </div>
+
+                        <small>(6 days)</small>
+
+                    </div>
+
+
+                    <div class="rental-price">
+
+                        <strong>₹ 36,000</strong>
+
+                        <span>₹ 6,000 / day</span>
+
+                        <div class="remaining blue-text">
+                            Starts in 2 days
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-actions">
+
+                        <button class="view-btn">
+                            <i class="fa-solid fa-eye"></i>
+                            View Details
+                        </button>
+
+                        <button class="secondary-btn danger-btn">
+                            <i class="fa-solid fa-xmark"></i>
+                            Cancel Rental
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ===== RENTAL 3 ===== -->
+
+                <div class="rental-card">
+
+                    <div class="vehicle-image">
+
+                        <span class="vehicle-status completed">
+                            <span></span>
+                            Completed
+                        </span>
+
+                        <img
+                            src="{% static 'customer/vehicle_images/tractor.png' %}"
+                            alt="Tractor"
+                        >
+
+                    </div>
+
+
+                    <div class="vehicle-details">
+
+                        <h3>Tractor</h3>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-user-gear"></i>
+                                Model
+                            </span>
+                            <strong>Sonalika 745</strong>
+                        </div>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-weight-hanging"></i>
+                                Capacity
+                            </span>
+                            <strong>2 Ton</strong>
+                        </div>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-gas-pump"></i>
+                                Fuel Type
+                            </span>
+                            <strong>Diesel</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-info">
+
+                        <div>
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <div>
+                                <small>Site Location</small>
+                                <strong>Greater Noida</strong>
+                            </div>
+                        </div>
+
+                        <div>
+                            <i class="fa-solid fa-box"></i>
+
+                            <div>
+                                <small>Purpose</small>
+                                <strong>Material transportation</strong>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-period">
+
+                        <div>
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <span>
+                                20 Aug 2025
+                                <br>
+                                <b>to</b>
+                                <br>
+                                22 Aug 2025
+                            </span>
+                        </div>
+
+                        <small>(3 days)</small>
+
+                    </div>
+
+
+                    <div class="rental-price">
+
+                        <strong>₹ 9,000</strong>
+
+                        <span>₹ 3,000 / day</span>
+
+                        <div class="completed-label">
+                            Rental completed
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-actions">
+
+                        <button class="view-btn">
+                            <i class="fa-solid fa-eye"></i>
+                            View Details
+                        </button>
+
+                        <button class="secondary-btn">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            Book Again
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ===== RENTAL 4 ===== -->
+
+                <div class="rental-card">
+
+                    <div class="vehicle-image">
+
+                        <span class="vehicle-status active">
+                            <span></span>
+                            Active
+                        </span>
+
+                        <img
+                            src="{% static 'customer/vehicle_images/forklift.png' %}"
+                            alt="Forklift"
+                        >
+
+                    </div>
+
+
+                    <div class="vehicle-details">
+
+                        <h3>Forklift</h3>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-user-gear"></i>
+                                Model
+                            </span>
+                            <strong>Godrej 3 Ton</strong>
+                        </div>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-weight-hanging"></i>
+                                Capacity
+                            </span>
+                            <strong>3 Ton</strong>
+                        </div>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-bolt"></i>
+                                Fuel Type
+                            </span>
+                            <strong>Electric</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-info">
+
+                        <div>
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <div>
+                                <small>Site Location</small>
+                                <strong>Warehouse, Noida</strong>
+                            </div>
+                        </div>
+
+                        <div>
+                            <i class="fa-solid fa-boxes-stacked"></i>
+
+                            <div>
+                                <small>Purpose</small>
+                                <strong>Loading and unloading</strong>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-period">
+
+                        <div>
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <span>
+                                10 Aug 2025
+                                <br>
+                                <b>to</b>
+                                <br>
+                                12 Aug 2025
+                            </span>
+                        </div>
+
+                        <small>(3 days)</small>
+
+                    </div>
+
+
+                    <div class="rental-price">
+
+                        <strong>₹ 12,000</strong>
+
+                        <span>₹ 4,000 / day</span>
+
+                        <div class="remaining">
+                            1 day remaining
+                        </div>
+
+                        <div class="progress">
+                            <span style="width: 75%;"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-actions">
+
+                        <button class="view-btn">
+                            <i class="fa-solid fa-eye"></i>
+                            View Details
+                        </button>
+
+                        <button class="secondary-btn">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                            Extend Rental
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ===== RENTAL 5 ===== -->
+
+                <div class="rental-card">
+
+                    <div class="vehicle-image">
+
+                        <span class="vehicle-status completed">
+                            <span></span>
+                            Completed
+                        </span>
+
+                        <img
+                            src="{% static 'customer/vehicle_images/watertanker.png' %}"
+                            alt="Water Tanker"
+                        >
+
+                    </div>
+
+
+                    <div class="vehicle-details">
+
+                        <h3>Water Tanker</h3>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-user-gear"></i>
+                                Model
+                            </span>
+                            <strong>Ashok Leyland</strong>
+                        </div>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-weight-hanging"></i>
+                                Capacity
+                            </span>
+                            <strong>10,000 L</strong>
+                        </div>
+
+                        <div class="spec-row">
+                            <span>
+                                <i class="fa-solid fa-gas-pump"></i>
+                                Fuel Type
+                            </span>
+                            <strong>Diesel</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-info">
+
+                        <div>
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <div>
+                                <small>Site Location</small>
+                                <strong>Construction Site, Noida</strong>
+                            </div>
+                        </div>
+
+                        <div>
+                            <i class="fa-solid fa-droplet"></i>
+
+                            <div>
+                                <small>Purpose</small>
+                                <strong>Water supply</strong>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-period">
+
+                        <div>
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <span>
+                                01 Aug 2025
+                                <br>
+                                <b>to</b>
+                                <br>
+                                05 Aug 2025
+                            </span>
+                        </div>
+
+                        <small>(5 days)</small>
+
+                    </div>
+
+
+                    <div class="rental-price">
+
+                        <strong>₹ 15,000</strong>
+
+                        <span>₹ 3,000 / day</span>
+
+                        <div class="completed-label">
+                            Rental completed
+                        </div>
+
+                    </div>
+
+
+                    <div class="rental-actions">
+
+                        <button class="view-btn">
+                            <i class="fa-solid fa-eye"></i>
+                            View Details
+                        </button>
+
+                        <button class="secondary-btn">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            Book Again
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= FOOTER ================= -->
+
+            <div class="page-footer">
+
+                <span>
+                    Showing 1 to 5 of 5 rentals
+                </span>
+
+                <div class="pagination">
+
+                    <button>
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <button class="current">
+                        1
+                    </button>
+
+                    <button>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="{% static 'customer/js/rentals.js' %}"></script>
+
+</body>
+</html>
