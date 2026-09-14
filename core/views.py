@@ -129,3 +129,64 @@ def rentals(request):
 
 def profile(request):
     return render(request, "customer/profile.html")
+
+# Driver page
+
+def driver_dashboard(request):
+    return render(
+        request,
+        "driver/dashboard.html",
+        {
+            "user": request.user
+        }
+    )
+
+
+def driver_jobs(request):
+    return render(
+        request,
+        "driver/jobs.html",
+        {
+            "user": request.user
+        }
+    )
+
+
+def driver_my_jobs(request):
+    return render(
+        request,
+        "driver/my_jobs.html",
+        {
+            "user": request.user
+        }
+    )
+
+
+def driver_profile(request):
+    return render(
+        request,
+        "driver/profile.html",
+        {
+            "user": request.user
+        }
+    )
+
+
+def driver_earnings(request):
+    return render(
+        request,
+        "driver/earnings.html",
+        {
+            "user": request.user
+        }
+    )
+
+
+def driver_settings(request):
+    return render(
+        request,
+        "driver/settings.html",
+        {
+            "user": request.user
+        }
+    )

@@ -1,0 +1,1567 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Jobs | BuildConnect</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'driver/css/my_jobs.css' %}">
+
+</head>
+
+
+<body>
+
+<div class="driver-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="driver-sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="sidebar-logo">
+
+            <img src="{% static 'images/nav-logo.png' %}"
+                 alt="BuildConnect">
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="driver-navigation">
+
+
+            <a href="{% url 'driver_dashboard' %}"
+               class="driver-nav-link">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'driver_jobs' %}"
+               class="driver-nav-link">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <span>
+                    Available Jobs
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'driver_my_jobs' %}"
+               class="driver-nav-link active">
+
+                <i class="fa-solid fa-truck"></i>
+
+                <span>
+                    My Jobs
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'driver_profile' %}"
+               class="driver-nav-link">
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>
+                    Profile
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'driver_earnings' %}"
+               class="driver-nav-link">
+
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                <span>
+                    Earnings
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'driver_settings' %}"
+               class="driver-nav-link">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-divider"></div>
+
+
+            <a href="{% url 'logout' %}"
+               class="driver-nav-link logout-link">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+
+            <div class="driver-sidebar-message">
+
+                <strong>
+                    DRIVE.
+                </strong>
+
+                <br>
+
+                <span>
+                    DELIVER.
+                </span>
+
+                <br>
+
+                <b>
+                    BUILD.
+                </b>
+
+            </div>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="driver-main">
+
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+        <header class="driver-topbar">
+
+
+            <div class="driver-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="topSearch"
+                    placeholder="Search jobs, locations, materials..."
+                >
+
+            </div>
+
+
+            <div class="topbar-right">
+
+
+                <button class="notification-button">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span class="notification-count">
+                        3
+                    </span>
+
+                </button>
+
+
+                <div class="top-profile">
+
+
+                    <div class="profile-avatar">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+
+                    <div class="profile-details">
+
+                        <strong>
+                            {{ user.get_full_name|default:user.username }}
+                        </strong>
+
+                        <span>
+                            Driver
+                        </span>
+
+                    </div>
+
+
+                    <div class="driver-online-status">
+
+                        <span class="online-dot"></span>
+
+                        Online
+
+                    </div>
+
+
+                    <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE
+        ================================================== -->
+
+        <section class="my-jobs-page">
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="my-jobs-hero">
+
+
+                <div class="hero-overlay"></div>
+
+
+                <div class="hero-content">
+
+
+                    <div class="breadcrumb">
+
+                        <a href="{% url 'driver_dashboard' %}">
+                            Dashboard
+                        </a>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                        <span>
+                            My Jobs
+                        </span>
+
+                    </div>
+
+
+                    <h1>
+                        My Jobs
+                    </h1>
+
+
+                    <p>
+                        Track your deliveries, manage your work,
+                        <br>
+                        and keep moving forward.
+                    </p>
+
+
+                    <!-- HERO STATS -->
+
+                    <div class="hero-stats">
+
+
+                        <div class="hero-stat">
+
+                            <i class="fa-regular fa-clipboard"></i>
+
+                            <div>
+
+                                <strong>
+                                    12
+                                </strong>
+
+                                <span>
+                                    Total Jobs
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="hero-divider"></div>
+
+
+                        <div class="hero-stat">
+
+                            <i class="fa-solid fa-play"></i>
+
+                            <div>
+
+                                <strong>
+                                    3
+                                </strong>
+
+                                <span>
+                                    Active Jobs
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="hero-divider"></div>
+
+
+                        <div class="hero-stat">
+
+                            <i class="fa-solid fa-check"></i>
+
+                            <div>
+
+                                <strong>
+                                    6
+                                </strong>
+
+                                <span>
+                                    Completed Jobs
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="hero-divider"></div>
+
+
+                        <div class="hero-stat">
+
+                            <i class="fa-regular fa-clock"></i>
+
+                            <div>
+
+                                <strong>
+                                    2
+                                </strong>
+
+                                <span>
+                                    Pending Applications
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-slogan">
+
+                    <span>
+                        Desh
+                    </span>
+
+                    <span>
+                        Chalta Hai
+                    </span>
+
+                    <span>
+                        Humse
+                    </span>
+
+                    <div></div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 JOB FILTER BAR
+            ================================================== -->
+
+            <section class="jobs-filter-bar">
+
+
+                <div class="job-tabs">
+
+
+                    <button
+                        class="job-tab active"
+                        data-status="all">
+
+                        All Jobs
+
+                    </button>
+
+
+                    <button
+                        class="job-tab"
+                        data-status="applied">
+
+                        Applied
+
+                    </button>
+
+
+                    <button
+                        class="job-tab"
+                        data-status="accepted">
+
+                        Accepted
+
+                    </button>
+
+
+                    <button
+                        class="job-tab"
+                        data-status="progress">
+
+                        In Progress
+
+                    </button>
+
+
+                    <button
+                        class="job-tab"
+                        data-status="completed">
+
+                        Completed
+
+                    </button>
+
+
+                    <button
+                        class="job-tab"
+                        data-status="cancelled">
+
+                        Cancelled
+
+                    </button>
+
+
+                </div>
+
+
+                <div class="sort-box">
+
+                    <span>
+                        Sort by
+                    </span>
+
+                    <select id="sortJobs">
+
+                        <option value="newest">
+                            Newest First
+                        </option>
+
+                        <option value="oldest">
+                            Oldest First
+                        </option>
+
+                        <option value="payment">
+                            Highest Payment
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 JOB COUNT
+            ================================================== -->
+
+            <div class="jobs-toolbar">
+
+                <span>
+                    Showing
+                    <strong id="jobCount">
+                        5
+                    </strong>
+                    of 12 jobs
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 JOB LIST
+            ================================================== -->
+
+            <div class="my-jobs-list"
+                 id="myJobsList">
+
+
+
+                <!-- =================================================
+                     JOB 1
+                ================================================== -->
+
+                <article class="my-job-card"
+                         data-status="progress"
+                         data-payment="3200"
+                         data-date="2025-09-15">
+
+
+                    <div class="job-image">
+
+                        <img
+                            src="{% static 'driver/images/jobs/sand-delivery.jpg' %}"
+                            alt="Sand Delivery"
+                        >
+
+                    </div>
+
+
+                    <div class="job-main">
+
+
+                        <div class="job-heading">
+
+                            <div>
+
+                                <h2>
+                                    Sand Delivery
+                                </h2>
+
+                                <p>
+                                    ABC Construction
+                                </p>
+
+                            </div>
+
+
+                            <span class="status-badge progress">
+                                In Progress
+                            </span>
+
+                        </div>
+
+
+                        <div class="job-route">
+
+
+                            <div class="location">
+
+                                <i class="fa-solid fa-location-dot pickup"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Wagholi, Pune
+                                    </strong>
+
+                                    <span>
+                                        28 km
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <i class="fa-solid fa-arrow-right route-arrow"></i>
+
+
+                            <div class="location">
+
+                                <i class="fa-solid fa-location-dot delivery"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Hinjawadi, Pune
+                                    </strong>
+
+                                    <span>
+                                        Delivery Location
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-info">
+
+
+                        <div class="info-item">
+
+                            <i class="fa-solid fa-truck"></i>
+
+                            <div>
+
+                                <strong>
+                                    Tipper
+                                </strong>
+
+                                <span>
+                                    Vehicle
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <i class="fa-solid fa-box"></i>
+
+                            <div>
+
+                                <strong>
+                                    20 Tons
+                                </strong>
+
+                                <span>
+                                    Material
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="job-payment">
+
+                        <strong>
+                            ₹3,200
+                        </strong>
+
+                        <span>
+                            Payment
+                        </span>
+
+                    </div>
+
+
+                    <div class="job-date">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <div>
+
+                            <strong>
+                                15 Sep 2025
+                            </strong>
+
+                            <span>
+                                Started on 15 Sep
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-action">
+
+                        <button class="view-job-button">
+
+                            View Details
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     JOB 2
+                ================================================== -->
+
+                <article class="my-job-card"
+                         data-status="accepted"
+                         data-payment="2800"
+                         data-date="2025-09-16">
+
+
+                    <div class="job-image">
+
+                        <img
+                            src="{% static 'driver/images/jobs/soil-delivery.jpg' %}"
+                            alt="Soil Delivery"
+                        >
+
+                    </div>
+
+
+                    <div class="job-main">
+
+
+                        <div class="job-heading">
+
+                            <div>
+
+                                <h2>
+                                    Soil Delivery
+                                </h2>
+
+                                <p>
+                                    BuildPro Developers
+                                </p>
+
+                            </div>
+
+
+                            <span class="status-badge accepted">
+                                Accepted
+                            </span>
+
+                        </div>
+
+
+                        <div class="job-route">
+
+                            <div class="location">
+
+                                <i class="fa-solid fa-location-dot pickup"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Talegaon, Pune
+                                    </strong>
+
+                                    <span>
+                                        35 km
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <i class="fa-solid fa-arrow-right route-arrow"></i>
+
+
+                            <div class="location">
+
+                                <i class="fa-solid fa-location-dot delivery"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Pimpri, Pune
+                                    </strong>
+
+                                    <span>
+                                        Delivery Location
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-info">
+
+                        <div class="info-item">
+
+                            <i class="fa-solid fa-truck"></i>
+
+                            <div>
+
+                                <strong>
+                                    Truck
+                                </strong>
+
+                                <span>
+                                    Vehicle
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <i class="fa-solid fa-box"></i>
+
+                            <div>
+
+                                <strong>
+                                    15 Tons
+                                </strong>
+
+                                <span>
+                                    Material
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-payment">
+
+                        <strong>
+                            ₹2,800
+                        </strong>
+
+                        <span>
+                            Payment
+                        </span>
+
+                    </div>
+
+
+                    <div class="job-date">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <div>
+
+                            <strong>
+                                16 Sep 2025
+                            </strong>
+
+                            <span>
+                                Starting Tomorrow
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-action">
+
+                        <button class="view-job-button">
+
+                            View Details
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     JOB 3
+                ================================================== -->
+
+                <article class="my-job-card"
+                         data-status="completed"
+                         data-payment="5200"
+                         data-date="2025-09-12">
+
+
+                    <div class="job-image">
+
+                        <img
+                            src="{% static 'driver/images/jobs/coal-transport.jpg' %}"
+                            alt="Coal Transport"
+                        >
+
+                    </div>
+
+
+                    <div class="job-main">
+
+
+                        <div class="job-heading">
+
+                            <div>
+
+                                <h2>
+                                    Coal Transport
+                                </h2>
+
+                                <p>
+                                    Metro Infra Ltd.
+                                </p>
+
+                            </div>
+
+
+                            <span class="status-badge completed">
+                                Completed
+                            </span>
+
+                        </div>
+
+
+                        <div class="job-route">
+
+                            <div class="location">
+
+                                <i class="fa-solid fa-location-dot pickup"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Panvel, Mumbai
+                                    </strong>
+
+                                    <span>
+                                        120 km
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <i class="fa-solid fa-arrow-right route-arrow"></i>
+
+
+                            <div class="location">
+
+                                <i class="fa-solid fa-location-dot delivery"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Pune
+                                    </strong>
+
+                                    <span>
+                                        Delivery Location
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-info">
+
+                        <div class="info-item">
+
+                            <i class="fa-solid fa-truck"></i>
+
+                            <div>
+
+                                <strong>
+                                    Heavy Truck
+                                </strong>
+
+                                <span>
+                                    Vehicle
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <i class="fa-solid fa-box"></i>
+
+                            <div>
+
+                                <strong>
+                                    25 Tons
+                                </strong>
+
+                                <span>
+                                    Material
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-payment">
+
+                        <strong>
+                            ₹5,200
+                        </strong>
+
+                        <span>
+                            Payment
+                        </span>
+
+                    </div>
+
+
+                    <div class="job-date">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <div>
+
+                            <strong>
+                                12 Sep 2025
+                            </strong>
+
+                            <span>
+                                Delivered on 12 Sep
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-action">
+
+                        <button class="view-job-button">
+
+                            View Details
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     JOB 4
+                ================================================== -->
+
+                <article class="my-job-card"
+                         data-status="applied"
+                         data-payment="3500"
+                         data-date="2025-09-10">
+
+
+                    <div class="job-image">
+
+                        <img
+                            src="{% static 'driver/images/jobs/gravel-delivery.jpg' %}"
+                            alt="Gravel Delivery"
+                        >
+
+                    </div>
+
+
+                    <div class="job-main">
+
+
+                        <div class="job-heading">
+
+                            <div>
+
+                                <h2>
+                                    Gravel Delivery
+                                </h2>
+
+                                <p>
+                                    Pune Materials Co.
+                                </p>
+
+                            </div>
+
+
+                            <span class="status-badge applied">
+                                Applied
+                            </span>
+
+                        </div>
+
+
+                        <div class="job-route">
+
+                            <div class="location">
+
+                                <i class="fa-solid fa-location-dot pickup"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Nashik
+                                    </strong>
+
+                                    <span>
+                                        82 km
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <i class="fa-solid fa-arrow-right route-arrow"></i>
+
+
+                            <div class="location">
+
+                                <i class="fa-solid fa-location-dot delivery"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Pune
+                                    </strong>
+
+                                    <span>
+                                        Delivery Location
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-info">
+
+                        <div class="info-item">
+
+                            <i class="fa-solid fa-truck"></i>
+
+                            <div>
+
+                                <strong>
+                                    Tipper
+                                </strong>
+
+                                <span>
+                                    Vehicle
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <i class="fa-solid fa-box"></i>
+
+                            <div>
+
+                                <strong>
+                                    18 Tons
+                                </strong>
+
+                                <span>
+                                    Material
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-payment">
+
+                        <strong>
+                            ₹3,500
+                        </strong>
+
+                        <span>
+                            Payment
+                        </span>
+
+                    </div>
+
+
+                    <div class="job-date">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <div>
+
+                            <strong>
+                                10 Sep 2025
+                            </strong>
+
+                            <span>
+                                Waiting for response
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-action">
+
+                        <button class="view-job-button">
+
+                            View Details
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     JOB 5
+                ================================================== -->
+
+                <article class="my-job-card"
+                         data-status="cancelled"
+                         data-payment="4100"
+                         data-date="2025-09-10">
+
+
+                    <div class="job-image">
+
+                        <img
+                            src="{% static 'driver/images/jobs/stone-delivery.jpg' %}"
+                            alt="Crushed Stone Delivery"
+                        >
+
+                    </div>
+
+
+                    <div class="job-main">
+
+
+                        <div class="job-heading">
+
+                            <div>
+
+                                <h2>
+                                    Crushed Stone
+                                </h2>
+
+                                <p>
+                                    Skyline Builders
+                                </p>
+
+                            </div>
+
+
+                            <span class="status-badge cancelled">
+                                Cancelled
+                            </span>
+
+                        </div>
+
+
+                        <div class="job-route">
+
+                            <div class="location">
+
+                                <i class="fa-solid fa-location-dot pickup"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Hadapsar, Pune
+                                    </strong>
+
+                                    <span>
+                                        46 km
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <i class="fa-solid fa-arrow-right route-arrow"></i>
+
+
+                            <div class="location">
+
+                                <i class="fa-solid fa-location-dot delivery"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Chakan, Pune
+                                    </strong>
+
+                                    <span>
+                                        Delivery Location
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-info">
+
+                        <div class="info-item">
+
+                            <i class="fa-solid fa-truck"></i>
+
+                            <div>
+
+                                <strong>
+                                    Tipper
+                                </strong>
+
+                                <span>
+                                    Vehicle
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <i class="fa-solid fa-box"></i>
+
+                            <div>
+
+                                <strong>
+                                    22 Tons
+                                </strong>
+
+                                <span>
+                                    Material
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-payment">
+
+                        <strong>
+                            ₹4,100
+                        </strong>
+
+                        <span>
+                            Payment
+                        </span>
+
+                    </div>
+
+
+                    <div class="job-date">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <div>
+
+                            <strong>
+                                10 Sep 2025
+                            </strong>
+
+                            <span>
+                                Cancelled by customer
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-action">
+
+                        <button class="view-job-button">
+
+                            View Details
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+                    </div>
+
+
+                </article>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PAGINATION
+            ================================================== -->
+
+            <div class="pagination">
+
+
+                <button class="page-arrow">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+
+                <button class="page-number active">
+                    1
+                </button>
+
+
+                <button class="page-number">
+                    2
+                </button>
+
+
+                <button class="page-number">
+                    3
+                </button>
+
+
+                <button class="page-arrow">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FOOTER
+            ================================================== -->
+
+            <footer class="driver-footer">
+
+
+                <div class="footer-brand">
+
+                    <strong>
+                        <span>Build</span>Connect
+                    </strong>
+
+                    <small>
+                        © 2026 BuildConnect. All rights reserved.
+                    </small>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <a href="#">
+                        Terms
+                    </a>
+
+                    <span>|</span>
+
+                    <a href="#">
+                        Privacy
+                    </a>
+
+                    <span>|</span>
+
+                    <a href="#">
+                        Contact
+                    </a>
+
+                </div>
+
+
+                <div class="footer-slogan">
+
+                    Keep<br>
+
+                    <strong>
+                        Driving
+                    </strong>
+
+                </div>
+
+
+            </footer>
+
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<script src="{% static 'driver/js/my_jobs.js' %}"></script>
+
+</body>
+
+</html>

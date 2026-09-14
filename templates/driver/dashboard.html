@@ -1,0 +1,1124 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Driver Dashboard | BuildConnect</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Driver Dashboard CSS -->
+    <link rel="stylesheet" href="{% static 'driver/css/dashboard.css' %}">
+</head>
+
+<body>
+
+<div class="driver-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="driver-sidebar">
+
+        <!-- BIG LOGO -->
+        <div class="sidebar-logo">
+            <img src="{% static 'images/nav-logo.png' %}"
+                 alt="BuildConnect Logo">
+        </div>
+
+
+        <!-- NAVIGATION -->
+        <nav class="driver-navigation">
+
+            <a href="{% url 'driver_dashboard' %}"
+               class="driver-nav-link active">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="{% url 'driver_jobs' %}"
+               class="driver-nav-link">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <span>Available Jobs</span>
+
+            </a>
+
+
+            <a href="{% url 'driver_my_jobs' %}"
+               class="driver-nav-link">
+
+                <i class="fa-solid fa-truck"></i>
+
+                <span>My Jobs</span>
+
+            </a>
+
+
+            <a href="{% url 'driver_profile' %}"
+               class="driver-nav-link">
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>Profile</span>
+
+            </a>
+
+
+            <a href="{% url 'driver_earnings' %}"
+               class="driver-nav-link">
+
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                <span>Earnings</span>
+
+            </a>
+
+
+            <a href="{% url 'driver_settings' %}"
+               class="driver-nav-link">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-divider"></div>
+
+            <a href="{% url 'logout' %}"
+               class="driver-nav-link logout-link">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>Logout</span>
+
+            </a>
+
+
+            <div class="driver-sidebar-message">
+
+                <strong>DRIVE.</strong>
+                <br>
+                <span>DELIVER.</span>
+                <br>
+                <b>BUILD.</b>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="driver-main">
+
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+        <header class="driver-topbar">
+
+            <!-- SEARCH -->
+            <div class="driver-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input type="text"
+                       placeholder="Search jobs, locations, materials...">
+
+            </div>
+
+
+            <!-- TOP RIGHT -->
+            <div class="topbar-right">
+
+
+                <!-- NOTIFICATION -->
+                <button class="notification-button">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span class="notification-count">3</span>
+
+                </button>
+
+
+                <!-- PROFILE -->
+                <div class="top-profile">
+
+                    <div class="profile-avatar">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+
+                    <div class="profile-details">
+
+                        <strong>
+                            {{ user.get_full_name|default:user.username }}
+                        </strong>
+
+                        <span>Driver</span>
+
+                    </div>
+
+
+                    <div class="driver-online-status">
+
+                        <span class="online-dot"></span>
+
+                        Online
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+
+        <section class="dashboard-content">
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="driver-hero">
+
+                <div class="hero-overlay"></div>
+
+                <div class="hero-content">
+
+                    <p class="hero-greeting">
+                        Good Evening,
+                    </p>
+
+                    <h1>
+                        {{ user.get_full_name|default:user.username }}
+                        <span>👋</span>
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        Ready for your next journey?
+                    </p>
+
+                    <p class="hero-description">
+                        Let's keep things moving.
+                    </p>
+
+
+                    <div class="hero-quote">
+
+                        <span></span>
+
+                        <em>
+                            "Safe Drivers. Stronger Tomorrow."
+                        </em>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-slogan">
+
+                    <span>Drive</span>
+                    <span>Deliver</span>
+                    <span>Build</span>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 STAT CARDS
+            ================================================== -->
+
+            <section class="driver-stat-grid">
+
+
+                <!-- STATUS -->
+                <div class="driver-stat-card status-card">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-steering-wheel"></i>
+
+                    </div>
+
+                    <div class="stat-information">
+
+                        <span class="stat-label">
+                            Current Status
+                        </span>
+
+                        <div class="status-value">
+
+                            <strong>Available</strong>
+
+                            <i class="fa-solid fa-chevron-down"></i>
+
+                        </div>
+
+                        <small>
+                            Ready to take new jobs
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TODAY'S EARNINGS -->
+                <div class="driver-stat-card earnings-card">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-wallet"></i>
+
+                    </div>
+
+                    <div class="stat-information">
+
+                        <span class="stat-label">
+                            Today's Earnings
+                        </span>
+
+                        <strong class="stat-number">
+                            ₹2,500
+                        </strong>
+
+                        <span class="growth">
+
+                            <i class="fa-solid fa-arrow-up"></i>
+
+                            12%
+
+                        </span>
+
+                        <small>
+                            From 1 completed job
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COMPLETED JOBS -->
+                <div class="driver-stat-card completed-card">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-flag-checkered"></i>
+
+                    </div>
+
+                    <div class="stat-information">
+
+                        <span class="stat-label">
+                            Completed Jobs
+                        </span>
+
+                        <strong class="stat-number">
+                            18
+                        </strong>
+
+                        <small>
+                            This month
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DISTANCE -->
+                <div class="driver-stat-card distance-card">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-route"></i>
+
+                    </div>
+
+                    <div class="stat-information">
+
+                        <span class="stat-label">
+                            Total Distance
+                        </span>
+
+                        <strong class="stat-number">
+                            1,240 km
+                        </strong>
+
+                        <small>
+                            This month
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 MAIN DASHBOARD GRID
+            ================================================== -->
+
+            <section class="dashboard-grid">
+
+
+                <!-- =================================================
+                     LEFT COLUMN
+                ================================================== -->
+
+                <div class="dashboard-left">
+
+
+                    <!-- ACTIVE JOB -->
+                    <section class="dashboard-panel active-job-panel">
+
+                        <div class="panel-header">
+
+                            <div class="panel-title">
+
+                                <i class="fa-solid fa-truck"></i>
+
+                                <h2>
+                                    Current / Active Job
+                                </h2>
+
+                            </div>
+
+                            <a href="{% url 'driver_my_jobs' %}"
+                               class="view-all">
+
+                                View All
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+
+                        <!-- JOB CARD -->
+                        <div class="active-job-card">
+
+
+                            <!-- JOB IMAGE -->
+                            <div class="active-job-image">
+
+                                <img src="{% static 'customer/vehicle_images/10wheeldumper.png' %}"
+                                     alt="Tipper Truck">
+
+                            </div>
+
+
+                            <!-- JOB INFORMATION -->
+                            <div class="active-job-information">
+
+
+                                <div class="job-heading">
+
+                                    <h3>
+                                       Coal Delivery
+                                    </h3>
+
+                                    <span class="job-status">
+                                        In Progress
+                                    </span>
+
+                                </div>
+
+
+                                <div class="job-details-grid">
+
+
+                                    <div class="job-detail">
+
+                                        <i class="fa-solid fa-location-dot"></i>
+
+                                        <div>
+
+                                            <span>
+                                                Pickup Location
+                                            </span>
+
+                                            <strong>
+                                                Ramghar, jharkhand
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="job-detail">
+
+                                        <i class="fa-solid fa-wallet"></i>
+
+                                        <div>
+
+                                            <span>
+                                                Payment
+                                            </span>
+
+                                            <strong>
+                                                ₹8,900
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="job-detail">
+
+                                        <i class="fa-solid fa-location-crosshairs"></i>
+
+                                        <div>
+
+                                            <span>
+                                                Delivery Location
+                                            </span>
+
+                                            <strong>
+                                               Dhanbad , Jharkhand
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="job-detail">
+
+                                        <i class="fa-solid fa-truck"></i>
+
+                                        <div>
+
+                                            <span>
+                                                Vehicle
+                                            </span>
+
+                                            <strong>
+                                                Dumper  (10 Wheeler)
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="job-detail">
+
+                                        <i class="fa-solid fa-mountain"></i>
+
+                                        <div>
+
+                                            <span>
+                                                Material
+                                            </span>
+
+                                            <strong>
+                                                Coal (20 Tons)
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="job-detail">
+
+                                        <i class="fa-regular fa-clock"></i>
+
+                                        <div>
+
+                                            <span>
+                                                Expected Time
+                                            </span>
+
+                                            <strong>
+                                                Today, 4:30 PM
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="job-detail">
+
+                                        <i class="fa-solid fa-route"></i>
+
+                                        <div>
+
+                                            <span>
+                                                Distance
+                                            </span>
+
+                                            <strong>
+                                                60 km
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- JOB ACTIONS -->
+                                <div class="job-actions">
+
+                                    <button class="route-button">
+
+                                        <i class="fa-solid fa-location-arrow"></i>
+
+                                        View Route
+
+                                    </button>
+
+
+                                    <button class="status-button">
+
+                                        Update Status
+
+                                        <i class="fa-solid fa-chevron-down"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================================
+                         RECENT JOBS
+                    ================================================== -->
+
+                    <section class="dashboard-panel recent-jobs-panel">
+
+                        <div class="panel-header">
+
+                            <div class="panel-title">
+
+                                <i class="fa-regular fa-clock"></i>
+
+                                <h2>
+                                    Recent Jobs
+                                </h2>
+
+                            </div>
+
+                            <a href="{% url 'driver_my_jobs' %}"
+                               class="view-all">
+
+                                View All
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+
+                        <div class="jobs-table-wrapper">
+
+                            <table class="jobs-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>Date</th>
+
+                                        <th>Job Details</th>
+
+                                        <th>Route</th>
+
+                                        <th>Payment</th>
+
+                                        <th>Status</th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    <tr>
+
+                                        <td>
+                                            14 Sep 2026
+                                        </td>
+
+                                        <td>
+                                            <strong>Soil Delivery</strong>
+                                            <span>(10 Tons)</span>
+                                        </td>
+
+                                        <td>
+                                            Pune → Pimpri
+                                        </td>
+
+                                        <td>
+                                            ₹2,800
+                                        </td>
+
+                                        <td>
+                                            <span class="completed-status">
+                                                Completed
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            12 Sep 2026
+                                        </td>
+
+                                        <td>
+                                            <strong>Fly Ash Delivery</strong>
+                                            <span>(15 Tons)</span>
+                                        </td>
+
+                                        <td>
+                                            Wagholi → Kharadi
+                                        </td>
+
+                                        <td>
+                                            ₹2,200
+                                        </td>
+
+                                        <td>
+                                            <span class="completed-status">
+                                                Completed
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            10 Sep 2026
+                                        </td>
+
+                                        <td>
+                                            <strong>Construction Material</strong>
+                                            <span>(12 Tons)</span>
+                                        </td>
+
+                                        <td>
+                                            Pune → Hinjawadi
+                                        </td>
+
+                                        <td>
+                                            ₹3,000
+                                        </td>
+
+                                        <td>
+                                            <span class="completed-status">
+                                                Completed
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            08 Sep 2026
+                                        </td>
+
+                                        <td>
+                                            <strong>Sand Delivery</strong>
+                                            <span>(20 Tons)</span>
+                                        </td>
+
+                                        <td>
+                                            Pune → Chakan
+                                        </td>
+
+                                        <td>
+                                            ₹3,500
+                                        </td>
+
+                                        <td>
+                                            <span class="completed-status">
+                                                Completed
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     RIGHT COLUMN
+                ================================================== -->
+
+                <div class="dashboard-right">
+
+
+                    <!-- QUICK ACTIONS -->
+                    <section class="dashboard-panel quick-actions-panel">
+
+                        <div class="panel-header">
+
+                            <div class="panel-title">
+
+                                <i class="fa-solid fa-bolt"></i>
+
+                                <h2>
+                                    Quick Actions
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quick-actions-grid">
+
+
+                            <a href="{% url 'driver_jobs' %}"
+                               class="quick-action available-action">
+
+                                <div class="quick-icon">
+
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                                </div>
+
+                                <span>
+                                    Browse<br>
+                                    Available Jobs
+                                </span>
+
+                            </a>
+
+
+                            <button class="quick-action availability-action">
+
+                                <div class="quick-icon">
+
+                                    <i class="fa-solid fa-steering-wheel"></i>
+
+                                </div>
+
+                                <span>
+                                    Update<br>
+                                    Availability
+                                </span>
+
+                            </button>
+
+
+                            <a href="{% url 'driver_my_jobs' %}"
+                               class="quick-action jobs-action">
+
+                                <div class="quick-icon">
+
+                                    <i class="fa-solid fa-truck"></i>
+
+                                </div>
+
+                                <span>
+                                    View<br>
+                                    My Jobs
+                                </span>
+
+                            </a>
+
+
+                            <a href="{% url 'driver_earnings' %}"
+                               class="quick-action earnings-action">
+
+                                <div class="quick-icon">
+
+                                    <i class="fa-solid fa-wallet"></i>
+
+                                </div>
+
+                                <span>
+                                    View<br>
+                                    Earnings
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================================
+                         EARNINGS OVERVIEW
+                    ================================================== -->
+
+                    <section class="dashboard-panel earnings-overview-panel">
+
+                        <div class="panel-header">
+
+                            <div class="panel-title">
+
+                                <i class="fa-solid fa-chart-column"></i>
+
+                                <h2>
+                                    Earnings Overview
+                                </h2>
+
+                            </div>
+
+
+                            <select class="period-select">
+
+                                <option>
+                                    This Week
+                                </option>
+
+                                <option>
+                                    This Month
+                                </option>
+
+                                <option>
+                                    This Year
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="earnings-total">
+
+                            <strong>
+                                ₹12,500
+                            </strong>
+
+                            <span class="earnings-growth">
+                                ↑ 18%
+                            </span>
+
+                        </div>
+
+
+                        <div class="earnings-label">
+
+                            Total Earnings
+
+                            <span>
+                                vs last week
+                            </span>
+
+                        </div>
+
+
+                        <!-- SIMPLE CHART -->
+                        <div class="earnings-chart">
+
+                            <div class="chart-y-axis">
+
+                                <span>4K</span>
+                                <span>3K</span>
+                                <span>2K</span>
+                                <span>1K</span>
+                                <span>0</span>
+
+                            </div>
+
+
+                            <div class="chart-area">
+
+                                <div class="chart-bars">
+
+                                    <div class="chart-column">
+                                        <div class="bar" style="height: 28%;"></div>
+                                        <span>Mon</span>
+                                    </div>
+
+                                    <div class="chart-column">
+                                        <div class="bar" style="height: 34%;"></div>
+                                        <span>Tue</span>
+                                    </div>
+
+                                    <div class="chart-column">
+                                        <div class="bar" style="height: 52%;"></div>
+                                        <span>Wed</span>
+                                    </div>
+
+                                    <div class="chart-column">
+                                        <div class="bar" style="height: 78%;"></div>
+                                        <span>Thu</span>
+                                    </div>
+
+                                    <div class="chart-column">
+                                        <div class="bar" style="height: 30%;"></div>
+                                        <span>Fri</span>
+                                    </div>
+
+                                    <div class="chart-column">
+                                        <div class="bar" style="height: 43%;"></div>
+                                        <span>Sat</span>
+                                    </div>
+
+                                    <div class="chart-column">
+                                        <div class="bar" style="height: 27%;"></div>
+                                        <span>Sun</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- PROMOTIONAL CARD -->
+                    <section class="driver-promo-card">
+
+                        <div class="promo-overlay"></div>
+
+                        <div class="promo-content">
+
+                            <strong>
+                                Same Roads.
+                            </strong>
+
+                            <strong>
+                                Bigger Opportunities.
+                            </strong>
+
+                            <b>
+                                BuildConnect
+                            </b>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 FOOTER
+            ================================================== -->
+
+            <footer class="driver-footer">
+
+                <div class="footer-brand">
+
+                    <strong>
+                        <span>Build</span>Connect
+                    </strong>
+
+                    <small>
+                        © 2026 BuildConnect. All rights reserved.
+                    </small>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <a href="#">Terms</a>
+
+                    <span>|</span>
+
+                    <a href="#">Privacy</a>
+
+                    <span>|</span>
+
+                    <a href="#">Contact</a>
+
+                </div>
+
+
+                <div class="footer-slogan">
+                    Keep<br>
+                    <strong>Driving</strong>
+                </div>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- Driver Dashboard JS -->
+<script src="{% static 'driver/js/dashboard.js' %}"></script>
+
+</body>
+</html>
