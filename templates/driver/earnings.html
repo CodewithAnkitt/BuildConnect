@@ -1,0 +1,1133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Earnings | BuildConnect</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'driver/css/earnings.css' %}">
+</head>
+
+<body>
+
+<div class="driver-app">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="driver-sidebar">
+
+        <!-- Background image -->
+        <div class="sidebar-bg"></div>
+
+
+        <!-- Logo -->
+        <div class="sidebar-logo">
+
+            <img
+                src="{% static 'images/nav-logo.png' %}"
+                alt="BuildConnect">
+
+        </div>
+
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'driver_dashboard' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="{% url 'driver_jobs' %}"
+   class="sidebar-link">
+
+                <i class="fa-solid fa-list-check"></i>
+
+                <span>Available Jobs</span>
+
+            </a>
+
+
+            <a href="{% url 'driver_my_jobs' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-truck"></i>
+
+                <span>My Jobs</span>
+
+            </a>
+
+
+            <a href="{% url 'driver_profile' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>Profile</span>
+
+            </a>
+
+
+            <a href="{% url 'driver_earnings' %}"
+               class="sidebar-link active">
+
+                <i class="fa-solid fa-wallet"></i>
+
+                <span>Earnings</span>
+
+            </a>
+
+
+           
+
+
+            <a href="#"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+
+            <div class="sidebar-separator"></div>
+
+
+            <a href="{% url 'logout' %}"
+               class="sidebar-link logout">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>Logout</span>
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP NAVBAR
+        ================================================== -->
+
+        <header class="top-navbar">
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    placeholder="Search jobs, locations, materials...">
+
+                <span class="search-shortcut">
+                    Ctrl + K
+                </span>
+
+            </div>
+
+
+            <div class="top-right">
+
+                <button class="notification-btn">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span>3</span>
+
+                </button>
+
+
+                <div class="top-user">
+
+                    <div class="top-user-photo">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                    <div class="top-user-info">
+
+                        <strong>Ankit Kumar</strong>
+
+                        <small>Driver</small>
+
+                    </div>
+
+                    <div class="online-status">
+
+                        <span></span>
+
+                        Online
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <div class="earnings-page">
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="earnings-hero">
+
+                <img
+                    src="{% static 'driver/images/earning-nav-hero.png' %}"
+                    alt="Driver Earnings">
+
+            </section>
+
+
+
+            <!-- =================================================
+                 EARNING STAT CARDS
+            ================================================== -->
+
+            <section class="earning-cards">
+
+
+                <div class="earning-card blue-card">
+
+                    <div class="earning-icon">
+
+                        <i class="fa-solid fa-wallet"></i>
+
+                    </div>
+
+                    <div class="earning-info">
+
+                        <span>Total Earnings</span>
+
+                        <strong>₹ 1,24,560</strong>
+
+                        <small>All time earnings</small>
+
+                    </div>
+
+                    <div class="growth">
+
+                        ↑ 12%
+
+                    </div>
+
+                    <div class="mini-chart blue-chart">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="earning-card green-card">
+
+                    <div class="earning-icon">
+
+                        <i class="fa-solid fa-calendar-days"></i>
+
+                    </div>
+
+                    <div class="earning-info">
+
+                        <span>This Month</span>
+
+                        <strong>₹ 24,320</strong>
+
+                        <small>September 2026</small>
+
+                    </div>
+
+                    <div class="growth">
+
+                        ↑ 8%
+
+                    </div>
+
+                    <div class="mini-chart green-chart">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="earning-card orange-card">
+
+                    <div class="earning-icon">
+
+                        <i class="fa-solid fa-calendar-week"></i>
+
+                    </div>
+
+                    <div class="earning-info">
+
+                        <span>This Week</span>
+
+                        <strong>₹ 6,780</strong>
+
+                        <small>14 - 20 Sep 2026</small>
+
+                    </div>
+
+                    <div class="growth">
+
+                        ↑ 15%
+
+                    </div>
+
+                    <div class="mini-chart orange-chart">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="earning-card purple-card">
+
+                    <div class="earning-icon">
+
+                        <i class="fa-solid fa-hourglass-half"></i>
+
+                    </div>
+
+                    <div class="earning-info">
+
+                        <span>Pending Payment</span>
+
+                        <strong>₹ 3,450</strong>
+
+                        <small>To be transferred</small>
+
+                    </div>
+
+                    <div class="mini-chart purple-chart">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 MAIN ANALYTICS
+            ================================================== -->
+
+            <section class="analytics-grid">
+
+
+                <!-- Earnings Overview -->
+
+                <div class="panel earnings-overview">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+
+                            <div class="panel-icon blue">
+
+                                <i class="fa-solid fa-chart-column"></i>
+
+                            </div>
+
+                            <h3>Earnings Overview</h3>
+
+                        </div>
+
+
+                        <div class="chart-controls">
+
+                            <button>Weekly</button>
+
+                            <button class="selected">
+                                Monthly
+                            </button>
+
+                            <button>Yearly</button>
+
+
+                            <select>
+
+                                <option>
+                                    Sep 2025 - Sep 2026
+                                </option>
+
+                                <option>
+                                    Jan 2026 - Sep 2026
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="bar-chart">
+
+                        <div class="chart-y">
+
+                            <span>50K</span>
+                            <span>40K</span>
+                            <span>30K</span>
+                            <span>20K</span>
+                            <span>10K</span>
+                            <span>0</span>
+
+                        </div>
+
+
+                        <div class="chart-area">
+
+                            <div class="grid-lines"></div>
+
+
+                            <div class="bar-group">
+
+                                <div class="bar"
+                                     data-value="18420"
+                                     style="height:45%;">
+                                    <label>₹ 18,420</label>
+                                </div>
+
+                                <span>Oct</span>
+
+                            </div>
+
+
+                            <div class="bar-group">
+
+                                <div class="bar"
+                                     data-value="22560"
+                                     style="height:55%;">
+                                    <label>₹ 22,560</label>
+                                </div>
+
+                                <span>Nov</span>
+
+                            </div>
+
+
+                            <div class="bar-group">
+
+                                <div class="bar"
+                                     data-value="27300"
+                                     style="height:67%;">
+                                    <label>₹ 27,300</label>
+                                </div>
+
+                                <span>Dec</span>
+
+                            </div>
+
+
+                            <div class="bar-group highest">
+
+                                <div class="bar"
+                                     data-value="31860"
+                                     style="height:78%;">
+                                    <label>₹ 31,860</label>
+                                </div>
+
+                                <span>Jan</span>
+
+                            </div>
+
+
+                            <div class="bar-group">
+
+                                <div class="bar"
+                                     data-value="28450"
+                                     style="height:70%;">
+                                    <label>₹ 28,450</label>
+                                </div>
+
+                                <span>Feb</span>
+
+                            </div>
+
+
+                            <div class="bar-group">
+
+                                <div class="bar"
+                                     data-value="24320"
+                                     style="height:60%;">
+                                    <label>₹ 24,320</label>
+                                </div>
+
+                                <span>Mar</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Earnings Summary -->
+
+                <div class="panel earnings-summary">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+
+                            <div class="panel-icon purple">
+
+                                <i class="fa-solid fa-chart-pie"></i>
+
+                            </div>
+
+                            <h3>Earnings Summary</h3>
+
+                        </div>
+
+
+                        <select class="month-select">
+
+                            <option>This Month</option>
+
+                            <option>Last Month</option>
+
+                            <option>This Year</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="summary-content">
+
+                        <div class="donut">
+
+                            <div class="donut-center">
+
+                                <strong>₹ 24,320</strong>
+
+                                <span>This Month</span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="summary-list">
+
+                            <div>
+
+                                <span class="dot green"></span>
+
+                                <span>Completed Jobs</span>
+
+                                <strong>28</strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span class="dot blue"></span>
+
+                                <span>Total Trips</span>
+
+                                <strong>32</strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span class="dot orange"></span>
+
+                                <span>Distance Covered</span>
+
+                                <strong>2,640 KM</strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span class="dot purple"></span>
+
+                                <span>Avg. Earning per Trip</span>
+
+                                <strong>₹ 760</strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="success-message">
+
+                        <div class="success-icon">
+
+                            <i class="fa-solid fa-star"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>Great Going!</strong>
+
+                            <span>
+                                You earned 18% more than last month.
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-chart-column growth-icon"></i>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 LOWER SECTION
+            ================================================== -->
+
+            <section class="lower-grid">
+
+
+                <!-- Recent Jobs -->
+
+                <div class="panel recent-jobs">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+
+                            <div class="panel-icon blue">
+
+                                <i class="fa-solid fa-truck"></i>
+
+                            </div>
+
+                            <h3>Recent Completed Jobs</h3>
+
+                        </div>
+
+
+                        <button class="view-all">
+                            View All Jobs
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Job ID</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Distance</th>
+                                <th>Earning</th>
+                                <th>Status</th>
+
+                            </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                            <tr>
+
+                                <td>1</td>
+                                <td>15 Sep 2026</td>
+                                <td>BCJ00123</td>
+                                <td>Pune</td>
+                                <td>Mumbai</td>
+                                <td>150 KM</td>
+                                <td class="amount">
+                                    ₹ 4,200
+                                </td>
+                                <td>
+                                    <span class="status completed">
+                                        ● Completed
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>2</td>
+                                <td>12 Sep 2026</td>
+                                <td>BCJ00119</td>
+                                <td>Nashik</td>
+                                <td>Pune</td>
+                                <td>220 KM</td>
+                                <td class="amount">
+                                    ₹ 5,800
+                                </td>
+                                <td>
+                                    <span class="status completed">
+                                        ● Completed
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>3</td>
+                                <td>10 Sep 2026</td>
+                                <td>BCJ00115</td>
+                                <td>Aurangabad</td>
+                                <td>Nashik</td>
+                                <td>180 KM</td>
+                                <td class="amount">
+                                    ₹ 4,950
+                                </td>
+                                <td>
+                                    <span class="status completed">
+                                        ● Completed
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>4</td>
+                                <td>08 Sep 2026</td>
+                                <td>BCJ00112</td>
+                                <td>Mumbai</td>
+                                <td>Pune</td>
+                                <td>160 KM</td>
+                                <td class="amount">
+                                    ₹ 4,500
+                                </td>
+                                <td>
+                                    <span class="status completed">
+                                        ● Completed
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>5</td>
+                                <td>05 Sep 2026</td>
+                                <td>BCJ00108</td>
+                                <td>Solapur</td>
+                                <td>Pune</td>
+                                <td>300 KM</td>
+                                <td class="amount">
+                                    ₹ 7,800
+                                </td>
+                                <td>
+                                    <span class="status completed">
+                                        ● Completed
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Payment History -->
+
+                <div class="panel payment-history">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+
+                            <div class="panel-icon blue">
+
+                                <i class="fa-solid fa-building-columns"></i>
+
+                            </div>
+
+                            <h3>Payment History</h3>
+
+                        </div>
+
+
+                        <button class="view-all">
+                            View All
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                    </div>
+
+
+                    <div class="payment-list">
+
+
+                        <div class="payment-row">
+
+                            <div>
+                                <span>Date</span>
+                                <strong>10 Sep 2026</strong>
+                            </div>
+
+                            <div>
+                                <span>Amount</span>
+                                <strong>₹ 12,450</strong>
+                            </div>
+
+                            <span class="paid">
+                                ● Paid
+                            </span>
+
+                            <button class="download-btn">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+
+                        </div>
+
+
+                        <div class="payment-row">
+
+                            <div>
+                                <span>Date</span>
+                                <strong>03 Sep 2026</strong>
+                            </div>
+
+                            <div>
+                                <span>Amount</span>
+                                <strong>₹ 18,700</strong>
+                            </div>
+
+                            <span class="paid">
+                                ● Paid
+                            </span>
+
+                            <button class="download-btn">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+
+                        </div>
+
+
+                        <div class="payment-row">
+
+                            <div>
+                                <span>Date</span>
+                                <strong>24 Aug 2026</strong>
+                            </div>
+
+                            <div>
+                                <span>Amount</span>
+                                <strong>₹ 15,600</strong>
+                            </div>
+
+                            <span class="paid">
+                                ● Paid
+                            </span>
+
+                            <button class="download-btn">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+
+                        </div>
+
+
+                        <div class="payment-row">
+
+                            <div>
+                                <span>Date</span>
+                                <strong>17 Aug 2026</strong>
+                            </div>
+
+                            <div>
+                                <span>Amount</span>
+                                <strong>₹ 9,850</strong>
+                            </div>
+
+                            <span class="paid">
+                                ● Paid
+                            </span>
+
+                            <button class="download-btn">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+
+                        </div>
+
+
+                        <div class="payment-row">
+
+                            <div>
+                                <span>Date</span>
+                                <strong>10 Aug 2026</strong>
+                            </div>
+
+                            <div>
+                                <span>Amount</span>
+                                <strong>₹ 11,200</strong>
+                            </div>
+
+                            <span class="paid">
+                                ● Paid
+                            </span>
+
+                            <button class="download-btn">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 DOWNLOAD + HELP
+            ================================================== -->
+
+            <section class="bottom-actions">
+
+
+                <div class="statement-card">
+
+                    <div class="statement-icon">
+
+                        <i class="fa-solid fa-file-lines"></i>
+
+                    </div>
+
+
+                    <div class="statement-text">
+
+                        <strong>
+                            Download Earnings Statement
+                        </strong>
+
+                        <span>
+                            Get your detailed earnings report for any period.
+                        </span>
+
+                    </div>
+
+
+                    <select>
+
+                        <option>September 2026</option>
+
+                        <option>August 2026</option>
+
+                        <option>July 2026</option>
+
+                    </select>
+
+
+                    <button id="downloadStatement">
+
+                        <i class="fa-solid fa-download"></i>
+
+                        Download
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="support-card">
+
+                    <div class="support-icon">
+
+                        <i class="fa-solid fa-headset"></i>
+
+                    </div>
+
+                    <div>
+
+                        <strong>Need Help?</strong>
+
+                        <span>
+                            Facing any payment related issues?
+                        </span>
+
+                        <small>
+                            Our support team is here to help.
+                        </small>
+
+                    </div>
+
+
+                    <button id="supportBtn">
+                        Contact Support
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 FOOTER
+            ================================================== -->
+
+            <footer class="profile-footer">
+
+                <div class="footer-left">
+
+                    <strong>
+                        Build<span>Connect</span>
+                    </strong>
+
+                    <small>
+                        © 2026 BuildConnect. All rights reserved.
+                    </small>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <span>Terms</span>
+
+                    <b>|</b>
+
+                    <span>Privacy</span>
+
+                    <b>|</b>
+
+                    <span>Help & Support</span>
+
+                </div>
+
+
+                <div class="footer-india">
+
+                    🇮🇳
+
+                    <span>
+                        Made for a Stronger India
+                    </span>
+
+                </div>
+
+            </footer>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<div class="driver-toast" id="driverToast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span></span>
+
+</div>
+
+
+<script src="{% static 'driver/js/earnings.js' %}"></script>
+
+</body>
+</html>
