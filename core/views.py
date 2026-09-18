@@ -190,3 +190,74 @@ def driver_settings(request):
             "user": request.user
         }
     )
+
+# Vechile_Owner
+
+def owner_dashboard(request):
+    return render(
+        request,
+        "owner/dashboard.html",
+        {
+            "user": request.user
+        }
+    )
+
+
+def owner_vehicles(request):
+    return render(
+        request,
+        "owner/vehicles.html",
+        {
+            "user": request.user
+        }
+    )
+
+
+def owner_rental_requests(request):
+    return render(
+        request,
+        "owner/rental_requests.html",
+        {
+            "user": request.user
+        }
+    )
+
+
+def owner_rentals(request):
+    return render(
+        request,
+        "owner/rentals.html",
+        {
+            "user": request.user
+        }
+    )
+
+
+def owner_earnings(request):
+    return render(
+        request,
+        "owner/earnings.html",
+        {
+            "user": request.user
+        }
+    )
+
+
+def owner_profile(request):
+    return render(
+        request,
+        "owner/profile.html",
+        {
+            "user": request.user
+        }
+    )
+
+
+def owner_settings(request):
+    return render(
+        request,
+        "owner/settings.html",
+        {
+            "user": request.user
+        }
+    )

@@ -98,4 +98,48 @@ path(
     name="driver_settings"
 ),
 
+#vechile_owner
+
+path(
+        "owner/dashboard/",
+        views.owner_dashboard,
+        name="owner_dashboard"
+    ),
+
+    path(
+        "owner/vehicles/",
+        views.owner_vehicles,
+        name="owner_vehicles"
+    ),
+
+    path(
+        "owner/rental-requests/",
+        views.owner_rental_requests,
+        name="owner_rental_requests"
+    ),
+
+    path(
+        "owner/rentals/",
+        views.owner_rentals,
+        name="owner_rentals"
+    ),
+
+    path(
+        "owner/earnings/",
+        views.owner_earnings,
+        name="owner_earnings"
+    ),
+
+    path(
+        "owner/profile/",
+        views.owner_profile,
+        name="owner_profile"
+    ),
+
+    path(
+        "owner/settings/",
+        views.owner_settings,
+        name="owner_settings"
+    ),
+
 ]

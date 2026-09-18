@@ -1,0 +1,1755 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vehicle Owner Dashboard | BuildConnect</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet"
+          href="{% static 'owner/css/dashboard.css' %}">
+</head>
+
+
+<body>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="owner-sidebar">
+
+    <!-- LOGO -->
+    <div class="sidebar-logo">
+
+        <img src="{% static 'images/nav-logo.png' %}"
+             alt="BuildConnect">
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="sidebar-nav">
+
+
+        <a href="{% url 'owner_dashboard' %}"
+           class="sidebar-link active">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a href="{% url 'owner_vehicles' %}"
+           class="sidebar-link">
+
+            <i class="fa-solid fa-truck"></i>
+
+            <span>My Vehicles</span>
+
+        </a>
+
+
+        <a href="{% url 'owner_rental_requests' %}"
+           class="sidebar-link">
+
+            <i class="fa-solid fa-clipboard-list"></i>
+
+            <span>Rental Requests</span>
+
+            <b class="notification-count">
+                5
+            </b>
+
+        </a>
+
+
+        <a href="{% url 'owner_rentals' %}"
+           class="sidebar-link">
+
+            <i class="fa-solid fa-calendar-days"></i>
+
+            <span>My Rentals</span>
+
+        </a>
+
+
+        <a href="{% url 'owner_earnings' %}"
+           class="sidebar-link">
+
+            <i class="fa-solid fa-coins"></i>
+
+            <span>Earnings</span>
+
+        </a>
+
+
+        <a href="{% url 'owner_profile' %}"
+           class="sidebar-link">
+
+            <i class="fa-solid fa-user"></i>
+
+            <span>Profile</span>
+
+        </a>
+
+
+        <a href="{% url 'owner_settings' %}"
+           class="sidebar-link">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </a>
+
+
+        <div class="sidebar-divider"></div>
+
+
+        <a href="{% url 'logout' %}"
+           class="sidebar-link logout-link">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>Logout</span>
+
+        </a>
+
+    </nav>
+
+
+    <!-- SIDEBAR BOTTOM MESSAGE -->
+
+    <div class="sidebar-bottom">
+
+        <p>
+            Your Fleet.
+        </p>
+
+        <p>
+            Your Business.
+        </p>
+
+        <p>
+            Your Growth.
+        </p>
+
+        <div class="sidebar-line"></div>
+
+        <small>
+            Drive Growth Together
+        </small>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main-content">
+
+
+    <!-- =================================================
+         TOP NAVBAR
+    ================================================== -->
+
+    <header class="top-navbar">
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="globalSearch"
+                placeholder="Search vehicles, rentals, customers..."
+            >
+
+            <span class="search-shortcut">
+                Ctrl + K
+            </span>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="navbar-right">
+
+
+            <!-- NOTIFICATION -->
+
+            <button class="notification-btn"
+                    id="notificationBtn">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <span>
+                    5
+                </span>
+
+            </button>
+
+
+            <!-- OWNER PROFILE -->
+
+            <div class="owner-profile">
+
+                <div class="owner-avatar">
+
+                    <span>
+                        {{ request.user.first_name|first|default:"R" }}
+                    </span>
+
+                </div>
+
+
+                <div class="owner-info">
+
+                    <strong>
+                        {{ request.user.get_full_name|default:request.user.username }}
+                    </strong>
+
+                    <small>
+                        Vehicle Owner
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- ONLINE -->
+
+            <div class="online-status">
+
+                <span></span>
+
+                Online
+
+            </div>
+
+
+            <i class="fa-solid fa-chevron-down navbar-arrow"></i>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         PAGE CONTENT
+    ================================================== -->
+
+    <section class="dashboard-page">
+
+
+        <!-- =================================================
+             WELCOME BANNER
+        ================================================== -->
+
+        <section class="welcome-banner">
+
+
+            <div class="welcome-content">
+
+                <span class="welcome-small">
+                    GOOD MORNING,
+                </span>
+
+
+                <h1>
+                    {{ request.user.first_name|default:"Rajesh" }}!
+                </h1>
+
+
+                <h2>
+                    Your Fleet. Your Business.
+                    <span>Our Platform.</span>
+                </h2>
+
+
+                <p>
+                    Manage your vehicles, accept rental requests
+                    and grow your rental income with BuildConnect.
+                </p>
+
+
+                <a href="{% url 'owner_vehicles' %}"
+                   class="manage-fleet-btn">
+
+                    Manage My Fleet
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- BANNER FEATURES -->
+
+            <div class="banner-features">
+
+
+                <div class="banner-feature">
+
+                    <div class="banner-feature-icon">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+
+                    <div>
+                        <strong>
+                            More Bookings
+                        </strong>
+
+                        <span>
+                            More opportunities
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="banner-feature">
+
+                    <div class="banner-feature-icon">
+                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                    </div>
+
+                    <div>
+                        <strong>
+                            Better Earnings
+                        </strong>
+
+                        <span>
+                            Track your income
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="banner-feature">
+
+                    <div class="banner-feature-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+
+                    <div>
+                        <strong>
+                            Trusted Customers
+                        </strong>
+
+                        <span>
+                            Build relationships
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="banner-feature">
+
+                    <div class="banner-feature-icon">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+
+                    <div>
+                        <strong>
+                            Business Growth
+                        </strong>
+
+                        <span>
+                            Grow your fleet
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FLEET STATUS -->
+
+            <div class="fleet-status">
+
+                <div class="fleet-status-top">
+
+                    <span>
+                        Fleet Status
+                    </span>
+
+                    <b>
+                        <i></i>
+                        Active
+                    </b>
+
+                </div>
+
+                <p>
+                    All systems are running smoothly.
+                </p>
+
+
+                <div class="fleet-quote">
+
+                    “Moving Businesses
+                    <br>
+                    Forward Together.”
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="stats-grid">
+
+
+            <!-- TOTAL VEHICLES -->
+
+            <div class="stat-card green-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-truck"></i>
+
+                </div>
+
+
+                <div class="stat-content">
+
+                    <strong>
+                        8
+                    </strong>
+
+                    <span>
+                        Total Vehicles
+                    </span>
+
+
+                    <small class="positive">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                        2 this month
+
+                    </small>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right stat-arrow"></i>
+
+            </div>
+
+
+
+            <!-- RENTAL REQUESTS -->
+
+            <div class="stat-card orange-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                </div>
+
+
+                <div class="stat-content">
+
+                    <strong>
+                        12
+                    </strong>
+
+                    <span>
+                        Rental Requests
+                    </span>
+
+
+                    <small class="pending">
+
+                        <i class="fa-solid fa-circle"></i>
+
+                        5 Pending
+
+                    </small>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right stat-arrow"></i>
+
+            </div>
+
+
+
+            <!-- ACTIVE RENTALS -->
+
+            <div class="stat-card blue-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-regular fa-calendar-check"></i>
+
+                </div>
+
+
+                <div class="stat-content">
+
+                    <strong>
+                        6
+                    </strong>
+
+                    <span>
+                        Active Rentals
+                    </span>
+
+
+                    <small class="positive">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                        18% this month
+
+                    </small>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right stat-arrow"></i>
+
+            </div>
+
+
+
+            <!-- EARNINGS -->
+
+            <div class="stat-card purple-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                </div>
+
+
+                <div class="stat-content">
+
+                    <strong>
+                        ₹48,250
+                    </strong>
+
+                    <span>
+                        Total Earnings
+                    </span>
+
+
+                    <small class="positive">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                        18%
+
+                    </small>
+
+                </div>
+
+
+                <div class="stat-period">
+
+                    This Month
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MAIN GRID
+        ================================================== -->
+
+        <section class="main-grid">
+
+
+            <!-- =================================================
+                 RENTAL REQUESTS
+            ================================================== -->
+
+            <div class="dashboard-card requests-card">
+
+
+                <div class="card-header">
+
+                    <div class="card-heading">
+
+                        <div class="heading-icon green">
+
+                            <i class="fa-solid fa-file-lines"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h2>
+                                Rental Requests
+                            </h2>
+
+                            <p>
+                                Recent requests from customers
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <a href="{% url 'owner_rental_requests' %}"
+                       class="view-all">
+
+                        View All Requests
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- TABLE -->
+
+                <div class="requests-table-wrapper">
+
+                    <table class="requests-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Vehicle</th>
+
+                                <th>Customer</th>
+
+                                <th>Location</th>
+
+                                <th>Rental Period</th>
+
+                                <th>Amount</th>
+
+                                <th>Status</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <tr>
+
+                                <td>
+                                    1
+                                </td>
+
+                                <td>
+                                    <strong>Tata Ace</strong>
+                                </td>
+
+                                <td>
+                                    Amit Verma
+                                </td>
+
+                                <td>
+                                    Pune
+                                </td>
+
+                                <td>
+                                    5 Oct – 10 Oct
+                                </td>
+
+                                <td>
+                                    <strong>₹8,500</strong>
+                                </td>
+
+                                <td>
+
+                                    <span class="status pending-status">
+                                        <i></i>
+                                        Pending
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <div class="action-buttons">
+
+                                        <button class="accept-btn">
+                                            Accept
+                                        </button>
+
+                                        <button class="reject-btn">
+                                            Reject
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+                                    2
+                                </td>
+
+                                <td>
+                                    <strong>Eicher Truck</strong>
+                                </td>
+
+                                <td>
+                                    Priya Sharma
+                                </td>
+
+                                <td>
+                                    Mumbai
+                                </td>
+
+                                <td>
+                                    4 Oct – 12 Oct
+                                </td>
+
+                                <td>
+                                    <strong>₹15,200</strong>
+                                </td>
+
+                                <td>
+
+                                    <span class="status pending-status">
+                                        <i></i>
+                                        Pending
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <div class="action-buttons">
+
+                                        <button class="accept-btn">
+                                            Accept
+                                        </button>
+
+                                        <button class="reject-btn">
+                                            Reject
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+                                    3
+                                </td>
+
+                                <td>
+                                    <strong>Mahindra Pickup</strong>
+                                </td>
+
+                                <td>
+                                    Suresh Patil
+                                </td>
+
+                                <td>
+                                    Nashik
+                                </td>
+
+                                <td>
+                                    6 Oct – 9 Oct
+                                </td>
+
+                                <td>
+                                    <strong>₹6,800</strong>
+                                </td>
+
+                                <td>
+
+                                    <span class="status pending-status">
+                                        <i></i>
+                                        Pending
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <div class="action-buttons">
+
+                                        <button class="accept-btn">
+                                            Accept
+                                        </button>
+
+                                        <button class="reject-btn">
+                                            Reject
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+                                    4
+                                </td>
+
+                                <td>
+                                    <strong>Ashok Leyland</strong>
+                                </td>
+
+                                <td>
+                                    Kiran Mehta
+                                </td>
+
+                                <td>
+                                    Pune
+                                </td>
+
+                                <td>
+                                    3 Oct – 8 Oct
+                                </td>
+
+                                <td>
+                                    <strong>₹12,500</strong>
+                                </td>
+
+                                <td>
+
+                                    <span class="status accepted-status">
+                                        <i></i>
+                                        Accepted
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button class="view-btn">
+                                        View
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+                                    5
+                                </td>
+
+                                <td>
+                                    <strong>Tempo Traveller</strong>
+                                </td>
+
+                                <td>
+                                    Neha Gupta
+                                </td>
+
+                                <td>
+                                    Thane
+                                </td>
+
+                                <td>
+                                    7 Oct – 14 Oct
+                                </td>
+
+                                <td>
+                                    <strong>₹18,000</strong>
+                                </td>
+
+                                <td>
+
+                                    <span class="status pending-status">
+                                        <i></i>
+                                        Pending
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <div class="action-buttons">
+
+                                        <button class="accept-btn">
+                                            Accept
+                                        </button>
+
+                                        <button class="reject-btn">
+                                            Reject
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MY VEHICLES
+            ================================================== -->
+
+            <div class="dashboard-card vehicles-card">
+
+
+                <div class="card-header">
+
+                    <div class="card-heading">
+
+                        <div class="heading-icon green">
+
+                            <i class="fa-solid fa-truck"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h2>
+                                My Vehicles
+                            </h2>
+
+                            <p>
+                                Your registered fleet
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <a href="{% url 'owner_vehicles' %}"
+                       class="view-all">
+
+                        Manage Vehicles
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+
+
+                <div class="vehicle-list">
+
+
+                    <!-- VEHICLE 1 -->
+
+                    <div class="vehicle-item">
+
+                        <div class="vehicle-image">
+
+                            <i class="fa-solid fa-truck"></i>
+
+                        </div>
+
+
+                        <div class="vehicle-details">
+
+                            <strong>
+                                Tata Ace
+                            </strong>
+
+                            <span>
+                                MH12 AB 1234
+                            </span>
+
+                        </div>
+
+
+                        <span class="vehicle-status available">
+                            <i></i>
+                            Available
+                        </span>
+
+
+                        <button class="vehicle-menu">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- VEHICLE 2 -->
+
+                    <div class="vehicle-item">
+
+                        <div class="vehicle-image">
+
+                            <i class="fa-solid fa-truck-moving"></i>
+
+                        </div>
+
+
+                        <div class="vehicle-details">
+
+                            <strong>
+                                Eicher Truck
+                            </strong>
+
+                            <span>
+                                MH14 CD 5678
+                            </span>
+
+                        </div>
+
+
+                        <span class="vehicle-status available">
+                            <i></i>
+                            Available
+                        </span>
+
+
+                        <button class="vehicle-menu">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- VEHICLE 3 -->
+
+                    <div class="vehicle-item">
+
+                        <div class="vehicle-image">
+
+                            <i class="fa-solid fa-truck-front"></i>
+
+                        </div>
+
+
+                        <div class="vehicle-details">
+
+                            <strong>
+                                Mahindra Pickup
+                            </strong>
+
+                            <span>
+                                MH12 EF 9012
+                            </span>
+
+                        </div>
+
+
+                        <span class="vehicle-status on-rent">
+                            <i></i>
+                            On Rent
+                        </span>
+
+
+                        <button class="vehicle-menu">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- VEHICLE 4 -->
+
+                    <div class="vehicle-item">
+
+                        <div class="vehicle-image">
+
+                            <i class="fa-solid fa-truck"></i>
+
+                        </div>
+
+
+                        <div class="vehicle-details">
+
+                            <strong>
+                                Ashok Leyland
+                            </strong>
+
+                            <span>
+                                MH15 GH 3456
+                            </span>
+
+                        </div>
+
+
+                        <span class="vehicle-status available">
+                            <i></i>
+                            Available
+                        </span>
+
+
+                        <button class="vehicle-menu">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- VEHICLE 5 -->
+
+                    <div class="vehicle-item">
+
+                        <div class="vehicle-image">
+
+                            <i class="fa-solid fa-van-shuttle"></i>
+
+                        </div>
+
+
+                        <div class="vehicle-details">
+
+                            <strong>
+                                Tempo Traveller
+                            </strong>
+
+                            <span>
+                                MH12 IJ 7890
+                            </span>
+
+                        </div>
+
+
+                        <span class="vehicle-status on-rent">
+                            <i></i>
+                            On Rent
+                        </span>
+
+
+                        <button class="vehicle-menu">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             LOWER GRID
+        ================================================== -->
+
+        <section class="lower-grid">
+
+
+            <!-- =================================================
+                 EARNINGS
+            ================================================== -->
+
+            <div class="dashboard-card earnings-card">
+
+
+                <div class="card-header">
+
+                    <div class="card-heading">
+
+                        <div class="heading-icon green">
+
+                            <i class="fa-solid fa-chart-column"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h2>
+                                Rental Performance
+                            </h2>
+
+                            <p>
+                                Your rental income overview
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <select id="earningsPeriod">
+
+                        <option>
+                            This Year
+                        </option>
+
+                        <option>
+                            Last Year
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="earnings-content">
+
+
+                    <div class="earnings-total">
+
+                        <strong>
+                            ₹4,85,200
+                        </strong>
+
+                        <span>
+                            Total Rental Income
+                        </span>
+
+
+                        <small>
+                            <i class="fa-solid fa-arrow-up"></i>
+                            18%
+                        </small>
+
+
+                        <p>
+                            vs last year
+                        </p>
+
+                    </div>
+
+
+                    <div class="chart-container">
+
+                        <div class="chart-y-axis">
+
+                            <span>80K</span>
+                            <span>60K</span>
+                            <span>40K</span>
+                            <span>20K</span>
+                            <span>0</span>
+
+                        </div>
+
+
+                        <div class="chart-area">
+
+                            <div class="chart-grid-lines"></div>
+
+
+                            <div class="bars">
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 25%;">
+                                    </div>
+                                    <span>Jan</span>
+                                </div>
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 35%;">
+                                    </div>
+                                    <span>Feb</span>
+                                </div>
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 45%;">
+                                    </div>
+                                    <span>Mar</span>
+                                </div>
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 58%;">
+                                    </div>
+                                    <span>Apr</span>
+                                </div>
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 42%;">
+                                    </div>
+                                    <span>May</span>
+                                </div>
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 64%;">
+                                    </div>
+                                    <span>Jun</span>
+                                </div>
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 53%;">
+                                    </div>
+                                    <span>Jul</span>
+                                </div>
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 72%;">
+                                    </div>
+                                    <span>Aug</span>
+                                </div>
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 88%;">
+                                    </div>
+                                    <span>Sep</span>
+                                </div>
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 58%;">
+                                    </div>
+                                    <span>Oct</span>
+                                </div>
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 70%;">
+                                    </div>
+                                    <span>Nov</span>
+                                </div>
+
+
+                                <div class="bar-item">
+                                    <div class="bar"
+                                         style="height: 48%;">
+                                    </div>
+                                    <span>Dec</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUICK ACTIONS
+            ================================================== -->
+
+            <div class="dashboard-card quick-actions-card">
+
+
+                <div class="card-header">
+
+                    <div class="card-heading">
+
+                        <div class="heading-icon green">
+
+                            <i class="fa-solid fa-bolt"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h2>
+                                Quick Actions
+                            </h2>
+
+                            <p>
+                                Manage your business faster
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="quick-actions">
+
+
+                    <a href="{% url 'owner_vehicles' %}"
+                       class="quick-action green-action">
+
+                        <div class="quick-icon">
+
+                            <i class="fa-solid fa-plus"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Add New Vehicle
+                            </strong>
+
+                            <span>
+                                List your vehicle for rent
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a href="{% url 'owner_rental_requests' %}"
+                       class="quick-action orange-action">
+
+                        <div class="quick-icon">
+
+                            <i class="fa-solid fa-file-circle-check"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                View Requests
+                            </strong>
+
+                            <span>
+                                Check pending requests
+                            </span>
+
+                        </div>
+
+
+                        <b>
+                            5
+                        </b>
+
+                    </a>
+
+
+
+                    <a href="{% url 'owner_rentals' %}"
+                       class="quick-action blue-action">
+
+                        <div class="quick-icon">
+
+                            <i class="fa-regular fa-calendar-check"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Manage Rentals
+                            </strong>
+
+                            <span>
+                                View active & past rentals
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a href="{% url 'owner_earnings' %}"
+                       class="quick-action purple-action">
+
+                        <div class="quick-icon">
+
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                View Earnings
+                            </strong>
+
+                            <span>
+                                Track your rental income
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FLEET INSIGHT
+            ================================================== -->
+
+            <div class="dashboard-card fleet-insight-card">
+
+
+                <div class="card-header">
+
+                    <div class="card-heading">
+
+                        <div class="heading-icon green">
+
+                            <i class="fa-solid fa-lightbulb"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h2>
+                                Fleet Insight
+                            </h2>
+
+                            <p>
+                                Your fleet at a glance
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-chevron-right"></i>
+
+                </div>
+
+
+
+                <div class="fleet-insight-content">
+
+
+                    <div class="availability-number">
+
+                        <strong>
+                            75%
+                        </strong>
+
+                        <span>
+                            of your vehicles are
+                            currently available.
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill"></div>
+
+                    </div>
+
+
+                    <div class="insight-message">
+
+                        <i class="fa-solid fa-lightbulb"></i>
+
+                        <p>
+                            Keep your fleet active to
+                            make the most of rental
+                            opportunities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="dashboard-footer">
+
+
+            <div class="footer-brand">
+
+                <strong>
+                    Build<span>Connect</span>
+                </strong>
+
+                <small>
+                    © 2026 BuildConnect. All rights reserved.
+                </small>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="#">
+                    Terms
+                </a>
+
+                <span>|</span>
+
+                <a href="#">
+                    Privacy
+                </a>
+
+                <span>|</span>
+
+                <a href="#">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <div class="footer-india">
+
+                <span>
+                    🇮🇳
+                </span>
+
+                <small>
+                    Made for a Stronger India
+                </small>
+
+            </div>
+
+        </footer>
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     MOBILE MENU
+===================================================== -->
+
+<button class="mobile-menu-btn"
+        id="mobileMenuBtn">
+
+    <i class="fa-solid fa-bars"></i>
+
+</button>
+
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div class="owner-toast"
+     id="ownerToast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="toastMessage">
+        Updated successfully.
+    </span>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="{% static 'owner/js/dashboard.js' %}"></script>
+
+</body>
+
+</html>
