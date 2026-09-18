@@ -1,0 +1,1241 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | BuildConnect</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'driver/css/settings.css' %}">
+</head>
+
+<body>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="driver-sidebar">
+
+    <!-- LOGO -->
+    <div class="sidebar-logo">
+        <img src="{% static 'driver/images/logo.png' %}"
+             alt="BuildConnect">
+    </div>
+
+
+    <!-- NAVIGATION -->
+    <nav class="sidebar-nav">
+
+        <a href="{% url 'driver_dashboard' %}"
+           class="sidebar-link">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a href="{% url 'driver_jobs' %}"
+           class="sidebar-link">
+
+            <i class="fa-solid fa-right-left"></i>
+
+            <span>Available Jobs</span>
+
+        </a>
+
+
+        <a href="{% url 'driver_my_jobs' %}"
+           class="sidebar-link">
+
+            <i class="fa-solid fa-truck"></i>
+
+            <span>My Jobs</span>
+
+        </a>
+
+
+        <a href="{% url 'driver_profile' %}"
+           class="sidebar-link">
+
+            <i class="fa-solid fa-user"></i>
+
+            <span>Profile</span>
+
+        </a>
+
+
+        <a href="{% url 'driver_earnings' %}"
+           class="sidebar-link">
+
+            <i class="fa-solid fa-wallet"></i>
+
+            <span>Earnings</span>
+
+        </a>
+
+
+        
+
+        <!-- SEPARATOR -->
+        <div class="sidebar-separator"></div>
+
+
+        <a href="{% url 'driver_settings' %}"
+           class="sidebar-link active">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </a>
+
+
+        <a href="{% url 'logout' %}"
+           class="sidebar-link logout-link">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>Logout</span>
+
+        </a>
+
+    </nav>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main-content">
+
+
+    <!-- =================================================
+         TOP NAVBAR
+    ================================================== -->
+
+    <header class="top-navbar">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="globalSearch"
+                placeholder="Search jobs, locations, materials..."
+            >
+
+            <span class="search-shortcut">
+                Ctrl + K
+            </span>
+
+        </div>
+
+
+        <div class="top-right">
+
+            <!-- NOTIFICATION -->
+            <button class="notification-btn"
+                    id="notificationBtn">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <span>3</span>
+
+            </button>
+
+
+            <!-- USER -->
+            <div class="top-user">
+
+                <div class="top-user-photo">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div class="top-user-info">
+
+                    <strong>
+                        {{ request.user.get_full_name|default:request.user.username }}
+                    </strong>
+
+                    <small>
+                        Driver
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- ONLINE -->
+            <div class="online-status">
+
+                <span></span>
+
+                Online
+
+            </div>
+
+
+            <i class="fa-solid fa-chevron-down user-arrow"></i>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         SETTINGS PAGE
+    ================================================== -->
+
+    <section class="settings-page">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <div>
+
+                <h1>Settings</h1>
+
+                <p>
+                    Manage your account, preferences and stay in control.
+                </p>
+
+            </div>
+
+            <div class="heading-note">
+
+                Keep your information updated for
+                <br>
+                a better driving experience.
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             TOP SETTINGS GRID
+        ================================================= -->
+
+        <div class="settings-grid-top">
+
+
+            <!-- =============================================
+                 ACCOUNT & PROFILE
+            ============================================== -->
+
+            <section class="settings-card account-card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>Account &amp; Profile</h2>
+
+                            <p>
+                                Update your personal information
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <a href="{% url 'driver_profile' %}"
+                       class="outline-btn">
+
+                        Edit Profile
+
+                    </a>
+
+                </div>
+
+
+                <div class="profile-mini">
+
+                    <div class="profile-mini-photo">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+
+                    <div class="profile-mini-info">
+
+                        <strong>
+                            {{ request.user.get_full_name|default:request.user.username }}
+                        </strong>
+
+                        <span>
+                            Driver Partner
+                        </span>
+
+                        <small class="mini-online">
+                            <span></span>
+                            Online
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-list">
+
+                    <div class="info-row">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <span>Full Name</span>
+
+                        <strong>
+                            {{ request.user.get_full_name|default:"Not Added" }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        <span>Phone Number</span>
+
+                        <strong>
+                            {{ request.user.phone_number|default:"Not Added" }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <span>Email Address</span>
+
+                        <strong>
+                            {{ request.user.email|default:"Not Added" }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <span>Current Location</span>
+
+                        <strong>
+                            Pune, Maharashtra
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =============================================
+                 CHANGE PASSWORD
+            ============================================== -->
+
+            <section class="settings-card password-card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>Change Password</h2>
+
+                            <p>
+                                Update your password regularly for security
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <form id="passwordForm"
+                      class="password-form">
+
+                    <div class="password-fields">
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Current Password
+                            </label>
+
+                            <div class="password-input">
+
+                                <input
+                                    type="password"
+                                    id="currentPassword"
+                                    placeholder="Enter current password"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-target="currentPassword">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                New Password
+                            </label>
+
+                            <div class="password-input">
+
+                                <input
+                                    type="password"
+                                    id="newPassword"
+                                    placeholder="Enter new password"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-target="newPassword">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Confirm New Password
+                            </label>
+
+                            <div class="password-input">
+
+                                <input
+                                    type="password"
+                                    id="confirmPassword"
+                                    placeholder="Confirm new password"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-target="confirmPassword">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <button type="submit"
+                            class="primary-btn password-btn">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        Update Password
+
+                    </button>
+
+                </form>
+
+            </section>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SECOND SETTINGS GRID
+        ================================================== -->
+
+        <div class="settings-grid-middle">
+
+
+            <!-- =============================================
+                 NOTIFICATIONS
+            ============================================== -->
+
+            <section class="settings-card notifications-card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-bell"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>Notifications</h2>
+
+                            <p>
+                                Choose what updates you want to receive
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="notification-list">
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-row-icon orange">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+
+                        <div class="setting-row-text">
+
+                            <strong>
+                                New Job Alerts
+                            </strong>
+
+                            <span>
+                                Get notified when new jobs are available
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                data-setting="job-alerts"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-row-icon blue-light">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+
+                        <div class="setting-row-text">
+
+                            <strong>
+                                Application Updates
+                            </strong>
+
+                            <span>
+                                Status updates on your job applications
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                data-setting="application-updates"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-row-icon orange">
+                            <i class="fa-solid fa-money-bill"></i>
+                        </div>
+
+                        <div class="setting-row-text">
+
+                            <strong>
+                                Payment Notifications
+                            </strong>
+
+                            <span>
+                                Get notified about payments and earnings
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                data-setting="payment-notifications"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-row-icon purple">
+                            <i class="fa-solid fa-comment-sms"></i>
+                        </div>
+
+                        <div class="setting-row-text">
+
+                            <strong>
+                                SMS Notifications
+                            </strong>
+
+                            <span>
+                                Receive updates via SMS
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                data-setting="sms-notifications"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-row-icon red">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+
+                        <div class="setting-row-text">
+
+                            <strong>
+                                Email Notifications
+                            </strong>
+
+                            <span>
+                                Receive updates via Email
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                data-setting="email-notifications"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =============================================
+                 DRIVING PREFERENCES
+            ============================================== -->
+
+            <section class="settings-card driving-card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-steering-wheel"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>Driving Preferences</h2>
+
+                            <p>
+                                Set your job and vehicle preferences
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preference-list">
+
+
+                    <div class="preference-row">
+
+                        <div class="preference-label">
+
+                            <i class="fa-solid fa-briefcase"></i>
+
+                            <span>
+                                Preferred Job Types
+                            </span>
+
+                        </div>
+
+                        <select class="preference-select"
+                                data-preference="job-type">
+
+                            <option>
+                                Construction, Material Delivery
+                            </option>
+
+                            <option>
+                                Material Delivery
+                            </option>
+
+                            <option>
+                                Construction
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="preference-row">
+
+                        <div class="preference-label">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <span>
+                                Preferred Locations
+                            </span>
+
+                        </div>
+
+                        <select class="preference-select"
+                                data-preference="location">
+
+                            <option>
+                                Pune, Mumbai, Nashik
+                            </option>
+
+                            <option>
+                                Pune
+                            </option>
+
+                            <option>
+                                Mumbai
+                            </option>
+
+                            <option>
+                                Nashik
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="preference-row">
+
+                        <div class="preference-label">
+
+                            <i class="fa-solid fa-truck"></i>
+
+                            <span>
+                                Vehicle Type
+                            </span>
+
+                        </div>
+
+                        <select class="preference-select"
+                                data-preference="vehicle">
+
+                            <option>
+                                Mini Truck (Tata Ace)
+                            </option>
+
+                            <option>
+                                Tipper
+                            </option>
+
+                            <option>
+                                Truck
+                            </option>
+
+                            <option>
+                                Heavy Truck
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="preference-row">
+
+                        <div class="preference-label">
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            <span>
+                                Availability Status
+                            </span>
+
+                        </div>
+
+                        <select class="preference-select"
+                                data-preference="availability">
+
+                            <option>
+                                Available Now
+                            </option>
+
+                            <option>
+                                Busy
+                            </option>
+
+                            <option>
+                                Offline
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+
+        <!-- =================================================
+             BOTTOM GRID
+        ================================================== -->
+
+        <div class="settings-grid-bottom">
+
+
+            <!-- =============================================
+                 PRIVACY & SECURITY
+            ============================================== -->
+
+            <section class="settings-card privacy-card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>Privacy &amp; Security</h2>
+
+                            <p>
+                                Manage your security and privacy settings
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="action-list">
+
+
+                    <button class="action-row"
+                            data-action="login-security">
+
+                        <div class="action-icon green">
+                            <i class="fa-solid fa-shield"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Login Security
+                            </strong>
+
+                            <span>
+                                Manage your login and device security
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </button>
+
+
+                    <button class="action-row"
+                            data-action="sessions">
+
+                        <div class="action-icon blue-light">
+                            <i class="fa-solid fa-desktop"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Active Sessions
+                            </strong>
+
+                            <span>
+                                View and manage active sessions
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </button>
+
+
+                    <button class="action-row"
+                            data-action="privacy">
+
+                        <div class="action-icon purple">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Privacy Settings
+                            </strong>
+
+                            <span>
+                                Control your privacy and data
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =============================================
+                 LANGUAGE
+            ============================================== -->
+
+            <section class="settings-card language-card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>Language</h2>
+
+                            <p>
+                                Choose your preferred language
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <select id="languageSelect"
+                        class="language-select">
+
+                    <option value="en">
+                        English
+                    </option>
+
+                    <option value="hi">
+                        हिन्दी
+                    </option>
+
+                </select>
+
+
+                <div class="language-note">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    <span>
+                        This will change the language for the
+                        entire driver portal.
+                    </span>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =============================================
+                 ACCOUNT
+            ============================================== -->
+
+            <section class="settings-card account-management-card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>Account</h2>
+
+                            <p>
+                                Manage your account
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="account-actions">
+
+
+                    <button class="account-action deactivate"
+                            data-action="deactivate">
+
+                        <div class="account-action-icon">
+                            <i class="fa-solid fa-pause"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Deactivate Account
+                            </strong>
+
+                            <span>
+                                Temporarily disable your account
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </button>
+
+
+                    <button class="account-action delete"
+                            data-action="delete">
+
+                        <div class="account-action-icon">
+                            <i class="fa-solid fa-trash"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Delete Account
+                            </strong>
+
+                            <span>
+                                Permanently delete your account
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="settings-footer">
+
+            <div class="footer-brand">
+
+                <strong>
+                    Build<span>Connect</span>
+                </strong>
+
+                <small>
+                    © 2026 BuildConnect. All rights reserved.
+                </small>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="#">
+                    Terms
+                </a>
+
+                <span>|</span>
+
+                <a href="#">
+                    Privacy
+                </a>
+
+                <span>|</span>
+
+                <a href="#">
+                    Help &amp; Support
+                </a>
+
+            </div>
+
+
+            <div class="footer-india">
+
+                <span class="india-flag">
+                    🇮🇳
+                </span>
+
+                <span>
+                    Made for a Stronger India
+                </span>
+
+            </div>
+
+        </footer>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     MOBILE MENU BUTTON
+===================================================== -->
+
+<button class="mobile-menu-btn"
+        id="mobileMenuBtn">
+
+    <i class="fa-solid fa-bars"></i>
+
+</button>
+
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div class="settings-toast"
+     id="settingsToast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="toastMessage">
+        Setting updated successfully.
+    </span>
+
+</div>
+
+
+
+<script src="{% static 'driver/js/settings.js' %}"></script>
+
+</body>
+</html>
