@@ -4,21 +4,27 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Profile | BuildConnect</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Driver Profile | BuildConnect</title>
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <link rel="stylesheet"
           href="{% static 'driver/css/profile.css' %}">
+
 </head>
+
 
 <body>
 
-<div class="driver-layout">
+
+<div class="driver-app">
 
 
     <!-- =====================================================
@@ -27,7 +33,13 @@
 
     <aside class="driver-sidebar">
 
-        <!-- LOGO -->
+
+        <!-- Sidebar Background -->
+
+        <div class="sidebar-bg"></div>
+
+
+        <!-- YOUR REAL LOGO -->
 
         <div class="sidebar-logo">
 
@@ -39,12 +51,13 @@
         </div>
 
 
-        <!-- NAVIGATION -->
+        <!-- Navigation -->
 
-        <nav class="driver-navigation">
+        <nav class="sidebar-nav">
+
 
             <a href="{% url 'driver_dashboard' %}"
-               class="driver-nav-link">
+               class="sidebar-link">
 
                 <i class="fa-solid fa-house"></i>
 
@@ -54,9 +67,9 @@
 
 
             <a href="{% url 'driver_jobs' %}"
-               class="driver-nav-link">
+               class="sidebar-link">
 
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-list-check"></i>
 
                 <span>Available Jobs</span>
 
@@ -64,7 +77,7 @@
 
 
             <a href="{% url 'driver_my_jobs' %}"
-               class="driver-nav-link">
+               class="sidebar-link">
 
                 <i class="fa-solid fa-truck"></i>
 
@@ -74,7 +87,7 @@
 
 
             <a href="{% url 'driver_profile' %}"
-               class="driver-nav-link active">
+               class="sidebar-link active">
 
                 <i class="fa-solid fa-user"></i>
 
@@ -84,7 +97,7 @@
 
 
             <a href="{% url 'driver_earnings' %}"
-               class="driver-nav-link">
+               class="sidebar-link">
 
                 <i class="fa-solid fa-wallet"></i>
 
@@ -94,7 +107,7 @@
 
 
             <a href="{% url 'driver_settings' %}"
-               class="driver-nav-link">
+               class="sidebar-link">
 
                 <i class="fa-solid fa-gear"></i>
 
@@ -102,18 +115,12 @@
 
             </a>
 
-        </nav>
 
-
-        <!-- SIDEBAR BOTTOM -->
-
-        <div class="sidebar-bottom">
-
-            <div class="sidebar-divider"></div>
+            <div class="sidebar-separator"></div>
 
 
             <a href="{% url 'logout' %}"
-               class="driver-nav-link logout-link">
+               class="sidebar-link logout">
 
                 <i class="fa-solid fa-right-from-bracket"></i>
 
@@ -121,10 +128,8 @@
 
             </a>
 
+        </nav>
 
-            
-
-        </div>
 
     </aside>
 
@@ -134,16 +139,17 @@
          MAIN CONTENT
     ====================================================== -->
 
-    <main class="driver-main">
+    <main class="main-content">
 
 
         <!-- =================================================
-             TOPBAR
+             TOP NAVBAR
         ================================================== -->
 
-        <header class="driver-topbar">
+        <header class="top-navbar">
 
-            <div class="driver-search">
+
+            <div class="search-box">
 
                 <i class="fa-solid fa-magnifying-glass"></i>
 
@@ -153,60 +159,60 @@
                     placeholder="Search jobs, locations, materials..."
                 >
 
+                <span class="search-shortcut">
+                    Ctrl + K
+                </span>
+
             </div>
 
 
-            <div class="topbar-right">
+            <div class="top-right">
 
 
                 <button
-                    type="button"
-                    class="notification-button"
-                    id="notificationButton">
+                    class="notification-btn"
+                    id="notificationBtn">
 
                     <i class="fa-regular fa-bell"></i>
 
-                    <span class="notification-count">
-                        3
-                    </span>
+                    <span>3</span>
 
                 </button>
 
 
-                <div class="top-profile"
-                     id="topProfile">
+                <div class="top-user">
 
 
-                    <div class="profile-avatar">
+                    <div class="top-user-photo">
 
                         <i class="fa-solid fa-user"></i>
 
                     </div>
 
 
-                    <div class="profile-details">
+                    <div class="top-user-info">
 
                         <strong>
                             {{ user.get_full_name|default:user.username }}
                         </strong>
 
-                        <span>
+                        <small>
                             Driver
-                        </span>
+                        </small>
 
                     </div>
 
 
-                    <div class="driver-online-status">
+                    <div class="online-status">
 
-                        <span class="online-dot"></span>
+                        <span></span>
 
                         Online
 
                     </div>
 
 
-                    <i class="fa-solid fa-chevron-down profile-arrow"></i>
+                    <i class="fa-solid fa-chevron-down"></i>
 
                 </div>
 
@@ -217,10 +223,10 @@
 
 
         <!-- =================================================
-             PROFILE PAGE
+             PAGE
         ================================================== -->
 
-        <section class="profile-page">
+        <div class="profile-page">
 
 
             <!-- =================================================
@@ -230,49 +236,32 @@
             <section class="profile-hero">
 
 
-                <div class="profile-hero-overlay"></div>
+                <div class="hero-content">
 
+                    <div class="hero-label">
 
-                <div class="profile-hero-content">
-
-
-                    <div class="breadcrumb">
-
-                        <a href="{% url 'driver_dashboard' %}">
-                            Dashboard
-                        </a>
-
-                        <i class="fa-solid fa-chevron-right"></i>
-
-                        <span>
-                            Profile
-                        </span>
+                        DRIVER PROFILE
 
                     </div>
 
 
                     <h1>
-                        My Profile
+
+                        More KMs.<br>
+
+                        Brighter
+                        <span>Tomorrows.</span>
+
                     </h1>
 
 
                     <p>
-                        Manage your personal details,
+
+                        Manage your details, keep your documents updated,
                         <br>
-                        vehicle information and documents.
+                        and drive towards a better tomorrow.
+
                     </p>
-
-                </div>
-
-
-                <div class="hero-message">
-
-                    <span>More</span>
-                    <span>Kms</span>
-                    <span>Brighter</span>
-                    <span>Tomorrows</span>
-
-                    <div></div>
 
                 </div>
 
@@ -284,25 +273,23 @@
                  PROFILE SUMMARY
             ================================================== -->
 
-            <section class="profile-summary">
+            <section class="profile-header-card">
 
 
-                <div class="profile-identity">
+                <div class="driver-identity">
 
 
-                    <div class="large-profile-photo">
+                    <div class="driver-photo">
 
                         <img
-                            id="profilePhoto"
                             src="{% static 'driver/images/profile/default-driver.png' %}"
-                            alt="Driver Profile"
+                            alt="Driver"
                         >
-
 
                         <button
                             type="button"
-                            class="camera-button"
-                            id="cameraButton">
+                            class="camera-btn"
+                            id="cameraBtn">
 
                             <i class="fa-solid fa-camera"></i>
 
@@ -311,27 +298,30 @@
                     </div>
 
 
-                    <div class="identity-details">
+                    <div class="driver-name-area">
 
-                        <div class="name-row">
+
+                        <div class="driver-name">
 
                             <h2>
                                 {{ user.get_full_name|default:user.username }}
                             </h2>
 
-                            <span class="verified-badge">
+                            <span class="verified">
+
                                 <i class="fa-solid fa-check"></i>
+
                             </span>
 
                         </div>
 
 
-                        <p class="driver-title">
+                        <p>
                             Professional Driver
                         </p>
 
 
-                        <div class="rating-row">
+                        <div class="rating">
 
                             <span class="stars">
                                 ★★★★★
@@ -348,17 +338,83 @@
                         </div>
 
 
-                        <p class="driver-quote">
+                        <div class="driver-tagline">
+
                             "Safe Driving, Stronger India"
-                        </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- HEADER QUICK INFO -->
+
+                <div class="header-info">
+
+
+                    <div class="quick-info">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <div>
+
+                            <strong>
+                                Pune, Maharashtra
+                            </strong>
+
+                            <small>
+                                Home Location
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-info">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        <div>
+
+                            <strong>
+                                5+ Years
+                            </strong>
+
+                            <small>
+                                Driving Experience
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-info available">
+
+                        <span class="green-dot"></span>
+
+                        <div>
+
+                            <strong>
+                                Available
+                            </strong>
+
+                            <small>
+                                For new jobs
+                            </small>
+
+                        </div>
 
                     </div>
 
 
                     <button
-                        type="button"
-                        class="edit-profile-button"
-                        id="editProfileButton">
+                        class="edit-profile-btn"
+                        id="editProfileBtn">
 
                         <i class="fa-solid fa-pen"></i>
 
@@ -370,12 +426,12 @@
 
 
 
-                <!-- DRIVER STATS -->
+                <!-- STATS -->
 
-                <div class="profile-stats">
+                <div class="driver-stats">
 
 
-                    <div class="profile-stat">
+                    <div class="driver-stat">
 
                         <div class="stat-icon blue">
                             <i class="fa-solid fa-truck"></i>
@@ -383,12 +439,14 @@
 
                         <strong>12</strong>
 
-                        <span>Total Jobs</span>
+                        <small>
+                            Total Jobs
+                        </small>
 
                     </div>
 
 
-                    <div class="profile-stat">
+                    <div class="driver-stat">
 
                         <div class="stat-icon green">
                             <i class="fa-solid fa-check"></i>
@@ -396,12 +454,29 @@
 
                         <strong>6</strong>
 
-                        <span>Completed</span>
+                        <small>
+                            Completed
+                        </small>
 
                     </div>
 
 
-                    <div class="profile-stat">
+                    <div class="driver-stat">
+
+                        <div class="stat-icon orange">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+
+                        <strong>3</strong>
+
+                        <small>
+                            In Progress
+                        </small>
+
+                    </div>
+
+
+                    <div class="driver-stat">
 
                         <div class="stat-icon yellow">
                             <i class="fa-solid fa-star"></i>
@@ -409,7 +484,9 @@
 
                         <strong>4.8</strong>
 
-                        <span>Rating</span>
+                        <small>
+                            Rating
+                        </small>
 
                     </div>
 
@@ -420,823 +497,789 @@
 
 
             <!-- =================================================
-                 PROFILE GRID
+                 MAIN GRID
             ================================================== -->
 
-            <div class="profile-grid">
+            <div class="content-grid">
 
 
                 <!-- =================================================
-                     LEFT COLUMN
+                     PERSONAL INFORMATION
                 ================================================== -->
 
-                <div class="profile-left-column">
+                <section class="content-card personal-card">
 
 
-                    <!-- PERSONAL INFORMATION -->
+                    <div class="card-header">
 
-                    <section class="profile-card personal-card">
+                        <div class="card-title">
 
-
-                        <div class="card-header">
-
-                            <div class="card-title">
-
-                                <div class="card-icon blue-icon">
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-
-                                <h2>
-                                    Personal Information
-                                </h2>
-
-                            </div>
-
-
-                            <button
-                                type="button"
-                                class="card-edit"
-                                data-section="personal">
-
-                                <i class="fa-solid fa-pen"></i>
-
-                                Edit
-
-                            </button>
-
-                        </div>
-
-
-                        <div class="card-body info-list">
-
-
-                            <div class="info-row">
-
+                            <div class="card-icon">
                                 <i class="fa-solid fa-user"></i>
-
-                                <span>Full Name</span>
-
-                                <strong>
-                                    {{ user.get_full_name|default:user.username }}
-                                </strong>
-
                             </div>
 
-
-                            <div class="info-row">
-
-                                <i class="fa-solid fa-mobile-screen"></i>
-
-                                <span>Phone Number</span>
-
-                                <strong>
-                                    +91 {{ user.phone_number }}
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-row">
-
-                                <i class="fa-solid fa-envelope"></i>
-
-                                <span>Email Address</span>
-
-                                <strong>
-                                    {{ user.email|default:"Not added" }}
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-row">
-
-                                <i class="fa-solid fa-calendar-days"></i>
-
-                                <span>Date of Birth</span>
-
-                                <strong>
-                                    Not added
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-row">
-
-                                <i class="fa-solid fa-venus-mars"></i>
-
-                                <span>Gender</span>
-
-                                <strong>
-                                    Not added
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-row">
-
-                                <i class="fa-solid fa-location-dot"></i>
-
-                                <span>Address</span>
-
-                                <strong>
-                                    Not added
-                                </strong>
-
-                            </div>
-
-                        </div>
-
-                    </section>
-
-
-
-                    <!-- VEHICLE INFORMATION -->
-
-                    <section class="profile-card vehicle-card">
-
-
-                        <div class="card-header">
-
-                            <div class="card-title">
-
-                                <div class="card-icon blue-icon">
-                                    <i class="fa-solid fa-truck"></i>
-                                </div>
-
-                                <h2>
-                                    Vehicle Information
-                                </h2>
-
-                            </div>
-
-
-                            <button
-                                type="button"
-                                class="card-edit"
-                                data-section="vehicle">
-
-                                <i class="fa-solid fa-pen"></i>
-
-                                Edit
-
-                            </button>
+                            <h3>
+                                Personal Information
+                            </h3>
 
                         </div>
 
 
-                        <div class="vehicle-body">
+                        <button
+                            class="outline-btn edit-section"
+                            data-section="personal">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                            Edit
+
+                        </button>
+
+                    </div>
 
 
-                            <div class="vehicle-image">
-
-                                <img
-                                    src="{% static 'driver/images/vehicles/tipper.png' %}"
-                                    alt="Driver Vehicle"
-                                >
-
-                            </div>
+                    <div class="information-list">
 
 
-                            <div class="vehicle-details">
+                        <div class="information-row">
 
+                            <i class="fa-solid fa-user"></i>
 
-                                <div class="vehicle-row">
+                            <span>
+                                Full Name
+                            </span>
 
-                                    <span>
-                                        Vehicle Type
-                                    </span>
-
-                                    <strong>
-                                        Tipper
-                                    </strong>
-
-                                </div>
-
-
-                                <div class="vehicle-row">
-
-                                    <span>
-                                        Registration Number
-                                    </span>
-
-                                    <strong>
-                                        MH12 AB 1234
-                                    </strong>
-
-                                </div>
-
-
-                                <div class="vehicle-row">
-
-                                    <span>
-                                        Model
-                                    </span>
-
-                                    <strong>
-                                        Tata Signa 2823
-                                    </strong>
-
-                                </div>
-
-
-                                <div class="vehicle-row">
-
-                                    <span>
-                                        Load Capacity
-                                    </span>
-
-                                    <strong>
-                                        20 Tons
-                                    </strong>
-
-                                </div>
-
-
-                                <div class="vehicle-row">
-
-                                    <span>
-                                        Year of Purchase
-                                    </span>
-
-                                    <strong>
-                                        2022
-                                    </strong>
-
-                                </div>
-
-
-                                <div class="vehicle-row">
-
-                                    <span>
-                                        Fitness Valid Upto
-                                    </span>
-
-                                    <strong>
-                                        15 Aug 2026
-
-                                        <span class="valid-badge">
-                                            <i class="fa-solid fa-circle"></i>
-                                            Valid
-                                        </span>
-
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </section>
-
-
-
-                    <!-- EXPERIENCE -->
-
-                    <section class="profile-card">
-
-
-                        <div class="card-header">
-
-                            <div class="card-title">
-
-                                <div class="card-icon blue-icon">
-                                    <i class="fa-solid fa-road"></i>
-                                </div>
-
-                                <h2>
-                                    Experience & Preferences
-                                </h2>
-
-                            </div>
-
-
-                            <button
-                                type="button"
-                                class="card-edit"
-                                data-section="experience">
-
-                                <i class="fa-solid fa-pen"></i>
-
-                                Edit
-
-                            </button>
+                            <strong>
+                                {{ user.get_full_name|default:user.username }}
+                            </strong>
 
                         </div>
 
 
-                        <div class="card-body info-list">
+                        <div class="information-row">
 
+                            <i class="fa-solid fa-mobile-screen"></i>
 
-                            <div class="info-row">
+                            <span>
+                                Phone Number
+                            </span>
 
-                                <i class="fa-solid fa-car"></i>
-
-                                <span>
-                                    Driving Experience
-                                </span>
-
-                                <strong>
-                                    5+ Years
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-row">
-
-                                <i class="fa-solid fa-truck"></i>
-
-                                <span>
-                                    Preferred Job Types
-                                </span>
-
-                                <strong>
-                                    Sand, Soil, Gravel, Stone, Coal
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-row">
-
-                                <i class="fa-solid fa-location-dot"></i>
-
-                                <span>
-                                    Preferred Locations
-                                </span>
-
-                                <strong>
-                                    Pune, Mumbai, Nashik
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-row">
-
-                                <i class="fa-solid fa-calendar-check"></i>
-
-                                <span>
-                                    Availability
-                                </span>
-
-                                <strong class="availability">
-
-                                    <span class="availability-dot"></span>
-
-                                    Available for new jobs
-
-                                </strong>
-
-                            </div>
+                            <strong>
+                                +91 {{ user.phone_number }}
+                            </strong>
 
                         </div>
 
-                    </section>
 
-                </div>
+                        <div class="information-row">
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                            <span>
+                                Email Address
+                            </span>
+
+                            <strong>
+                                {{ user.email|default:"Not Added" }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="information-row">
+
+                            <i class="fa-solid fa-calendar"></i>
+
+                            <span>
+                                Date of Birth
+                            </span>
+
+                            <strong>
+                                15 March 2000
+                            </strong>
+
+                        </div>
+
+
+                        <div class="information-row">
+
+                            <i class="fa-solid fa-venus-mars"></i>
+
+                            <span>
+                                Gender
+                            </span>
+
+                            <strong>
+                                Male
+                            </strong>
+
+                        </div>
+
+
+                        <div class="information-row">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <span>
+                                Address
+                            </span>
+
+                            <strong>
+                                Wagholi, Pune, Maharashtra - 412207
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
 
 
 
                 <!-- =================================================
-                     RIGHT COLUMN
+                     DOCUMENTS
                 ================================================== -->
 
-                <div class="profile-right-column">
+                <section class="content-card documents-card">
 
 
-                    <!-- DOCUMENTS -->
+                    <div class="card-header">
 
-                    <section class="profile-card documents-card">
+                        <div class="card-title">
 
-
-                        <div class="card-header">
-
-                            <div class="card-title">
-
-                                <div class="card-icon blue-icon">
-                                    <i class="fa-regular fa-file-lines"></i>
-                                </div>
-
-                                <h2>
-                                    Documents
-                                </h2>
-
+                            <div class="card-icon">
+                                <i class="fa-regular fa-file-lines"></i>
                             </div>
 
-
-                            <button
-                                type="button"
-                                class="manage-button"
-                                id="manageDocuments">
-
-                                Manage Documents
-
-                            </button>
+                            <h3>
+                                Documents
+                            </h3>
 
                         </div>
 
 
-                        <div class="documents-list">
+                        <button
+                            class="outline-btn"
+                            id="manageDocuments">
 
+                            Manage Documents
 
-                            <!-- DRIVING LICENCE -->
+                        </button>
 
-                            <div class="document-row">
+                    </div>
 
 
-                                <div class="document-icon green-doc">
-                                    <i class="fa-regular fa-id-card"></i>
-                                </div>
+                    <div class="documents-list">
 
 
-                                <div class="document-info">
+                        <div class="document-row">
 
-                                    <strong>
-                                        Driving License
-                                    </strong>
-
-                                    <span>
-                                        MH12 20190012345
-                                    </span>
-
-                                </div>
-
-
-                                <div class="document-preview">
-
-                                    <div class="document-thumbnail">
-                                        <i class="fa-regular fa-file-image"></i>
-                                    </div>
-
-                                </div>
-
-
-                                <span class="verified-document">
-                                    <i class="fa-solid fa-circle"></i>
-                                    Verified
-                                </span>
-
-
-                                <button
-                                    type="button"
-                                    class="view-document"
-                                    data-document="Driving License">
-
-                                    View
-
-                                </button>
-
-                            </div>
-
-
-
-                            <!-- AADHAAR -->
-
-                            <div class="document-row">
-
-
-                                <div class="document-icon orange-doc">
-                                    <i class="fa-solid fa-fingerprint"></i>
-                                </div>
-
-
-                                <div class="document-info">
-
-                                    <strong>
-                                        Aadhaar Card
-                                    </strong>
-
-                                    <span>
-                                        XXXX-XXXX-1234
-                                    </span>
-
-                                </div>
-
-
-                                <div class="document-preview">
-
-                                    <div class="document-thumbnail">
-                                        <i class="fa-regular fa-file-image"></i>
-                                    </div>
-
-                                </div>
-
-
-                                <span class="verified-document">
-                                    <i class="fa-solid fa-circle"></i>
-                                    Verified
-                                </span>
-
-
-                                <button
-                                    type="button"
-                                    class="view-document"
-                                    data-document="Aadhaar Card">
-
-                                    View
-
-                                </button>
-
-                            </div>
-
-
-
-                            <!-- PAN -->
-
-                            <div class="document-row">
-
-
-                                <div class="document-icon blue-doc">
-                                    <i class="fa-solid fa-address-card"></i>
-                                </div>
-
-
-                                <div class="document-info">
-
-                                    <strong>
-                                        PAN Card
-                                    </strong>
-
-                                    <span>
-                                        ABCDE1234F
-                                    </span>
-
-                                </div>
-
-
-                                <div class="document-preview">
-
-                                    <div class="document-thumbnail">
-                                        <i class="fa-regular fa-file-image"></i>
-                                    </div>
-
-                                </div>
-
-
-                                <span class="verified-document">
-                                    <i class="fa-solid fa-circle"></i>
-                                    Verified
-                                </span>
-
-
-                                <button
-                                    type="button"
-                                    class="view-document"
-                                    data-document="PAN Card">
-
-                                    View
-
-                                </button>
-
-                            </div>
-
-
-
-                            <!-- ADDRESS PROOF -->
-
-                            <div class="document-row">
-
-
-                                <div class="document-icon green-doc">
-                                    <i class="fa-solid fa-house"></i>
-                                </div>
-
-
-                                <div class="document-info">
-
-                                    <strong>
-                                        Address Proof
-                                    </strong>
-
-                                    <span>
-                                        Electricity Bill
-                                    </span>
-
-                                </div>
-
-
-                                <div class="document-preview">
-
-                                    <div class="document-thumbnail">
-                                        <i class="fa-regular fa-file-image"></i>
-                                    </div>
-
-                                </div>
-
-
-                                <span class="verified-document">
-                                    <i class="fa-solid fa-circle"></i>
-                                    Verified
-                                </span>
-
-
-                                <button
-                                    type="button"
-                                    class="view-document"
-                                    data-document="Address Proof">
-
-                                    View
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </section>
-
-
-
-                    <!-- BANK & PAYMENTS -->
-
-                    <section class="profile-card">
-
-
-                        <div class="card-header">
-
-                            <div class="card-title">
-
-                                <div class="card-icon blue-icon">
-                                    <i class="fa-solid fa-building-columns"></i>
-                                </div>
-
-                                <h2>
-                                    Bank & Payments
-                                </h2>
-
-                            </div>
-
-
-                            <button
-                                type="button"
-                                class="card-edit"
-                                data-section="bank">
-
-                                <i class="fa-solid fa-pen"></i>
-
-                                Edit
-
-                            </button>
-
-                        </div>
-
-
-                        <div class="card-body info-list">
-
-
-                            <div class="info-row">
-
-                                <i class="fa-solid fa-building-columns"></i>
-
-                                <span>
-                                    Bank Name
-                                </span>
-
-                                <strong>
-                                    State Bank of India
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-row">
-
-                                <i class="fa-regular fa-credit-card"></i>
-
-                                <span>
-                                    Account Number
-                                </span>
-
-                                <strong>
-                                    XXXX XXXX 1234
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-row">
+                            <div class="document-type green-doc">
 
                                 <i class="fa-regular fa-id-card"></i>
 
-                                <span>
-                                    IFSC Code
-                                </span>
+                            </div>
+
+
+                            <div class="document-name">
 
                                 <strong>
-                                    SBIN0001234
+                                    Driving License
+                                </strong>
+
+                                <small>
+                                    MH12 20190012345
+                                </small>
+
+                            </div>
+
+
+                            <div class="document-thumb">
+
+                                <i class="fa-regular fa-file-image"></i>
+
+                            </div>
+
+
+                            <span class="verified-document">
+
+                                <i class="fa-solid fa-circle"></i>
+
+                                Verified
+
+                            </span>
+
+
+                            <button
+                                class="document-view"
+                                data-document="Driving License">
+
+                                View
+
+                            </button>
+
+                        </div>
+
+
+
+                        <div class="document-row">
+
+                            <div class="document-type orange-doc">
+
+                                <i class="fa-solid fa-fingerprint"></i>
+
+                            </div>
+
+
+                            <div class="document-name">
+
+                                <strong>
+                                    Aadhaar Card
+                                </strong>
+
+                                <small>
+                                    XXXX-XXXX-1234
+                                </small>
+
+                            </div>
+
+
+                            <div class="document-thumb">
+
+                                <i class="fa-regular fa-file-image"></i>
+
+                            </div>
+
+
+                            <span class="verified-document">
+
+                                <i class="fa-solid fa-circle"></i>
+
+                                Verified
+
+                            </span>
+
+
+                            <button
+                                class="document-view"
+                                data-document="Aadhaar Card">
+
+                                View
+
+                            </button>
+
+                        </div>
+
+
+
+                        <div class="document-row">
+
+                            <div class="document-type blue-doc">
+
+                                <i class="fa-solid fa-address-card"></i>
+
+                            </div>
+
+
+                            <div class="document-name">
+
+                                <strong>
+                                    PAN Card
+                                </strong>
+
+                                <small>
+                                    ABCDE1234F
+                                </small>
+
+                            </div>
+
+
+                            <div class="document-thumb">
+
+                                <i class="fa-regular fa-file-image"></i>
+
+                            </div>
+
+
+                            <span class="verified-document">
+
+                                <i class="fa-solid fa-circle"></i>
+
+                                Verified
+
+                            </span>
+
+
+                            <button
+                                class="document-view"
+                                data-document="PAN Card">
+
+                                View
+
+                            </button>
+
+                        </div>
+
+
+
+                        <div class="document-row">
+
+                            <div class="document-type green-doc">
+
+                                <i class="fa-solid fa-house"></i>
+
+                            </div>
+
+
+                            <div class="document-name">
+
+                                <strong>
+                                    Address Proof
+                                </strong>
+
+                                <small>
+                                    Electricity Bill
+                                </small>
+
+                            </div>
+
+
+                            <div class="document-thumb">
+
+                                <i class="fa-regular fa-file-image"></i>
+
+                            </div>
+
+
+                            <span class="verified-document">
+
+                                <i class="fa-solid fa-circle"></i>
+
+                                Verified
+
+                            </span>
+
+
+                            <button
+                                class="document-view"
+                                data-document="Address Proof">
+
+                                View
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     VEHICLE
+                ================================================== -->
+
+                <section class="content-card vehicle-card">
+
+
+                    <div class="card-header">
+
+                        <div class="card-title">
+
+                            <div class="card-icon">
+                                <i class="fa-solid fa-truck"></i>
+                            </div>
+
+                            <h3>
+                                Vehicle Information
+                            </h3>
+
+                        </div>
+
+
+                        <button
+                            class="outline-btn edit-section"
+                            data-section="vehicle">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                            Edit
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="vehicle-content">
+
+
+                        <div class="vehicle-image">
+
+                            <img
+                                src="{% static 'driver/images/vehicles/tipper.png' %}"
+                                alt="Tipper"
+                            >
+
+                        </div>
+
+
+                        <div class="vehicle-info">
+
+
+                            <div>
+                                <span>Vehicle Type</span>
+                                <strong>Tipper</strong>
+                            </div>
+
+
+                            <div>
+                                <span>Registration Number</span>
+                                <strong>MH12 AB 1234</strong>
+                            </div>
+
+
+                            <div>
+                                <span>Model</span>
+                                <strong>Tata Signa 2823</strong>
+                            </div>
+
+
+                            <div>
+                                <span>Load Capacity</span>
+                                <strong>20 Tons</strong>
+                            </div>
+
+
+                            <div>
+                                <span>Year of Purchase</span>
+                                <strong>2022</strong>
+                            </div>
+
+
+                            <div>
+                                <span>Fitness Valid Upto</span>
+
+                                <strong>
+
+                                    15 Aug 2026
+
+                                    <em class="valid">
+                                        ● Valid
+                                    </em>
+
                                 </strong>
 
                             </div>
 
+                        </div>
 
-                            <div class="info-row">
+                    </div>
 
-                                <i class="fa-solid fa-circle-nodes"></i>
+                </section>
 
-                                <span>
-                                    UPI ID
-                                </span>
 
-                                <strong>
-                                    ankitkumar123@oksbi
-                                </strong>
 
+                <!-- =================================================
+                     BANK
+                ================================================== -->
+
+                <section class="content-card bank-card">
+
+
+                    <div class="card-header">
+
+                        <div class="card-title">
+
+                            <div class="card-icon">
+                                <i class="fa-solid fa-building-columns"></i>
                             </div>
 
+                            <h3>
+                                Bank & Payments
+                            </h3>
+
                         </div>
 
-                    </section>
+
+                        <button
+                            class="outline-btn edit-section"
+                            data-section="bank">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                            Edit
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="information-list">
+
+
+                        <div class="information-row">
+
+                            <i class="fa-solid fa-building-columns"></i>
+
+                            <span>
+                                Bank Name
+                            </span>
+
+                            <strong>
+                                State Bank of India
+                            </strong>
+
+                        </div>
+
+
+                        <div class="information-row">
+
+                            <i class="fa-regular fa-credit-card"></i>
+
+                            <span>
+                                Account Number
+                            </span>
+
+                            <strong>
+                                XXXX XXXX 1234
+                            </strong>
+
+                        </div>
+
+
+                        <div class="information-row">
+
+                            <i class="fa-solid fa-code"></i>
+
+                            <span>
+                                IFSC Code
+                            </span>
+
+                            <strong>
+                                SBIN0001234
+                            </strong>
+
+                        </div>
+
+
+                        <div class="information-row">
+
+                            <i class="fa-solid fa-qrcode"></i>
+
+                            <span>
+                                UPI ID
+                            </span>
+
+                            <strong>
+                                ankitkumar123@oksbi
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
 
 
 
-                    <!-- ACCOUNT SETTINGS -->
+                <!-- =================================================
+                     EXPERIENCE
+                ================================================== -->
 
-                    <section class="profile-card account-settings-card">
+                <section class="content-card experience-card">
 
 
-                        <div class="card-header">
+                    <div class="card-header">
 
-                            <div class="card-title">
+                        <div class="card-title">
 
-                                <div class="card-icon blue-icon">
-                                    <i class="fa-solid fa-gear"></i>
-                                </div>
-
-                                <h2>
-                                    Account Settings
-                                </h2>
-
+                            <div class="card-icon">
+                                <i class="fa-solid fa-road"></i>
                             </div>
 
-                        </div>
-
-
-                        <div class="settings-list">
-
-
-                            <button
-                                type="button"
-                                class="setting-row"
-                                data-setting="password">
-
-                                <div class="setting-icon">
-                                    <i class="fa-solid fa-lock"></i>
-                                </div>
-
-                                <span>
-                                    Change Password
-                                </span>
-
-                                <i class="fa-solid fa-chevron-right"></i>
-
-                            </button>
-
-
-                            <button
-                                type="button"
-                                class="setting-row"
-                                data-setting="notifications">
-
-                                <div class="setting-icon">
-                                    <i class="fa-solid fa-bell"></i>
-                                </div>
-
-                                <span>
-                                    Notification Preferences
-                                </span>
-
-                                <i class="fa-solid fa-chevron-right"></i>
-
-                            </button>
-
-
-                            <button
-                                type="button"
-                                class="setting-row delete-setting"
-                                data-setting="delete">
-
-                                <div class="setting-icon">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-
-                                <span>
-                                    Delete Account
-                                </span>
-
-                                <i class="fa-solid fa-chevron-right"></i>
-
-                            </button>
+                            <h3>
+                                Experience & Preferences
+                            </h3>
 
                         </div>
 
-                    </section>
 
-                </div>
+                        <button
+                            class="outline-btn edit-section"
+                            data-section="experience">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                            Edit
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="information-list">
+
+
+                        <div class="information-row">
+
+                            <i class="fa-solid fa-car"></i>
+
+                            <span>
+                                Driving Experience
+                            </span>
+
+                            <strong>
+                                5+ Years
+                            </strong>
+
+                        </div>
+
+
+                        <div class="information-row">
+
+                            <i class="fa-solid fa-truck"></i>
+
+                            <span>
+                                Preferred Job Types
+                            </span>
+
+                            <strong>
+                                Sand, Soil, Gravel, Stone, Coal
+                            </strong>
+
+                        </div>
+
+
+                        <div class="information-row">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <span>
+                                Preferred Locations
+                            </span>
+
+                            <strong>
+                                Pune, Mumbai, Nashik
+                            </strong>
+
+                        </div>
+
+
+                        <div class="information-row">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            <span>
+                                Availability
+                            </span>
+
+                            <strong class="available-text">
+
+                                <span></span>
+
+                                Available for new jobs
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     ACCOUNT SETTINGS
+                ================================================== -->
+
+                <section class="content-card account-card">
+
+
+                    <div class="card-header">
+
+                        <div class="card-title">
+
+                            <div class="card-icon">
+                                <i class="fa-solid fa-gear"></i>
+                            </div>
+
+                            <h3>
+                                Account Settings
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="account-options">
+
+
+                        <button
+                            data-setting="password">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <span>
+                                Change Password
+                            </span>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button
+                            data-setting="notifications">
+
+                            <i class="fa-solid fa-bell"></i>
+
+                            <span>
+                                Notification Preferences
+                            </span>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button
+                            data-setting="privacy">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                            <span>
+                                Privacy & Security
+                            </span>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button
+                            class="delete-account"
+                            data-setting="delete">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            <span>
+                                Delete Account
+                            </span>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+
+               
 
             </div>
 
@@ -1246,10 +1289,10 @@
                  FOOTER
             ================================================== -->
 
-            <footer class="driver-footer">
+            <footer class="profile-footer">
 
 
-                <div class="footer-brand">
+                <div class="footer-left">
 
                     <strong>
                         <span>Build</span>Connect
@@ -1277,34 +1320,42 @@
                     <span>|</span>
 
                     <a href="#">
-                        Contact
+                        Help & Support
                     </a>
 
                 </div>
 
 
-                <div class="footer-slogan">
+                <div class="footer-india">
 
-                    Good<br>
+                    🇮🇳
 
-                    <strong>
-                        Drivers
-                    </strong>
-
-                    Build<br>
-
-                    Better<br>
-
-                    Tomorrows
+                    <span>
+                        Made for a Stronger India
+                    </span>
 
                 </div>
 
             </footer>
 
 
-        </section>
+        </div>
 
     </main>
+
+</div>
+
+
+<div id="driverToast"
+     class="driver-toast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span></span>
+
+    <button>
+        <i class="fa-solid fa-xmark"></i>
+    </button>
 
 </div>
 
@@ -1312,4 +1363,5 @@
 <script src="{% static 'driver/js/profile.js' %}"></script>
 
 </body>
+
 </html>

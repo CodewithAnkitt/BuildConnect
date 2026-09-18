@@ -1,24 +1,100 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+
+    /* =====================================================
+       TOAST
+    ====================================================== */
+
+    const toast =
+        document.getElementById("driverToast");
+
+    const toastText =
+        toast ? toast.querySelector("span") : null;
+
+    const toastClose =
+        toast ? toast.querySelector("button") : null;
+
+
+    let toastTimer;
+
+
+    function showToast(message, type = "success") {
+
+        if (!toast || !toastText) {
+            return;
+        }
+
+
+        toastText.textContent = message;
+
+
+        const icon =
+            toast.querySelector("i");
+
+
+        if (icon) {
+
+            icon.className =
+                type === "error"
+                    ? "fa-solid fa-circle-exclamation"
+                    : type === "info"
+                        ? "fa-solid fa-circle-info"
+                        : "fa-solid fa-circle-check";
+
+        }
+
+
+        toast.classList.add("show");
+
+
+        clearTimeout(toastTimer);
+
+
+        toastTimer =
+            setTimeout(function () {
+
+                toast.classList.remove("show");
+
+            }, 3500);
+
+    }
+
+
+    window.showDriverToast =
+        showToast;
+
+
+    if (toastClose) {
+
+        toastClose.addEventListener(
+            "click",
+            function () {
+
+                toast.classList.remove("show");
+
+            }
+        );
+
+    }
+
+
+
     /* =====================================================
        PROFILE PHOTO
-    ===================================================== */
+    ====================================================== */
 
-    const cameraButton =
-        document.getElementById("cameraButton");
-
-    const profilePhoto =
-        document.getElementById("profilePhoto");
+    const cameraBtn =
+        document.getElementById("cameraBtn");
 
 
-    if (cameraButton) {
+    if (cameraBtn) {
 
-        cameraButton.addEventListener(
+        cameraBtn.addEventListener(
             "click",
             function () {
 
                 showToast(
-                    "Profile photo upload will be available soon.",
+                    "Profile photo upload will be connected to Django next.",
                     "info"
                 );
 
@@ -31,17 +107,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        EDIT PROFILE
-    ===================================================== */
+    ====================================================== */
 
-    const editProfileButton =
+    const editProfileBtn =
         document.getElementById(
-            "editProfileButton"
+            "editProfileBtn"
         );
 
 
-    if (editProfileButton) {
+    if (editProfileBtn) {
 
-        editProfileButton.addEventListener(
+        editProfileBtn.addEventListener(
             "click",
             function () {
 
@@ -59,10 +135,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        CARD EDIT BUTTONS
-    ===================================================== */
+    ====================================================== */
 
     document
-        .querySelectorAll(".card-edit")
+        .querySelectorAll(".edit-section")
         .forEach(function (button) {
 
             button.addEventListener(
@@ -73,41 +149,25 @@ document.addEventListener("DOMContentLoaded", function () {
                         this.dataset.section;
 
 
-                    let message =
-                        "This section will be editable soon.";
+                    const sectionNames = {
 
+                        personal:
+                            "Personal Information",
 
-                    if (section === "personal") {
+                        vehicle:
+                            "Vehicle Information",
 
-                        message =
-                            "Personal information editing will be connected to Django next.";
+                        bank:
+                            "Bank & Payments",
 
-                    }
+                        experience:
+                            "Experience & Preferences"
 
-                    else if (section === "vehicle") {
-
-                        message =
-                            "Vehicle information editing will be connected to Django next.";
-
-                    }
-
-                    else if (section === "experience") {
-
-                        message =
-                            "Experience and preferences editing will be connected to Django next.";
-
-                    }
-
-                    else if (section === "bank") {
-
-                        message =
-                            "Bank details editing will be connected to Django next.";
-
-                    }
+                    };
 
 
                     showToast(
-                        message,
+                        `${sectionNames[section] || "Profile"} editing will be connected to Django next.`,
                         "info"
                     );
 
@@ -120,10 +180,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        DOCUMENT VIEW
-    ===================================================== */
+    ====================================================== */
 
     document
-        .querySelectorAll(".view-document")
+        .querySelectorAll(".document-view")
         .forEach(function (button) {
 
             button.addEventListener(
@@ -149,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        MANAGE DOCUMENTS
-    ===================================================== */
+    ====================================================== */
 
     const manageDocuments =
         document.getElementById(
@@ -177,10 +237,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        ACCOUNT SETTINGS
-    ===================================================== */
+    ====================================================== */
 
     document
-        .querySelectorAll(".setting-row")
+        .querySelectorAll(
+            ".account-options button"
+        )
         .forEach(function (button) {
 
             button.addEventListener(
@@ -193,13 +255,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     if (setting === "delete") {
 
-                        const confirmDelete =
-                            confirm(
+                        const confirmed =
+                            window.confirm(
                                 "Are you sure you want to delete your BuildConnect account?"
                             );
 
 
-                        if (confirmDelete) {
+                        if (confirmed) {
 
                             showToast(
                                 "Account deletion will be connected to Django later.",
@@ -230,6 +292,17 @@ document.addEventListener("DOMContentLoaded", function () {
                             "info"
                         );
 
+                        return;
+                    }
+
+
+                    if (setting === "privacy") {
+
+                        showToast(
+                            "Privacy & Security settings will be available here.",
+                            "info"
+                        );
+
                     }
 
                 }
@@ -240,18 +313,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       NOTIFICATION
-    ===================================================== */
+       NOTIFICATIONS
+    ====================================================== */
 
-    const notificationButton =
+    const notificationBtn =
         document.getElementById(
-            "notificationButton"
+            "notificationBtn"
         );
 
 
-    if (notificationButton) {
+    if (notificationBtn) {
 
-        notificationButton.addEventListener(
+        notificationBtn.addEventListener(
             "click",
             function () {
 
@@ -268,52 +341,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       TOP PROFILE
-    ===================================================== */
-
-    const topProfile =
-        document.getElementById(
-            "topProfile"
-        );
-
-
-    if (topProfile) {
-
-        topProfile.addEventListener(
-            "click",
-            function () {
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-            }
-        );
-
-    }
-
-
-
-    /* =====================================================
        SEARCH
-    ===================================================== */
+    ====================================================== */
 
-    const topSearch =
+    const search =
         document.getElementById(
             "topSearch"
         );
 
 
-    if (topSearch) {
+    if (search) {
 
-        topSearch.addEventListener(
+        search.addEventListener(
             "keydown",
             function (event) {
 
                 if (
                     event.key === "Enter" &&
-                    this.value.trim() !== ""
+                    this.value.trim()
                 ) {
 
                     showToast(
@@ -331,35 +376,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       MOBILE SIDEBAR
-    ===================================================== */
-
-    /*
-       The existing driver dashboard can add a mobile
-       menu button later. This function is kept ready
-       for that implementation.
-    */
-
-    const sidebar =
-        document.querySelector(
-            ".driver-sidebar"
-        );
-
+       CTRL + K SEARCH
+    ====================================================== */
 
     document.addEventListener(
-        "click",
+        "keydown",
         function (event) {
 
             if (
-                window.innerWidth <= 760 &&
-                sidebar &&
-                sidebar.classList.contains("open") &&
-                !event.target.closest(".driver-sidebar")
+                (event.ctrlKey || event.metaKey) &&
+                event.key.toLowerCase() === "k"
             ) {
 
-                sidebar.classList.remove(
-                    "open"
-                );
+                event.preventDefault();
+
+
+                if (search) {
+
+                    search.focus();
+
+                    search.select();
+
+                }
 
             }
 
@@ -367,172 +405,3 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 });
-
-
-
-/* =========================================================
-   TOAST FUNCTION
-========================================================= */
-
-function showToast(
-    message,
-    type = "success"
-) {
-
-    const existing =
-        document.querySelector(
-            ".driver-toast"
-        );
-
-
-    if (existing) {
-        existing.remove();
-    }
-
-
-    const toast =
-        document.createElement(
-            "div"
-        );
-
-
-    toast.className =
-        "driver-toast";
-
-
-    if (type === "info") {
-
-        toast.classList.add(
-            "info"
-        );
-
-    }
-
-
-    if (type === "error") {
-
-        toast.classList.add(
-            "error"
-        );
-
-    }
-
-
-    let icon =
-        "fa-circle-check";
-
-
-    if (type === "info") {
-
-        icon =
-            "fa-circle-info";
-
-    }
-
-    else if (type === "error") {
-
-        icon =
-            "fa-circle-exclamation";
-
-    }
-
-
-    toast.innerHTML = `
-
-        <i class="fa-solid ${icon}"></i>
-
-        <span>
-            ${message}
-        </span>
-
-        <button
-            type="button"
-            class="toast-close"
-            aria-label="Close notification"
-        >
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-
-    `;
-
-
-    document.body.appendChild(
-        toast
-    );
-
-
-    setTimeout(function () {
-
-        toast.classList.add(
-            "show"
-        );
-
-    }, 20);
-
-
-    const closeButton =
-        toast.querySelector(
-            ".toast-close"
-        );
-
-
-    if (closeButton) {
-
-        closeButton.addEventListener(
-            "click",
-            function () {
-
-                removeToast(
-                    toast
-                );
-
-            }
-        );
-
-    }
-
-
-    setTimeout(function () {
-
-        if (
-            toast &&
-            toast.parentNode
-        ) {
-
-            removeToast(
-                toast
-            );
-
-        }
-
-    }, 3500);
-
-}
-
-
-
-/* =========================================================
-   REMOVE TOAST
-========================================================= */
-
-function removeToast(toast) {
-
-    toast.classList.remove(
-        "show"
-    );
-
-
-    setTimeout(function () {
-
-        if (
-            toast &&
-            toast.parentNode
-        ) {
-
-            toast.remove();
-
-        }
-
-    }, 250);
-
-}
