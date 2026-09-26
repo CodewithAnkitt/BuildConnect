@@ -2,159 +2,97 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>BuildConnect | Earnings</title>
 
-    <title>Earnings | VahanSathi</title>
+    <!-- Custom Earnings CSS -->
+    <link rel="stylesheet" href="{% static 'owner/css/earning.css' %}">
 
-
-    <!-- Bootstrap 5 -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
-
-    <!-- Bootstrap Icons -->
+    <!-- Bootstrap Icons ONLY for icons, not Bootstrap CSS -->
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
-
 </head>
 
+<body>
 
-<body class="bg-body-tertiary">
-
-
-<div class="d-flex min-vh-100">
-
+<div class="owner-layout">
 
     <!-- =====================================================
          SIDEBAR
-    ====================================================== -->
+         ===================================================== -->
 
-    <aside
-        class="bg-dark text-white d-flex flex-column flex-shrink-0"
-        style="width:280px;"
-    >
+    <aside class="sidebar" id="sidebar">
 
         <!-- Logo -->
+        <div class="sidebar-logo">
 
-        <div class="p-3 border-bottom border-secondary">
-
-            <a
-                href="{% url 'owner_dashboard' %}"
-                class="text-decoration-none"
+            <img
+                src="{% static '/images/nav-logo.png' %}"
+                alt="BuildConnect"
             >
 
-                <img
-                    src="{% static '/images/nav-logo.png' %}"
-                    alt="VahanSathi"
-                    class="img-fluid"
-                    style="max-height:65px;"
-                >
-
-            </a>
+            <div class="sidebar-logo-text">
+                <strong>BuildConnect</strong>
+                <span>Build Today, Better Tomorrow</span>
+            </div>
 
         </div>
 
 
         <!-- Navigation -->
+        <nav class="sidebar-nav">
 
-        <nav class="nav nav-pills flex-column p-3 gap-1">
-
-
-            <a
-                href="{% url 'owner_dashboard' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-house-door fs-5 me-3"></i>
-                Dashboard
+            <a href="{% url 'owner_dashboard' %}">
+                <i class="bi bi-house-door"></i>
+                <span>Dashboard</span>
             </a>
 
-
-            <a
-                href="{% url 'owner_vehicles' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-truck fs-5 me-3"></i>
-                My Vehicles
+            <a href="{% url 'owner_vehicles' %}">
+                <i class="bi bi-truck"></i>
+                <span>My Vehicles</span>
             </a>
 
+            <a href="{% url 'owner_rental_requests' %}">
+                <i class="bi bi-file-earmark-text"></i>
+                <span>Rental Requests</span>
 
-            <a
-                href="{% url 'owner_rental_requests' %}"
-                class="nav-link text-white d-flex align-items-center"
-            >
-
-                <i class="bi bi-file-earmark-text fs-5 me-3"></i>
-
-                <span>
-                    Rental Requests
-                </span>
-
-                <span class="badge bg-danger rounded-pill ms-auto">
-                    3
-                </span>
-
+                <span class="badge">3</span>
             </a>
 
-
-            <a
-                href="{% url 'owner_rentals' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-calendar-check fs-5 me-3"></i>
-                My Rentals
+            <a href="{% url 'owner_rentals' %}">
+                <i class="bi bi-calendar3"></i>
+                <span>My Rentals</span>
             </a>
 
-
-            <!-- ACTIVE -->
-
-            <a
-                href="{% url 'owner_earnings' %}"
-                class="nav-link active"
-            >
-                <i class="bi bi-bar-chart-fill fs-5 me-3"></i>
-                Earnings
+            <a href="{% url 'owner_earnings' %}" class="active">
+                <i class="bi bi-bar-chart-fill"></i>
+                <span>Earnings</span>
             </a>
 
-
-            <a
-                href="{% url 'owner_profile' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-person fs-5 me-3"></i>
-                Profile
+            <a href="{% url 'owner_profile' %}">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
             </a>
 
-
-            <a
-                href="{% url 'owner_settings' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-gear fs-5 me-3"></i>
-                Settings
+            <a href="{% url 'owner_settings' %}">
+                <i class="bi bi-gear-fill"></i>
+                <span>Settings</span>
             </a>
 
         </nav>
 
 
         <!-- Logout -->
+        <div class="sidebar-bottom">
 
-        <div class="mt-auto p-3 border-top border-secondary">
-
-            <a
-                href="{% url 'logout' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-box-arrow-right fs-5 me-3"></i>
-                Logout
+            <a href="{% url 'logout' %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
             </a>
 
         </div>
@@ -162,560 +100,449 @@
     </aside>
 
 
-
     <!-- =====================================================
          MAIN CONTENT
-    ====================================================== -->
+         ===================================================== -->
 
-    <main class="flex-grow-1 min-vh-100">
+    <main class="main-content">
 
 
         <!-- =================================================
              TOP NAVBAR
-        ================================================== -->
+             ================================================= -->
 
-        <nav
-            class="navbar bg-white border-bottom px-4 py-2"
-        >
+        <header class="top-navbar">
 
-            <div class="container-fluid">
+            <!-- Mobile menu -->
+            <button
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                type="button"
+            >
+                <i class="bi bi-list"></i>
+            </button>
 
 
-                <!-- Mobile menu -->
+            <!-- Search -->
+            <div class="nav-search">
 
-                <button
-                    class="btn btn-outline-secondary d-lg-none"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#mobileSidebar"
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="earningSearch"
+                    placeholder="Search by vehicle, customer, transaction..."
                 >
-                    <i class="bi bi-list fs-4"></i>
+
+                <span class="search-shortcut">
+                    Ctrl + K
+                </span>
+
+            </div>
+
+
+            <!-- Right side -->
+            <div class="nav-right">
+
+                <!-- Notification -->
+                <button
+                    class="notification-btn"
+                    type="button"
+                    id="notificationBtn"
+                >
+
+                    <i class="bi bi-bell"></i>
+
+                    <span class="notification-dot"></span>
+
                 </button>
 
 
-                <!-- Search -->
+                <!-- Profile -->
+                <div class="nav-profile">
 
-                <div
-                    class="input-group ms-3"
-                    style="max-width:550px;"
-                >
+                    <div class="nav-avatar">
+                        AK
+                    </div>
 
-                    <span class="input-group-text bg-light border-0">
-                        <i class="bi bi-search"></i>
-                    </span>
+                    <div class="nav-profile-info">
 
-                    <input
-                        type="text"
-                        id="earningSearch"
-                        class="form-control bg-light border-0"
-                        placeholder="Search by vehicle, customer, transaction..."
-                    >
+                        <strong>Ankit Kumar</strong>
 
-                    <span class="input-group-text bg-light border-0 text-muted small">
-                        Ctrl + K
-                    </span>
-
-                </div>
-
-
-                <!-- Right -->
-
-                <div class="d-flex align-items-center gap-3 ms-auto">
-
-
-                    <!-- Notification -->
-
-                    <button
-                        class="btn btn-light position-relative"
-                    >
-
-                        <i class="bi bi-bell fs-5"></i>
-
-                        <span
-                            class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
-                        ></span>
-
-                    </button>
-
-
-                    <!-- Profile -->
-
-                    <div class="d-flex align-items-center gap-2">
-
-                        <div
-                            class="rounded-circle bg-secondary-subtle text-secondary d-flex align-items-center justify-content-center fw-bold"
-                            style="width:42px;height:42px;"
-                        >
-                            A
-                        </div>
-
-                        <div class="d-none d-md-block">
-
-                            <div class="fw-semibold">
-                                Ankit Kumar
-                            </div>
-
-                            <small class="text-muted">
-                                Vehicle Owner
-                            </small>
-
-                        </div>
-
-                        <i class="bi bi-chevron-down"></i>
+                        <span>Vehicle Owner</span>
 
                     </div>
+
+                    <i class="bi bi-chevron-down"></i>
 
                 </div>
 
             </div>
 
-        </nav>
-
+        </header>
 
 
         <!-- =================================================
              PAGE
-        ================================================== -->
+             ================================================= -->
 
-        <div class="container-fluid p-4">
+        <div class="page-container">
 
 
             <!-- =================================================
                  HERO
-            ================================================== -->
+                 ================================================= -->
 
             <section
-                class="rounded-4 p-4 mb-4 position-relative overflow-hidden"
+                class="earnings-hero"
                 style="
-                    min-height:170px;
-                    background:
+                    background-image:
                     linear-gradient(
                         90deg,
-                        rgba(235,245,255,.98) 0%,
-                        rgba(235,245,255,.90) 35%,
-                        rgba(235,245,255,.35) 70%,
-                        rgba(235,245,255,.08) 100%
+                        rgba(235,245,255,0.98) 0%,
+                        rgba(235,245,255,0.90) 35%,
+                        rgba(235,245,255,0.35) 70%,
+                        rgba(235,245,255,0.08) 100%
                     ),
                     url('{% static "/images/owner-earning-hero.png" %}');
-                    background-size:cover;
-                    background-position:center right;
                 "
             >
 
-                <div
-                    class="d-flex align-items-center justify-content-between h-100 position-relative"
+                <div class="earnings-hero-content">
+
+                    <div class="hero-label">
+                        <i class="bi bi-wallet2"></i>
+                        <span>Financial Overview</span>
+                    </div>
+
+                    <h1>Earnings</h1>
+
+                    <p>
+                        Track your rental income, payments and financial performance.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="withdraw-btn"
+                    id="withdrawBtn"
+                    type="button"
                 >
+                    <i class="bi bi-wallet2"></i>
+                    Withdraw Earnings
+                </button>
 
-                    <div>
+            </section>
 
-                        <span class="badge bg-primary-subtle text-primary mb-2">
-                            <i class="bi bi-wallet2 me-1"></i>
-                            Financial Overview
-                        </span>
 
-                        <h1 class="fw-bold text-dark mb-1">
-                            Earnings
-                        </h1>
+            <!-- =================================================
+                 STAT CARDS
+                 ================================================= -->
 
-                        <p class="text-secondary mb-0">
-                            Track your rental income, payments and financial performance.
-                        </p>
+            <section class="stats-grid">
+
+
+                <!-- Total Earnings -->
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        <i class="bi bi-currency-rupee"></i>
+                    </div>
+
+                    <div class="stat-content">
+
+                        <div class="stat-value">
+                            ₹4,82,500
+                        </div>
+
+                        <div class="stat-title">
+                            Total Earnings
+                        </div>
+
+                        <div class="stat-subtitle">
+                            All time earnings
+                        </div>
 
                     </div>
 
+                    <span class="stat-status positive">
+                        ↑ 18%
+                    </span>
 
-                    <button
-                        class="btn btn-primary btn-lg shadow"
-                        id="withdrawBtn"
-                    >
+                </div>
 
-                        <i class="bi bi-wallet2 me-2"></i>
 
-                        Withdraw Earnings
+                <!-- This Month -->
+                <div class="stat-card">
 
-                    </button>
+                    <div class="stat-icon green">
+                        <i class="bi bi-calendar3"></i>
+                    </div>
+
+                    <div class="stat-content">
+
+                        <div class="stat-value">
+                            ₹2,48,500
+                        </div>
+
+                        <div class="stat-title">
+                            This Month
+                        </div>
+
+                        <div class="stat-subtitle">
+                            September 2026
+                        </div>
+
+                    </div>
+
+                    <span class="stat-status positive">
+                        ↑ 12%
+                    </span>
+
+                </div>
+
+
+                <!-- Pending -->
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        <i class="bi bi-hourglass-split"></i>
+                    </div>
+
+                    <div class="stat-content">
+
+                        <div class="stat-value">
+                            ₹36,000
+                        </div>
+
+                        <div class="stat-title">
+                            Pending Payments
+                        </div>
+
+                        <div class="stat-subtitle">
+                            3 payments pending
+                        </div>
+
+                    </div>
+
+                    <span class="stat-status pending">
+                        Pending
+                    </span>
+
+                </div>
+
+
+                <!-- Withdrawable -->
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+
+                    <div class="stat-content">
+
+                        <div class="stat-value">
+                            ₹1,84,500
+                        </div>
+
+                        <div class="stat-title">
+                            Withdrawable Balance
+                        </div>
+
+                        <div class="stat-subtitle">
+                            Ready for withdrawal
+                        </div>
+
+                    </div>
+
+                    <span class="stat-status available">
+                        Available
+                    </span>
 
                 </div>
 
             </section>
 
 
-
             <!-- =================================================
-                 STAT CARDS
-            ================================================== -->
+                 ANALYTICS
+                 ================================================= -->
 
-            <div class="row g-3 mb-4">
+            <section class="analytics-grid">
 
 
-                <!-- Total -->
+                <!-- =================================================
+                     EARNINGS OVERVIEW
+                     ================================================= -->
 
-                <div class="col-xl-3 col-md-6">
+                <div class="content-card">
 
-                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                    <div class="card-header">
 
-                        <div class="card-body p-4">
+                        <div class="card-title">
 
-                            <div class="d-flex justify-content-between">
+                            <h2>
+                                Earnings Overview
+                            </h2>
+
+                            <p>
+                                Monthly earnings performance
+                            </p>
+
+                        </div>
+
+
+                        <select
+                            class="period-select"
+                            id="periodSelect"
+                        >
+                            <option>
+                                Last 6 Months
+                            </option>
+
+                            <option>
+                                This Year
+                            </option>
+
+                            <option>
+                                Last Year
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="chart-wrapper">
+
+                        <div class="chart">
+
+
+                            <!-- April -->
+                            <div class="chart-column">
 
                                 <div
-                                    class="rounded-3 bg-primary-subtle text-primary d-flex align-items-center justify-content-center"
-                                    style="width:52px;height:52px;"
+                                    class="chart-bar"
+                                    style="height: 58%;"
                                 >
-                                    <i class="bi bi-currency-rupee fs-4"></i>
+
+                                    <span class="chart-value">
+                                        ₹1,42,000
+                                    </span>
+
                                 </div>
 
-                                <span class="badge bg-success-subtle text-success">
-                                    <i class="bi bi-arrow-up"></i>
-                                    18%
+                                <span class="chart-label">
+                                    Apr
                                 </span>
 
                             </div>
 
-                            <h3 class="fw-bold mt-3 mb-1">
-                                ₹4,82,500
-                            </h3>
 
-                            <div class="fw-medium">
-                                Total Earnings
-                            </div>
-
-                            <small class="text-muted">
-                                All time earnings
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Month -->
-
-                <div class="col-xl-3 col-md-6">
-
-                    <div class="card border-0 shadow-sm rounded-4 h-100">
-
-                        <div class="card-body p-4">
-
-                            <div class="d-flex justify-content-between">
+                            <!-- May -->
+                            <div class="chart-column">
 
                                 <div
-                                    class="rounded-3 bg-success-subtle text-success d-flex align-items-center justify-content-center"
-                                    style="width:52px;height:52px;"
+                                    class="chart-bar"
+                                    style="height: 72%;"
                                 >
-                                    <i class="bi bi-calendar3 fs-4"></i>
+
+                                    <span class="chart-value">
+                                        ₹1,82,000
+                                    </span>
+
                                 </div>
 
-                                <span class="badge bg-success-subtle text-success">
-                                    <i class="bi bi-arrow-up"></i>
-                                    12%
+                                <span class="chart-label">
+                                    May
                                 </span>
 
                             </div>
 
-                            <h3 class="fw-bold mt-3 mb-1">
-                                ₹2,48,500
-                            </h3>
 
-                            <div class="fw-medium">
-                                This Month
-                            </div>
-
-                            <small class="text-muted">
-                                September 2026
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Pending -->
-
-                <div class="col-xl-3 col-md-6">
-
-                    <div class="card border-0 shadow-sm rounded-4 h-100">
-
-                        <div class="card-body p-4">
-
-                            <div class="d-flex justify-content-between">
+                            <!-- June -->
+                            <div class="chart-column">
 
                                 <div
-                                    class="rounded-3 bg-warning-subtle text-warning d-flex align-items-center justify-content-center"
-                                    style="width:52px;height:52px;"
+                                    class="chart-bar"
+                                    style="height: 63%;"
                                 >
-                                    <i class="bi bi-hourglass-split fs-4"></i>
+
+                                    <span class="chart-value">
+                                        ₹1,58,000
+                                    </span>
+
                                 </div>
 
-                                <span class="badge bg-warning-subtle text-warning">
-                                    Pending
+                                <span class="chart-label">
+                                    Jun
                                 </span>
 
                             </div>
 
-                            <h3 class="fw-bold mt-3 mb-1">
-                                ₹36,000
-                            </h3>
 
-                            <div class="fw-medium">
-                                Pending Payments
-                            </div>
-
-                            <small class="text-muted">
-                                3 payments pending
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Withdrawable -->
-
-                <div class="col-xl-3 col-md-6">
-
-                    <div class="card border-0 shadow-sm rounded-4 h-100">
-
-                        <div class="card-body p-4">
-
-                            <div class="d-flex justify-content-between">
+                            <!-- July -->
+                            <div class="chart-column">
 
                                 <div
-                                    class="rounded-3 bg-primary-subtle text-primary d-flex align-items-center justify-content-center"
-                                    style="width:52px;height:52px;"
+                                    class="chart-bar"
+                                    style="height: 84%;"
                                 >
-                                    <i class="bi bi-wallet2 fs-4"></i>
+
+                                    <span class="chart-value">
+                                        ₹2,12,000
+                                    </span>
+
                                 </div>
 
-                                <span class="badge bg-primary-subtle text-primary">
-                                    Available
+                                <span class="chart-label">
+                                    Jul
                                 </span>
 
                             </div>
 
-                            <h3 class="fw-bold mt-3 mb-1">
-                                ₹1,84,500
-                            </h3>
 
-                            <div class="fw-medium">
-                                Withdrawable Balance
-                            </div>
+                            <!-- August -->
+                            <div class="chart-column">
 
-                            <small class="text-muted">
-                                Ready for withdrawal
-                            </small>
+                                <div
+                                    class="chart-bar"
+                                    style="height: 77%;"
+                                >
 
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =================================================
-                 CHART + BREAKDOWN
-            ================================================== -->
-
-            <div class="row g-4 mb-4">
-
-
-                <!-- CHART -->
-
-                <div class="col-xl-8">
-
-                    <div class="card border-0 shadow-sm rounded-4 h-100">
-
-                        <div class="card-body p-4">
-
-
-                            <div
-                                class="d-flex justify-content-between align-items-start mb-4"
-                            >
-
-                                <div>
-
-                                    <h4 class="fw-bold mb-1">
-                                        Earnings Overview
-                                    </h4>
-
-                                    <p class="text-muted mb-0">
-                                        Monthly earnings performance
-                                    </p>
+                                    <span class="chart-value">
+                                        ₹1,96,000
+                                    </span>
 
                                 </div>
 
-
-                                <select
-                                    class="form-select"
-                                    style="width:160px;"
-                                >
-
-                                    <option>
-                                        Last 6 Months
-                                    </option>
-
-                                    <option>
-                                        Last 12 Months
-                                    </option>
-
-                                    <option>
-                                        This Year
-                                    </option>
-
-                                </select>
+                                <span class="chart-label">
+                                    Aug
+                                </span>
 
                             </div>
 
 
-                            <!-- Bootstrap progress-style chart -->
-
-                            <div
-                                class="d-flex align-items-end gap-3"
-                                style="height:250px;"
-                            >
-
-
-                                <!-- APR -->
+                            <!-- September -->
+                            <div class="chart-column">
 
                                 <div
-                                    class="d-flex flex-column align-items-center justify-content-end flex-fill h-100"
+                                    class="chart-bar"
+                                    style="height: 96%;"
                                 >
 
-                                    <strong class="small mb-2">
-                                        ₹1.42L
-                                    </strong>
-
-                                    <div
-                                        class="bg-primary rounded-top w-100"
-                                        style="height:48%;"
-                                    ></div>
-
-                                    <small class="text-muted mt-2">
-                                        Apr
-                                    </small>
+                                    <span class="chart-value">
+                                        ₹2,48,500
+                                    </span>
 
                                 </div>
 
-
-                                <!-- MAY -->
-
-                                <div
-                                    class="d-flex flex-column align-items-center justify-content-end flex-fill h-100"
-                                >
-
-                                    <strong class="small mb-2">
-                                        ₹1.82L
-                                    </strong>
-
-                                    <div
-                                        class="bg-primary rounded-top w-100"
-                                        style="height:62%;"
-                                    ></div>
-
-                                    <small class="text-muted mt-2">
-                                        May
-                                    </small>
-
-                                </div>
-
-
-                                <!-- JUN -->
-
-                                <div
-                                    class="d-flex flex-column align-items-center justify-content-end flex-fill h-100"
-                                >
-
-                                    <strong class="small mb-2">
-                                        ₹1.58L
-                                    </strong>
-
-                                    <div
-                                        class="bg-primary rounded-top w-100"
-                                        style="height:54%;"
-                                    ></div>
-
-                                    <small class="text-muted mt-2">
-                                        Jun
-                                    </small>
-
-                                </div>
-
-
-                                <!-- JUL -->
-
-                                <div
-                                    class="d-flex flex-column align-items-center justify-content-end flex-fill h-100"
-                                >
-
-                                    <strong class="small mb-2">
-                                        ₹2.12L
-                                    </strong>
-
-                                    <div
-                                        class="bg-primary rounded-top w-100"
-                                        style="height:72%;"
-                                    ></div>
-
-                                    <small class="text-muted mt-2">
-                                        Jul
-                                    </small>
-
-                                </div>
-
-
-                                <!-- AUG -->
-
-                                <div
-                                    class="d-flex flex-column align-items-center justify-content-end flex-fill h-100"
-                                >
-
-                                    <strong class="small mb-2">
-                                        ₹1.96L
-                                    </strong>
-
-                                    <div
-                                        class="bg-primary rounded-top w-100"
-                                        style="height:67%;"
-                                    ></div>
-
-                                    <small class="text-muted mt-2">
-                                        Aug
-                                    </small>
-
-                                </div>
-
-
-                                <!-- SEP -->
-
-                                <div
-                                    class="d-flex flex-column align-items-center justify-content-end flex-fill h-100"
-                                >
-
-                                    <strong class="small mb-2 text-primary">
-                                        ₹2.48L
-                                    </strong>
-
-                                    <div
-                                        class="bg-primary rounded-top w-100"
-                                        style="height:84%;"
-                                    ></div>
-
-                                    <small class="text-primary fw-semibold mt-2">
-                                        Sep
-                                    </small>
-
-                                </div>
+                                <span class="chart-label">
+                                    Sep
+                                </span>
 
                             </div>
+
 
                         </div>
 
@@ -724,573 +551,506 @@
                 </div>
 
 
+                <!-- =================================================
+                     EARNINGS BREAKDOWN
+                     ================================================= -->
 
-                <!-- BREAKDOWN -->
+                <div class="content-card">
 
-                <div class="col-xl-4">
+                    <div class="card-header">
 
-                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-title">
 
-                        <div class="card-body p-4">
-
-                            <h4 class="fw-bold mb-1">
+                            <h2>
                                 Earnings Breakdown
-                            </h4>
+                            </h2>
 
-                            <p class="text-muted">
+                            <p>
                                 September 2026
                             </p>
 
+                        </div>
 
-                            <div
-                                class="text-center my-4"
-                            >
+                    </div>
 
-                                <div
-                                    class="rounded-circle border border-5 border-primary mx-auto d-flex flex-column align-items-center justify-content-center"
-                                    style="width:150px;height:150px;"
-                                >
 
-                                    <h4 class="fw-bold mb-0">
+                    <div class="breakdown-body">
+
+                        <div class="breakdown-main">
+
+
+                            <!-- Donut -->
+                            <div class="donut">
+
+                                <div class="donut-content">
+
+                                    <span class="donut-value">
                                         ₹2,48,500
-                                    </h4>
+                                    </span>
 
-                                    <small class="text-muted">
+                                    <span class="donut-label">
                                         Total
-                                    </small>
+                                    </span>
 
                                 </div>
 
                             </div>
 
 
-                            <!-- Dumper -->
+                            <!-- Breakdown -->
+                            <div class="breakdown-list">
 
-                            <div class="d-flex align-items-center mb-3">
 
-                                <span
-                                    class="rounded-circle bg-primary me-2"
-                                    style="width:10px;height:10px;"
-                                ></span>
+                                <div class="breakdown-item">
 
-                                <span class="flex-grow-1">
-                                    Dumper Rentals
-                                </span>
+                                    <span class="breakdown-dot blue"></span>
 
-                                <strong>
-                                    ₹1,42,000
-                                </strong>
+                                    <span class="breakdown-item-name">
+                                        Dumper Rentals
+                                    </span>
+
+                                    <span class="breakdown-item-value">
+                                        ₹1,42,000
+                                    </span>
+
+                                    <span class="breakdown-item-percent">
+                                        57%
+                                    </span>
+
+                                </div>
+
+
+                                <div class="breakdown-item">
+
+                                    <span class="breakdown-dot green"></span>
+
+                                    <span class="breakdown-item-name">
+                                        Tractor Rentals
+                                    </span>
+
+                                    <span class="breakdown-item-value">
+                                        ₹64,500
+                                    </span>
+
+                                    <span class="breakdown-item-percent">
+                                        26%
+                                    </span>
+
+                                </div>
+
+
+                                <div class="breakdown-item">
+
+                                    <span class="breakdown-dot orange"></span>
+
+                                    <span class="breakdown-item-name">
+                                        JCB Rentals
+                                    </span>
+
+                                    <span class="breakdown-item-value">
+                                        ₹42,000
+                                    </span>
+
+                                    <span class="breakdown-item-percent">
+                                        17%
+                                    </span>
+
+                                </div>
+
 
                             </div>
-
-
-                            <!-- Tractor -->
-
-                            <div class="d-flex align-items-center mb-3">
-
-                                <span
-                                    class="rounded-circle bg-success me-2"
-                                    style="width:10px;height:10px;"
-                                ></span>
-
-                                <span class="flex-grow-1">
-                                    Tractor Rentals
-                                </span>
-
-                                <strong>
-                                    ₹64,500
-                                </strong>
-
-                            </div>
-
-
-                            <!-- JCB -->
-
-                            <div class="d-flex align-items-center mb-3">
-
-                                <span
-                                    class="rounded-circle bg-warning me-2"
-                                    style="width:10px;height:10px;"
-                                ></span>
-
-                                <span class="flex-grow-1">
-                                    JCB Rentals
-                                </span>
-
-                                <strong>
-                                    ₹42,000
-                                </strong>
-
-                            </div>
-
-
-                            <div class="progress mt-4">
-
-                                <div
-                                    class="progress-bar bg-primary"
-                                    style="width:57%;"
-                                ></div>
-
-                                <div
-                                    class="progress-bar bg-success"
-                                    style="width:26%;"
-                                ></div>
-
-                                <div
-                                    class="progress-bar bg-warning"
-                                    style="width:17%;"
-                                ></div>
-
-                            </div>
-
-
-                            <small class="text-muted d-block mt-3">
-                                Dumper rentals contributed the most this month.
-                            </small>
 
                         </div>
+
+
+                        <!-- Progress -->
+                        <div class="breakdown-progress">
+
+                            <div class="progress-blue"></div>
+
+                            <div class="progress-green"></div>
+
+                            <div class="progress-orange"></div>
+
+                        </div>
+
+
+                        <p class="breakdown-note">
+                            Dumper rentals contributed the most this month.
+                        </p>
 
                     </div>
 
                 </div>
 
-            </div>
-
+            </section>
 
 
             <!-- =================================================
-                 TRANSACTIONS
-            ================================================== -->
+                 RECENT TRANSACTIONS
+                 ================================================= -->
 
-            <div class="card border-0 shadow-sm rounded-4">
-
-
-                <div
-                    class="card-body p-4"
-                >
+            <section class="content-card transactions-card">
 
 
-                    <!-- Header -->
+                <div class="transactions-header">
 
-                    <div
-                        class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2"
+                    <div class="transactions-title">
+
+                        <h2>
+                            Recent Transactions
+                        </h2>
+
+                        <p>
+                            Your latest rental payments
+                        </p>
+
+                    </div>
+
+
+                    <div class="transaction-actions">
+
+                        <button
+                            class="action-btn"
+                            id="dateFilterBtn"
+                            type="button"
+                        >
+                            <i class="bi bi-calendar3"></i>
+                            Date Range
+                        </button>
+
+                        <button
+                            class="action-btn"
+                            id="exportBtn"
+                            type="button"
+                        >
+                            <i class="bi bi-download"></i>
+                            Export
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table
+                        class="transactions-table"
+                        id="transactionsTable"
                     >
 
-                        <div>
+                        <thead>
 
-                            <h4 class="fw-bold mb-1">
-                                Recent Transactions
-                            </h4>
+                            <tr>
 
-                            <p class="text-muted mb-0">
-                                Your latest rental payments
-                            </p>
+                                <th>
+                                    Transaction
+                                </th>
 
-                        </div>
+                                <th>
+                                    Vehicle
+                                </th>
 
+                                <th>
+                                    Customer
+                                </th>
 
-                        <div class="d-flex gap-2">
+                                <th>
+                                    Date
+                                </th>
 
-                            <button
-                                class="btn btn-outline-secondary"
-                                id="dateFilterBtn"
-                            >
+                                <th>
+                                    Amount
+                                </th>
 
-                                <i class="bi bi-calendar3 me-1"></i>
+                                <th>
+                                    Status
+                                </th>
 
-                                Date Range
+                                <th>
+                                    Action
+                                </th>
 
-                            </button>
+                            </tr>
 
-
-                            <button
-                                class="btn btn-outline-secondary"
-                                id="exportBtn"
-                            >
-
-                                <i class="bi bi-download me-1"></i>
-
-                                Export
-
-                            </button>
-
-                        </div>
-
-                    </div>
+                        </thead>
 
 
-
-                    <!-- Table -->
-
-                    <div class="table-responsive">
-
-                        <table
-                            class="table table-hover align-middle mb-0"
-                            id="transactionsTable"
-                        >
-
-                            <thead class="table-light">
-
-                                <tr>
-
-                                    <th>
-                                        Transaction
-                                    </th>
-
-                                    <th>
-                                        Vehicle
-                                    </th>
-
-                                    <th>
-                                        Customer
-                                    </th>
-
-                                    <th>
-                                        Date
-                                    </th>
-
-                                    <th>
-                                        Amount
-                                    </th>
-
-                                    <th>
-                                        Status
-                                    </th>
-
-                                    <th>
-                                        Action
-                                    </th>
-
-                                </tr>
-
-                            </thead>
+                        <tbody>
 
 
-                            <tbody>
+                            <!-- Transaction 1 -->
+                            <tr>
 
+                                <td>
 
-                                <!-- Transaction 1 -->
+                                    <div class="transaction-info">
 
-                                <tr>
+                                        <div class="transaction-icon">
+                                            <i class="bi bi-check-lg"></i>
+                                        </div>
 
-                                    <td>
+                                        <div>
 
-                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="transaction-id">
+                                                TXN-2026-0912
+                                            </div>
 
-                                            <span
-                                                class="rounded-circle bg-success-subtle text-success d-flex align-items-center justify-content-center"
-                                                style="width:38px;height:38px;"
-                                            >
-                                                <i class="bi bi-check-lg"></i>
-                                            </span>
-
-                                            <div>
-
-                                                <strong>
-                                                    TXN-2026-0912
-                                                </strong>
-
-                                                <small class="d-block text-muted">
-                                                    Rental Payment
-                                                </small>
-
+                                            <div class="transaction-type">
+                                                Rental Payment
                                             </div>
 
                                         </div>
 
-                                    </td>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    Tata Dumper
+                                </td>
+
+                                <td>
+                                    Rahul Sharma
+                                </td>
+
+                                <td>
+                                    25 Sep 2026
+                                </td>
+
+                                <td class="amount-positive">
+                                    +₹42,000
+                                </td>
+
+                                <td>
+
+                                    <span class="status received">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Received
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        class="view-btn"
+                                        type="button"
+                                    >
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+
+                                </td>
+
+                            </tr>
 
 
-                                    <td>
-                                        Tata Dumper
-                                    </td>
+                            <!-- Transaction 2 -->
+                            <tr>
 
+                                <td>
 
-                                    <td>
-                                        Rahul Sharma
-                                    </td>
+                                    <div class="transaction-info">
 
+                                        <div class="transaction-icon">
+                                            <i class="bi bi-check-lg"></i>
+                                        </div>
 
-                                    <td>
-                                        25 Sep 2026
-                                    </td>
+                                        <div>
 
+                                            <div class="transaction-id">
+                                                TXN-2026-0908
+                                            </div>
 
-                                    <td class="text-success fw-bold">
-                                        +₹42,000
-                                    </td>
-
-
-                                    <td>
-
-                                        <span class="badge bg-success-subtle text-success">
-                                            <i class="bi bi-check-circle me-1"></i>
-                                            Received
-                                        </span>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <button
-                                            class="btn btn-sm btn-outline-primary view-btn"
-                                        >
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-
-                                    </td>
-
-                                </tr>
-
-
-
-                                <!-- Transaction 2 -->
-
-                                <tr>
-
-                                    <td>
-
-                                        <div class="d-flex align-items-center gap-2">
-
-                                            <span
-                                                class="rounded-circle bg-success-subtle text-success d-flex align-items-center justify-content-center"
-                                                style="width:38px;height:38px;"
-                                            >
-                                                <i class="bi bi-check-lg"></i>
-                                            </span>
-
-                                            <div>
-
-                                                <strong>
-                                                    TXN-2026-0908
-                                                </strong>
-
-                                                <small class="d-block text-muted">
-                                                    Rental Payment
-                                                </small>
-
+                                            <div class="transaction-type">
+                                                Rental Payment
                                             </div>
 
                                         </div>
 
-                                    </td>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    Swaraj Tractor
+                                </td>
+
+                                <td>
+                                    Amit Verma
+                                </td>
+
+                                <td>
+                                    22 Sep 2026
+                                </td>
+
+                                <td class="amount-positive">
+                                    +₹16,000
+                                </td>
+
+                                <td>
+
+                                    <span class="status received">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Received
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        class="view-btn"
+                                        type="button"
+                                    >
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+
+                                </td>
+
+                            </tr>
 
 
-                                    <td>
-                                        Swaraj Tractor
-                                    </td>
+                            <!-- Transaction 3 -->
+                            <tr>
 
+                                <td>
 
-                                    <td>
-                                        Amit Verma
-                                    </td>
+                                    <div class="transaction-info">
 
+                                        <div class="transaction-icon pending">
+                                            <i class="bi bi-clock"></i>
+                                        </div>
 
-                                    <td>
-                                        22 Sep 2026
-                                    </td>
+                                        <div>
 
+                                            <div class="transaction-id">
+                                                TXN-2026-0904
+                                            </div>
 
-                                    <td class="text-success fw-bold">
-                                        +₹16,000
-                                    </td>
-
-
-                                    <td>
-
-                                        <span class="badge bg-success-subtle text-success">
-                                            <i class="bi bi-check-circle me-1"></i>
-                                            Received
-                                        </span>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <button
-                                            class="btn btn-sm btn-outline-primary view-btn"
-                                        >
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-
-                                    </td>
-
-                                </tr>
-
-
-
-                                <!-- Transaction 3 -->
-
-                                <tr>
-
-                                    <td>
-
-                                        <div class="d-flex align-items-center gap-2">
-
-                                            <span
-                                                class="rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center"
-                                                style="width:38px;height:38px;"
-                                            >
-                                                <i class="bi bi-clock"></i>
-                                            </span>
-
-                                            <div>
-
-                                                <strong>
-                                                    TXN-2026-0904
-                                                </strong>
-
-                                                <small class="d-block text-muted">
-                                                    Rental Payment
-                                                </small>
-
+                                            <div class="transaction-type">
+                                                Rental Payment
                                             </div>
 
                                         </div>
 
-                                    </td>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    JCB 3DX
+                                </td>
+
+                                <td>
+                                    Vikas Singh
+                                </td>
+
+                                <td>
+                                    20 Sep 2026
+                                </td>
+
+                                <td class="amount-positive">
+                                    +₹12,000
+                                </td>
+
+                                <td>
+
+                                    <span class="status pending">
+                                        <i class="bi bi-clock-fill"></i>
+                                        Pending
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        class="view-btn"
+                                        type="button"
+                                    >
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+
+                                </td>
+
+                            </tr>
 
 
-                                    <td>
-                                        JCB 3DX
-                                    </td>
+                            <!-- Transaction 4 -->
+                            <tr>
 
+                                <td>
 
-                                    <td>
-                                        Vikas Singh
-                                    </td>
+                                    <div class="transaction-info">
 
+                                        <div class="transaction-icon">
+                                            <i class="bi bi-check-lg"></i>
+                                        </div>
 
-                                    <td>
-                                        20 Sep 2026
-                                    </td>
+                                        <div>
 
+                                            <div class="transaction-id">
+                                                TXN-2026-0830
+                                            </div>
 
-                                    <td class="text-success fw-bold">
-                                        +₹12,000
-                                    </td>
-
-
-                                    <td>
-
-                                        <span class="badge bg-warning-subtle text-warning">
-                                            <i class="bi bi-clock me-1"></i>
-                                            Pending
-                                        </span>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <button
-                                            class="btn btn-sm btn-outline-primary view-btn"
-                                        >
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-
-                                    </td>
-
-                                </tr>
-
-
-
-                                <!-- Transaction 4 -->
-
-                                <tr>
-
-                                    <td>
-
-                                        <div class="d-flex align-items-center gap-2">
-
-                                            <span
-                                                class="rounded-circle bg-success-subtle text-success d-flex align-items-center justify-content-center"
-                                                style="width:38px;height:38px;"
-                                            >
-                                                <i class="bi bi-check-lg"></i>
-                                            </span>
-
-                                            <div>
-
-                                                <strong>
-                                                    TXN-2026-0830
-                                                </strong>
-
-                                                <small class="d-block text-muted">
-                                                    Rental Payment
-                                                </small>
-
+                                            <div class="transaction-type">
+                                                Rental Payment
                                             </div>
 
                                         </div>
 
-                                    </td>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    Tata Dumper
+                                </td>
+
+                                <td>
+                                    Suresh Kumar
+                                </td>
+
+                                <td>
+                                    18 Sep 2026
+                                </td>
+
+                                <td class="amount-positive">
+                                    +₹38,500
+                                </td>
+
+                                <td>
+
+                                    <span class="status received">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Received
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        class="view-btn"
+                                        type="button"
+                                    >
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+
+                                </td>
+
+                            </tr>
 
 
-                                    <td>
-                                        Tata Dumper
-                                    </td>
+                        </tbody>
 
-
-                                    <td>
-                                        Suresh Kumar
-                                    </td>
-
-
-                                    <td>
-                                        18 Sep 2026
-                                    </td>
-
-
-                                    <td class="text-success fw-bold">
-                                        +₹38,500
-                                    </td>
-
-
-                                    <td>
-
-                                        <span class="badge bg-success-subtle text-success">
-                                            <i class="bi bi-check-circle me-1"></i>
-                                            Received
-                                        </span>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <button
-                                            class="btn btn-sm btn-outline-primary view-btn"
-                                        >
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
+                    </table>
 
                 </div>
 
-            </div>
-
-
-
-            <!-- Footer -->
-
-            <footer class="text-center text-muted py-4 small">
-
-                © 2026 VahanSathi · Earnings & Financial Management
-
-            </footer>
-
+            </section>
 
         </div>
 
@@ -1299,117 +1059,11 @@
 </div>
 
 
-
-<!-- =====================================================
-     MOBILE SIDEBAR
-====================================================== -->
-
-<div
-    class="offcanvas offcanvas-start bg-dark text-white"
-    tabindex="-1"
-    id="mobileSidebar"
->
-
-    <div class="offcanvas-header">
-
-        <img
-            src="{% static 'owner/images/logo.png' %}"
-            alt="VahanSathi"
-            style="max-width:190px;"
-        >
-
-        <button
-            type="button"
-            class="btn-close btn-close-white"
-            data-bs-dismiss="offcanvas"
-        ></button>
-
-    </div>
-
-
-    <div class="offcanvas-body">
-
-        <nav class="nav nav-pills flex-column gap-2">
-
-            <a
-                href="{% url 'owner_dashboard' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-house-door me-2"></i>
-                Dashboard
-            </a>
-
-            <a
-                href="{% url 'owner_vehicles' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-truck me-2"></i>
-                My Vehicles
-            </a>
-
-            <a
-                href="{% url 'owner_rental_requests' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-file-earmark-text me-2"></i>
-                Rental Requests
-            </a>
-
-            <a
-                href="{% url 'owner_rentals' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-calendar-check me-2"></i>
-                My Rentals
-            </a>
-
-            <a
-                href="{% url 'owner_earnings' %}"
-                class="nav-link active"
-            >
-                <i class="bi bi-bar-chart-fill me-2"></i>
-                Earnings
-            </a>
-
-            <a
-                href="{% url 'owner_profile' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-person me-2"></i>
-                Profile
-            </a>
-
-            <a
-                href="{% url 'owner_settings' %}"
-                class="nav-link text-white"
-            >
-                <i class="bi bi-gear me-2"></i>
-                Settings
-            </a>
-
-        </nav>
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================================
-     BOOTSTRAP JS
-====================================================== -->
-
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-</script>
-
-
-<!-- =====================================================
-     EARNINGS JS
-====================================================== -->
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
 
 <script src="{% static 'owner/js/earnings.js' %}"></script>
-
 
 </body>
 </html>
