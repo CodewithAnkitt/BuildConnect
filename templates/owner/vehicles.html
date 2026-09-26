@@ -1,0 +1,871 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Vehicles | BuildConnect</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- My Vehicles CSS -->
+    <link
+        rel="stylesheet"
+        href="{% static 'owner/css/vehicles.css' %}"
+    >
+</head>
+
+<body>
+
+<div class="owner-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <!-- Logo -->
+        <div class="sidebar-logo">
+
+            <a href="{% url 'owner_dashboard' %}">
+
+                <img
+                    src="{% static 'images/nav-logo.png' %}"
+                    alt="BuildConnect Logo"
+                >
+
+            </a>
+
+        </div>
+
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'owner_dashboard' %}" class="nav-item">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="{% url 'owner_vehicles' %}" class="nav-item active">
+
+                <i class="fa-solid fa-truck"></i>
+
+                <span>My Vehicles</span>
+
+            </a>
+
+
+            <a href="{% url 'owner_rental_requests' %}" class="nav-item">
+
+                <i class="fa-solid fa-file-circle-check"></i>
+
+                <span>Rental Requests</span>
+
+                <span class="notification-badge">3</span>
+
+            </a>
+
+
+            <a href="{% url 'owner_rentals' %}" class="nav-item">
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+                <span>My Rentals</span>
+
+            </a>
+
+
+            <a href="{% url 'owner_earnings' %}" class="nav-item">
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                <span>Earnings</span>
+
+            </a>
+
+
+            <a href="{% url 'owner_profile' %}" class="nav-item">
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>Profile</span>
+
+            </a>
+
+
+            <a href="{% url 'owner_settings' %}" class="nav-item">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- Logout -->
+        <div class="sidebar-bottom">
+
+            <a href="{% url 'logout' %}" class="nav-item logout-item">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP NAVBAR
+        ================================================== -->
+
+        <header class="top-navbar">
+
+            <!-- Mobile Menu -->
+            <button
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                type="button"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+
+            <!-- Search -->
+            <div class="top-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="vehicleSearch"
+                    placeholder="Search vehicles..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- Right Side -->
+            <div class="navbar-right">
+
+                <!-- Notification -->
+                <button
+                    class="notification-btn"
+                    id="notificationBtn"
+                    type="button"
+                    aria-label="Notifications"
+                >
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+                <!-- Owner Profile -->
+                <div class="owner-mini-profile">
+
+                    <div class="owner-avatar">
+
+                        {% if user.first_name %}
+                            {{ user.first_name|first|upper }}
+                        {% else %}
+                            U
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="owner-info">
+
+                        <strong>
+                            {% if user.get_full_name %}
+                                {{ user.get_full_name }}
+                            {% else %}
+                                Vehicle Owner
+                            {% endif %}
+                        </strong>
+
+                        <span>Vehicle Owner</span>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+
+        <section class="page-content">
+
+
+            <!-- Page Heading -->
+            <div class="page-heading">
+
+                <div class="heading-text">
+
+                    <h1>My Vehicles</h1>
+
+                    <p>
+                        Manage your vehicles and keep them available for rentals.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="add-vehicle-btn"
+                    id="addVehicleBtn"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    <span>Add New Vehicle</span>
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 SUMMARY CARDS
+            ================================================== -->
+
+            <div class="summary-grid">
+
+
+                <!-- Total Vehicles -->
+                <div class="summary-card">
+
+                    <div class="summary-icon blue">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>Total Vehicles</span>
+
+                        <strong>3</strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Available -->
+                <div class="summary-card">
+
+                    <div class="summary-icon green">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>Available</span>
+
+                        <strong>2</strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Rented -->
+                <div class="summary-card">
+
+                    <div class="summary-icon orange">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>Rented</span>
+
+                        <strong>1</strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Earnings -->
+                <div class="summary-card">
+
+                    <div class="summary-icon purple">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>Total Earnings</span>
+
+                        <strong>₹15,000</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 VEHICLES LIST
+            ================================================== -->
+
+            <div class="vehicles-section">
+
+
+                <!-- Section Header -->
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>Your Vehicles</h2>
+
+                        <p>
+                            View and manage all vehicles registered under your account.
+                        </p>
+
+                    </div>
+
+
+                    <div class="vehicle-count">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        <span>3 Vehicles</span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     VEHICLE CARD 1
+                ================================================== -->
+
+                <article class="vehicle-card" data-vehicle="tata dumper">
+
+
+                    <!-- Vehicle Image -->
+                    <div class="vehicle-image">
+
+                        <img
+                            src="{% static 'customer/vehicle_images/10wheeldumper.png' %}"
+                            alt="Tata Dumper"
+                        >
+
+                        <span class="status-badge available">
+
+                            <span class="status-dot"></span>
+
+                            Available
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- Vehicle Information -->
+                    <div class="vehicle-details">
+
+                        <div class="vehicle-title-row">
+
+                            <div>
+
+                                <h3>Tata Dumper</h3>
+
+                                <span class="vehicle-type">
+
+                                    <i class="fa-solid fa-truck"></i>
+
+                                    Dumper
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="vehicle-info-grid">
+
+                            <div class="vehicle-info-item">
+
+                                <span>Vehicle No.</span>
+
+                                <strong>KA 25 AB 1234</strong>
+
+                            </div>
+
+
+                            <div class="vehicle-info-item">
+
+                                <span>Model</span>
+
+                                <strong>Tata 2518</strong>
+
+                            </div>
+
+
+                            <div class="vehicle-info-item">
+
+                                <span>Capacity</span>
+
+                                <strong>20 Ton</strong>
+
+                            </div>
+
+
+                            <div class="vehicle-info-item">
+
+                                <span>Added On</span>
+
+                                <strong>12 Mar 2025</strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Actions -->
+                    <div class="vehicle-actions">
+
+                        <div class="action-row">
+
+                            <button
+                                class="action-btn edit-btn"
+                                type="button"
+                                data-vehicle-name="Tata Dumper"
+                            >
+
+                                <i class="fa-solid fa-pen"></i>
+
+                                Edit
+
+                            </button>
+
+
+                            <button
+                                class="action-btn delete-btn"
+                                type="button"
+                                data-vehicle-name="Tata Dumper"
+                            >
+
+                                <i class="fa-solid fa-trash"></i>
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            class="details-btn"
+                            type="button"
+                            data-vehicle-name="Tata Dumper"
+                        >
+
+                            <i class="fa-solid fa-eye"></i>
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =================================================
+                     VEHICLE CARD 2
+                ================================================== -->
+
+                <article class="vehicle-card" data-vehicle="swaraj tractor">
+
+
+                    <!-- Vehicle Image -->
+                    <div class="vehicle-image">
+
+                        <img
+                            src="{% static 'customer/vehicle_images/tractor.png' %}"
+                            alt="Swaraj Tractor"
+                        >
+
+                        <span class="status-badge rented">
+
+                            <span class="status-dot"></span>
+
+                            Rented
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- Vehicle Information -->
+                    <div class="vehicle-details">
+
+                        <div class="vehicle-title-row">
+
+                            <div>
+
+                                <h3>Swaraj Tractor</h3>
+
+                                <span class="vehicle-type">
+
+                                    <i class="fa-solid fa-tractor"></i>
+
+                                    Tractor
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="vehicle-info-grid">
+
+                            <div class="vehicle-info-item">
+
+                                <span>Vehicle No.</span>
+
+                                <strong>KA 19 CD 5678</strong>
+
+                            </div>
+
+
+                            <div class="vehicle-info-item">
+
+                                <span>Model</span>
+
+                                <strong>Swaraj 744 FE</strong>
+
+                            </div>
+
+
+                            <div class="vehicle-info-item">
+
+                                <span>Capacity</span>
+
+                                <strong>—</strong>
+
+                            </div>
+
+
+                            <div class="vehicle-info-item">
+
+                                <span>Added On</span>
+
+                                <strong>05 Mar 2025</strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Actions -->
+                    <div class="vehicle-actions">
+
+                        <div class="action-row">
+
+                            <button
+                                class="action-btn edit-btn"
+                                type="button"
+                                data-vehicle-name="Swaraj Tractor"
+                            >
+
+                                <i class="fa-solid fa-pen"></i>
+
+                                Edit
+
+                            </button>
+
+
+                            <button
+                                class="action-btn delete-btn"
+                                type="button"
+                                data-vehicle-name="Swaraj Tractor"
+                            >
+
+                                <i class="fa-solid fa-trash"></i>
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            class="details-btn"
+                            type="button"
+                            data-vehicle-name="Swaraj Tractor"
+                        >
+
+                            <i class="fa-solid fa-eye"></i>
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =================================================
+                     VEHICLE CARD 3
+                ================================================== -->
+
+                <article class="vehicle-card" data-vehicle="jcb 3dx">
+
+
+                    <!-- Vehicle Image -->
+                    <div class="vehicle-image">
+
+                        <img
+                            src="{% static 'customer/vehicle_images/jcbloader.png' %}"
+                            alt="JCB 3DX"
+                        >
+
+                        <span class="status-badge available">
+
+                            <span class="status-dot"></span>
+
+                            Available
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- Vehicle Information -->
+                    <div class="vehicle-details">
+
+                        <div class="vehicle-title-row">
+
+                            <div>
+
+                                <h3>JCB 3DX</h3>
+
+                                <span class="vehicle-type">
+
+                                    <i class="fa-solid fa-tractor"></i>
+
+                                    JCB
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="vehicle-info-grid">
+
+                            <div class="vehicle-info-item">
+
+                                <span>Vehicle No.</span>
+
+                                <strong>KA 23 EF 9012</strong>
+
+                            </div>
+
+
+                            <div class="vehicle-info-item">
+
+                                <span>Model</span>
+
+                                <strong>JCB 3DX</strong>
+
+                            </div>
+
+
+                            <div class="vehicle-info-item">
+
+                                <span>Capacity</span>
+
+                                <strong>—</strong>
+
+                            </div>
+
+
+                            <div class="vehicle-info-item">
+
+                                <span>Added On</span>
+
+                                <strong>20 Feb 2025</strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Actions -->
+                    <div class="vehicle-actions">
+
+                        <div class="action-row">
+
+                            <button
+                                class="action-btn edit-btn"
+                                type="button"
+                                data-vehicle-name="JCB 3DX"
+                            >
+
+                                <i class="fa-solid fa-pen"></i>
+
+                                Edit
+
+                            </button>
+
+
+                            <button
+                                class="action-btn delete-btn"
+                                type="button"
+                                data-vehicle-name="JCB 3DX"
+                            >
+
+                                <i class="fa-solid fa-trash"></i>
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            class="details-btn"
+                            type="button"
+                            data-vehicle-name="JCB 3DX"
+                        >
+
+                            <i class="fa-solid fa-eye"></i>
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Empty Search Result -->
+                <div
+                    class="no-results"
+                    id="noResults"
+                    style="display: none;"
+                >
+
+                    <i class="fa-solid fa-truck"></i>
+
+                    <h3>No vehicles found</h3>
+
+                    <p>
+                        Try searching with a different vehicle name or number.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="owner-footer">
+
+            <p>
+                © 2026 BuildConnect. All rights reserved.
+            </p>
+
+            <p>
+                Vehicle Owner Portal
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+====================================================== -->
+
+<div class="toast" id="toast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="toastMessage">
+        Action completed successfully.
+    </span>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script src="{% static 'owner/js/vehicles.js' %}"></script>
+
+</body>
+</html>
