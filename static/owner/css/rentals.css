@@ -1,0 +1,2222 @@
+/* =========================================================
+   BUILD CONNECT
+   VEHICLE OWNER - MY RENTALS
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --navy: #071d36;
+    --navy-light: #0d2d50;
+
+    --primary: #1268e8;
+    --primary-dark: #0758cf;
+
+    --text: #10233f;
+    --text-light: #66788e;
+    --muted: #8997a8;
+
+    --background: #f4f8fc;
+    --white: #ffffff;
+    --border: #dfe7f0;
+
+    --blue-light: #e7f0ff;
+
+    --green: #16b968;
+    --green-light: #e2f8ec;
+
+    --orange: #f2a914;
+    --orange-light: #fff3d6;
+
+    --gray: #6f7e90;
+    --gray-light: #edf1f5;
+
+    --shadow: 0 7px 25px rgba(17, 45, 75, 0.07);
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.owner-layout {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    width: 285px;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #071d36 0%,
+            #092846 65%,
+            #06192f 100%
+        );
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 1000;
+
+    overflow-y: auto;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 0;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.sidebar-logo {
+    height: 88px;
+
+    padding: 17px 20px;
+
+    display: flex;
+    align-items: center;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-logo a {
+    width: 100%;
+    display: block;
+}
+
+.sidebar-logo img {
+    width: 100%;
+    max-width: 220px;
+
+    height: auto;
+
+    display: block;
+}
+
+
+/* =========================================================
+   SIDEBAR NAV
+========================================================= */
+
+.sidebar-nav {
+    padding: 24px 11px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.nav-item {
+    min-height: 50px;
+
+    padding: 0 15px;
+
+    border-radius: 9px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    color: #d8e4f1;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition: all 0.25s ease;
+}
+
+.nav-item i {
+    width: 24px;
+
+    text-align: center;
+
+    font-size: 18px;
+}
+
+.nav-item:hover {
+    background: rgba(255,255,255,0.08);
+    color: white;
+}
+
+.nav-item.active {
+    background:
+        linear-gradient(
+            135deg,
+            #1479f6,
+            #075ed8
+        );
+
+    color: white;
+
+    box-shadow:
+        0 8px 20px rgba(18,104,232,0.25);
+}
+
+
+/* Notification */
+
+.notification-badge {
+    margin-left: auto;
+
+    min-width: 23px;
+    height: 23px;
+
+    padding: 0 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ff3c3c;
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* Sidebar bottom */
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    padding: 16px 11px 21px;
+
+    border-top:
+        1px solid rgba(255,255,255,0.1);
+}
+
+.logout-item:hover {
+    background: rgba(237,64,64,0.14);
+    color: #ff8585;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+    width: calc(100% - 285px);
+
+    margin-left: 285px;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================================
+   TOP NAVBAR
+========================================================= */
+
+.top-navbar {
+    height: 72px;
+
+    background: white;
+
+    border-bottom:
+        1px solid var(--border);
+
+    padding: 0 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 500;
+}
+
+
+/* Search */
+
+.top-search {
+    width: 570px;
+    height: 46px;
+
+    background: #f2f6fb;
+
+    border:
+        1px solid #e2e9f2;
+
+    border-radius: 9px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 13px;
+}
+
+.top-search:focus-within {
+    background: white;
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(18,104,232,0.08);
+}
+
+.top-search > i {
+    color: #71839a;
+
+    font-size: 17px;
+}
+
+.top-search input {
+    flex: 1;
+
+    min-width: 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    padding-left: 12px;
+
+    color: var(--text);
+
+    font-size: 14px;
+}
+
+.top-search input::placeholder {
+    color: #7d8da2;
+}
+
+.search-shortcut {
+    padding: 5px 9px;
+
+    background: #e6edf6;
+
+    border-radius: 6px;
+
+    color: #6d7e93;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+}
+
+
+/* Navbar right */
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+/* Notification */
+
+.notification-btn {
+    width: 43px;
+    height: 43px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #1b314d;
+
+    font-size: 21px;
+
+    cursor: pointer;
+
+    position: relative;
+}
+
+.notification-btn:hover {
+    color: var(--primary);
+}
+
+.notification-dot {
+    position: absolute;
+
+    width: 9px;
+    height: 9px;
+
+    right: 7px;
+    top: 6px;
+
+    background: #ef3030;
+
+    border: 2px solid white;
+
+    border-radius: 50%;
+}
+
+
+/* Owner profile */
+
+.owner-mini-profile {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding-left: 20px;
+
+    border-left:
+        1px solid var(--border);
+
+    cursor: pointer;
+}
+
+.owner-avatar {
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    background: #dbe4ef;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #40536b;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.owner-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.owner-info strong {
+    color: var(--text);
+
+    font-size: 14px;
+}
+
+.owner-info span {
+    color: var(--text-light);
+
+    font-size: 12px;
+}
+
+.profile-arrow {
+    color: #53677f;
+
+    font-size: 11px;
+
+    margin-left: 5px;
+}
+
+
+/* Mobile menu */
+
+.mobile-menu-btn {
+    display: none;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-size: 21px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   PAGE CONTENT
+========================================================= */
+
+.page-content {
+    padding: 28px 36px 30px;
+
+    flex: 1;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.rentals-hero {
+    min-height: 200px;
+
+    margin-bottom: 10px;
+
+    padding: 25px 27px;
+
+    border-radius: 35px;
+
+    background:
+        linear-gradient(
+            105deg,
+            rgba(234, 244, 255, 0.98) 0%,
+            rgba(237, 247, 255, 0.94) 35%,
+            rgba(237, 247, 255, 0.60) 58%,
+            rgba(248, 251, 255, 0.12) 100%
+        ),
+        url("/static/images/owner_rental_request_hero.png");
+
+    background-size: cover;
+
+    background-position: center right;
+
+    background-repeat: no-repeat;
+
+    border:
+        5px solid #e1ebf5;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.rentals-hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: -80px;
+    top: -120px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(18,104,232,0.10),
+            transparent 65%
+        );
+
+    pointer-events: none;
+}
+
+
+/* Hero content */
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+}
+
+.hero-label {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 7px;
+
+    color: var(--primary);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+.hero-content h1 {
+    font-size: 31px;
+
+    line-height: 1.1;
+
+    margin-bottom: 7px;
+
+    color: var(--text);
+
+    font-weight: 750;
+}
+
+.hero-content p {
+    color: #62758c;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* Add rental */
+
+.add-rental-btn {
+    min-width: 135px;
+    height: 43px;
+
+    padding: 0 16px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1479f6,
+            #075ed8
+        );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    position: relative;
+
+    z-index: 2;
+
+    box-shadow:
+        0 8px 18px rgba(18,104,232,0.20);
+
+    transition: all 0.2s ease;
+}
+
+.add-rental-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 11px 23px rgba(18,104,232,0.26);
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 14px;
+
+    margin-bottom: 17px;
+}
+
+.stat-card {
+    min-height: 115px;
+
+    padding: 15px 16px;
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 11px;
+
+    box-shadow: var(--shadow);
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 28px rgba(17,45,75,0.09);
+}
+
+.stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* Icons */
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 17px;
+}
+
+.stat-icon.green {
+    color: var(--green);
+    background: var(--green-light);
+}
+
+.stat-icon.blue {
+    color: var(--primary);
+    background: var(--blue-light);
+}
+
+.stat-icon.dark {
+    color: #526579;
+    background: #edf1f5;
+}
+
+.stat-icon.orange {
+    color: var(--orange);
+    background: var(--orange-light);
+}
+
+
+/* Trend */
+
+.trend {
+    height: 23px;
+
+    padding: 0 7px;
+
+    border-radius: 20px;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 3px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.trend.positive {
+    background: #e5f8ee;
+
+    color: #159b5b;
+}
+
+
+/* Number */
+
+.stat-number {
+    margin-top: 8px;
+
+    font-size: 24px;
+
+    line-height: 1;
+
+    font-weight: 750;
+
+    color: var(--text);
+}
+
+.earnings-number {
+    font-size: 21px;
+}
+
+.stat-label {
+    margin-top: 3px;
+
+    color: var(--text-light);
+
+    font-size: 12px;
+}
+
+
+/* Mini charts */
+
+.mini-bars {
+    position: absolute;
+
+    right: 15px;
+    bottom: 11px;
+
+    height: 32px;
+
+    display: flex;
+    align-items: flex-end;
+
+    gap: 4px;
+
+    opacity: 0.55;
+}
+
+.mini-bars span {
+    width: 6px;
+
+    border-radius: 3px 3px 0 0;
+}
+
+.green-bars span {
+    background: #62d89d;
+}
+
+.blue-bars span {
+    background: #70a9ff;
+}
+
+.dark-bars span {
+    background: #93a2b1;
+}
+
+.orange-bars span {
+    background: #f5b940;
+}
+
+.mini-bars span:nth-child(1) {
+    height: 8px;
+}
+
+.mini-bars span:nth-child(2) {
+    height: 13px;
+}
+
+.mini-bars span:nth-child(3) {
+    height: 10px;
+}
+
+.mini-bars span:nth-child(4) {
+    height: 20px;
+}
+
+.mini-bars span:nth-child(5) {
+    height: 25px;
+}
+
+.mini-bars span:nth-child(6) {
+    height: 31px;
+}
+
+
+/* =========================================================
+   FILTER SECTION
+========================================================= */
+
+.filter-section {
+    min-height: 53px;
+
+    margin-bottom: 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+
+/* Status filters */
+
+.status-filters {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    flex-wrap: wrap;
+}
+
+.status-filter {
+    height: 40px;
+
+    padding: 0 14px;
+
+    border:
+        1px solid #dce5ef;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: #344b65;
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.status-filter:hover {
+    border-color: #b9c9dc;
+
+    background: #f8fbff;
+}
+
+.status-filter.active {
+    background: var(--primary);
+
+    border-color: var(--primary);
+
+    color: white;
+
+    box-shadow:
+        0 6px 15px rgba(18,104,232,0.18);
+}
+
+.status-filter span:last-child {
+    opacity: 0.75;
+}
+
+
+/* Filter dots */
+
+.filter-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+}
+
+.filter-dot.green {
+    background: #19b96b;
+}
+
+.filter-dot.orange {
+    background: #f2a914;
+}
+
+.filter-dot.gray {
+    background: #718091;
+}
+
+
+/* Advanced filters */
+
+.advanced-filters {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+}
+
+.filter-dropdown {
+    height: 40px;
+
+    padding: 0 12px;
+
+    border:
+        1px solid #dce5ef;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: #344b65;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.filter-dropdown:hover {
+    border-color: #b9c9dc;
+
+    background: #f9fbfe;
+}
+
+.filter-dropdown i:first-child {
+    color: #61748b;
+}
+
+.filter-dropdown i:last-child {
+    margin-left: 5px;
+
+    color: #74869b;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   RENTALS LIST
+========================================================= */
+
+.rentals-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   RENTAL CARD
+========================================================= */
+
+.rental-card {
+    min-height: 207px;
+
+    padding: 10px;
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    display: grid;
+
+    grid-template-columns:
+        1.35fr
+        0.92fr
+        0.95fr
+        0.88fr;
+
+    box-shadow: var(--shadow);
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.rental-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 13px 32px rgba(17,45,75,0.09);
+}
+
+
+/* =========================================================
+   VEHICLE
+========================================================= */
+
+.rental-vehicle {
+    display: grid;
+
+    grid-template-columns: 195px 1fr;
+
+    gap: 14px;
+
+    padding-right: 15px;
+}
+
+.vehicle-photo {
+    height: 185px;
+
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    background: #e9eef4;
+
+    position: relative;
+}
+
+.vehicle-photo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 0.35s ease;
+}
+
+.rental-card:hover .vehicle-photo img {
+    transform: scale(1.035);
+}
+
+
+/* Rental status */
+
+.rental-status {
+    position: absolute;
+
+    top: 9px;
+    left: 9px;
+
+    min-height: 27px;
+
+    padding: 0 9px;
+
+    border-radius: 6px;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 3px 9px rgba(0,0,0,0.12);
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+.active-status {
+    background: #dff8ea;
+
+    color: #11894c;
+}
+
+.upcoming-status {
+    background: #fff1d1;
+
+    color: #b87b00;
+}
+
+.completed-status {
+    background: #edf1f5;
+
+    color: #56687a;
+}
+
+
+/* Vehicle details */
+
+.vehicle-details {
+    padding-top: 6px;
+
+    min-width: 0;
+}
+
+.vehicle-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 11px;
+}
+
+.vehicle-heading h3 {
+    font-size: 17px;
+
+    color: var(--text);
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.vehicle-type {
+    padding: 4px 8px;
+
+    border-radius: 6px;
+
+    background: #edf3fb;
+
+    color: #39536f;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.vehicle-line {
+    min-height: 25px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #536981;
+
+    font-size: 10px;
+}
+
+.vehicle-line i {
+    width: 15px;
+
+    color: #607991;
+
+    text-align: center;
+}
+
+.vehicle-line strong {
+    color: #344d68;
+
+    font-weight: 700;
+}
+
+.condition-badge {
+    width: fit-content;
+
+    margin-top: 8px;
+
+    padding: 4px 8px;
+
+    border-radius: 20px;
+
+    background: #e3f8ec;
+
+    color: #159653;
+
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CUSTOMER
+========================================================= */
+
+.customer-info {
+    padding:
+        14px 16px;
+
+    border-left:
+        1px solid #e6ecf3;
+
+    border-right:
+        1px solid #e6ecf3;
+}
+
+.customer-top {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 13px;
+}
+
+.customer-avatar {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #e7f0ff;
+
+    color: var(--primary);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+}
+
+.customer-top h4 {
+    font-size: 14px;
+
+    margin-bottom: 3px;
+
+    color: var(--text);
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+}
+
+.rating span {
+    color: #f1a815;
+
+    font-size: 9px;
+
+    letter-spacing: -1px;
+}
+
+.rating small {
+    color: #75869a;
+
+    font-size: 9px;
+}
+
+.customer-line {
+    min-height: 27px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #435973;
+
+    font-size: 10px;
+}
+
+.customer-line i:first-child {
+    width: 15px;
+
+    color: #58708a;
+
+    text-align: center;
+}
+
+.whatsapp {
+    color: #1dbf64 !important;
+
+    font-size: 15px;
+
+    margin-left: 3px;
+}
+
+
+/* =========================================================
+   TRIP
+========================================================= */
+
+.trip-info {
+    padding:
+        14px 16px;
+
+    border-right:
+        1px solid #e6ecf3;
+}
+
+.trip-line {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 9px;
+
+    margin-bottom: 11px;
+}
+
+.trip-line > i {
+    margin-top: 2px;
+
+    color: #526b84;
+
+    font-size: 14px;
+}
+
+.trip-line strong {
+    display: block;
+
+    color: #2d435d;
+
+    font-size: 10px;
+
+    font-weight: 650;
+}
+
+.duration {
+    display: inline-block;
+
+    margin-top: 4px;
+
+    padding: 3px 7px;
+
+    border-radius: 12px;
+
+    background: #e6f1ff;
+
+    color: #1768d7;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* Route */
+
+.route {
+    position: relative;
+
+    margin-left: 4px;
+
+    padding-left: 19px;
+
+    margin-bottom: 11px;
+}
+
+.route-point {
+    min-height: 27px;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    font-size: 10px;
+}
+
+.route-point:first-child {
+    margin-bottom: 9px;
+}
+
+.pickup {
+    color: #19a865;
+}
+
+.destination {
+    color: #e04444;
+}
+
+.route-dot {
+    position: absolute;
+
+    left: -18px;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    border: 2px solid white;
+
+    box-shadow:
+        0 0 0 2px currentColor;
+}
+
+.pickup .route-dot {
+    background: #19b96b;
+}
+
+.destination .route-dot {
+    background: #ed4040;
+}
+
+.route-line {
+    position: absolute;
+
+    left: -14px;
+
+    top: 12px;
+
+    height: 22px;
+
+    border-left:
+        2px dashed #b8c6d5;
+}
+
+
+/* Purpose */
+
+.purpose {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #536981;
+
+    font-size: 10px;
+}
+
+.purpose i {
+    color: #6e8196;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   RENTAL SUMMARY
+========================================================= */
+
+.rental-summary {
+    padding:
+        14px 9px 12px 13px;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: stretch;
+}
+
+
+/* Progress */
+
+.progress-status {
+    align-self: flex-start;
+
+    min-height: 29px;
+
+    padding: 0 10px;
+
+    border-radius: 17px;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.active-progress {
+    background: #e2f8ec;
+
+    color: #138c4f;
+}
+
+.upcoming-progress {
+    background: #fff2d3;
+
+    color: #bd7e00;
+}
+
+.completed-progress {
+    background: #edf1f5;
+
+    color: #586b7d;
+}
+
+
+/* Remaining */
+
+.remaining {
+    margin-top: 7px;
+
+    color: #159653;
+
+    font-size: 10px;
+}
+
+
+/* Dates */
+
+.rental-dates {
+    margin-top: 7px;
+
+    color: #7c8c9e;
+
+    font-size: 9px;
+
+    line-height: 1.6;
+}
+
+.upcoming-date-text {
+    margin-top: 13px;
+}
+
+
+/* Divider */
+
+.summary-divider {
+    width: 100%;
+
+    height: 1px;
+
+    margin: 8px 0;
+
+    background: #e8edf3;
+}
+
+
+/* Amount */
+
+.amount-label {
+    color: #7c8c9e;
+
+    font-size: 9px;
+}
+
+.rental-amount {
+    margin-top: 2px;
+
+    color: var(--text);
+
+    font-size: 21px;
+
+    line-height: 1.1;
+}
+
+.per-day {
+    margin-top: 1px;
+
+    color: #8a97a7;
+
+    font-size: 9px;
+}
+
+
+/* Payment */
+
+.payment-received {
+    min-height: 27px;
+
+    margin-top: 8px;
+
+    padding: 0 8px;
+
+    border-radius: 6px;
+
+    background: #e7f8ef;
+
+    color: #168d50;
+
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 9px;
+
+    font-weight: 650;
+}
+
+
+/* Actions */
+
+.rental-actions {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 5px;
+
+    margin-top: 9px;
+}
+
+.view-details-btn,
+.manage-btn,
+.invoice-btn {
+    min-height: 34px;
+
+    border-radius: 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    font-size: 9px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.view-details-btn {
+    border:
+        1px solid #cbd7e5;
+
+    background: white;
+
+    color: #203952;
+}
+
+.view-details-btn:hover {
+    border-color: var(--primary);
+
+    color: var(--primary);
+
+    background: #f7faff;
+}
+
+.manage-btn {
+    border: none;
+
+    background: var(--primary);
+
+    color: white;
+}
+
+.manage-btn:hover {
+    background: var(--primary-dark);
+}
+
+.invoice-btn {
+    border:
+        1px solid #cbd7e5;
+
+    background: white;
+
+    color: #52677e;
+}
+
+.invoice-btn:hover {
+    border-color: #9aaabd;
+
+    background: #f7f9fc;
+}
+
+
+/* More */
+
+.more-btn {
+    position: absolute;
+
+    top: 3px;
+    right: 0;
+
+    width: 25px;
+    height: 25px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #5d7189;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    border-radius: 5px;
+}
+
+.more-btn:hover {
+    background: #f0f4f8;
+
+    color: var(--text);
+}
+
+
+/* =========================================================
+   NO RESULTS
+========================================================= */
+
+.no-results {
+    padding: 55px 20px;
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    box-shadow: var(--shadow);
+}
+
+.no-results > i {
+    font-size: 40px;
+
+    color: #b8c4d2;
+
+    margin-bottom: 15px;
+}
+
+.no-results h3 {
+    font-size: 18px;
+
+    margin-bottom: 6px;
+
+    color: var(--text);
+}
+
+.no-results p {
+    color: var(--text-light);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.owner-footer {
+    min-height: 60px;
+
+    padding: 0 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: white;
+
+    border-top:
+        1px solid var(--border);
+
+    color: #8190a2;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+    position: fixed;
+
+    right: 24px;
+    bottom: 24px;
+
+    min-width: 280px;
+
+    padding: 14px 17px;
+
+    background: #10233f;
+
+    color: white;
+
+    border-radius: 9px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.18);
+
+    transform: translateY(100px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: all 0.3s ease;
+
+    z-index: 3000;
+
+    font-size: 12px;
+}
+
+.toast.show {
+    transform: translateY(0);
+
+    opacity: 1;
+}
+
+.toast i {
+    color: #31d77f;
+}
+
+
+/* =========================================================
+   LARGE TABLET
+========================================================= */
+
+@media (max-width: 1350px) {
+
+    .sidebar {
+        width: 245px;
+    }
+
+    .main-content {
+        width: calc(100% - 245px);
+
+        margin-left: 245px;
+    }
+
+    .page-content {
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+
+    .rental-card {
+        grid-template-columns:
+            1.3fr
+            0.9fr
+            0.9fr
+            0.82fr;
+    }
+
+    .rental-vehicle {
+        grid-template-columns: 175px 1fr;
+    }
+
+    .vehicle-photo {
+        height: 185px;
+    }
+
+    .vehicle-heading h3 {
+        font-size: 15px;
+    }
+
+    .vehicle-line {
+        font-size: 9px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        width: 100%;
+
+        margin-left: 0;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .top-navbar {
+        padding: 0 20px;
+    }
+
+    .top-search {
+        flex: 1;
+
+        max-width: 550px;
+    }
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .filter-section {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .advanced-filters {
+        width: 100%;
+    }
+
+    .filter-dropdown {
+        flex: 1;
+
+        justify-content: center;
+    }
+
+    .rental-card {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .rental-vehicle {
+        grid-column: 1 / -1;
+
+        padding-right: 0;
+
+        padding-bottom: 13px;
+
+        border-bottom:
+            1px solid #e6ecf3;
+    }
+
+    .customer-info {
+        border-left: none;
+    }
+
+    .rental-summary {
+        border-left:
+            1px solid #e6ecf3;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .top-navbar {
+        height: 68px;
+
+        padding: 0 14px;
+    }
+
+    .top-search {
+        display: none;
+    }
+
+    .navbar-right {
+        margin-left: auto;
+
+        gap: 9px;
+    }
+
+    .owner-mini-profile {
+        padding-left: 9px;
+
+        border-left: none;
+    }
+
+    .owner-info,
+    .profile-arrow {
+        display: none;
+    }
+
+    .page-content {
+        padding: 20px 14px;
+    }
+
+    .rentals-hero {
+        padding: 21px;
+
+        min-height: auto;
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .hero-content h1 {
+        font-size: 27px;
+    }
+
+    .hero-content p {
+        font-size: 13px;
+    }
+
+    .add-rental-btn {
+        width: 100%;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+    .stat-card {
+        min-height: 100px;
+    }
+
+    .status-filters {
+        width: 100%;
+
+        overflow-x: auto;
+
+        flex-wrap: nowrap;
+
+        padding-bottom: 3px;
+    }
+
+    .status-filter {
+        flex-shrink: 0;
+    }
+
+    .advanced-filters {
+        overflow-x: auto;
+
+        flex-wrap: nowrap;
+    }
+
+    .filter-dropdown {
+        flex-shrink: 0;
+    }
+
+    .rental-card {
+        grid-template-columns: 1fr;
+
+        padding: 9px;
+    }
+
+    .rental-vehicle {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+
+        padding-bottom: 13px;
+    }
+
+    .vehicle-photo {
+        height: 210px;
+    }
+
+    .vehicle-heading h3 {
+        font-size: 19px;
+    }
+
+    .vehicle-line {
+        font-size: 11px;
+    }
+
+    .customer-info,
+    .trip-info,
+    .rental-summary {
+        border-left: none;
+
+        border-right: none;
+    }
+
+    .customer-info {
+        padding:
+            14px 5px;
+
+        border-bottom:
+            1px solid #e6ecf3;
+    }
+
+    .trip-info {
+        padding:
+            14px 5px;
+
+        border-bottom:
+            1px solid #e6ecf3;
+    }
+
+    .rental-summary {
+        padding:
+            14px 5px 8px;
+    }
+
+    .rental-actions {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .owner-footer {
+        padding: 16px;
+
+        min-height: auto;
+
+        flex-direction: column;
+
+        gap: 5px;
+
+        text-align: center;
+    }
+
+    .toast {
+        left: 14px;
+        right: 14px;
+
+        min-width: 0;
+
+        bottom: 14px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .hero-content h1 {
+        font-size: 24px;
+    }
+
+    .vehicle-photo {
+        height: 180px;
+    }
+
+    .rental-actions {
+        grid-template-columns: 1fr;
+    }
+
+}

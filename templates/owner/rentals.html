@@ -1,0 +1,1778 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Rentals | BuildConnect</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- My Rentals CSS -->
+    <link
+        rel="stylesheet"
+        href="{% static 'owner/css/rentals.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="owner-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+
+        <!-- Logo -->
+
+        <div class="sidebar-logo">
+
+            <a href="{% url 'owner_dashboard' %}">
+
+                <img
+                    src="{% static '/images/nav-logo.png' %}"
+                    alt="BuildConnect Logo"
+                >
+
+            </a>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="sidebar-nav">
+
+
+            <a
+                href="{% url 'owner_dashboard' %}"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a
+                href="{% url 'owner_vehicles' %}"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-truck"></i>
+
+                <span>My Vehicles</span>
+
+            </a>
+
+
+            <a
+                href="{% url 'owner_rental_requests' %}"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-file-circle-check"></i>
+
+                <span>Rental Requests</span>
+
+                <span class="notification-badge">
+                    3
+                </span>
+
+            </a>
+
+
+            <a
+                href="{% url 'owner_rentals' %}"
+                class="nav-item active"
+            >
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+                <span>My Rentals</span>
+
+            </a>
+
+
+            <a
+                href="{% url 'owner_earnings' %}"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                <span>Earnings</span>
+
+            </a>
+
+
+            <a
+                href="{% url 'owner_profile' %}"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>Profile</span>
+
+            </a>
+
+
+            <a
+                href="{% url 'owner_settings' %}"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- Logout -->
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="{% url 'logout' %}"
+                class="nav-item logout-item"
+            >
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP NAVBAR
+        ================================================== -->
+
+        <header class="top-navbar">
+
+
+            <!-- Mobile menu -->
+
+            <button
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                type="button"
+            >
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+            <!-- Search -->
+
+            <div class="top-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="rentalSearch"
+                    placeholder="Search by vehicle, customer, location..."
+                    autocomplete="off"
+                >
+
+                <span class="search-shortcut">
+                    Ctrl + K
+                </span>
+
+            </div>
+
+
+            <!-- Right side -->
+
+            <div class="navbar-right">
+
+
+                <!-- Notification -->
+
+                <button
+                    class="notification-btn"
+                    id="notificationBtn"
+                    type="button"
+                    aria-label="Notifications"
+                >
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+                <!-- Owner profile -->
+
+                <div class="owner-mini-profile">
+
+
+                    <div class="owner-avatar">
+
+                        {% if user.first_name %}
+
+                            {{ user.first_name|first|upper }}
+
+                        {% else %}
+
+                            U
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="owner-info">
+
+                        <strong>
+
+                            {% if user.get_full_name %}
+
+                                {{ user.get_full_name }}
+
+                            {% else %}
+
+                                Vehicle Owner
+
+                            {% endif %}
+
+                        </strong>
+
+                        <span>
+                            Vehicle Owner
+                        </span>
+
+                    </div>
+
+
+                    <i
+                        class="fa-solid fa-chevron-down profile-arrow"
+                    ></i>
+
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+
+        <section class="page-content">
+
+
+            <!-- =================================================
+                 HERO / PAGE HEADER
+            ================================================== -->
+
+            <div class="rentals-hero">
+
+
+                <div class="hero-content">
+
+                    <span class="hero-label">
+
+                        <i class="fa-solid fa-calendar-check"></i>
+
+                        Fleet Booking Management
+
+                    </span>
+
+
+                    <h1>
+                        My Rentals
+                    </h1>
+
+
+                    <p>
+                        Track your active, upcoming and completed
+                        vehicle rentals.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="add-rental-btn"
+                    id="addRentalBtn"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Rental
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STATISTICS
+            ================================================== -->
+
+            <div class="stats-grid">
+
+
+                <!-- Active -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon green">
+
+                            <i class="fa-solid fa-briefcase"></i>
+
+                        </div>
+
+
+                        <span class="trend positive">
+
+                            <i class="fa-solid fa-arrow-up"></i>
+
+                            33%
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-number">
+                        4
+                    </div>
+
+                    <div class="stat-label">
+                        Active Rentals
+                    </div>
+
+
+                    <div class="mini-bars green-bars">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Upcoming -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon blue">
+
+                            <i class="fa-solid fa-calendar-days"></i>
+
+                        </div>
+
+
+                        <span class="trend positive">
+
+                            <i class="fa-solid fa-arrow-up"></i>
+
+                            12%
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-number">
+                        3
+                    </div>
+
+                    <div class="stat-label">
+                        Upcoming Rentals
+                    </div>
+
+
+                    <div class="mini-bars blue-bars">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Completed -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon dark">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                        </div>
+
+
+                        <span class="trend positive">
+
+                            <i class="fa-solid fa-arrow-up"></i>
+
+                            8%
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-number">
+                        28
+                    </div>
+
+                    <div class="stat-label">
+                        Completed Rentals
+                    </div>
+
+
+                    <div class="mini-bars dark-bars">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Earnings -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon orange">
+
+                            <i class="fa-solid fa-coins"></i>
+
+                        </div>
+
+
+                        <span class="trend positive">
+
+                            <i class="fa-solid fa-arrow-up"></i>
+
+                            18%
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-number earnings-number">
+                        ₹2,48,500
+                    </div>
+
+                    <div class="stat-label">
+                        Rental Earnings
+                    </div>
+
+
+                    <div class="mini-bars orange-bars">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FILTER BAR
+            ================================================== -->
+
+            <div class="filter-section">
+
+
+                <!-- Status -->
+
+                <div class="status-filters">
+
+
+                    <button
+                        class="status-filter active"
+                        data-filter="all"
+                        type="button"
+                    >
+
+                        All Rentals
+
+                        <span>
+                            35
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="status-filter"
+                        data-filter="active"
+                        type="button"
+                    >
+
+                        <span class="filter-dot green"></span>
+
+                        Active
+
+                        <span>
+                            4
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="status-filter"
+                        data-filter="upcoming"
+                        type="button"
+                    >
+
+                        <span class="filter-dot orange"></span>
+
+                        Upcoming
+
+                        <span>
+                            3
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="status-filter"
+                        data-filter="completed"
+                        type="button"
+                    >
+
+                        <span class="filter-dot gray"></span>
+
+                        Completed
+
+                        <span>
+                            28
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- Advanced filters -->
+
+                <div class="advanced-filters">
+
+
+                    <button
+                        class="filter-dropdown"
+                        id="dateFilterBtn"
+                        type="button"
+                    >
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <span>
+                            Select Date Range
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+
+                    </button>
+
+
+                    <button
+                        class="filter-dropdown"
+                        id="locationFilterBtn"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <span>
+                            All Locations
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+
+                    </button>
+
+
+                    <button
+                        class="filter-dropdown"
+                        id="moreFiltersBtn"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-sliders"></i>
+
+                        <span>
+                            More Filters
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RENTALS LIST
+            ================================================== -->
+
+            <div
+                class="rentals-list"
+                id="rentalsList"
+            >
+
+
+
+                <!-- =================================================
+                     RENTAL 1 - ACTIVE
+                ================================================== -->
+
+                <article
+                    class="rental-card"
+                    data-status="active"
+                    data-search="tata dumper rahul sharma bokaro dhanbad sand transportation"
+                >
+
+
+                    <!-- Vehicle -->
+
+                    <div class="rental-vehicle">
+
+
+                        <div class="vehicle-photo">
+
+                            <img
+                                src="{% static 'customer/vehicle_images/tipper.png' %}"
+                                alt="Tata Dumper"
+                            >
+
+
+                            <span class="rental-status active-status">
+
+                                <span class="status-dot"></span>
+
+                                Active
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="vehicle-details">
+
+
+                            <div class="vehicle-heading">
+
+                                <h3>
+                                    Tata Dumper
+                                </h3>
+
+                                <span class="vehicle-type">
+                                    Dumper
+                                </span>
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-truck"></i>
+
+                                <strong>
+                                    KA 25 AB 1234
+                                </strong>
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-certificate"></i>
+
+                                Model: Tata 2518
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-weight-hanging"></i>
+
+                                Capacity: 20 Ton
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-gas-pump"></i>
+
+                                Fuel Type: Diesel
+
+                            </div>
+
+
+                            <div class="condition-badge">
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                Good Condition
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Customer -->
+
+                    <div class="customer-info">
+
+
+                        <div class="customer-top">
+
+
+                            <div class="customer-avatar">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <h4>
+                                    Rahul Sharma
+                                </h4>
+
+
+                                <div class="rating">
+
+                                    <span>
+                                        ★★★★★
+                                    </span>
+
+                                    <small>
+                                        4.8 (12 bookings)
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="customer-line">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <span>
+                                9876543210
+                            </span>
+
+                            <i
+                                class="fa-brands fa-whatsapp whatsapp"
+                            ></i>
+
+                        </div>
+
+
+                        <div class="customer-line">
+
+                            <i class="fa-solid fa-building"></i>
+
+                            <span>
+                                Sharma Builders
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Trip -->
+
+                    <div class="trip-info">
+
+
+                        <div class="trip-line">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <div>
+
+                                <strong>
+                                    15 Mar 2025 - 18 Mar 2025
+                                </strong>
+
+                                <span class="duration">
+                                    3 Days
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="route">
+
+
+                            <div class="route-point pickup">
+
+                                <span class="route-dot"></span>
+
+                                <span>
+                                    Bokaro, Jharkhand
+                                </span>
+
+                            </div>
+
+
+                            <div class="route-line"></div>
+
+
+                            <div class="route-point destination">
+
+                                <span class="route-dot"></span>
+
+                                <span>
+                                    Dhanbad, Jharkhand
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="purpose">
+
+                            <i class="fa-solid fa-file-lines"></i>
+
+                            <span>
+                                Sand Transportation
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Rental Summary -->
+
+                    <div class="rental-summary">
+
+
+                        <div class="progress-status active-progress">
+
+                            <i class="fa-solid fa-circle"></i>
+
+                            Rental in Progress
+
+                        </div>
+
+
+                        <strong class="remaining">
+                            2 days remaining
+                        </strong>
+
+
+                        <div class="rental-dates">
+
+                            Started: 15 Mar 2025<br>
+
+                            Ends: 18 Mar 2025
+
+                        </div>
+
+
+                        <div class="summary-divider"></div>
+
+
+                        <span class="amount-label">
+                            Rental Amount
+                        </span>
+
+
+                        <strong class="rental-amount">
+                            ₹42,000
+                        </strong>
+
+
+                        <span class="per-day">
+                            ₹14,000 per day
+                        </span>
+
+
+                        <div class="rental-actions">
+
+
+                            <button
+                                class="view-details-btn"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-eye"></i>
+
+                                View Details
+
+                            </button>
+
+
+                            <button
+                                class="manage-btn"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-gear"></i>
+
+                                Manage Rental
+
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            class="more-btn"
+                            type="button"
+                        >
+
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                        </button>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     RENTAL 2 - UPCOMING
+                ================================================== -->
+
+                <article
+                    class="rental-card"
+                    data-status="upcoming"
+                    data-search="swaraj tractor amit verma dhanbad ranchi soil transportation"
+                >
+
+
+                    <!-- Vehicle -->
+
+                    <div class="rental-vehicle">
+
+
+                        <div class="vehicle-photo">
+
+                            <img
+                                src="{% static 'customer/vehicle_images/tractor.png' %}"
+                                alt="Swaraj Tractor"
+                            >
+
+
+                            <span class="rental-status upcoming-status">
+
+                                <span class="status-dot"></span>
+
+                                Upcoming
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="vehicle-details">
+
+
+                            <div class="vehicle-heading">
+
+                                <h3>
+                                    Swaraj Tractor
+                                </h3>
+
+                                <span class="vehicle-type">
+                                    Tractor
+                                </span>
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-tractor"></i>
+
+                                <strong>
+                                    KA 19 CD 5678
+                                </strong>
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-certificate"></i>
+
+                                Model: Swaraj 744 FE
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-weight-hanging"></i>
+
+                                Capacity: -
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-gas-pump"></i>
+
+                                Fuel Type: Diesel
+
+                            </div>
+
+
+                            <div class="condition-badge">
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                Good Condition
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Customer -->
+
+                    <div class="customer-info">
+
+
+                        <div class="customer-top">
+
+
+                            <div class="customer-avatar">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <h4>
+                                    Amit Verma
+                                </h4>
+
+
+                                <div class="rating">
+
+                                    <span>
+                                        ★★★★☆
+                                    </span>
+
+                                    <small>
+                                        4.6 (8 bookings)
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="customer-line">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <span>
+                                8765432109
+                            </span>
+
+                            <i
+                                class="fa-brands fa-whatsapp whatsapp"
+                            ></i>
+
+                        </div>
+
+
+                        <div class="customer-line">
+
+                            <i class="fa-solid fa-building"></i>
+
+                            <span>
+                                Verma Construction
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Trip -->
+
+                    <div class="trip-info">
+
+
+                        <div class="trip-line">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <div>
+
+                                <strong>
+                                    20 Mar 2025 - 22 Mar 2025
+                                </strong>
+
+                                <span class="duration">
+                                    3 Days
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="route">
+
+
+                            <div class="route-point pickup">
+
+                                <span class="route-dot"></span>
+
+                                <span>
+                                    Dhanbad, Jharkhand
+                                </span>
+
+                            </div>
+
+
+                            <div class="route-line"></div>
+
+
+                            <div class="route-point destination">
+
+                                <span class="route-dot"></span>
+
+                                <span>
+                                    Ranchi, Jharkhand
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="purpose">
+
+                            <i class="fa-solid fa-file-lines"></i>
+
+                            <span>
+                                Soil Transportation
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Summary -->
+
+                    <div class="rental-summary">
+
+
+                        <div class="progress-status upcoming-progress">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Starts in 3 days
+
+                        </div>
+
+
+                        <div class="rental-dates upcoming-date-text">
+
+                            Starts: 20 Mar 2025<br>
+
+                            Ends: 22 Mar 2025
+
+                        </div>
+
+
+                        <div class="summary-divider"></div>
+
+
+                        <span class="amount-label">
+                            Rental Amount
+                        </span>
+
+
+                        <strong class="rental-amount">
+                            ₹16,000
+                        </strong>
+
+
+                        <span class="per-day">
+                            ₹8,000 per day
+                        </span>
+
+
+                        <div class="rental-actions">
+
+
+                            <button
+                                class="view-details-btn"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-eye"></i>
+
+                                View Details
+
+                            </button>
+
+
+                            <button
+                                class="manage-btn"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-gear"></i>
+
+                                Manage Rental
+
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            class="more-btn"
+                            type="button"
+                        >
+
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                        </button>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     RENTAL 3 - COMPLETED
+                ================================================== -->
+
+                <article
+                    class="rental-card"
+                    data-status="completed"
+                    data-search="jcb 3dx vikas singh ranchi hazaribagh construction work"
+                >
+
+
+                    <!-- Vehicle -->
+
+                    <div class="rental-vehicle">
+
+
+                        <div class="vehicle-photo">
+
+                            <img
+                                src="{% static 'customer/vehicle_images/jcbloader.png' %}"
+                                alt="JCB 3DX"
+                            >
+
+
+                            <span class="rental-status completed-status">
+
+                                <span class="status-dot"></span>
+
+                                Completed
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="vehicle-details">
+
+
+                            <div class="vehicle-heading">
+
+                                <h3>
+                                    JCB 3DX
+                                </h3>
+
+                                <span class="vehicle-type">
+                                    JCB
+                                </span>
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-helmet-safety"></i>
+
+                                <strong>
+                                    KA 23 EF 9012
+                                </strong>
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-certificate"></i>
+
+                                Model: JCB 3DX
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-weight-hanging"></i>
+
+                                Capacity: -
+
+                            </div>
+
+
+                            <div class="vehicle-line">
+
+                                <i class="fa-solid fa-gas-pump"></i>
+
+                                Fuel Type: Diesel
+
+                            </div>
+
+
+                            <div class="condition-badge">
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                Good Condition
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Customer -->
+
+                    <div class="customer-info">
+
+
+                        <div class="customer-top">
+
+
+                            <div class="customer-avatar">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <h4>
+                                    Vikas Singh
+                                </h4>
+
+
+                                <div class="rating">
+
+                                    <span>
+                                        ★★★★☆
+                                    </span>
+
+                                    <small>
+                                        4.2 (5 bookings)
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="customer-line">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <span>
+                                7654321098
+                            </span>
+
+                            <i
+                                class="fa-brands fa-whatsapp whatsapp"
+                            ></i>
+
+                        </div>
+
+
+                        <div class="customer-line">
+
+                            <i class="fa-solid fa-building"></i>
+
+                            <span>
+                                Singh Enterprises
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Trip -->
+
+                    <div class="trip-info">
+
+
+                        <div class="trip-line">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <div>
+
+                                <strong>
+                                    05 Mar 2025 - 06 Mar 2025
+                                </strong>
+
+                                <span class="duration">
+                                    1 Day
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="route">
+
+
+                            <div class="route-point pickup">
+
+                                <span class="route-dot"></span>
+
+                                <span>
+                                    Ranchi, Jharkhand
+                                </span>
+
+                            </div>
+
+
+                            <div class="route-line"></div>
+
+
+                            <div class="route-point destination">
+
+                                <span class="route-dot"></span>
+
+                                <span>
+                                    Hazaribagh, Jharkhand
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="purpose">
+
+                            <i class="fa-solid fa-file-lines"></i>
+
+                            <span>
+                                Construction Work
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Summary -->
+
+                    <div class="rental-summary">
+
+
+                        <div class="progress-status completed-progress">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Completed on 06 Mar 2025
+
+                        </div>
+
+
+                        <div class="summary-divider completed-divider"></div>
+
+
+                        <span class="amount-label">
+                            Rental Amount
+                        </span>
+
+
+                        <strong class="rental-amount">
+                            ₹12,000
+                        </strong>
+
+
+                        <span class="per-day">
+                            ₹12,000 per day
+                        </span>
+
+
+                        <div class="payment-received">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Payment Received
+
+                        </div>
+
+
+                        <div class="rental-actions">
+
+
+                            <button
+                                class="view-details-btn"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-eye"></i>
+
+                                View Details
+
+                            </button>
+
+
+                            <button
+                                class="invoice-btn"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-file-invoice"></i>
+
+                                Create Invoice
+
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            class="more-btn"
+                            type="button"
+                        >
+
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                        </button>
+
+                    </div>
+
+
+                </article>
+
+
+            </div>
+
+
+
+            <!-- No results -->
+
+            <div
+                class="no-results"
+                id="noResults"
+                style="display: none;"
+            >
+
+                <i class="fa-solid fa-calendar-xmark"></i>
+
+                <h3>
+                    No rentals found
+                </h3>
+
+                <p>
+                    Try changing your search or rental filter.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="owner-footer">
+
+            <span>
+                © 2026 BuildConnect. All rights reserved.
+            </span>
+
+            <span>
+                Vehicle Owner Portal
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     TOAST
+====================================================== -->
+
+<div
+    class="toast"
+    id="toast"
+>
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="toastMessage">
+        Action completed successfully.
+    </span>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script src="{% static 'owner/js/rentals.js' %}"></script>
+
+
+</body>
+
+</html>
