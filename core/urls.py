@@ -136,10 +136,6 @@ path(
         name="owner_profile"
     ),
 
-    path(
-        "owner/settings/",
-        views.owner_settings,
-        name="owner_settings"
-    ),
+    
 
 ]

@@ -253,11 +253,3 @@ def owner_profile(request):
     )
 
 
-def owner_settings(request):
-    return render(
-        request,
-        "owner/settings.html",
-        {
-            "user": request.user
-        }
-    )
