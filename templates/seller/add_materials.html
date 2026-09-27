@@ -1,0 +1,968 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Material | BuildConnect</title>
+
+    <!-- Bootstrap Icons only -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet"
+          href="{% static 'seller/css/add_materials.css' %}">
+</head>
+
+
+<body>
+
+<div class="seller-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <img src="/static/images/nav-logo.png"
+                     alt="BuildConnect Logo">
+            </div>
+
+            
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="sidebar-nav">
+
+            <a href="#"
+               class="nav-item coming-soon">
+
+                <i class="bi bi-house-door-fill"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="#"
+               class="nav-item">
+
+                <i class="bi bi-layers-fill"></i>
+
+                <span>My Materials</span>
+
+            </a>
+
+
+            <a href="#"
+               class="nav-item active">
+
+                <i class="bi bi-plus-circle-fill"></i>
+
+                <span>Add Material</span>
+
+            </a>
+
+
+            <a href="#"
+               class="nav-item coming-soon">
+
+                <i class="bi bi-receipt-cutoff"></i>
+
+                <span>Orders</span>
+
+                <span class="order-badge">5</span>
+
+            </a>
+
+
+            <a href="#"
+               class="nav-item coming-soon">
+
+                <i class="bi bi-bar-chart-fill"></i>
+
+                <span>Earnings</span>
+
+            </a>
+
+
+            <a href="#"
+               class="nav-item coming-soon">
+
+                <i class="bi bi-person-fill"></i>
+
+                <span>Profile</span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- LOGOUT -->
+
+        <div class="sidebar-bottom">
+
+            <a href="#"
+               class="nav-item logout">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
+
+        <header class="topbar">
+
+            <button class="mobile-menu"
+                    id="mobileMenu">
+
+                <i class="bi bi-list"></i>
+
+            </button>
+
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="globalSearch"
+                    placeholder="Search by material, price, stock..."
+                >
+
+                <span class="shortcut">
+                    Ctrl + K
+                </span>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div class="topbar-right">
+
+
+                <!-- NOTIFICATION -->
+
+                <button class="notification-btn"
+                        id="notificationBtn">
+
+                    <i class="bi bi-bell"></i>
+
+                    <span></span>
+
+                </button>
+
+
+                <!-- USER -->
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        AK
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong>
+                            Ankit Kumar
+                        </strong>
+
+                        <small>
+                            Seller
+                        </small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE
+        ================================================== -->
+
+        <section class="page-container">
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="hero">
+
+                <div class="hero-content">
+
+                    <a href="#"
+                       class="breadcrumb"
+                       id="backToMaterials">
+
+                        <i class="bi bi-arrow-left"></i>
+
+                        <span>My Materials</span>
+
+                    </a>
+
+
+                    <h1>
+                        Add Material
+                    </h1>
+
+
+                    <p>
+                        List a new material with details,
+                        price, stock and image.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CONTENT GRID
+            ================================================== -->
+
+            <div class="content-grid">
+
+
+                <!-- =================================================
+                     LEFT COLUMN
+                ================================================== -->
+
+                <div class="left-column">
+
+
+                    <!-- =================================================
+                         MATERIAL INFORMATION
+                    ================================================== -->
+
+                    <section class="form-card">
+
+                        <div class="card-heading">
+
+                            <div class="section-icon">
+
+                                <i class="bi bi-file-earmark-text-fill"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Material Information
+                                </h2>
+
+                                <p>
+                                    Fill in the details to add a new
+                                    material to your inventory.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- MATERIAL NAME -->
+
+                        <div class="form-group">
+
+                            <label for="materialName">
+
+                                Material Name
+
+                                <span>*</span>
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="materialName"
+                                placeholder="e.g. Coal, Sand, Crushed Stone, Fly Ash, Soil"
+                                maxlength="80"
+                            >
+
+                            <small class="field-error"
+                                   id="nameError"></small>
+
+                        </div>
+
+
+
+                        <!-- MATERIAL IMAGE -->
+
+                        <div class="form-group">
+
+                            <label>
+
+                                Material Image
+
+                                <span>*</span>
+
+                            </label>
+
+
+                            <div class="upload-area"
+                                 id="uploadArea">
+
+
+                                <input
+                                    type="file"
+                                    id="materialImage"
+                                    accept=".png,.jpeg,.png,.webp"
+                                    hidden
+                                >
+
+
+                                <div class="upload-content">
+
+                                    <div class="upload-icon">
+
+                                        <i class="bi bi-cloud-arrow-up-fill"></i>
+
+                                    </div>
+
+
+                                    <h3>
+                                        Click to upload material image
+                                    </h3>
+
+
+                                    <p>
+                                        or drag and drop here
+                                    </p>
+
+
+                                    <span>
+                                        png, PNG, WebP (Max 5MB)
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <small class="field-error"
+                                   id="imageError"></small>
+
+                        </div>
+
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="form-group">
+
+                            <div class="label-row">
+
+                                <label for="description">
+                                    Description
+                                </label>
+
+                                <span id="characterCount">
+                                    0/500
+                                </span>
+
+                            </div>
+
+
+                            <textarea
+                                id="description"
+                                maxlength="500"
+                                placeholder="Enter a short description about this material (optional)..."
+                            ></textarea>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================================
+                         PRICE & STOCK
+                    ================================================== -->
+
+                    <section class="form-card">
+
+                        <div class="card-heading">
+
+                            <div class="section-icon">
+
+                                <i class="bi bi-currency-rupee"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Price & Stock
+                                </h2>
+
+                                <p>
+                                    Set the price per ton and available
+                                    stock quantity.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="two-column">
+
+
+                            <!-- PRICE -->
+
+                            <div class="form-group">
+
+                                <label for="price">
+
+                                    Price (Per Ton)
+
+                                    <span>*</span>
+
+                                </label>
+
+
+                                <div class="input-group">
+
+                                    <div class="input-prefix">
+                                        ₹
+                                    </div>
+
+                                    <input
+                                        type="number"
+                                        id="price"
+                                        min="1"
+                                        placeholder="Enter price"
+                                    >
+
+                                    <div class="input-suffix">
+                                        / Ton
+                                    </div>
+
+                                </div>
+
+
+                                <small class="field-error"
+                                       id="priceError"></small>
+
+                            </div>
+
+
+
+                            <!-- STOCK -->
+
+                            <div class="form-group">
+
+                                <label for="stock">
+
+                                    Available Stock
+
+                                    <span>*</span>
+
+                                </label>
+
+
+                                <div class="input-group">
+
+                                    <div class="input-prefix box-prefix">
+
+                                        <i class="bi bi-box-fill"></i>
+
+                                    </div>
+
+                                    <input
+                                        type="number"
+                                        id="stock"
+                                        min="1"
+                                        placeholder="Enter quantity"
+                                    >
+
+                                    <div class="input-suffix">
+                                        Ton
+                                    </div>
+
+                                </div>
+
+
+                                <small class="field-error"
+                                       id="stockError"></small>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             STATUS
+                        ================================================== -->
+
+                        <div class="status-section">
+
+                            <div class="status-heading">
+
+                                <div class="status-icon">
+
+                                    <i class="bi bi-power"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h2>
+                                        Status
+                                    </h2>
+
+                                    <p>
+                                        Set the current status of this
+                                        material.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="status-options">
+
+
+                                <!-- ACTIVE -->
+
+                                <label class="status-option active-option">
+
+                                    <input
+                                        type="radio"
+                                        name="materialStatus"
+                                        value="active"
+                                        checked
+                                    >
+
+                                    <div class="radio-circle">
+                                        <i class="bi bi-check-lg"></i>
+                                    </div>
+
+                                    <div class="status-text">
+
+                                        <strong>
+                                            Active
+                                        </strong>
+
+                                        <span>
+                                            This material will be visible
+                                            in your listings.
+                                        </span>
+
+                                    </div>
+
+                                </label>
+
+
+
+                                <!-- LOW STOCK -->
+
+                                <label class="status-option low-option">
+
+                                    <input
+                                        type="radio"
+                                        name="materialStatus"
+                                        value="low"
+                                    >
+
+                                    <div class="radio-circle">
+                                        <i class="bi bi-check-lg"></i>
+                                    </div>
+
+                                    <div class="status-text">
+
+                                        <strong>
+                                            Low Stock
+                                        </strong>
+
+                                        <span>
+                                            Mark as low stock if quantity
+                                            is running low.
+                                        </span>
+
+                                    </div>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             FORM ACTIONS
+                        ================================================== -->
+
+                        <div class="form-actions">
+
+                            <button
+                                type="button"
+                                class="cancel-btn"
+                                id="cancelBtn">
+
+                                <i class="bi bi-arrow-left"></i>
+
+                                Cancel
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="submit-btn"
+                                id="addMaterialBtn">
+
+                                <i class="bi bi-plus-lg"></i>
+
+                                Add Material
+
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     RIGHT COLUMN
+                ================================================== -->
+
+                <div class="right-column">
+
+
+                    <!-- =================================================
+                         IMAGE PREVIEW
+                    ================================================== -->
+
+                    <section class="side-card">
+
+                        <div class="card-heading">
+
+                            <div class="section-icon">
+
+                                <i class="bi bi-image-fill"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Image Preview
+                                </h2>
+
+                                <p>
+                                    Preview of the uploaded material image.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="preview-box"
+                             id="previewBox">
+
+
+                            <div class="empty-preview"
+                                 id="emptyPreview">
+
+                                <div class="preview-placeholder-icon">
+
+                                    <i class="bi bi-image"></i>
+
+                                </div>
+
+                                <strong>
+                                    No image selected
+                                </strong>
+
+                                <span>
+                                    Upload an image to preview here.
+                                </span>
+
+                            </div>
+
+
+                            <img
+                                id="imagePreview"
+                                src=""
+                                alt="Material Preview"
+                            >
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================================
+                         IMAGE GUIDELINES
+                    ================================================== -->
+
+                    <section class="side-card guidelines-card">
+
+                        <div class="card-heading">
+
+                            <div class="section-icon">
+
+                                <i class="bi bi-lightbulb-fill"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Image Guidelines
+                                </h2>
+
+                                <p>
+                                    Follow these guidelines for best results.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <ul class="guidelines">
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>
+                                    Use clear and high-quality images
+                                </span>
+                            </li>
+
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>
+                                    Show the actual material
+                                </span>
+                            </li>
+
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>
+                                    Supported formats: png, PNG, WebP
+                                </span>
+                            </li>
+
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>
+                                    Maximum file size: 5MB
+                                </span>
+                            </li>
+
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>
+                                    Recommended size: 800 × 600 pixels
+                                </span>
+                            </li>
+
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>
+                                    Avoid blurry or low-light images
+                                </span>
+                            </li>
+
+                        </ul>
+
+                    </section>
+
+
+
+                    <!-- =================================================
+                         EXAMPLE IMAGES
+                    ================================================== -->
+
+                    <section class="side-card example-card">
+
+                        <div class="card-heading">
+
+                            <div class="section-icon">
+
+                                <i class="bi bi-images"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Example Images
+                                </h2>
+
+                                <p>
+                                    Here are some examples of good
+                                    material images.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="example-grid">
+
+
+                            <div class="example-item">
+
+                                <img
+                                    src="/static/images/coal.png"
+                                    alt="Coal"
+                                >
+
+                                <span>
+                                    Coal
+                                </span>
+
+                            </div>
+
+
+                            <div class="example-item">
+
+                                <img
+                                    src="/static/images/sand.png"
+                                    alt="Sand"
+                                >
+
+                                <span>
+                                    Sand
+                                </span>
+
+                            </div>
+
+
+                            <div class="example-item">
+
+                                <img
+                                    src="/static/images/crushed-stone.png"
+                                    alt="Crushed Stone"
+                                >
+
+                                <span>
+                                    Crushed Stone
+                                </span>
+
+                            </div>
+
+
+                            <div class="example-item">
+
+                                <img
+                                    src="/static/images/fly-ash.png"
+                                    alt="Fly Ash"
+                                >
+
+                                <span>
+                                    Fly Ash
+                                </span>
+
+                            </div>
+
+
+                            <div class="example-item">
+
+                                <img
+                                    src="/static/images/soil.png"
+                                    alt="Soil"
+                                >
+
+                                <span>
+                                    Soil
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================== -->
+
+<div class="toast"
+     id="toast">
+
+    <i class="bi bi-check-circle-fill"></i>
+
+    <span id="toastMessage">
+        Action completed.
+    </span>
+
+</div>
+
+
+<script src="{% static 'seller/js/add_materials.js' %}"></script>
+
+</body>
+</html>

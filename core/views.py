@@ -260,3 +260,5 @@ def seller_dashboard(request):
 
 def seller_materials(request):
     return render(request, "seller/materials.html")
+def seller_add_materials(request):
+    return render(request, "seller/add_materials.html")

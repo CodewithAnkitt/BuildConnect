@@ -149,5 +149,10 @@ path(
     views.seller_materials,
     name="seller_materials"
 ),
+path(
+    "seller/add_materials/",
+    views.seller_add_materials,
+    name="seller_add_materials"
+),
 
 ]

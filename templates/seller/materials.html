@@ -40,7 +40,7 @@
                 <span>My Materials</span>
             </a>
 
-            <a href="#" class="nav-item coming-soon">
+            <a href="{% url 'seller_add_materials' %}" class="nav-item ">
                 <i class="bi bi-plus-circle-fill"></i>
                 <span>Add Material</span>
             </a>
@@ -258,14 +258,14 @@
 
                     </div>
 
-                    <button class="add-material-btn"
-                            id="addMaterialBtn">
+                    <a href="/seller/add_materials/"
+   class="add-material-btn">
 
-                        <i class="bi bi-plus-lg"></i>
+    <i class="bi bi-plus-lg"></i>
 
-                        Add Material
+    Add Material
 
-                    </button>
+</a>
 
                 </div>
 
