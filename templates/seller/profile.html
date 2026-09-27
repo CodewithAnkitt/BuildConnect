@@ -1,0 +1,1210 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile | BuildConnect</title>
+
+    <!-- Bootstrap Icons ONLY -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Custom CSS -->
+    <link
+        rel="stylesheet"
+        href="{% static 'seller/css/profile.css' %}"
+    >
+</head>
+
+<body>
+
+<div class="seller-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <!-- LOGO -->
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <img
+                    src="{% static '/images/nav-logo.png' %}"
+                    alt="BuildConnect"
+                >
+            </div>
+
+            
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'seller_dashboard' %}" class="nav-item">
+
+                <i class="bi bi-house-door-fill"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'seller_materials' %}" class="nav-item ">
+
+                <i class="bi bi-layers-fill"></i>
+
+                <span>
+                    My Materials
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'seller_add_materials' %}" class="nav-item ">
+
+                <i class="bi bi-plus-circle-fill"></i>
+
+                <span>
+                    Add Material
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'seller_order' %}" class="nav-item ">
+
+                <i class="bi bi-receipt-cutoff"></i>
+
+                <span>
+                    Orders
+                </span>
+
+                
+
+            </a>
+
+
+            <a href="{% url 'seller_earning' %}" class="nav-item ">
+
+                <i class="bi bi-bar-chart-fill"></i>
+
+                <span>
+                    Earnings
+                </span>
+
+            </a>
+
+
+            <!-- ACTIVE -->
+
+            <a href="{% url 'seller_profile' %}" class="nav-item active">
+
+                <i class="bi bi-person-fill"></i>
+
+                <span>
+                    Profile
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- LOGOUT -->
+
+        <div class="sidebar-bottom">
+
+            <a href="{% url 'logout' %}" class="nav-item ">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
+
+        <header class="topbar">
+
+            <button
+                class="mobile-menu"
+                id="mobileMenu"
+            >
+
+                <i class="bi bi-list"></i>
+
+            </button>
+
+
+            <div class="search-box">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="globalSearch"
+                    placeholder="Search by material, order, buyer..."
+                >
+
+                <span class="shortcut">
+                    Ctrl + K
+                </span>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <button
+                    class="notification-btn"
+                    id="notificationBtn"
+                >
+
+                    <i class="bi bi-bell"></i>
+
+                    <span></span>
+
+                </button>
+
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        AK
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong>
+                            Ankit Kumar
+                        </strong>
+
+                        <small>
+                            Seller
+                        </small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE
+        ================================================== -->
+
+        <section class="page-container">
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="hero">
+
+                <div class="hero-content">
+
+                    <div class="breadcrumb">
+
+                        <i class="bi bi-house-fill"></i>
+
+                        <span>
+                            Profile
+                        </span>
+
+                    </div>
+
+
+                    <h1>
+                        My Profile
+                    </h1>
+
+
+                    <p>
+                        Manage your account, business details and preferences.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 SUMMARY CARDS
+            ================================================== -->
+
+            <section class="summary-grid">
+
+
+                <!-- BUSINESS STATUS -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon">
+
+                        <i class="bi bi-shop"></i>
+
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>
+                            Business Status
+                        </span>
+
+                        <strong class="verified-text">
+
+                            <i class="bi bi-check-circle-fill"></i>
+
+                            Verified
+
+                        </strong>
+
+                        <small>
+                            Your business is verified and active.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MATERIALS -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon">
+
+                        <i class="bi bi-box-seam-fill"></i>
+
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>
+                            Materials Listed
+                        </span>
+
+                        <strong>
+                            5
+                        </strong>
+
+                        <small>
+                            Active materials on your store.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ORDERS -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon">
+
+                        <i class="bi bi-clipboard2-check-fill"></i>
+
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>
+                            Total Orders
+                        </span>
+
+                        <strong>
+                            24
+                        </strong>
+
+                        <small>
+                            Completed + Pending
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RATING -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon">
+
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>
+                            Seller Rating
+                        </span>
+
+                        <strong>
+                            4.8 / 5
+                        </strong>
+
+                        <small>
+                            Based on 18 reviews
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 MAIN PROFILE GRID
+            ================================================== -->
+
+            <section class="profile-grid">
+
+
+                <!-- =================================================
+                     LEFT COLUMN
+                ================================================== -->
+
+                <div class="left-column">
+
+
+                    <!-- PERSONAL INFORMATION -->
+
+                    <div class="profile-card personal-card">
+
+                        <div class="section-header">
+
+                            <div class="section-title">
+
+                                <div class="section-icon">
+
+                                    <i class="bi bi-person-fill"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h2>
+                                        Personal Information
+                                    </h2>
+
+                                    <p>
+                                        Update your personal details and contact information.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                class="edit-btn"
+                                id="editPersonalBtn"
+                            >
+
+                                <i class="bi bi-pencil-fill"></i>
+
+                                Edit Personal Info
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Full Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    value="Ankit Kumar"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    value="ankitkumar@example.com"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Phone Number
+                                </label>
+
+                                <input
+                                    type="text"
+                                    value="+91 98765 43210"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Alternate Phone
+                                    <span>
+                                        (Optional)
+                                    </span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    value="+91 91234 56789"
+                                    readonly
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PROFILE PHOTO -->
+
+                        <div class="photo-section">
+
+                            <label>
+                                Profile Picture
+                            </label>
+
+
+                            <div class="photo-row">
+
+                                <div class="profile-photo">
+                                    AK
+                                </div>
+
+
+                                <div class="photo-actions">
+
+                                    <button
+                                        class="photo-btn"
+                                        id="changePhotoBtn"
+                                    >
+
+                                        <i class="bi bi-upload"></i>
+
+                                        Change Photo
+
+                                    </button>
+
+                                    <small>
+                                        JPG, PNG (Max 2MB)
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         BUSINESS INFORMATION
+                    ================================================== -->
+
+                    <div class="profile-card business-card">
+
+                        <div class="section-header">
+
+                            <div class="section-title">
+
+                                <div class="section-icon">
+
+                                    <i class="bi bi-shop"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h2>
+                                        Business Information
+                                    </h2>
+
+                                    <p>
+                                        Update your business details, address and documents.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                class="edit-btn"
+                                id="editBusinessBtn"
+                            >
+
+                                <i class="bi bi-pencil-fill"></i>
+
+                                Edit Business Info
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="business-form">
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Business Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    value="Shakti Enterprises"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    GST Number
+                                </label>
+
+                                <input
+                                    type="text"
+                                    value="27ABCDE1234F1Z5"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Business Type
+                                </label>
+
+                                <select id="businessType">
+
+                                    <option>
+                                        Individual
+                                    </option>
+
+                                    <option>
+                                        Partnership
+                                    </option>
+
+                                    <option>
+                                        Private Limited
+                                    </option>
+
+                                    <option>
+                                        Proprietorship
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group address-field">
+
+                                <label>
+                                    Business Address
+                                </label>
+
+                                <textarea readonly>Plot No. 45, Industrial Area, Hingna,
+Nagpur, Maharashtra - 440028</textarea>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Service Areas
+                                </label>
+
+                                <input
+                                    type="text"
+                                    value="Nagpur, Hingna, Kamptee, Umred"
+                                    readonly
+                                >
+
+                                <small class="field-help">
+
+                                    <i class="bi bi-info-circle-fill"></i>
+
+                                    Areas where you supply materials
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     RIGHT COLUMN
+                ================================================== -->
+
+                <div class="right-column">
+
+
+                    <!-- =================================================
+                         VERIFICATION
+                    ================================================== -->
+
+                    <div class="profile-card verification-card">
+
+                        <div class="section-title">
+
+                            <div class="section-icon">
+
+                                <i class="bi bi-shield-check"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Verification & Documents
+                                </h2>
+
+                                <p>
+                                    Manage your verification documents.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="documents-list">
+
+
+                            <!-- AADHAAR -->
+
+                            <div class="document-row">
+
+                                <div class="document-icon">
+
+                                    <i class="bi bi-file-earmark-text-fill"></i>
+
+                                </div>
+
+                                <div class="document-info">
+
+                                    <strong>
+                                        Aadhaar Card
+                                    </strong>
+
+                                    <span>
+                                        XXXX-XXXX-4321
+                                    </span>
+
+                                </div>
+
+                                <span class="status verified">
+
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                    Verified
+
+                                </span>
+
+                                <button class="view-document">
+                                    View
+                                </button>
+
+                            </div>
+
+
+
+                            <!-- PAN -->
+
+                            <div class="document-row">
+
+                                <div class="document-icon">
+
+                                    <i class="bi bi-file-earmark-text-fill"></i>
+
+                                </div>
+
+                                <div class="document-info">
+
+                                    <strong>
+                                        PAN Card
+                                    </strong>
+
+                                    <span>
+                                        ABCDE1234F
+                                    </span>
+
+                                </div>
+
+                                <span class="status verified">
+
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                    Verified
+
+                                </span>
+
+                                <button class="view-document">
+                                    View
+                                </button>
+
+                            </div>
+
+
+
+                            <!-- GST -->
+
+                            <div class="document-row">
+
+                                <div class="document-icon">
+
+                                    <i class="bi bi-file-earmark-text-fill"></i>
+
+                                </div>
+
+                                <div class="document-info">
+
+                                    <strong>
+                                        GST Certificate
+                                    </strong>
+
+                                    <span>
+                                        27ABCDE1234F1Z5
+                                    </span>
+
+                                </div>
+
+                                <span class="status verified">
+
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                    Verified
+
+                                </span>
+
+                                <button class="view-document">
+                                    View
+                                </button>
+
+                            </div>
+
+
+
+                            <!-- BUSINESS LICENSE -->
+
+                            <div class="document-row">
+
+                                <div class="document-icon">
+
+                                    <i class="bi bi-file-earmark-text-fill"></i>
+
+                                </div>
+
+                                <div class="document-info">
+
+                                    <strong>
+                                        Business License
+                                    </strong>
+
+                                    <span>
+                                        NGP/BL/2020/4587
+                                    </span>
+
+                                </div>
+
+                                <span class="status pending">
+
+                                    <i class="bi bi-star-fill"></i>
+
+                                    Pending
+
+                                </span>
+
+                                <button class="view-document">
+                                    View
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         SECURITY
+                    ================================================== -->
+
+                    <div class="profile-card security-card">
+
+                        <div class="section-title">
+
+                            <div class="section-icon">
+
+                                <i class="bi bi-lock-fill"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Account & Security
+                                </h2>
+
+                                <p>
+                                    Manage your account security settings.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="settings-list">
+
+
+                            <button class="setting-row">
+
+                                <div class="setting-icon">
+
+                                    <i class="bi bi-key-fill"></i>
+
+                                </div>
+
+                                <div class="setting-info">
+
+                                    <strong>
+                                        Change Password
+                                    </strong>
+
+                                    <span>
+                                        Update your account password regularly.
+                                    </span>
+
+                                </div>
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </button>
+
+
+
+                            <button class="setting-row">
+
+                                <div class="setting-icon">
+
+                                    <i class="bi bi-shield-lock-fill"></i>
+
+                                </div>
+
+                                <div class="setting-info">
+
+                                    <strong>
+                                        Two-Factor Authentication
+                                    </strong>
+
+                                    <span>
+                                        Add an extra layer of security.
+                                    </span>
+
+                                </div>
+
+                                <span class="security-status">
+                                    Not Enabled
+                                </span>
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </button>
+
+
+
+                            <button class="setting-row">
+
+                                <div class="setting-icon">
+
+                                    <i class="bi bi-laptop-fill"></i>
+
+                                </div>
+
+                                <div class="setting-info">
+
+                                    <strong>
+                                        Login Devices
+                                    </strong>
+
+                                    <span>
+                                        Manage your active login sessions.
+                                    </span>
+
+                                </div>
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         PREFERENCES
+                    ================================================== -->
+
+                    <div class="profile-card preferences-card">
+
+                        <div class="section-title">
+
+                            <div class="section-icon">
+
+                                <i class="bi bi-gear-fill"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Preferences
+                                </h2>
+
+                                <p>
+                                    Manage your notification and system preferences.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="preference-list">
+
+
+                            <!-- EMAIL -->
+
+                            <div class="preference-row">
+
+                                <div class="preference-icon">
+
+                                    <i class="bi bi-envelope-fill"></i>
+
+                                </div>
+
+                                <div class="preference-info">
+
+                                    <strong>
+                                        Email Notifications
+                                    </strong>
+
+                                    <span>
+                                        Get notified about orders, payouts and updates.
+                                    </span>
+
+                                </div>
+
+                                <label class="switch">
+
+                                    <input
+                                        type="checkbox"
+                                        checked
+                                    >
+
+                                    <span class="slider"></span>
+
+                                </label>
+
+                            </div>
+
+
+
+                            <!-- SMS -->
+
+                            <div class="preference-row">
+
+                                <div class="preference-icon">
+
+                                    <i class="bi bi-chat-square-text-fill"></i>
+
+                                </div>
+
+                                <div class="preference-info">
+
+                                    <strong>
+                                        SMS Notifications
+                                    </strong>
+
+                                    <span>
+                                        Receive important alerts via SMS.
+                                    </span>
+
+                                </div>
+
+                                <label class="switch">
+
+                                    <input
+                                        type="checkbox"
+                                        checked
+                                    >
+
+                                    <span class="slider"></span>
+
+                                </label>
+
+                            </div>
+
+
+
+                            <!-- MARKETING -->
+
+                            <div class="preference-row">
+
+                                <div class="preference-icon">
+
+                                    <i class="bi bi-megaphone-fill"></i>
+
+                                </div>
+
+                                <div class="preference-info">
+
+                                    <strong>
+                                        Marketing Updates
+                                    </strong>
+
+                                    <span>
+                                        Receive product tips and platform updates.
+                                    </span>
+
+                                </div>
+
+                                <label class="switch">
+
+                                    <input
+                                        type="checkbox"
+                                    >
+
+                                    <span class="slider"></span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================== -->
+
+<div
+    class="toast"
+    id="toast"
+>
+
+    <i class="bi bi-check-circle-fill"></i>
+
+    <span id="toastMessage">
+        Action completed.
+    </span>
+
+</div>
+
+
+<script src="{% static 'seller/js/profile.js' %}"></script>
+
+</body>
+</html>
