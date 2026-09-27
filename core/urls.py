@@ -136,6 +136,12 @@ path(
         name="owner_profile"
     ),
 
-    
+    #seller browser
+
+    path(
+    "seller/dashboard/",
+    views.seller_dashboard,
+    name="seller_dashboard"
+),
 
 ]

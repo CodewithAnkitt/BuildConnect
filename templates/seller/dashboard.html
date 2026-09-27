@@ -1,0 +1,851 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Seller Dashboard | BuildConnect</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'seller/css/dashboard.css' %}">
+</head>
+
+<body>
+
+<div class="seller-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <img src="{% static '/images/nav-logo.png' %}"
+                 alt="BuildConnect">
+
+            
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'seller_dashboard' %}" class="nav-item active">
+                <i class="bi bi-house-fill"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="nav-item coming-soon">
+                <i class="bi bi-layers-fill"></i>
+                <span>My Materials</span>
+            </a>
+
+            <a href="#" class="nav-item coming-soon">
+                <i class="bi bi-plus-circle-fill"></i>
+                <span>Add Material</span>
+            </a>
+
+            <a href="#" class="nav-item coming-soon">
+                <i class="bi bi-receipt"></i>
+                <span>Orders</span>
+                <span class="nav-badge">5</span>
+            </a>
+
+            <a href="#" class="nav-item coming-soon">
+                <i class="bi bi-bar-chart-fill"></i>
+                <span>Earnings</span>
+            </a>
+
+            <a href="#" class="nav-item coming-soon">
+                <i class="bi bi-person-fill"></i>
+                <span>Profile</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="{% url 'logout' %}" class="logout-link">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+        <!-- TOP NAVBAR -->
+
+        <header class="top-navbar">
+
+            <button class="mobile-menu-btn" type="button">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="nav-search">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    placeholder="Search by order, customer, material..."
+                    id="searchInput"
+                >
+
+                <span class="search-shortcut">Ctrl + K</span>
+
+            </div>
+
+
+            <div class="nav-right">
+
+                <button class="notification-btn" type="button">
+                    <i class="bi bi-bell"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="nav-profile">
+
+                    <div class="profile-avatar">
+                        AK
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>{{ request.user.get_full_name|default:"Ankit Kumar" }}</strong>
+                        <span>Seller</span>
+                    </div>
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <div class="page-container">
+
+
+            <!-- ================= HERO ================= -->
+
+            <section class="seller-hero">
+
+                <div class="hero-content">
+
+                    <div class="hero-label">
+                        <i class="bi bi-house-fill"></i>
+                        Seller Dashboard
+                    </div>
+
+                    <h1>Seller Dashboard</h1>
+
+                    <p>
+                        Manage your materials, listings and customer orders.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= STAT CARDS ================= -->
+
+            <section class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        <i class="bi bi-layers-fill"></i>
+                    </div>
+
+                    <div class="stat-content">
+                        <span>Active Listings</span>
+                        <strong>12</strong>
+                        <small>Materials listed</small>
+                    </div>
+
+                    <div class="stat-change positive">
+                        <i class="bi bi-arrow-up"></i>
+                        +20%
+                        <small>vs last month</small>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        <i class="bi bi-cart-fill"></i>
+                    </div>
+
+                    <div class="stat-content">
+                        <span>Total Orders</span>
+                        <strong>48</strong>
+                        <small>All time orders</small>
+                    </div>
+
+                    <div class="stat-change positive">
+                        <i class="bi bi-arrow-up"></i>
+                        +18%
+                        <small>vs last month</small>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon yellow">
+                        <i class="bi bi-clock-fill"></i>
+                    </div>
+
+                    <div class="stat-content">
+                        <span>Pending Orders</span>
+                        <strong>7</strong>
+                        <small>Awaiting processing</small>
+                    </div>
+
+                    <div class="stat-change negative">
+                        <i class="bi bi-arrow-down"></i>
+                        -2%
+                        <small>vs last month</small>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        <i class="bi bi-currency-rupee"></i>
+                    </div>
+
+                    <div class="stat-content">
+                        <span>Total Earnings</span>
+                        <strong>₹3,56,200</strong>
+                        <small>All time earnings</small>
+                    </div>
+
+                    <div class="stat-change positive">
+                        <i class="bi bi-arrow-up"></i>
+                        +25%
+                        <small>vs last month</small>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= MAIN GRID ================= -->
+
+            <section class="dashboard-grid">
+
+
+                <!-- RECENT ORDERS -->
+
+                <div class="dashboard-card orders-card">
+
+                    <div class="card-header">
+
+                        <div class="card-title">
+
+                            <div class="card-icon orange">
+                                <i class="bi bi-file-earmark-text-fill"></i>
+                            </div>
+
+                            <div>
+                                <h2>Recent Orders</h2>
+                                <p>Latest customer orders for your materials</p>
+                            </div>
+
+                        </div>
+
+                        <button class="outline-btn coming-soon">
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table class="orders-table">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Material</th>
+                                    <th>Quantity</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>#BC1008</td>
+
+                                    <td>
+                                        <div class="customer">
+                                            <span>RS</span>
+                                            Ravi Sharma
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="material-cell">
+                                            <div class="material-image coal"></div>
+                                            Coal
+                                        </div>
+                                    </td>
+
+                                    <td>20 Ton</td>
+                                    <td>₹48,000</td>
+
+                                    <td>
+                                        <span class="status delivered">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            Delivered
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <button class="more-btn">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>#BC1007</td>
+
+                                    <td>
+                                        <div class="customer">
+                                            <span>SY</span>
+                                            Suresh Yadav
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="material-cell">
+                                            <div class="material-image sand"></div>
+                                            Sand
+                                        </div>
+                                    </td>
+
+                                    <td>15 Ton</td>
+                                    <td>₹22,500</td>
+
+                                    <td>
+                                        <span class="status transit">
+                                            <i class="bi bi-truck"></i>
+                                            In Transit
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <button class="more-btn">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>#BC1006</td>
+
+                                    <td>
+                                        <div class="customer">
+                                            <span>AS</span>
+                                            Amit Singh
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="material-cell">
+                                            <div class="material-image stone"></div>
+                                            Crushed Stone
+                                        </div>
+                                    </td>
+
+                                    <td>25 Ton</td>
+                                    <td>₹37,500</td>
+
+                                    <td>
+                                        <span class="status processing">
+                                            <i class="bi bi-clock-fill"></i>
+                                            Processing
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <button class="more-btn">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>#BC1005</td>
+
+                                    <td>
+                                        <div class="customer">
+                                            <span>NV</span>
+                                            Neha Verma
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="material-cell">
+                                            <div class="material-image flyash"></div>
+                                            Fly Ash
+                                        </div>
+                                    </td>
+
+                                    <td>10 Ton</td>
+                                    <td>₹9,000</td>
+
+                                    <td>
+                                        <span class="status delivered">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            Delivered
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <button class="more-btn">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>#BC1004</td>
+
+                                    <td>
+                                        <div class="customer">
+                                            <span>MK</span>
+                                            Mohit Kumar
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="material-cell">
+                                            <div class="material-image soil"></div>
+                                            Soil
+                                        </div>
+                                    </td>
+
+                                    <td>18 Ton</td>
+                                    <td>₹14,400</td>
+
+                                    <td>
+                                        <span class="status cancelled">
+                                            <i class="bi bi-x-circle-fill"></i>
+                                            Cancelled
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <button class="more-btn">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MY MATERIALS -->
+
+                <div class="dashboard-card materials-card">
+
+                    <div class="card-header">
+
+                        <div class="card-title">
+
+                            <div class="card-icon orange">
+                                <i class="bi bi-layers-fill"></i>
+                            </div>
+
+                            <div>
+                                <h2>My Materials</h2>
+                                <p>Your listed materials and stock information</p>
+                            </div>
+
+                        </div>
+
+                        <button class="outline-btn coming-soon">
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    <div class="materials-list">
+
+                        <div class="material-row">
+                            <div class="material-thumb coal"></div>
+
+                            <div class="material-info">
+                                <strong>Coal</strong>
+                                <span>₹2,400 / Ton</span>
+                            </div>
+
+                            <span class="stock">
+                                Stock: 120 Ton
+                            </span>
+
+                            <span class="active-status">
+                                Active
+                            </span>
+
+                            <button class="more-btn">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                        </div>
+
+
+                        <div class="material-row">
+                            <div class="material-thumb sand"></div>
+
+                            <div class="material-info">
+                                <strong>Sand</strong>
+                                <span>₹1,500 / Ton</span>
+                            </div>
+
+                            <span class="stock">
+                                Stock: 85 Ton
+                            </span>
+
+                            <span class="active-status">
+                                Active
+                            </span>
+
+                            <button class="more-btn">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                        </div>
+
+
+                        <div class="material-row">
+                            <div class="material-thumb stone"></div>
+
+                            <div class="material-info">
+                                <strong>Crushed Stone</strong>
+                                <span>₹1,800 / Ton</span>
+                            </div>
+
+                            <span class="stock">
+                                Stock: 60 Ton
+                            </span>
+
+                            <span class="active-status">
+                                Active
+                            </span>
+
+                            <button class="more-btn">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                        </div>
+
+
+                        <div class="material-row">
+                            <div class="material-thumb flyash"></div>
+
+                            <div class="material-info">
+                                <strong>Fly Ash</strong>
+                                <span>₹900 / Ton</span>
+                            </div>
+
+                            <span class="stock">
+                                Stock: 45 Ton
+                            </span>
+
+                            <span class="active-status">
+                                Active
+                            </span>
+
+                            <button class="more-btn">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                        </div>
+
+
+                        <div class="material-row">
+                            <div class="material-thumb soil"></div>
+
+                            <div class="material-info">
+                                <strong>Soil</strong>
+                                <span>₹800 / Ton</span>
+                            </div>
+
+                            <span class="stock">
+                                Stock: 30 Ton
+                            </span>
+
+                            <span class="active-status">
+                                Active
+                            </span>
+
+                            <button class="more-btn">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= BOTTOM GRID ================= -->
+
+            <section class="bottom-grid">
+
+
+                <!-- EARNINGS -->
+
+                <div class="dashboard-card earnings-card">
+
+                    <div class="card-header">
+
+                        <div class="card-title">
+
+                            <div class="card-icon orange">
+                                <i class="bi bi-bar-chart-fill"></i>
+                            </div>
+
+                            <div>
+                                <h2>Earnings Overview</h2>
+                                <p>Your monthly earnings from material sales</p>
+                            </div>
+
+                        </div>
+
+                        <button class="period-btn">
+                            Last 6 Months
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+
+                    </div>
+
+
+                    <div class="chart">
+
+                        <div class="chart-y">
+                            <span>₹1.5L</span>
+                            <span>₹1.0L</span>
+                            <span>₹50K</span>
+                            <span>₹0</span>
+                        </div>
+
+                        <div class="chart-area">
+
+                            <div class="chart-grid"></div>
+
+                            <div class="bars">
+
+                                <div class="bar-item">
+                                    <div class="bar" style="height:30%;"></div>
+                                    <span>Apr</span>
+                                </div>
+
+                                <div class="bar-item">
+                                    <div class="bar" style="height:50%;"></div>
+                                    <span>May</span>
+                                </div>
+
+                                <div class="bar-item">
+                                    <div class="bar" style="height:60%;"></div>
+                                    <span>Jun</span>
+                                </div>
+
+                                <div class="bar-item">
+                                    <div class="bar" style="height:72%;"></div>
+                                    <span>Jul</span>
+                                </div>
+
+                                <div class="bar-item">
+                                    <div class="bar" style="height:82%;"></div>
+                                    <span>Aug</span>
+                                </div>
+
+                                <div class="bar-item">
+                                    <div class="bar" style="height:100%;"></div>
+                                    <span>Sep</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="dashboard-card quick-card">
+
+                    <div class="card-title">
+
+                        <div class="card-icon orange">
+                            <i class="bi bi-lightning-fill"></i>
+                        </div>
+
+                        <div>
+                            <h2>Quick Actions</h2>
+                            <p>Common tasks to manage your business</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+                        <button class="quick-action orange-action coming-soon">
+                            <i class="bi bi-plus-circle-fill"></i>
+                            <span>
+                                <strong>Add Material</strong>
+                                <small>List new material</small>
+                            </span>
+                        </button>
+
+                        <button class="quick-action green-action coming-soon">
+                            <i class="bi bi-file-earmark-text-fill"></i>
+                            <span>
+                                <strong>View Orders</strong>
+                                <small>Manage orders</small>
+                            </span>
+                        </button>
+
+                        <button class="quick-action yellow-action coming-soon">
+                            <i class="bi bi-layers-fill"></i>
+                            <span>
+                                <strong>Manage Listings</strong>
+                                <small>Edit your materials</small>
+                            </span>
+                        </button>
+
+                        <button class="quick-action purple-action coming-soon">
+                            <i class="bi bi-bar-chart-fill"></i>
+                            <span>
+                                <strong>View Earnings</strong>
+                                <small>Check reports</small>
+                            </span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TOP MATERIALS -->
+
+                <div class="dashboard-card top-materials-card">
+
+                    <div class="card-title">
+
+                        <div class="card-icon orange">
+                            <i class="bi bi-trophy-fill"></i>
+                        </div>
+
+                        <div>
+                            <h2>Top Performing Materials</h2>
+                            <p>Your best selling materials</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="performance-list">
+
+                        <div class="performance-item">
+                            <span>Coal</span>
+                            <div class="progress">
+                                <div style="width:90%;"></div>
+                            </div>
+                            <strong>₹1,24,000</strong>
+                            <small>35%</small>
+                        </div>
+
+                        <div class="performance-item">
+                            <span>Sand</span>
+                            <div class="progress">
+                                <div style="width:68%;"></div>
+                            </div>
+                            <strong>₹86,500</strong>
+                            <small>24%</small>
+                        </div>
+
+                        <div class="performance-item">
+                            <span>Crushed Stone</span>
+                            <div class="progress">
+                                <div style="width:54%;"></div>
+                            </div>
+                            <strong>₹68,200</strong>
+                            <small>19%</small>
+                        </div>
+
+                        <div class="performance-item">
+                            <span>Fly Ash</span>
+                            <div class="progress">
+                                <div style="width:35%;"></div>
+                            </div>
+                            <strong>₹42,300</strong>
+                            <small>12%</small>
+                        </div>
+
+                        <div class="performance-item">
+                            <span>Soil</span>
+                            <div class="progress">
+                                <div style="width:25%;"></div>
+                            </div>
+                            <strong>₹35,200</strong>
+                            <small>10%</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="{% static 'seller/js/dashboard.js' %}"></script>
+
+</body>
+</html>

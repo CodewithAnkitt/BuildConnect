@@ -253,3 +253,7 @@ def owner_profile(request):
     )
 
 
+# seller browser
+
+def seller_dashboard(request):
+    return render(request, "seller/dashboard.html")
