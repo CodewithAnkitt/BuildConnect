@@ -93,29 +93,25 @@ button {
 }
 
 .sidebar-logo {
-    height: 92px;
+    height: 100px;
 
     display: flex;
     align-items: center;
 
-    gap: 12px;
+    gap: 10px;
 
-    padding: 20px 22px;
+    padding: 10px 10px;
 
     border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
 .sidebar-logo img {
-    width: 42px;
-    height: 42px;
+    width: 280px;
+    height: 500px;
     object-fit: contain;
 }
 
-.sidebar-logo h2 {
-    font-size: 21px;
-    line-height: 1.1;
-    color: white;
-}
+
 
 .sidebar-logo span {
     display: block;
@@ -134,16 +130,16 @@ button {
     display: flex;
     align-items: center;
 
-    gap: 18px;
+    gap: 28px;
 
     padding: 0 16px;
 
-    margin-bottom: 7px;
+    margin-bottom: 10px;
 
     color: #eee5dd;
     text-decoration: none;
 
-    border-radius: 9px;
+    border-radius: 15px;
 
     transition: .25s ease;
 
@@ -710,7 +706,7 @@ button {
 }
 
 .orders-table th {
-    background: #fbf7f0;
+    background: #2ecbeb;
 
     padding: 11px 10px;
 
@@ -724,9 +720,9 @@ button {
 .orders-table td {
     padding: 10px;
 
-    border-top: 1px solid #f1e9df;
+    border-top: 2px solid #f1e9df;
 
-    font-size: 12px;
+    font-size: 15px;
 
     color: #493a30;
 }
@@ -739,8 +735,8 @@ button {
 }
 
 .customer span {
-    width: 28px;
-    height: 28px;
+    width: 38px;
+    height: 38px;
 
     border-radius: 50%;
 
@@ -750,7 +746,7 @@ button {
     align-items: center;
     justify-content: center;
 
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 700;
 }
 
@@ -772,10 +768,10 @@ button {
 }
 
 .material-image {
-    width: 32px;
-    height: 32px;
+    width: 50px;
+    height: 45px;
 
-    border-radius: 6px;
+    border-radius: 8px;
 }
 
 .material-image.coal,
@@ -890,16 +886,16 @@ button {
 }
 
 .material-thumb {
-    width: 43px;
-    height: 43px;
+    width: 55px;
+    height: 48px;
 
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .material-info strong {
     display: block;
 
-    font-size: 13px;
+    font-size: 16px;
 
     color: #2d1b11;
 }
@@ -907,7 +903,7 @@ button {
 .material-info span {
     display: block;
 
-    font-size: 11px;
+    font-size: 13px;
 
     color: #8a7667;
 
@@ -915,7 +911,7 @@ button {
 }
 
 .stock {
-    font-size: 11px;
+    font-size: 15px;
 
     color: #695849;
 

@@ -144,4 +144,10 @@ path(
     name="seller_dashboard"
 ),
 
+ path(
+    "seller/materials/",
+    views.seller_my_materials,
+    name="seller_my_materials"
+),
+
 ]
