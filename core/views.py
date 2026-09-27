@@ -266,3 +266,9 @@ def seller_add_materials(request):
 
 def seller_order(request):
     return render(request, "seller/order.html")
+
+def seller_earning(request):
+    return render(request, "seller/earning.html")
+
+def seller_profile(request):
+    return render(request, "seller/profile.html")

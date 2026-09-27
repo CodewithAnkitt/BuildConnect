@@ -429,7 +429,7 @@ button {
             rgba(250,247,241,.25) 72%,
             rgba(250,247,241,.03) 100%
         ),
-        url("/static/images/dashboard-hero.png")
+        url("/static/seller/images/dashboard-hero.png")
         center / cover no-repeat;
 }
 

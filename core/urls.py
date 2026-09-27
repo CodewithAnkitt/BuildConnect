@@ -160,5 +160,16 @@ path(
     views.seller_order,
     name="seller_order"
 ),
+path(
+    "seller/earning/",
+    views.seller_earning,
+    name="seller_earning"
+),
+
+path(
+    "seller/profile/",
+    views.seller_profile,
+    name="seller_profile"
+),
 
 ]
