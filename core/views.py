@@ -258,5 +258,5 @@ def owner_profile(request):
 def seller_dashboard(request):
     return render(request, "seller/dashboard.html")
 
-def seller_my_materials(request):
+def seller_materials(request):
     return render(request, "seller/materials.html")

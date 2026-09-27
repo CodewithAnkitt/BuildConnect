@@ -146,8 +146,8 @@ path(
 
  path(
     "seller/materials/",
-    views.seller_my_materials,
-    name="seller_my_materials"
+    views.seller_materials,
+    name="seller_materials"
 ),
 
 ]
