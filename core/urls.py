@@ -155,4 +155,10 @@ path(
     name="seller_add_materials"
 ),
 
+path(
+    "seller/order/",
+    views.seller_order,
+    name="seller_order"
+),
+
 ]

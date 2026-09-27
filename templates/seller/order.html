@@ -1,0 +1,1504 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Orders | BuildConnect</title>
+
+    <!-- Bootstrap Icons only -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Custom CSS -->
+    <link
+        rel="stylesheet"
+        href="{% static 'seller/css/order.css' %}"
+    >
+</head>
+
+<body>
+
+<div class="seller-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <img
+                    src="{% static '/images/nav-logo.png' %}"
+                    alt="BuildConnect Logo"
+                >
+            </div>
+
+            
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'seller_dashboard' %}"
+               class="nav-item ">
+
+                <i class="bi bi-house-door-fill"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="{% url 'seller_materials' %}"
+               class="nav-item">
+
+                <i class="bi bi-layers-fill"></i>
+
+                <span>My Materials</span>
+
+            </a>
+
+
+            <a href="{% url 'seller_add_materials' %}"
+               class="nav-item">
+
+                <i class="bi bi-plus-circle-fill"></i>
+
+                <span>Add Material</span>
+
+            </a>
+
+
+            <a href="{% url 'seller_order' %}"
+               class="nav-item active">
+
+                <i class="bi bi-receipt-cutoff"></i>
+
+                <span>Orders</span>
+
+                <span class="order-badge">
+                    5
+                </span>
+
+            </a>
+
+
+            <a href="#"
+               class="nav-item">
+
+                <i class="bi bi-bar-chart-fill"></i>
+
+                <span>Earnings</span>
+
+            </a>
+
+
+            <a href="#"
+               class="nav-item">
+
+                <i class="bi bi-person-fill"></i>
+
+                <span>Profile</span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- LOGOUT -->
+
+        <div class="sidebar-bottom">
+
+            <a href="#"
+               class="nav-item logout">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
+
+        <header class="topbar">
+
+            <button
+                class="mobile-menu"
+                id="mobileMenu"
+            >
+                <i class="bi bi-list"></i>
+            </button>
+
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="globalSearch"
+                    placeholder="Search by order id, material, buyer..."
+                >
+
+                <span class="shortcut">
+                    Ctrl + K
+                </span>
+
+            </div>
+
+
+            <!-- TOP RIGHT -->
+
+            <div class="topbar-right">
+
+
+                <!-- NOTIFICATION -->
+
+                <button
+                    class="notification-btn"
+                    id="notificationBtn"
+                >
+
+                    <i class="bi bi-bell"></i>
+
+                    <span></span>
+
+                </button>
+
+
+                <!-- USER -->
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        AK
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong>
+                            Ankit Kumar
+                        </strong>
+
+                        <small>
+                            Seller
+                        </small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE
+        ================================================== -->
+
+        <section class="page-container">
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="hero">
+
+                <div class="hero-content">
+
+                    <div class="breadcrumb">
+
+                        <i class="bi bi-arrow-left"></i>
+
+                        <span>
+                            Orders
+                        </span>
+
+                    </div>
+
+                    <h1>
+                        Orders
+                    </h1>
+
+                    <p>
+                        Manage and track all your material orders.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 SUMMARY CARDS
+            ================================================== -->
+
+            <section class="summary-grid">
+
+
+                <!-- TOTAL ORDERS -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon total-icon">
+                        <i class="bi bi-file-earmark-text-fill"></i>
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>
+                            Total Orders
+                        </span>
+
+                        <strong>
+                            24
+                        </strong>
+
+                        <small>
+                            All time orders
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- COMPLETED -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon completed-icon">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>
+                            Completed
+                        </span>
+
+                        <strong>
+                            16
+                        </strong>
+
+                        <small>
+                            66.7% of total
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PENDING -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon pending-icon">
+                        <i class="bi bi-clock-fill"></i>
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>
+                            Pending
+                        </span>
+
+                        <strong>
+                            5
+                        </strong>
+
+                        <small>
+                            20.8% of total
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CANCELLED -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon cancelled-icon">
+                        <i class="bi bi-x-lg"></i>
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>
+                            Cancelled
+                        </span>
+
+                        <strong>
+                            3
+                        </strong>
+
+                        <small>
+                            12.5% of total
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- REVENUE -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon revenue-icon">
+                        ₹
+                    </div>
+
+                    <div class="summary-info">
+
+                        <span>
+                            Total Revenue
+                        </span>
+
+                        <strong class="revenue-value">
+                            ₹2,48,500
+                        </strong>
+
+                        <small>
+                            From all orders
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ORDERS CARD
+            ================================================== -->
+
+            <section class="orders-card">
+
+
+                <!-- FILTER BAR -->
+
+                <div class="filter-bar">
+
+
+                    <!-- SEARCH -->
+
+                    <div class="order-search">
+
+                        <i class="bi bi-search"></i>
+
+                        <input
+                            type="text"
+                            id="orderSearch"
+                            placeholder="Search by order id, material, buyer..."
+                        >
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <select id="statusFilter">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="completed">
+                            Completed
+                        </option>
+
+                        <option value="pending">
+                            Pending
+                        </option>
+
+                        <option value="cancelled">
+                            Cancelled
+                        </option>
+
+                    </select>
+
+
+                    <!-- SORT -->
+
+                    <select id="sortFilter">
+
+                        <option value="latest">
+                            Sort by: Latest
+                        </option>
+
+                        <option value="oldest">
+                            Sort by: Oldest
+                        </option>
+
+                        <option value="amount-high">
+                            Amount: High to Low
+                        </option>
+
+                        <option value="amount-low">
+                            Amount: Low to High
+                        </option>
+
+                    </select>
+
+
+                    <!-- DATE -->
+
+                    <select id="dateFilter">
+
+                        <option>
+                            Date Range
+                        </option>
+
+                        <option>
+                            Last 7 Days
+                        </option>
+
+                        <option>
+                            Last 30 Days
+                        </option>
+
+                        <option>
+                            Last 3 Months
+                        </option>
+
+                        <option>
+                            This Year
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     TABLE
+                ================================================== -->
+
+                <div class="table-wrapper">
+
+                    <table class="orders-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    #
+                                </th>
+
+                                <th>
+                                    Order Details
+                                </th>
+
+                                <th>
+                                    Material
+                                </th>
+
+                                <th>
+                                    Quantity
+                                </th>
+
+                                <th>
+                                    Total Amount
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Order Date
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="ordersTableBody">
+
+
+                            <!-- =================================================
+                                 ORDER 1
+                            ================================================== -->
+
+                            <tr
+                                data-status="completed"
+                                data-amount="240000"
+                            >
+
+                                <td>
+                                    1
+                                </td>
+
+
+                                <td>
+
+                                    <div class="order-details">
+
+                                        <strong>
+                                            ORD-001
+                                        </strong>
+
+                                        <span>
+                                            <i class="bi bi-person"></i>
+                                            Buyer: Ramesh Construction
+                                        </span>
+
+                                        <span>
+                                            <i class="bi bi-geo-alt"></i>
+                                            Bangalore, Karnataka
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="material-cell">
+
+                                        <img
+                                            src="{% static 'images/coal.png' %}"
+                                            alt="Coal"
+                                        >
+
+                                        <div>
+
+                                            <strong>
+                                                Coal
+                                            </strong>
+
+                                            <span>
+                                                High Quality Coal
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="quantity">
+
+                                        <strong>
+                                            100 Ton
+                                        </strong>
+
+                                        <small>
+                                            ₹2,400 / Ton
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <strong class="amount">
+                                        ₹2,40,000
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status completed">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Completed
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="date-cell">
+
+                                        <span>
+                                            <i class="bi bi-calendar3"></i>
+                                            12 Sep 2026
+                                        </span>
+
+                                        <small>
+                                            10:30 AM
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="actions">
+
+                                        <button
+                                            class="view-btn"
+                                            data-order="ORD-001"
+                                        >
+                                            View Details
+                                        </button>
+
+                                        <button
+                                            class="more-btn"
+                                            title="More options"
+                                        >
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- =================================================
+                                 ORDER 2
+                            ================================================== -->
+
+                            <tr
+                                data-status="pending"
+                                data-amount="75000"
+                            >
+
+                                <td>
+                                    2
+                                </td>
+
+                                <td>
+
+                                    <div class="order-details">
+
+                                        <strong>
+                                            ORD-002
+                                        </strong>
+
+                                        <span>
+                                            <i class="bi bi-person"></i>
+                                            Buyer: Suresh Infra
+                                        </span>
+
+                                        <span>
+                                            <i class="bi bi-geo-alt"></i>
+                                            Mumbai, Maharashtra
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="material-cell">
+
+                                        <img
+                                            src="{% static 'images/sand.png' %}"
+                                            alt="Sand"
+                                        >
+
+                                        <div>
+
+                                            <strong>
+                                                Sand
+                                            </strong>
+
+                                            <span>
+                                                River Sand
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="quantity">
+
+                                        <strong>
+                                            50 Ton
+                                        </strong>
+
+                                        <small>
+                                            ₹1,500 / Ton
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <strong class="amount">
+                                        ₹75,000
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status pending">
+                                        <i class="bi bi-clock-fill"></i>
+                                        Pending
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="date-cell">
+
+                                        <span>
+                                            <i class="bi bi-calendar3"></i>
+                                            11 Sep 2026
+                                        </span>
+
+                                        <small>
+                                            04:20 PM
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="actions">
+
+                                        <button
+                                            class="view-btn"
+                                            data-order="ORD-002"
+                                        >
+                                            View Details
+                                        </button>
+
+                                        <button
+                                            class="more-btn"
+                                        >
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- =================================================
+                                 ORDER 3
+                            ================================================== -->
+
+                            <tr
+                                data-status="completed"
+                                data-amount="135000"
+                            >
+
+                                <td>
+                                    3
+                                </td>
+
+                                <td>
+
+                                    <div class="order-details">
+
+                                        <strong>
+                                            ORD-003
+                                        </strong>
+
+                                        <span>
+                                            <i class="bi bi-person"></i>
+                                            Buyer: Patel Builders
+                                        </span>
+
+                                        <span>
+                                            <i class="bi bi-geo-alt"></i>
+                                            Pune, Maharashtra
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="material-cell">
+
+                                        <img
+                                            src="{% static 'images/crushed-stone.png' %}"
+                                            alt="Crushed Stone"
+                                        >
+
+                                        <div>
+
+                                            <strong>
+                                                Crushed Stone
+                                            </strong>
+
+                                            <span>
+                                                20mm Grade
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="quantity">
+
+                                        <strong>
+                                            75 Ton
+                                        </strong>
+
+                                        <small>
+                                            ₹1,800 / Ton
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <strong class="amount">
+                                        ₹1,35,000
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status completed">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Completed
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="date-cell">
+
+                                        <span>
+                                            <i class="bi bi-calendar3"></i>
+                                            10 Sep 2026
+                                        </span>
+
+                                        <small>
+                                            01:15 PM
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="actions">
+
+                                        <button
+                                            class="view-btn"
+                                            data-order="ORD-003"
+                                        >
+                                            View Details
+                                        </button>
+
+                                        <button
+                                            class="more-btn"
+                                        >
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- =================================================
+                                 ORDER 4
+                            ================================================== -->
+
+                            <tr
+                                data-status="cancelled"
+                                data-amount="180000"
+                            >
+
+                                <td>
+                                    4
+                                </td>
+
+                                <td>
+
+                                    <div class="order-details">
+
+                                        <strong>
+                                            ORD-004
+                                        </strong>
+
+                                        <span>
+                                            <i class="bi bi-person"></i>
+                                            Buyer: GreenBuild Ltd.
+                                        </span>
+
+                                        <span>
+                                            <i class="bi bi-geo-alt"></i>
+                                            Nagpur, Maharashtra
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="material-cell">
+
+                                        <img
+                                            src="{% static 'images/fly-ash.png' %}"
+                                            alt="Fly Ash"
+                                        >
+
+                                        <div>
+
+                                            <strong>
+                                                Fly Ash
+                                            </strong>
+
+                                            <span>
+                                                Class F
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="quantity">
+
+                                        <strong>
+                                            200 Ton
+                                        </strong>
+
+                                        <small>
+                                            ₹900 / Ton
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <strong class="amount">
+                                        ₹1,80,000
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status cancelled">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                        Cancelled
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="date-cell">
+
+                                        <span>
+                                            <i class="bi bi-calendar3"></i>
+                                            09 Sep 2026
+                                        </span>
+
+                                        <small>
+                                            11:40 AM
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="actions">
+
+                                        <button
+                                            class="view-btn"
+                                            data-order="ORD-004"
+                                        >
+                                            View Details
+                                        </button>
+
+                                        <button
+                                            class="more-btn"
+                                        >
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- =================================================
+                                 ORDER 5
+                            ================================================== -->
+
+                            <tr
+                                data-status="pending"
+                                data-amount="24000"
+                            >
+
+                                <td>
+                                    5
+                                </td>
+
+                                <td>
+
+                                    <div class="order-details">
+
+                                        <strong>
+                                            ORD-005
+                                        </strong>
+
+                                        <span>
+                                            <i class="bi bi-person"></i>
+                                            Buyer: Kumar Enterprises
+                                        </span>
+
+                                        <span>
+                                            <i class="bi bi-geo-alt"></i>
+                                            Hyderabad, Telangana
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="material-cell">
+
+                                        <img
+                                            src="{% static 'images/soil.png' %}"
+                                            alt="Soil"
+                                        >
+
+                                        <div>
+
+                                            <strong>
+                                                Soil
+                                            </strong>
+
+                                            <span>
+                                                Top Soil
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="quantity">
+
+                                        <strong>
+                                            30 Ton
+                                        </strong>
+
+                                        <small>
+                                            ₹800 / Ton
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <strong class="amount">
+                                        ₹24,000
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status pending">
+                                        <i class="bi bi-clock-fill"></i>
+                                        Pending
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="date-cell">
+
+                                        <span>
+                                            <i class="bi bi-calendar3"></i>
+                                            08 Sep 2026
+                                        </span>
+
+                                        <small>
+                                            03:25 PM
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="actions">
+
+                                        <button
+                                            class="view-btn"
+                                            data-order="ORD-005"
+                                        >
+                                            View Details
+                                        </button>
+
+                                        <button
+                                            class="more-btn"
+                                        >
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- =================================================
+                                 ORDER 6
+                            ================================================== -->
+
+                            <tr
+                                data-status="completed"
+                                data-amount="90000"
+                            >
+
+                                <td>
+                                    6
+                                </td>
+
+                                <td>
+
+                                    <div class="order-details">
+
+                                        <strong>
+                                            ORD-006
+                                        </strong>
+
+                                        <span>
+                                            <i class="bi bi-person"></i>
+                                            Buyer: Shakti Infrastructure
+                                        </span>
+
+                                        <span>
+                                            <i class="bi bi-geo-alt"></i>
+                                            Ahmedabad, Gujarat
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="material-cell">
+
+                                        <img
+                                            src="{% static 'images/sand.png' %}"
+                                            alt="Sand"
+                                        >
+
+                                        <div>
+
+                                            <strong>
+                                                Sand
+                                            </strong>
+
+                                            <span>
+                                                River Sand
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="quantity">
+
+                                        <strong>
+                                            60 Ton
+                                        </strong>
+
+                                        <small>
+                                            ₹1,500 / Ton
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <strong class="amount">
+                                        ₹90,000
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status completed">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Completed
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="date-cell">
+
+                                        <span>
+                                            <i class="bi bi-calendar3"></i>
+                                            07 Sep 2026
+                                        </span>
+
+                                        <small>
+                                            02:10 PM
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="actions">
+
+                                        <button
+                                            class="view-btn"
+                                            data-order="ORD-006"
+                                        >
+                                            View Details
+                                        </button>
+
+                                        <button
+                                            class="more-btn"
+                                        >
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     FOOTER
+                ================================================== -->
+
+                <div class="table-footer">
+
+                    <span id="resultCount">
+                        Showing 1 - 6 of 24 orders
+                    </span>
+
+
+                    <div class="pagination">
+
+                        <button
+                            class="page-btn disabled"
+                            id="previousPage"
+                        >
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+
+                        <button class="page-btn active">
+                            1
+                        </button>
+
+                        <button class="page-btn">
+                            2
+                        </button>
+
+                        <button class="page-btn">
+                            3
+                        </button>
+
+                        <button class="page-btn">
+                            4
+                        </button>
+
+                        <button
+                            class="page-btn"
+                            id="nextPage"
+                        >
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================== -->
+
+<div
+    class="toast"
+    id="toast"
+>
+
+    <i class="bi bi-check-circle-fill"></i>
+
+    <span id="toastMessage">
+        Action completed.
+    </span>
+
+</div>
+
+
+<script src="{% static 'seller/js/order.js' %}"></script>
+
+</body>
+</html>
