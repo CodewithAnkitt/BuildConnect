@@ -946,94 +946,6 @@ button {
 }
 
 
-.about-floating-card {
-
-    position: absolute;
-
-    right: -5px;
-    top: 8px;
-
-    z-index: 3;
-
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
-    width: 160px;
-
-    padding: 15px;
-
-    background: rgba(255,255,255,.95);
-
-    border-radius: 17px;
-
-    box-shadow:
-        0 15px 35px rgba(20,30,27,.13);
-
-    animation: floatingCard 4s ease-in-out infinite;
-}
-
-@keyframes floatingCard {
-
-    0%, 100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-7px);
-    }
-}
-
-.floating-icon {
-
-    width: 38px;
-    height: 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: #f8ead9;
-
-    color: var(--brown);
-
-    flex-shrink: 0;
-}
-
-.about-floating-card strong,
-.about-floating-card span {
-
-    display: block;
-}
-
-.about-floating-card strong {
-
-    font-size: 9px;
-}
-
-.about-floating-card span {
-
-    font-size: 8px;
-
-    line-height: 1.35;
-
-    color: #39433f;
-}
-
-.about-floating-card i {
-
-    display: block;
-
-    width: 22px;
-    height: 1px;
-
-    margin-top: 5px;
-
-    background: var(--gold);
-}
 
 
 /* =========================================================
@@ -1056,23 +968,11 @@ button {
 
 
 .service-card {
-
     overflow: hidden;
-
-    background: white;
-
-    border: 1px solid rgba(20,40,35,.07);
-
-    border-radius: 15px;
-
-    box-shadow:
-        0 8px 25px rgba(25,35,31,.06);
-
-    transition:
-        transform .4s ease,
-        box-shadow .4s ease;
+    border-radius: 18px;
+    background: #ffffff;
+    min-height: 390px;
 }
-
 .service-card:hover {
 
     transform: translateY(-8px);
@@ -1500,7 +1400,7 @@ button {
 
     font-family: var(--serif);
 
-    font-size: 36px;
+    font-size: 46px;
 
     line-height: 1.05;
 }
@@ -1511,7 +1411,7 @@ button {
 
     color: #69736f;
 
-    font-size: 11px;
+    font-size: 15px;
 
     line-height: 1.65;
 }
@@ -1535,9 +1435,9 @@ button {
 
     padding: 15px;
 
-    background: white;
+    background:#FFF9F0;
 
-    border: 1px solid rgba(20,40,35,.06);
+    border: 1px solid #E8D3B0;
 
     border-radius: 12px;
 
@@ -1570,32 +1470,33 @@ button {
 
     border-radius: 50%;
 
-    background: #f8ead9;
+    background: #EFA21A;
 
-    color: var(--brown);
+    color: #F3E2C4;
 }
 
 .why-icon.orange {
 
-    background: #fff0dc;
+    background: #cdeff7;
 
-    color: #b86c18;
+    color: #F4D98B;
 }
 
 .why-card h3 {
 
     margin-bottom: 3px;
 
-    font-size: 9px;
+    font-size: 15px;
+    color:#2B1A12
 }
 
 .why-card p {
 
-    font-size: 7.5px;
+    font-size: 11px;
 
     line-height: 1.4;
 
-    color: #727b78;
+    color: #5F554E
 }
 
 
@@ -1695,9 +1596,9 @@ button {
 }
 
 .testimonial-avatar {
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
+    width: 88px;
+    height: 88px;
+    border-radius: 80%;
     overflow: hidden;
     flex-shrink: 0;
     border: 3px solid #e9dcc5;
@@ -1729,12 +1630,12 @@ button {
 
 .testimonial-person strong {
 
-    font-size: 8px;
+    font-size: 17px;
 }
 
 .testimonial-person span {
 
-    font-size: 7px;
+    font-size: 14px;
 
     color: #79817e;
 }
