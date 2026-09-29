@@ -1,325 +1,858 @@
-/**
- * BuildConnect – script.js
- * ─────────────────────────────────────────────────────────────
- * Features:
- *  1. Language Switcher (EN ↔ HI) with localStorage persistence
- *  2. Navbar scroll effect & mobile collapse close
- *  3. Active nav-link on scroll
- *  4. Scroll fade-in animations (IntersectionObserver)
- *  5. Stats counter animation
- *  6. Contact form handler
- *  7. Smooth scroll for anchor links
- *  8. Back-to-top button
- *  9. How It Works step stagger animation
- * ─────────────────────────────────────────────────────────────
- * NOTE: Uses Bootstrap 5 bundle (required for dropdowns / collapse)
- */
+/* =========================================================
+   BUILDCONNECT HOME PAGE
+   Premium interactions + transitions
+========================================================= */
 
-'use strict';
+document.addEventListener("DOMContentLoaded", function () {
 
-/* ════════════════════════════════════════════════════════════
-   1. LANGUAGE SWITCHER
-════════════════════════════════════════════════════════════ */
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
 
-const LANG_KEY  = 'bc_lang';
-let currentLang = localStorage.getItem(LANG_KEY) || 'en';
+    const navbar = document.getElementById("navbar");
 
-/**
- * Apply a language by updating every [data-en] / [data-hi] element's
- * textContent and every [data-en-placeholder] / [data-hi-placeholder]
- * element's placeholder attribute.
- * @param {string} lang – 'en' | 'hi'
- */
-function applyLanguage(lang) {
-  currentLang = lang;
-  localStorage.setItem(LANG_KEY, lang);
+    function handleNavbarScroll() {
+        if (!navbar) return;
 
-  /* ── Text nodes ── */
-  document.querySelectorAll('[data-en][data-hi]').forEach(el => {
-    const text = el.getAttribute('data-' + lang);
-    if (text !== null) el.textContent = text;
-  });
-
-  /* ── Placeholder attributes ── */
-  document.querySelectorAll('[data-en-placeholder][data-hi-placeholder]').forEach(el => {
-    el.setAttribute('placeholder', el.getAttribute('data-' + lang + '-placeholder'));
-  });
-
-  /* ── Language Switch UI ── */
-const languageSwitch = document.getElementById('languageSwitch');
-const hindiLabel = document.getElementById('hindiLabel');
-const englishLabel = document.getElementById('englishLabel');
-
-if (languageSwitch) {
-    languageSwitch.checked = lang === 'en';
-}
-
-if (hindiLabel) {
-    hindiLabel.classList.toggle('active', lang === 'hi');
-}
-
-if (englishLabel) {
-    englishLabel.classList.toggle('active', lang === 'en');
-}
-
-  /* ── HTML lang attribute (accessibility) ── */
-  document.documentElement.lang = lang;
-}
-
-/* Bind language switch */
-const languageSwitch = document.getElementById('languageSwitch');
-
-if (languageSwitch) {
-    languageSwitch.addEventListener('change', function () {
-
-        if (this.checked) {
-            // Switch to English
-            applyLanguage('en');
+        if (window.scrollY > 30) {
+            navbar.classList.add("scrolled");
         } else {
-            // Switch to Hindi
-            applyLanguage('hi');
+            navbar.classList.remove("scrolled");
+        }
+    }
+
+    window.addEventListener("scroll", handleNavbarScroll, {
+        passive: true
+    });
+
+    handleNavbarScroll();
+
+
+    /* =====================================================
+       MOBILE MENU
+    ===================================================== */
+
+    const mobileMenuBtn =
+        document.getElementById("mobileMenuBtn");
+
+    const mobileMenu =
+        document.getElementById("mobileMenu");
+
+    if (mobileMenuBtn && mobileMenu) {
+
+        mobileMenuBtn.addEventListener("click", function () {
+
+            mobileMenu.classList.toggle("open");
+            document.body.classList.toggle("menu-open");
+
+            const icon =
+                mobileMenuBtn.querySelector("i");
+
+            if (icon) {
+
+                if (mobileMenu.classList.contains("open")) {
+                    icon.className = "bi bi-x-lg";
+                } else {
+                    icon.className = "bi bi-list";
+                }
+
+            }
+
+        });
+
+
+        mobileMenu
+            .querySelectorAll("a")
+            .forEach(function (link) {
+
+                link.addEventListener("click", function () {
+
+                    mobileMenu.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+
+                    const icon =
+                        mobileMenuBtn.querySelector("i");
+
+                    if (icon) {
+                        icon.className = "bi bi-list";
+                    }
+
+                });
+
+            });
+
+    }
+
+
+    /* =====================================================
+       SMOOTH SCROLL
+    ===================================================== */
+
+    const navLinks =
+        document.querySelectorAll('a[href^="#"]');
+
+    navLinks.forEach(function (link) {
+
+        link.addEventListener("click", function (event) {
+
+            const targetId =
+                this.getAttribute("href");
+
+            if (
+                !targetId ||
+                targetId === "#"
+            ) {
+                return;
+            }
+
+            const target =
+                document.querySelector(targetId);
+
+            if (!target) {
+                return;
+            }
+
+            event.preventDefault();
+
+            const navbarHeight =
+                navbar ? navbar.offsetHeight : 0;
+
+            const targetPosition =
+                target.getBoundingClientRect().top +
+                window.scrollY -
+                navbarHeight -
+                10;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: "smooth"
+            });
+
+        });
+
+    });
+
+
+    /* =====================================================
+       ACTIVE NAVIGATION
+    ===================================================== */
+
+    const sections =
+        document.querySelectorAll("section[id]");
+
+    const desktopNavLinks =
+        document.querySelectorAll(
+            ".bc-nav-links .nav-link, .nav-link"
+        );
+
+    function updateActiveNav() {
+
+        if (!sections.length) return;
+
+        const scrollPosition =
+            window.scrollY +
+            (navbar ? navbar.offsetHeight : 0) +
+            150;
+
+        let currentSection = "";
+
+        sections.forEach(function (section) {
+
+            const top =
+                section.offsetTop;
+
+            const bottom =
+                top + section.offsetHeight;
+
+            if (
+                scrollPosition >= top &&
+                scrollPosition < bottom
+            ) {
+                currentSection =
+                    section.getAttribute("id");
+            }
+
+        });
+
+        desktopNavLinks.forEach(function (link) {
+
+            link.classList.remove("active");
+
+            if (
+                currentSection &&
+                link.getAttribute("href") ===
+                "#" + currentSection
+            ) {
+                link.classList.add("active");
+            }
+
+        });
+
+    }
+
+    window.addEventListener(
+        "scroll",
+        updateActiveNav,
+        {
+            passive: true
+        }
+    );
+
+    updateActiveNav();
+
+
+    /* =====================================================
+       SCROLL REVEAL
+       
+       IMPORTANT:
+       We support both:
+       .reveal.visible
+       .reveal.active
+       
+       This prevents sections from remaining hidden.
+    ===================================================== */
+
+    const revealElements =
+        document.querySelectorAll(".reveal");
+
+    if (revealElements.length) {
+
+        const revealObserver =
+            new IntersectionObserver(
+                function (entries) {
+
+                    entries.forEach(function (entry) {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add("visible");
+                            entry.target.classList.add("active");
+
+                            revealObserver.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.08,
+                    rootMargin: "0px 0px -40px 0px"
+                }
+            );
+
+
+        revealElements.forEach(function (element) {
+
+            revealObserver.observe(element);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       SAFETY FALLBACK FOR REVEAL ELEMENTS
+       
+       If an element somehow remains hidden because of
+       IntersectionObserver/CSS issues, make it visible
+       after a short delay.
+    ===================================================== */
+
+    setTimeout(function () {
+
+        revealElements.forEach(function (element) {
+
+            const rect =
+                element.getBoundingClientRect();
+
+            if (
+                rect.top < window.innerHeight &&
+                rect.bottom > 0
+            ) {
+
+                element.classList.add("visible");
+                element.classList.add("active");
+
+            }
+
+        });
+
+    }, 700);
+
+
+    /* =====================================================
+       COUNTER ANIMATION
+    ===================================================== */
+
+    const counters =
+        document.querySelectorAll(".counter");
+
+    let countersStarted = false;
+
+    function animateCounters() {
+
+        if (countersStarted) return;
+
+        const statsSection =
+            document.querySelector(".stats-section");
+
+        if (!statsSection) return;
+
+        const sectionTop =
+            statsSection.getBoundingClientRect().top;
+
+        if (
+            sectionTop <
+            window.innerHeight * 0.85
+        ) {
+
+            countersStarted = true;
+
+            counters.forEach(function (counter) {
+
+                const target =
+                    Number(
+                        counter.dataset.target || 0
+                    );
+
+                let current = 0;
+
+                const duration = 1600;
+
+                const startTime =
+                    performance.now();
+
+
+                function updateCounter(currentTime) {
+
+                    const elapsed =
+                        currentTime - startTime;
+
+                    const progress =
+                        Math.min(
+                            elapsed / duration,
+                            1
+                        );
+
+                    const eased =
+                        1 -
+                        Math.pow(
+                            1 - progress,
+                            3
+                        );
+
+                    current =
+                        Math.floor(
+                            target * eased
+                        );
+
+                    counter.textContent =
+                        current.toLocaleString(
+                            "en-IN"
+                        );
+
+
+                    if (progress < 1) {
+
+                        requestAnimationFrame(
+                            updateCounter
+                        );
+
+                    } else {
+
+                        counter.textContent =
+                            target.toLocaleString(
+                                "en-IN"
+                            );
+
+                    }
+
+                }
+
+                requestAnimationFrame(
+                    updateCounter
+                );
+
+            });
+
         }
 
+    }
+
+    window.addEventListener(
+        "scroll",
+        animateCounters,
+        {
+            passive: true
+        }
+    );
+
+    animateCounters();
+
+
+    /* =====================================================
+       LANGUAGE SWITCH
+    ===================================================== */
+
+    const languageToggle =
+        document.getElementById("languageToggle");
+
+    const hindiLabel =
+        document.getElementById("hindiLabel");
+
+    const englishLabel =
+        document.getElementById("englishLabel");
+
+    let currentLanguage = "en";
+
+
+    if (languageToggle) {
+
+        languageToggle.addEventListener(
+            "click",
+            function () {
+
+                currentLanguage =
+                    currentLanguage === "en"
+                        ? "hi"
+                        : "en";
+
+
+                if (currentLanguage === "hi") {
+
+                    languageToggle.classList.add(
+                        "hindi"
+                    );
+
+                    if (hindiLabel) {
+                        hindiLabel.classList.add(
+                            "active"
+                        );
+                    }
+
+                    if (englishLabel) {
+                        englishLabel.classList.remove(
+                            "active"
+                        );
+                    }
+
+                    showToast(
+                        "हिन्दी",
+                        "हिंदी भाषा जल्द उपलब्ध होगी।"
+                    );
+
+                } else {
+
+                    languageToggle.classList.remove(
+                        "hindi"
+                    );
+
+                    if (englishLabel) {
+                        englishLabel.classList.add(
+                            "active"
+                        );
+                    }
+
+                    if (hindiLabel) {
+                        hindiLabel.classList.remove(
+                            "active"
+                        );
+                    }
+
+                    showToast(
+                        "English",
+                        "English language selected."
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       SERVICE CARD BUTTONS
+    ===================================================== */
+
+    const serviceButtons =
+        document.querySelectorAll(
+            ".service-image button"
+        );
+
+    serviceButtons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                showToast(
+                    "BuildConnect",
+                    "This service will open here."
+                );
+
+            }
+        );
+
     });
-}
-
-/* Apply on page load */
-applyLanguage(currentLang);
 
 
-/* ════════════════════════════════════════════════════════════
-   2. NAVBAR — SCROLL EFFECT + MOBILE COLLAPSE
-════════════════════════════════════════════════════════════ */
+    /* =====================================================
+       CONTACT FORM
+    ===================================================== */
 
-const navbar = document.getElementById('mainNavbar');
+    const contactForm =
+        document.getElementById("contactForm");
 
-function handleNavbarScroll() {
-  if (!navbar) return;
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
-  updateActiveLink();
+    if (contactForm) {
 
-  /* Back-to-top visibility */
-  const btn = document.getElementById('backToTop');
-  if (btn) btn.classList.toggle('visible', window.scrollY > 400);
-}
+        contactForm.addEventListener(
+            "submit",
+            function (event) {
 
-window.addEventListener('scroll', handleNavbarScroll, { passive: true });
-handleNavbarScroll(); // run once on load
+                event.preventDefault();
+
+                const nameInput =
+                    document.getElementById(
+                        "contactName"
+                    );
+
+                const name =
+                    nameInput
+                        ? nameInput.value.trim()
+                        : "";
 
 
-/* ════════════════════════════════════════════════════════════
-   3. ACTIVE NAV LINK ON SCROLL
-════════════════════════════════════════════════════════════ */
+                if (!name) {
 
-function updateActiveLink() {
-  const sections = document.querySelectorAll('section[id]');
-  const links    = document.querySelectorAll('.bc-nav-link');
-  let active     = '';
+                    showToast(
+                        "Missing Information",
+                        "Please enter your name."
+                    );
 
-  sections.forEach(section => {
-    if (window.scrollY >= section.offsetTop - 110) {
-      active = section.id;
+                    return;
+
+                }
+
+
+                showToast(
+                    "Message Received",
+                    "Thank you, " +
+                    name +
+                    ". We will get back to you soon."
+                );
+
+                contactForm.reset();
+
+            }
+        );
+
     }
-  });
 
-  links.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === '#' + active) {
-      link.classList.add('active');
-    }
-  });
-}
 
-/* Close mobile menu on nav-link click */
-document.querySelectorAll('.bc-nav-link').forEach(link => {
-  link.addEventListener('click', () => {
-    const collapse = document.getElementById('navbarMain');
-    if (collapse && collapse.classList.contains('show')) {
-      const bsCollapse = bootstrap.Collapse.getInstance(collapse);
-      if (bsCollapse) bsCollapse.hide();
+    /* =====================================================
+       BACK TO TOP
+    ===================================================== */
+
+    const backToTop =
+        document.getElementById("backToTop");
+
+    if (backToTop) {
+
+        window.addEventListener(
+            "scroll",
+            function () {
+
+                if (window.scrollY > 600) {
+
+                    backToTop.classList.add(
+                        "show"
+                    );
+
+                } else {
+
+                    backToTop.classList.remove(
+                        "show"
+                    );
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        backToTop.addEventListener(
+            "click",
+            function () {
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
     }
-  });
+
+
+    /* =====================================================
+       HERO PARALLAX
+    ===================================================== */
+
+    const hero =
+        document.querySelector(".hero");
+
+    const heroImage =
+        document.querySelector(".hero-image");
+
+    const heroBackground =
+        document.querySelector(".hero-background");
+
+
+    if (heroImage) {
+
+        window.addEventListener(
+            "scroll",
+            function () {
+
+                const scroll =
+                    window.scrollY;
+
+                if (
+                    scroll < 700 &&
+                    hero
+                ) {
+
+                    heroImage.style.transform =
+                        "scale(1.02) translateY(" +
+                        scroll * 0.08 +
+                        "px)";
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+    }
+
+
+    if (heroBackground) {
+
+        window.addEventListener(
+            "scroll",
+            function () {
+
+                const scroll =
+                    window.scrollY;
+
+                if (
+                    hero &&
+                    scroll < hero.offsetHeight
+                ) {
+
+                    heroBackground.style.transform =
+                        "scale(1.04) translateY(" +
+                        scroll * 0.05 +
+                        "px)";
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       CARD TILT EFFECT
+    ===================================================== */
+
+    const cards =
+        document.querySelectorAll(
+            ".service-card, .testimonial-card"
+        );
+
+
+    cards.forEach(function (card) {
+
+        card.addEventListener(
+            "mousemove",
+            function (event) {
+
+                if (window.innerWidth < 900) {
+                    return;
+                }
+
+                const rect =
+                    card.getBoundingClientRect();
+
+                const x =
+                    event.clientX -
+                    rect.left;
+
+                const y =
+                    event.clientY -
+                    rect.top;
+
+                const centerX =
+                    rect.width / 2;
+
+                const centerY =
+                    rect.height / 2;
+
+                const rotateX =
+                    ((y - centerY) /
+                    centerY) * -1.2;
+
+                const rotateY =
+                    ((x - centerX) /
+                    centerX) * 1.2;
+
+
+                card.style.transform =
+                    "perspective(900px) " +
+                    "rotateX(" +
+                    rotateX +
+                    "deg) " +
+                    "rotateY(" +
+                    rotateY +
+                    "deg) " +
+                    "translateY(-5px)";
+
+            }
+        );
+
+
+        card.addEventListener(
+            "mouseleave",
+            function () {
+
+                card.style.transform = "";
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       SERVICE CARD STAGGER
+    ===================================================== */
+
+    const serviceCards =
+        document.querySelectorAll(
+            ".service-card"
+        );
+
+    serviceCards.forEach(
+        function (card, index) {
+
+            card.style.transitionDelay =
+                (index * 80) + "ms";
+
+        }
+    );
+
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    const toast =
+        document.getElementById("bcToast");
+
+    const toastTitle =
+        document.getElementById("toastTitle");
+
+    const toastMessage =
+        document.getElementById("toastMessage");
+
+    const toastClose =
+        document.getElementById("toastClose");
+
+    let toastTimer;
+
+
+    function showToast(title, message) {
+
+        if (!toast) return;
+
+        clearTimeout(toastTimer);
+
+
+        if (toastTitle) {
+            toastTitle.textContent =
+                title;
+        }
+
+
+        if (toastMessage) {
+            toastMessage.textContent =
+                message;
+        }
+
+
+        toast.classList.add("show");
+
+
+        toastTimer =
+            setTimeout(
+                function () {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                3500
+            );
+
+    }
+
+
+    if (toastClose) {
+
+        toastClose.addEventListener(
+            "click",
+            function () {
+
+                if (toast) {
+                    toast.classList.remove(
+                        "show"
+                    );
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       PAGE READY
+       
+       No dependency on pageLoader.
+       This is intentional.
+    ===================================================== */
+
+    document.body.classList.add(
+        "page-ready"
+    );
+
 });
-
-
-/* ════════════════════════════════════════════════════════════
-   4. SCROLL FADE-IN (IntersectionObserver)
-════════════════════════════════════════════════════════════ */
-
-const fadeObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        fadeObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-);
-
-document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
-
-/* Hero elements: show immediately after DOM ready (no scroll needed) */
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    document.querySelectorAll('.bc-hero .fade-in').forEach(el => {
-      el.classList.add('visible');
-    });
-  }, 120);
-});
-
-
-/* ════════════════════════════════════════════════════════════
-   5. STATS COUNTER ANIMATION
-════════════════════════════════════════════════════════════ */
-
-/**
- * Animate a number from 0 to `target` over `duration` ms with ease-out.
- * @param {HTMLElement} el
- * @param {number}      target
- * @param {string}      suffix  – e.g. "+", " Roles"
- * @param {number}      duration
- */
-function animateCounter(el, target, suffix, duration = 1800) {
-  const startTime = performance.now();
-
-  function tick(now) {
-    const elapsed  = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased    = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-    const current  = Math.floor(eased * target);
-    el.textContent = current.toLocaleString() + suffix;
-    if (progress < 1) requestAnimationFrame(tick);
-  }
-
-  requestAnimationFrame(tick);
-}
-
-const counterObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target.querySelector('.bc-stat-num');
-      if (!el || el.dataset.animated) return;
-
-      el.dataset.animated = 'true';
-      const raw    = el.getAttribute('data-target');
-      const suffix = el.getAttribute('data-suffix') || '';
-      animateCounter(el, parseInt(raw, 10), suffix);
-      counterObserver.unobserve(entry.target);
-    });
-  },
-  { threshold: 0.5 }
-);
-
-document.querySelectorAll('.bc-stat-item').forEach(el => counterObserver.observe(el));
-
-
-/* ════════════════════════════════════════════════════════════
-   6. CONTACT FORM HANDLER
-════════════════════════════════════════════════════════════ */
-
-const contactForm  = document.getElementById('contactForm');
-const formSuccess  = document.getElementById('formSuccess');
-
-if (contactForm) {
-  contactForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    /* Bootstrap 5 validation */
-    if (!this.checkValidity()) {
-      this.classList.add('was-validated');
-      return;
-    }
-
-    /* Loading state */
-    const submitBtn = this.querySelector('.bc-submit-btn');
-    const origHTML  = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>' +
-                          (currentLang === 'hi' ? 'भेज रहे हैं…' : 'Sending…');
-    submitBtn.disabled  = true;
-
-    /* Simulate async submission (replace with Django fetch/AJAX later) */
-    setTimeout(() => {
-      contactForm.reset();
-      contactForm.classList.remove('was-validated');
-      submitBtn.innerHTML = origHTML;
-      submitBtn.disabled  = false;
-
-      if (formSuccess) {
-        formSuccess.classList.remove('d-none');
-        applyLanguage(currentLang); // translate success message
-        setTimeout(() => formSuccess.classList.add('d-none'), 6000);
-      }
-    }, 1400);
-  });
-}
-
-
-/* ════════════════════════════════════════════════════════════
-   7. SMOOTH SCROLL (anchor links)
-════════════════════════════════════════════════════════════ */
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const targetId = this.getAttribute('href');
-    if (!targetId || targetId === '#') return;
-
-    const target = document.querySelector(targetId);
-    if (target) {
-      e.preventDefault();
-      const offset = (navbar ? navbar.offsetHeight : 72) + 12;
-      const top    = target.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  });
-});
-
-
-/* ════════════════════════════════════════════════════════════
-   8. BACK TO TOP BUTTON
-════════════════════════════════════════════════════════════ */
-
-const backToTopBtn = document.getElementById('backToTop');
-
-if (backToTopBtn) {
-  backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
-
-
-/* ════════════════════════════════════════════════════════════
-   9. HOW IT WORKS — STEP STAGGER ANIMATION
-════════════════════════════════════════════════════════════ */
-
-const howObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.querySelectorAll('.bc-how-step').forEach((step, i) => {
-        setTimeout(() => {
-          step.style.opacity   = '1';
-          step.style.transform = 'translateY(0)';
-        }, i * 140);
-      });
-      howObserver.unobserve(entry.target);
-    });
-  },
-  { threshold: 0.15 }
-);
-
-document.querySelectorAll('.bc-how-timeline').forEach(el => {
-  el.querySelectorAll('.bc-how-step').forEach(step => {
-    step.style.opacity    = '0';
-    step.style.transform  = 'translateY(24px)';
-    step.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  });
-  howObserver.observe(el);
-});
-
-
-/* ════════════════════════════════════════════════════════════
-   END OF script.js
-════════════════════════════════════════════════════════════ */
