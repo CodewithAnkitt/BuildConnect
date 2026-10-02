@@ -63,8 +63,12 @@ button {
 ========================================================= */
 
 .auth-page {
+    width: 100%;
+    height: 100vh;
     min-height: 100vh;
+
     display: flex;
+
     background: #f8f8ff;
 }
 
@@ -73,35 +77,37 @@ button {
    LEFT SIDEBAR
 ========================================================= */
 
-/* .brand-sidebar {
+.brand-sidebar {
     position: relative;
+
     width: 31%;
-    min-width: 40px;
-    min-height: 100px;
+    min-width: 350px;
+    height: 100vh;
+    min-height: 100vh;
+
     overflow: hidden;
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255, 250, 241, 0.82),
-            rgba(255, 247, 238, 0.76)
-        ),
-        /* url("/static/images/login-sidebar.png") */
-        center bottom / cover no-repeat;
+    background-image: url("/static/images/login-sidebar.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
- */
+
 .sidebar-overlay {
     position: absolute;
     inset: 0;
+    z-index: 1;
 
     background:
         linear-gradient(
             180deg,
-            rgba(255, 249, 239, 0.95) 0%,
-            rgba(255, 249, 239, 0.88) 45%,
-            rgba(255, 238, 215, 0.55) 72%,
-            rgba(255, 196, 135, 0.20) 100%
+            rgba(255, 249, 239, 0.45) 0%,
+            rgba(255, 249, 239, 0.32) 45%,
+            rgba(255, 238, 215, 0.16) 72%,
+            rgba(30, 25, 20, 0.08) 100%
         );
+
+    pointer-events: none;
 }
 
 .sidebar-content {
@@ -257,53 +263,6 @@ button {
 
     color: #657089;
 }
-
-
-/* SIDEBAR IMAGE */
-
-.sidebar-image {
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    height: 31%;
-
-    overflow: hidden;
-
-    pointer-events: none;
-}
-
-.sidebar-image::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    z-index: 1;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255, 247, 236, 0.98) 0%,
-            rgba(255, 247, 236, 0.18) 34%,
-            rgba(255, 166, 76, 0.02) 100%
-        );
-}
-
-.sidebar-image img {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-    object-position: center;
-
-    opacity: 0.95;
-}
-
 
 /* FOOTER */
 
@@ -557,7 +516,7 @@ button {
 /* CARD CONTENT */
 
 .role-card-content {
-    position: relative;
+    position: static;
     z-index: 3;
 
     width: 57%;
@@ -742,7 +701,7 @@ button {
 .role-arrow {
     position: absolute;
 
-    left: 26px;
+    right: 26px;
     bottom: 24px;
 
     z-index: 5;
@@ -1005,9 +964,9 @@ button {
         rgba(255, 255, 255, 0.58);
 
     transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .form-group > input {
@@ -1698,19 +1657,24 @@ button {
         display: none;
     }
 
-    .sidebar-image {
-        height: 100%;
-    }
-
+   
     .sidebar-overlay {
-        background:
-            linear-gradient(
-                180deg,
-                rgba(255, 249, 239, 0.95),
-                rgba(255, 249, 239, 0.65)
-            );
-    }
+    position: absolute;
+    inset: 0;
 
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 249, 239, 0.68) 0%,
+            rgba(255, 249, 239, 0.55) 42%,
+            rgba(255, 241, 225, 0.25) 70%,
+            rgba(30, 25, 20, 0.10) 100%
+        );
+
+    pointer-events: none;
+}
     .sidebar-footer {
         left: 38px;
     }
@@ -1804,9 +1768,7 @@ button {
         display: none;
     }
 
-    .sidebar-image {
-        height: 40%;
-    }
+    
 
     .sidebar-footer {
         bottom: 12px;
@@ -1859,4 +1821,132 @@ button {
     .otp-inputs {
         gap: 5px;
     }
+}
+
+/* =========================================================
+   FULL SCREEN BACKGROUND FOR LOGIN & REGISTER
+========================================================= */
+
+.auth-page:has(.login-screen.active),
+.auth-page:has(.register-screen.active) {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 250, 242, 0.82) 0%,
+            rgba(255, 250, 242, 0.35) 38%,
+            rgba(255, 255, 255, 0.08) 70%,
+            rgba(255, 255, 255, 0.02) 100%
+        ),
+        url("/static/images/auth-bg.png")
+        center center / cover no-repeat;
+}
+
+
+/* Hide the old sidebar background */
+.auth-page:has(.login-screen.active) .brand-sidebar,
+.auth-page:has(.register-screen.active) .brand-sidebar {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    min-width: 0;
+    height: 100vh;
+    min-height: 100vh;
+
+    background: transparent;
+    z-index: 2;
+}
+
+
+/* Remove old sidebar overlay */
+.auth-page:has(.login-screen.active) .sidebar-overlay,
+.auth-page:has(.register-screen.active) .sidebar-overlay {
+    background: transparent;
+}
+
+
+/* Keep branding on the LEFT */
+.auth-page:has(.login-screen.active) .sidebar-content,
+.auth-page:has(.register-screen.active) .sidebar-content {
+    width: 42%;
+    min-height: 100vh;
+
+    padding: 50px 48px;
+
+    position: relative;
+    z-index: 5;
+
+    justify-content: flex-start;
+}
+
+
+/* Main area becomes full screen */
+.auth-page:has(.login-screen.active) .auth-main,
+.auth-page:has(.register-screen.active) .auth-main {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    min-height: 100vh;
+
+    background: transparent;
+
+    z-index: 3;
+}
+
+
+/* Remove old decorative background */
+.auth-page:has(.login-screen.active) .bg-shape,
+.auth-page:has(.register-screen.active) .bg-shape {
+    display: none;
+}
+
+
+/* Form screen */
+.auth-page:has(.login-screen.active) .form-screen,
+.auth-page:has(.register-screen.active) .form-screen {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 40px 8% 40px 48%;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Login / Register form width */
+.auth-page:has(.login-screen.active) .form-wrapper {
+    width: min(500px, 100%);
+}
+
+.auth-page:has(.register-screen.active) .register-wrapper {
+    width: min(560px, 100%);
+}
+
+
+/* Glass card */
+.auth-page:has(.login-screen.active) .glass-card,
+.auth-page:has(.register-screen.active) .glass-card {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.48),
+            rgba(255, 255, 255, 0.22)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.65);
+
+    box-shadow:
+        0 30px 80px rgba(30, 25, 70, 0.18);
+
+    backdrop-filter: blur(22px) saturate(130%);
+    -webkit-backdrop-filter: blur(22px) saturate(130%);
 }
