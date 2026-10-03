@@ -6,22 +6,76 @@ from .forms import SignupForm
 from .models import DriverProfile, User
 
 
+# ============================================================
+# HOME
+# ============================================================
+
 def home(request):
     return render(request, "home.html")
 
+
+# ============================================================
+# LOGIN
+# ============================================================
 
 def login_view(request):
 
     if request.method == "POST":
 
-        phone_number = request.POST.get("phone_number", "").strip()
-        password = request.POST.get("password", "")
-        selected_role = request.POST.get("role", "").strip()
+        phone_number = request.POST.get(
+            "phone_number",
+            ""
+        ).strip()
+
+        password = request.POST.get(
+            "password",
+            ""
+        )
+
+        selected_role = request.POST.get(
+            "role",
+            ""
+        ).strip()
+
+        # ----------------------------------------------------
+        # Convert frontend role names to Django role values
+        # ----------------------------------------------------
+
+        role_mapping = {
+            "Customer": User.Role.CUSTOMER,
+            "Seller": User.Role.SELLER,
+            "Driver": User.Role.DRIVER,
+            "Vehicle Owner": User.Role.VEHICLE_OWNER,
+
+            # Also accept Django values directly
+            "CUSTOMER": User.Role.CUSTOMER,
+            "SELLER": User.Role.SELLER,
+            "DRIVER": User.Role.DRIVER,
+            "VEHICLE_OWNER": User.Role.VEHICLE_OWNER,
+        }
+
+        selected_role = role_mapping.get(
+            selected_role,
+            selected_role
+        )
+
+        # ----------------------------------------------------
+        # Find user by phone number
+        # ----------------------------------------------------
 
         try:
-            user = User.objects.get(phone_number=phone_number)
+
+            user = User.objects.get(
+                phone_number=phone_number
+            )
+
         except User.DoesNotExist:
+
             user = None
+
+        # ----------------------------------------------------
+        # Authenticate user
+        # ----------------------------------------------------
 
         if user is not None:
 
@@ -33,34 +87,75 @@ def login_view(request):
 
             if authenticated_user is not None:
 
+                # ------------------------------------------------
+                # Check selected role
+                # ------------------------------------------------
+
                 if authenticated_user.role != selected_role:
+
                     messages.error(
                         request,
-                        "The selected role does not match your account."
+                        "The selected role does not match "
+                        "your account."
                     )
+
                     return redirect("login")
 
-                login(request, authenticated_user)
+                # ------------------------------------------------
+                # Login user
+                # ------------------------------------------------
+
+                login(
+                    request,
+                    authenticated_user
+                )
+
+                # ------------------------------------------------
+                # Redirect according to role
+                # ------------------------------------------------
 
                 if authenticated_user.role == User.Role.CUSTOMER:
-                    return redirect("customer_dashboard")
+
+                    return redirect(
+                        "customer_dashboard"
+                    )
 
                 elif authenticated_user.role == User.Role.SELLER:
-                    return redirect("seller_dashboard")
+
+                    return redirect(
+                        "seller_dashboard"
+                    )
 
                 elif authenticated_user.role == User.Role.DRIVER:
-                    return redirect("driver_dashboard")
+
+                    return redirect(
+                        "driver_dashboard"
+                    )
 
                 elif authenticated_user.role == User.Role.VEHICLE_OWNER:
-                    return redirect("vehicle_owner_dashboard")
+
+                    return redirect(
+                        "owner_dashboard"
+                    )
+
+        # ----------------------------------------------------
+        # Login failed
+        # ----------------------------------------------------
 
         messages.error(
             request,
             "Invalid phone number, password, or role."
         )
 
-    return render(request, "login.html")
+    return render(
+        request,
+        "login.html"
+    )
 
+
+# ============================================================
+# SIGN UP / REGISTER
+# ============================================================
 
 def signup_view(request):
 
@@ -70,28 +165,71 @@ def signup_view(request):
 
         if form.is_valid():
 
-            phone_number = form.cleaned_data["phone_number"]
+            phone_number = form.cleaned_data[
+                "phone_number"
+            ]
+
+            # ------------------------------------------------
+            # Check whether phone already exists
+            # ------------------------------------------------
+
+            if User.objects.filter(
+                phone_number=phone_number
+            ).exists():
+
+                messages.error(
+                    request,
+                    "An account with this phone number "
+                    "already exists."
+                )
+
+                return redirect("login")
+
+            # ------------------------------------------------
+            # Create Django User
+            # ------------------------------------------------
 
             User.objects.create_user(
+
                 username=phone_number,
-                password=form.cleaned_data["password"],
-                first_name=form.cleaned_data["first_name"],
-                last_name=form.cleaned_data["last_name"],
-                email=form.cleaned_data["email"],
+
+                password=form.cleaned_data[
+                    "password"
+                ],
+
+                first_name=form.cleaned_data[
+                    "first_name"
+                ],
+
+                last_name=form.cleaned_data[
+                    "last_name"
+                ],
+
+                email=form.cleaned_data[
+                    "email"
+                ],
+
                 phone_number=phone_number,
-                whatsapp_number=form.cleaned_data["whatsapp_number"],
-                role=form.cleaned_data["role"],
+
+                whatsapp_number=form.cleaned_data[
+                    "whatsapp_number"
+                ],
+
+                role=form.cleaned_data[
+                    "role"
+                ],
             )
 
             messages.success(
                 request,
-                "Your BuildConnect account has been created successfully. "
-                "Please login."
+                "Your BuildConnect account has been "
+                "created successfully. Please login."
             )
 
             return redirect("login")
 
     else:
+
         form = SignupForm()
 
     return render(
@@ -103,36 +241,75 @@ def signup_view(request):
     )
 
 
+# ============================================================
+# LOGOUT
+# ============================================================
+
 def logout_view(request):
 
     logout(request)
 
     return redirect("home")
 
-# Customer page 
+
+# ============================================================
+# CUSTOMER
+# ============================================================
 
 def customer_dashboard(request):
-    return render(request, "customer/dashboard.html")
+
+    return render(
+        request,
+        "customer/dashboard.html"
+    )
 
 
 def materials(request):
-    return render(request, "customer/materials.html")
+
+    return render(
+        request,
+        "customer/materials.html"
+    )
+
 
 def orders(request):
-    return render(request, "customer/orders.html")
+
+    return render(
+        request,
+        "customer/orders.html"
+    )
+
 
 def vehicles(request):
-    return render(request, "customer/vehicles.html")
+
+    return render(
+        request,
+        "customer/vehicles.html"
+    )
+
 
 def rentals(request):
-    return render(request, "customer/rentals.html")
+
+    return render(
+        request,
+        "customer/rentals.html"
+    )
+
 
 def profile(request):
-    return render(request, "customer/profile.html")
 
-# Driver page
+    return render(
+        request,
+        "customer/profile.html"
+    )
+
+
+# ============================================================
+# DRIVER
+# ============================================================
 
 def driver_dashboard(request):
+
     return render(
         request,
         "driver/dashboard.html",
@@ -143,6 +320,7 @@ def driver_dashboard(request):
 
 
 def driver_jobs(request):
+
     return render(
         request,
         "driver/jobs.html",
@@ -153,6 +331,7 @@ def driver_jobs(request):
 
 
 def driver_my_jobs(request):
+
     return render(
         request,
         "driver/my_jobs.html",
@@ -163,6 +342,7 @@ def driver_my_jobs(request):
 
 
 def driver_profile(request):
+
     return render(
         request,
         "driver/profile.html",
@@ -173,6 +353,7 @@ def driver_profile(request):
 
 
 def driver_earnings(request):
+
     return render(
         request,
         "driver/earnings.html",
@@ -183,6 +364,7 @@ def driver_earnings(request):
 
 
 def driver_settings(request):
+
     return render(
         request,
         "driver/settings.html",
@@ -191,9 +373,13 @@ def driver_settings(request):
         }
     )
 
-# Vechile_Owner
+
+# ============================================================
+# VEHICLE OWNER
+# ============================================================
 
 def owner_dashboard(request):
+
     return render(
         request,
         "owner/dashboard.html",
@@ -204,6 +390,7 @@ def owner_dashboard(request):
 
 
 def owner_vehicles(request):
+
     return render(
         request,
         "owner/vehicles.html",
@@ -214,6 +401,7 @@ def owner_vehicles(request):
 
 
 def owner_rental_requests(request):
+
     return render(
         request,
         "owner/rental_requests.html",
@@ -224,6 +412,7 @@ def owner_rental_requests(request):
 
 
 def owner_rentals(request):
+
     return render(
         request,
         "owner/rentals.html",
@@ -234,6 +423,7 @@ def owner_rentals(request):
 
 
 def owner_earnings(request):
+
     return render(
         request,
         "owner/earnings.html",
@@ -244,6 +434,7 @@ def owner_earnings(request):
 
 
 def owner_profile(request):
+
     return render(
         request,
         "owner/profile.html",
@@ -253,22 +444,53 @@ def owner_profile(request):
     )
 
 
-# seller browser
+# ============================================================
+# SELLER
+# ============================================================
 
 def seller_dashboard(request):
-    return render(request, "seller/dashboard.html")
+
+    return render(
+        request,
+        "seller/dashboard.html"
+    )
+
 
 def seller_materials(request):
-    return render(request, "seller/materials.html")
+
+    return render(
+        request,
+        "seller/materials.html"
+    )
+
 
 def seller_add_materials(request):
-    return render(request, "seller/add_materials.html")
+
+    return render(
+        request,
+        "seller/add_materials.html"
+    )
+
 
 def seller_order(request):
-    return render(request, "seller/order.html")
+
+    return render(
+        request,
+        "seller/order.html"
+    )
+
 
 def seller_earning(request):
-    return render(request, "seller/earning.html")
+
+    return render(
+        request,
+        "seller/earning.html"
+    )
+
 
 def seller_profile(request):
-    return render(request, "seller/profile.html")
+
+    return render(
+        request,
+        "seller/profile.html"
+    )
