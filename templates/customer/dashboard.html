@@ -515,7 +515,7 @@
                     </span>
 
                     <strong class="stat-number">
-                        0
+                      {{ total_orders }}
                     </strong>
 
                     <small>
@@ -554,7 +554,7 @@
                     </span>
 
                     <strong class="stat-number">
-                        0
+                      {{ active_orders }} 
                     </strong>
 
                     <small>
@@ -593,7 +593,7 @@
                     </span>
 
                     <strong class="stat-number">
-                        0
+                        {{ vehicle_rentals }}
                     </strong>
 
                     <small>
@@ -632,7 +632,7 @@
                     </span>
 
                     <strong class="stat-number">
-                        0
+                        {{ pending_requests }}
                     </strong>
 
                     <small>
@@ -894,269 +894,103 @@
 
             <div class="materials-grid">
 
+    {% if available_materials %}
 
+        {% for listing in available_materials %}
 
-                <!-- COAL -->
+            <button
+                class="material-card"
+                data-material="{{ listing.material.name }}"
+            >
 
-                <button
-                    class="material-card"
-                    data-material="Coal"
-                >
+                <div class="material-image">
 
-                    <div class="material-image">
-
+                    {% if listing.material.name == "Coal" %}
                         <img
                             src="{% static 'images/coal.png' %}"
                             alt="Coal"
                         >
 
-                    </div>
-
-
-                    <div class="material-info">
-
-                        <div class="material-icon">
-
-                            <i class="bi bi-circle-fill"></i>
-
-                        </div>
-
-
-                        <div class="material-text">
-
-                            <h3>
-                                Coal
-                            </h3>
-
-                            <p>
-                                Quality coal from
-                                trusted suppliers.
-                            </p>
-
-                        </div>
-
-
-                        <span class="material-arrow">
-
-                            <i class="bi bi-chevron-right"></i>
-
-                        </span>
-
-                    </div>
-
-                </button>
-
-
-
-                <!-- SAND -->
-
-                <button
-                    class="material-card"
-                    data-material="Sand"
-                >
-
-                    <div class="material-image">
-
+                    {% elif listing.material.name == "Sand" %}
                         <img
                             src="{% static 'images/sand.png' %}"
                             alt="Construction Sand"
                         >
 
-                    </div>
-
-
-                    <div class="material-info">
-
-                        <div class="material-icon sand-icon">
-
-                            <i class="bi bi-triangle-fill"></i>
-
-                        </div>
-
-
-                        <div class="material-text">
-
-                            <h3>
-                                Sand
-                            </h3>
-
-                            <p>
-                                Construction sand
-                                for all your needs.
-                            </p>
-
-                        </div>
-
-
-                        <span class="material-arrow">
-
-                            <i class="bi bi-chevron-right"></i>
-
-                        </span>
-
-                    </div>
-
-                </button>
-
-
-
-                <!-- CRUSHED STONE -->
-
-                <button
-                    class="material-card"
-                    data-material="Crushed Stone"
-                >
-
-                    <div class="material-image">
-
+                    {% elif listing.material.name == "Crushed Stone" %}
                         <img
                             src="{% static 'images/crushed-stone.png' %}"
                             alt="Crushed Stone"
                         >
 
-                    </div>
-
-
-                    <div class="material-info">
-
-                        <div class="material-icon stone-icon">
-
-                            <i class="bi bi-gem"></i>
-
-                        </div>
-
-
-                        <div class="material-text">
-
-                            <h3>
-                                Crushed Stone
-                            </h3>
-
-                            <p>
-                                Reliable crushed stone
-                                for construction work.
-                            </p>
-
-                        </div>
-
-
-                        <span class="material-arrow">
-
-                            <i class="bi bi-chevron-right"></i>
-
-                        </span>
-
-                    </div>
-
-                </button>
-
-
-
-                <!-- FLY ASH -->
-
-                <button
-                    class="material-card"
-                    data-material="Fly Ash"
-                >
-
-                    <div class="material-image">
-
+                    {% elif listing.material.name == "Fly Ash" %}
                         <img
                             src="{% static 'images/fly-ash.png' %}"
                             alt="Fly Ash"
                         >
 
-                    </div>
-
-
-                    <div class="material-info">
-
-                        <div class="material-icon flyash-icon">
-
-                            <i class="bi bi-buildings-fill"></i>
-
-                        </div>
-
-
-                        <div class="material-text">
-
-                            <h3>
-                                Fly Ash
-                            </h3>
-
-                            <p>
-                                Construction-grade
-                                fly ash from suppliers.
-                            </p>
-
-                        </div>
-
-
-                        <span class="material-arrow">
-
-                            <i class="bi bi-chevron-right"></i>
-
-                        </span>
-
-                    </div>
-
-                </button>
-
-
-
-                <!-- SOIL -->
-
-                <button
-                    class="material-card"
-                    data-material="Soil"
-                >
-
-                    <div class="material-image">
-
+                    {% elif listing.material.name == "Soil" %}
                         <img
                             src="{% static 'images/soil.png' %}"
                             alt="Construction Soil"
                         >
+                    {% endif %}
+
+                </div>
+
+                <div class="material-info">
+
+                    <div class="material-icon">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+
+                    <div class="material-text">
+
+                        <h3>
+                            {{ listing.material.name }}
+                        </h3>
+
+                        <p>
+                            {{ listing.material.description|default:"Quality construction material from trusted suppliers." }}
+                        </p>
+
+                        <small>
+                            ₹{{ listing.price_per_unit }} / {{ listing.material.get_unit_display }}
+                        </small>
 
                     </div>
 
+                    <span class="material-arrow">
+                        <i class="bi bi-chevron-right"></i>
+                    </span>
 
-                    <div class="material-info">
+                </div>
 
-                        <div class="material-icon soil-icon">
+            </button>
 
-                            <i class="bi bi-leaf-fill"></i>
+        {% endfor %}
 
-                        </div>
+    {% else %}
 
+        <div class="empty-card">
 
-                        <div class="material-text">
-
-                            <h3>
-                                Soil
-                            </h3>
-
-                            <p>
-                                Suitable soil for
-                                construction and site work.
-                            </p>
-
-                        </div>
-
-
-                        <span class="material-arrow">
-
-                            <i class="bi bi-chevron-right"></i>
-
-                        </span>
-
-                    </div>
-
-                </button>
-
-
+            <div class="empty-icon">
+                <i class="bi bi-box-seam"></i>
             </div>
 
+            <h3>
+                No materials available
+            </h3>
+
+            <p>
+                Materials from sellers will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
         </section>
 
 
@@ -1341,43 +1175,76 @@
 
 
 
-            <div class="empty-card">
+            {% if recent_orders %}
 
+    <div class="orders-list">
 
-                <div class="empty-icon">
+        {% for order in recent_orders %}
 
+            <div class="order-card">
+
+                <div class="order-icon">
                     <i class="bi bi-receipt"></i>
+                </div>
+
+                <div class="order-info">
+
+                    <h3>
+                        Order #{{ order.id }}
+                    </h3>
+
+                    <p>
+                        {{ order.created_at|date:"d M Y, h:i A" }}
+                    </p>
 
                 </div>
 
+                <div class="order-status">
 
-                <h3>
-                    No orders yet
-                </h3>
+                    <span class="status-{{ order.status|lower }}">
+                        {{ order.get_status_display }}
+                    </span>
 
+                </div>
 
-                <p>
-                    Your material orders will
-                    appear here.
-                </p>
-
-
-
-                <!-- FIXED BROWSE MATERIALS BUTTON -->
-
-                <a
-                    href="{% url 'materials' %}"
-                    class="gold-button"
-                >
-
-                    Browse Materials
-
-                    <i class="bi bi-arrow-right"></i>
-
-                </a>
-
+                <div class="order-amount">
+                    ₹{{ order.total_amount }}
+                </div>
 
             </div>
+
+        {% endfor %}
+
+    </div>
+
+{% else %}
+
+    <div class="empty-card">
+
+        <div class="empty-icon">
+            <i class="bi bi-receipt"></i>
+        </div>
+
+        <h3>
+            No orders yet
+        </h3>
+
+        <p>
+            Your material orders will
+            appear here.
+        </p>
+
+        <a
+            href="{% url 'materials' %}"
+            class="gold-button"
+        >
+            Browse Materials
+            <i class="bi bi-arrow-right"></i>
+        </a>
+
+    </div>
+
+{% endif %}
 
         </section>
 

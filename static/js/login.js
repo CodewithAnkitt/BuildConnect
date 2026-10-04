@@ -346,211 +346,135 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       REQUEST OTP
-    ====================================================== */
+   PASSWORD LOGIN
+   ====================================================== */
 
-    const requestOtpBtn =
-        document.getElementById(
-            "requestOtpBtn"
-        );
+const loginBtn = document.getElementById("loginBtn");
 
-    const otpArea =
-        document.getElementById(
-            "otpArea"
-        );
+const loginPassword = document.getElementById("loginPassword");
 
-    const loginPhone =
-        document.getElementById(
-            "loginPhone"
-        );
-
-    const loginPhoneError =
-        document.getElementById(
-            "loginPhoneError"
-        );
-
-    const otpPhoneText =
-        document.getElementById(
-            "otpPhoneText"
-        );
+const loginPasswordError =
+    document.getElementById("loginPasswordError");
 
 
-    requestOtpBtn.addEventListener(
-        "click",
-        () => {
+loginBtn.addEventListener("click", () => {
 
-            const phone =
-                loginPhone.value.trim();
+    const phone = loginPhone.value.trim();
+    const password = loginPassword.value;
 
+    // ---------------------------------------------
+    // Validate phone number
+    // ---------------------------------------------
 
-            if (phone.length !== 10) {
+    if (phone.length !== 10) {
 
-                loginPhoneError.textContent =
-                    "Please enter a valid 10-digit mobile number.";
+        loginPhoneError.textContent =
+            "Please enter a valid 10-digit mobile number.";
 
-                loginPhone.focus();
+        loginPhone.focus();
 
-                return;
-            }
+        return;
+    }
 
-
-            loginPhoneError.textContent = "";
-
-
-            otpPhoneText.textContent =
-                "+91 " +
-                phone.substring(0, 2) +
-                "******" +
-                phone.substring(8);
+    loginPhoneError.textContent = "";
 
 
-            otpArea.classList.add("show");
+    // ---------------------------------------------
+    // Validate password
+    // ---------------------------------------------
+
+    if (!password) {
+
+        loginPasswordError.textContent =
+            "Please enter your password.";
+
+        loginPassword.focus();
+
+        return;
+    }
+
+    loginPasswordError.textContent = "";
 
 
-            requestOtpBtn.innerHTML = `
-                <span>
-                    <i class="bi bi-check-circle-fill"></i>
-                    OTP Sent
-                </span>
+    // ---------------------------------------------
+    // Send login request to Django
+    // ---------------------------------------------
 
-                <i class="bi bi-check-lg"></i>
-            `;
+    const formData = new FormData();
+
+    formData.append(
+        "phone_number",
+        phone
+    );
+
+    formData.append(
+        "password",
+        password
+    );
+
+    formData.append(
+        "role",
+        selectedRole
+    );
 
 
-            requestOtpBtn.disabled = true;
+    fetch("/login/", {
 
+        method: "POST",
 
-            const firstOtp =
+        body: formData,
+
+        headers: {
+            "X-CSRFToken":
                 document.querySelector(
-                    ".otp-inputs input"
-                );
-
-            if (firstOtp) {
-                firstOtp.focus();
-            }
-
+                    "[name=csrfmiddlewaretoken]"
+                )?.value || ""
         }
-    );
 
+    })
 
-    /* =====================================================
-       OTP INPUT
-    ====================================================== */
+    .then(response => {
 
-    const otpInputs =
-        document.querySelectorAll(
-            ".otp-inputs input"
-        );
+        if (response.redirected) {
 
+            window.location.href =
+                response.url;
 
-    otpInputs.forEach(
-        (input, index) => {
-
-            input.addEventListener(
-                "input",
-                () => {
-
-                    input.value =
-                        input.value.replace(
-                            /\D/g,
-                            ""
-                        );
-
-
-                    if (
-                        input.value &&
-                        index < otpInputs.length - 1
-                    ) {
-
-                        otpInputs[
-                            index + 1
-                        ].focus();
-
-                    }
-
-                }
-            );
-
-
-            input.addEventListener(
-                "keydown",
-                event => {
-
-                    if (
-                        event.key === "Backspace" &&
-                        !input.value &&
-                        index > 0
-                    ) {
-
-                        otpInputs[
-                            index - 1
-                        ].focus();
-
-                    }
-
-                }
-            );
-
+            return null;
         }
-    );
 
+        return response.text();
 
-    /* =====================================================
-       VERIFY OTP
-       FRONTEND DEMO
-    ====================================================== */
+    })
 
-    document
-        .getElementById("verifyOtpBtn")
-        .addEventListener(
-            "click",
-            () => {
+    .then(data => {
 
-                let otp = "";
+        if (data === null) {
+            return;
+        }
 
-                otpInputs.forEach(input => {
-                    otp += input.value;
-                });
-
-
-                if (otp.length !== 6) {
-
-                    showMessage(
-                        "Please enter the complete 6-digit OTP.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                showMessage(
-                    `${selectedRole} login verified successfully.`,
-                    "success"
-                );
-
-            }
+        showMessage(
+            "Invalid phone number, password, or role.",
+            "error"
         );
 
+    })
 
-    /* =====================================================
-       RESEND OTP
-    ====================================================== */
+    .catch(error => {
 
-    document
-        .getElementById("resendOtpBtn")
-        .addEventListener(
-            "click",
-            () => {
-
-                showMessage(
-                    "A new OTP has been requested.",
-                    "success"
-                );
-
-            }
+        console.error(
+            "Login Error:",
+            error
         );
 
+        showMessage(
+            "Something went wrong. Please try again.",
+            "error"
+        );
+
+    });
+
+});
 
     /* =====================================================
        PASSWORD SHOW / HIDE
@@ -768,10 +692,57 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                showMessage(
-                    `${selectedRole} account details validated successfully.`,
-                    "success"
-                );
+                
+                const formData = new FormData();
+
+formData.append("first_name", firstName);
+formData.append("last_name", lastName);
+formData.append("phone_number", phone);
+formData.append("whatsapp_number", whatsapp);
+formData.append("email", email);
+formData.append("password", password);
+formData.append("role", selectedRole);
+
+fetch("/signup/", {
+    method: "POST",
+    body: formData,
+    headers: {
+        "X-CSRFToken": document.querySelector(
+            "[name=csrfmiddlewaretoken]"
+        )?.value || ""
+    }
+})
+.then(response => response.json())
+.then(data => {
+
+    if (data.success) {
+        showMessage(
+            "Account created successfully. Please login.",
+            "success"
+        );
+
+        setTimeout(() => {
+            showLogin();
+        }, 1500);
+
+    } else {
+        showMessage(
+            data.message || "Unable to create account.",
+            "error"
+        );
+    }
+
+})
+.catch(error => {
+
+    console.error("Signup Error:", error);
+
+    showMessage(
+        "Something went wrong. Please try again.",
+        "error"
+    );
+
+});
 
             }
         );
@@ -783,31 +754,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function resetLoginForm() {
 
-        loginPhone.value = "";
+    loginPhone.value = "";
 
-        loginPhoneError.textContent = "";
+    loginPhoneError.textContent = "";
 
-        loginWhatsappCheck.checked = false;
+    loginPassword.value = "";
 
-        otpArea.classList.remove("show");
+    loginPasswordError.textContent = "";
 
-        otpInputs.forEach(input => {
-            input.value = "";
-        });
-
-
-        requestOtpBtn.disabled = false;
-
-        requestOtpBtn.innerHTML = `
-            <span>
-                <i class="bi bi-send-fill"></i>
-                Request OTP
-            </span>
-
-            <i class="bi bi-arrow-right"></i>
-        `;
-
-    }
+}
 
 
     /* =====================================================

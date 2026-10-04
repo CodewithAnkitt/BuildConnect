@@ -1,9 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
 from .forms import SignupForm
-from .models import DriverProfile, User
+from .models import DriverProfile, User, Order, VehicleRental, MaterialListing
 
 
 # ============================================================
@@ -161,86 +163,98 @@ def signup_view(request):
 
     if request.method == "POST":
 
-        form = SignupForm(request.POST)
+        first_name = request.POST.get("first_name", "").strip()
+        last_name = request.POST.get("last_name", "").strip()
+        phone_number = request.POST.get("phone_number", "").strip()
+        whatsapp_number = request.POST.get("whatsapp_number", "").strip()
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "")
+        role = request.POST.get("role", "").strip()
 
-        if form.is_valid():
+        # ------------------------------------------------
+        # Check required fields
+        # ------------------------------------------------
 
-            phone_number = form.cleaned_data[
-                "phone_number"
-            ]
+        if not all([
+            first_name,
+            last_name,
+            phone_number,
+            whatsapp_number,
+            email,
+            password,
+            role
+        ]):
 
-            # ------------------------------------------------
-            # Check whether phone already exists
-            # ------------------------------------------------
+            return JsonResponse({
+                "success": False,
+                "message": "Please fill all required fields."
+            })
 
-            if User.objects.filter(
-                phone_number=phone_number
-            ).exists():
+        # ------------------------------------------------
+        # Check whether phone already exists
+        # ------------------------------------------------
 
-                messages.error(
-                    request,
-                    "An account with this phone number "
-                    "already exists."
-                )
+        if User.objects.filter(
+            phone_number=phone_number
+        ).exists():
 
-                return redirect("login")
+            return JsonResponse({
+                "success": False,
+                "message": "An account with this phone number already exists."
+            })
 
-            # ------------------------------------------------
-            # Create Django User
-            # ------------------------------------------------
+        # ------------------------------------------------
+        # Convert frontend role to Django role
+        # ------------------------------------------------
 
-            User.objects.create_user(
-
-                username=phone_number,
-
-                password=form.cleaned_data[
-                    "password"
-                ],
-
-                first_name=form.cleaned_data[
-                    "first_name"
-                ],
-
-                last_name=form.cleaned_data[
-                    "last_name"
-                ],
-
-                email=form.cleaned_data[
-                    "email"
-                ],
-
-                phone_number=phone_number,
-
-                whatsapp_number=form.cleaned_data[
-                    "whatsapp_number"
-                ],
-
-                role=form.cleaned_data[
-                    "role"
-                ],
-            )
-
-            messages.success(
-                request,
-                "Your BuildConnect account has been "
-                "created successfully. Please login."
-            )
-
-            return redirect("login")
-
-    else:
-
-        form = SignupForm()
-
-    return render(
-        request,
-        "login.html",
-        {
-            "signup_form": form
+        role_mapping = {
+            "Customer": User.Role.CUSTOMER,
+            "Seller": User.Role.SELLER,
+            "Driver": User.Role.DRIVER,
+            "Vehicle Owner": User.Role.VEHICLE_OWNER,
         }
-    )
 
+        selected_role = role_mapping.get(role)
 
+        if not selected_role:
+
+            return JsonResponse({
+                "success": False,
+                "message": "Invalid role selected."
+            })
+
+        # ------------------------------------------------
+        # Create Django User
+        # ------------------------------------------------
+
+        User.objects.create_user(
+
+            username=phone_number,
+
+            password=password,
+
+            first_name=first_name,
+
+            last_name=last_name,
+
+            email=email,
+
+            phone_number=phone_number,
+
+            whatsapp_number=whatsapp_number,
+
+            role=selected_role,
+        )
+
+        return JsonResponse({
+            "success": True,
+            "message": "Your BuildConnect account has been created successfully."
+        })
+
+    return JsonResponse({
+        "success": False,
+        "message": "Invalid request."
+    })
 # ============================================================
 # LOGOUT
 # ============================================================
@@ -256,53 +270,118 @@ def logout_view(request):
 # CUSTOMER
 # ============================================================
 
+@login_required
 def customer_dashboard(request):
 
+    if request.user.role != User.Role.CUSTOMER:
+        return redirect("home")
+
+    total_orders = Order.objects.filter(
+        customer=request.user
+    ).count()
+
+    active_orders = Order.objects.filter(
+        customer=request.user,
+        status__in=[
+            Order.Status.PENDING,
+            Order.Status.CONFIRMED,
+        ]
+    ).count()
+
+    vehicle_rentals = VehicleRental.objects.filter(
+        customer=request.user
+    ).count()
+
+    pending_requests = VehicleRental.objects.filter(
+        customer=request.user,
+        status=VehicleRental.Status.PENDING
+    ).count()
+    recent_orders = Order.objects.filter(
+    customer=request.user
+).order_by("-created_at")[:5]
+    available_materials = MaterialListing.objects.filter(
+    is_available=True
+).select_related("material", "seller").order_by("-created_at")[:5]
+
     return render(
         request,
-        "customer/dashboard.html"
+        "customer/dashboard.html",
+        {
+            "user": request.user,
+            "total_orders": total_orders,
+            "active_orders": active_orders,
+            "vehicle_rentals": vehicle_rentals,
+            "pending_requests": pending_requests,
+            "recent_orders": recent_orders,
+             "available_materials": available_materials,
+}
+        
     )
 
 
+@login_required
 def materials(request):
 
+    if request.user.role != User.Role.CUSTOMER:
+        return redirect("home")
+
     return render(
         request,
-        "customer/materials.html"
+        "customer/materials.html",
+        {"user": request.user}
     )
 
 
+@login_required
 def orders(request):
 
+    if request.user.role != User.Role.CUSTOMER:
+        return redirect("home")
+
     return render(
         request,
-        "customer/orders.html"
+        "customer/orders.html",
+        {"user": request.user}
     )
 
 
+@login_required
 def vehicles(request):
 
+    if request.user.role != User.Role.CUSTOMER:
+        return redirect("home")
+
     return render(
         request,
-        "customer/vehicles.html"
+        "customer/vehicles.html",
+        {"user": request.user}
     )
 
 
+@login_required
 def rentals(request):
 
+    if request.user.role != User.Role.CUSTOMER:
+        return redirect("home")
+
     return render(
         request,
-        "customer/rentals.html"
+        "customer/rentals.html",
+        {"user": request.user}
     )
 
 
+@login_required
 def profile(request):
 
+    if request.user.role != User.Role.CUSTOMER:
+        return redirect("home")
+
     return render(
         request,
-        "customer/profile.html"
+        "customer/profile.html",
+        {"user": request.user}
     )
-
 
 # ============================================================
 # DRIVER

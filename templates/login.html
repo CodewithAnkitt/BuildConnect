@@ -438,96 +438,58 @@
                     </label>
 
 
-                    <!-- REQUEST OTP -->
+                    <!-- PASSWORD -->
 
-                    <button
-                        type="button"
-                        class="primary-btn"
-                        id="requestOtpBtn"
-                    >
+<div class="form-group">
 
-                        <span>
-                            <i class="bi bi-send-fill"></i>
-                            Request OTP
-                        </span>
+    <label for="loginPassword">
+        <i class="bi bi-lock-fill"></i>
+        Password
+    </label>
 
-                        <i class="bi bi-arrow-right"></i>
+    <div class="password-input">
 
-                    </button>
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+        >
 
+        <button
+            type="button"
+            class="password-toggle"
+            data-target="loginPassword"
+        >
+            <i class="bi bi-eye"></i>
+        </button>
 
-                    <!-- OTP AREA -->
+    </div>
 
-                    <div
-                        class="otp-area"
-                        id="otpArea"
-                    >
+    <small
+        class="field-error"
+        id="loginPasswordError"
+    ></small>
 
-                        <div class="otp-title">
-                            <i class="bi bi-shield-lock-fill"></i>
-                            Enter OTP
-                        </div>
-
-                        <p class="otp-description">
-                            We sent a 6-digit OTP to
-                            <strong id="otpPhoneText">
-                                +91 XXXXXXXX
-                            </strong>
-                        </p>
-
-                        <div class="otp-inputs">
-
-                            <input type="text" maxlength="1" inputmode="numeric">
-                            <input type="text" maxlength="1" inputmode="numeric">
-                            <input type="text" maxlength="1" inputmode="numeric">
-                            <input type="text" maxlength="1" inputmode="numeric">
-                            <input type="text" maxlength="1" inputmode="numeric">
-                            <input type="text" maxlength="1" inputmode="numeric">
-
-                        </div>
-
-                        <button
-                            type="button"
-                            class="verify-btn"
-                            id="verifyOtpBtn"
-                        >
-                            Verify &amp; Continue
-                            <i class="bi bi-arrow-right"></i>
-                        </button>
-
-                        <div class="resend-row">
-
-                            <span>
-                                Didn't receive the code?
-                            </span>
-
-                            <button
-                                type="button"
-                                id="resendOtpBtn"
-                            >
-                                Resend OTP
-                            </button>
-
-                        </div>
-
-                    </div>
+</div>
 
 
-                    <!-- SECURITY MESSAGE -->
+<!-- LOGIN BUTTON -->
 
-                    <div class="security-note">
+<button
+    type="button"
+    class="primary-btn"
+    id="loginBtn"
+>
 
-                        <div class="security-icon">
-                            <i class="bi bi-shield-check-fill"></i>
-                        </div>
+    <span>
+        <i class="bi bi-box-arrow-in-right"></i>
+        Login
+    </span>
 
-                        <p>
-                            We'll send a 6-digit OTP to your
-                            mobile number for a secure and
-                            quick login.
-                        </p>
+    <i class="bi bi-arrow-right"></i>
 
-                    </div>
+</button>
 
 
                     <!-- REGISTER -->
@@ -891,7 +853,7 @@
     </main>
 
 </div>
-
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
 <script src="{% static 'js/login.js' %}"></script>
 
