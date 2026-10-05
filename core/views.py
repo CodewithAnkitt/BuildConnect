@@ -4,8 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
-from .forms import SignupForm
-from .models import DriverProfile, User, Order, VehicleRental, MaterialListing
+from .models import (
+    User,
+    Order,
+    VehicleRental,
+    MaterialListing,
+)
 
 
 # ============================================================
@@ -24,32 +28,15 @@ def login_view(request):
 
     if request.method == "POST":
 
-        phone_number = request.POST.get(
-            "phone_number",
-            ""
-        ).strip()
-
-        password = request.POST.get(
-            "password",
-            ""
-        )
-
-        selected_role = request.POST.get(
-            "role",
-            ""
-        ).strip()
-
-        # ----------------------------------------------------
-        # Convert frontend role names to Django role values
-        # ----------------------------------------------------
+        phone_number = request.POST.get("phone_number", "").strip()
+        password = request.POST.get("password", "")
+        selected_role = request.POST.get("role", "").strip()
 
         role_mapping = {
             "Customer": User.Role.CUSTOMER,
             "Seller": User.Role.SELLER,
             "Driver": User.Role.DRIVER,
             "Vehicle Owner": User.Role.VEHICLE_OWNER,
-
-            # Also accept Django values directly
             "CUSTOMER": User.Role.CUSTOMER,
             "SELLER": User.Role.SELLER,
             "DRIVER": User.Role.DRIVER,
@@ -61,23 +48,12 @@ def login_view(request):
             selected_role
         )
 
-        # ----------------------------------------------------
-        # Find user by phone number
-        # ----------------------------------------------------
-
         try:
-
             user = User.objects.get(
                 phone_number=phone_number
             )
-
         except User.DoesNotExist:
-
             user = None
-
-        # ----------------------------------------------------
-        # Authenticate user
-        # ----------------------------------------------------
 
         if user is not None:
 
@@ -89,74 +65,37 @@ def login_view(request):
 
             if authenticated_user is not None:
 
-                # ------------------------------------------------
-                # Check selected role
-                # ------------------------------------------------
-
                 if authenticated_user.role != selected_role:
-
                     messages.error(
                         request,
-                        "The selected role does not match "
-                        "your account."
+                        "The selected role does not match your account."
                     )
-
                     return redirect("login")
 
-                # ------------------------------------------------
-                # Login user
-                # ------------------------------------------------
-
-                login(
-                    request,
-                    authenticated_user
-                )
-
-                # ------------------------------------------------
-                # Redirect according to role
-                # ------------------------------------------------
+                login(request, authenticated_user)
 
                 if authenticated_user.role == User.Role.CUSTOMER:
-
-                    return redirect(
-                        "customer_dashboard"
-                    )
+                    return redirect("customer_dashboard")
 
                 elif authenticated_user.role == User.Role.SELLER:
-
-                    return redirect(
-                        "seller_dashboard"
-                    )
+                    return redirect("seller_dashboard")
 
                 elif authenticated_user.role == User.Role.DRIVER:
-
-                    return redirect(
-                        "driver_dashboard"
-                    )
+                    return redirect("driver_dashboard")
 
                 elif authenticated_user.role == User.Role.VEHICLE_OWNER:
-
-                    return redirect(
-                        "owner_dashboard"
-                    )
-
-        # ----------------------------------------------------
-        # Login failed
-        # ----------------------------------------------------
+                    return redirect("owner_dashboard")
 
         messages.error(
             request,
             "Invalid phone number, password, or role."
         )
 
-    return render(
-        request,
-        "login.html"
-    )
+    return render(request, "login.html")
 
 
 # ============================================================
-# SIGN UP / REGISTER
+# SIGN UP
 # ============================================================
 
 def signup_view(request):
@@ -171,10 +110,6 @@ def signup_view(request):
         password = request.POST.get("password", "")
         role = request.POST.get("role", "").strip()
 
-        # ------------------------------------------------
-        # Check required fields
-        # ------------------------------------------------
-
         if not all([
             first_name,
             last_name,
@@ -184,28 +119,18 @@ def signup_view(request):
             password,
             role
         ]):
-
             return JsonResponse({
                 "success": False,
                 "message": "Please fill all required fields."
             })
 
-        # ------------------------------------------------
-        # Check whether phone already exists
-        # ------------------------------------------------
-
         if User.objects.filter(
             phone_number=phone_number
         ).exists():
-
             return JsonResponse({
                 "success": False,
                 "message": "An account with this phone number already exists."
             })
-
-        # ------------------------------------------------
-        # Convert frontend role to Django role
-        # ------------------------------------------------
 
         role_mapping = {
             "Customer": User.Role.CUSTOMER,
@@ -217,32 +142,19 @@ def signup_view(request):
         selected_role = role_mapping.get(role)
 
         if not selected_role:
-
             return JsonResponse({
                 "success": False,
                 "message": "Invalid role selected."
             })
 
-        # ------------------------------------------------
-        # Create Django User
-        # ------------------------------------------------
-
         User.objects.create_user(
-
             username=phone_number,
-
             password=password,
-
             first_name=first_name,
-
             last_name=last_name,
-
             email=email,
-
             phone_number=phone_number,
-
             whatsapp_number=whatsapp_number,
-
             role=selected_role,
         )
 
@@ -255,14 +167,14 @@ def signup_view(request):
         "success": False,
         "message": "Invalid request."
     })
+
+
 # ============================================================
 # LOGOUT
 # ============================================================
 
 def logout_view(request):
-
     logout(request)
-
     return redirect("home")
 
 
@@ -284,7 +196,7 @@ def customer_dashboard(request):
         customer=request.user,
         status__in=[
             Order.Status.PENDING,
-            Order.Status.CONFIRMED,
+            Order.Status.CONFIRMED
         ]
     ).count()
 
@@ -296,12 +208,17 @@ def customer_dashboard(request):
         customer=request.user,
         status=VehicleRental.Status.PENDING
     ).count()
+
     recent_orders = Order.objects.filter(
-    customer=request.user
-).order_by("-created_at")[:5]
+        customer=request.user
+    ).order_by("-created_at")[:5]
+
     available_materials = MaterialListing.objects.filter(
-    is_available=True
-).select_related("material", "seller").order_by("-created_at")[:5]
+        is_available=True
+    ).select_related(
+        "material",
+        "seller"
+    ).order_by("-created_at")[:5]
 
     return render(
         request,
@@ -313,9 +230,8 @@ def customer_dashboard(request):
             "vehicle_rentals": vehicle_rentals,
             "pending_requests": pending_requests,
             "recent_orders": recent_orders,
-             "available_materials": available_materials,
-}
-        
+            "available_materials": available_materials,
+        }
     )
 
 
@@ -383,73 +299,86 @@ def profile(request):
         {"user": request.user}
     )
 
+
 # ============================================================
 # DRIVER
 # ============================================================
 
+@login_required
 def driver_dashboard(request):
+
+    if request.user.role != User.Role.DRIVER:
+        return redirect("home")
 
     return render(
         request,
         "driver/dashboard.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
+@login_required
 def driver_jobs(request):
+
+    if request.user.role != User.Role.DRIVER:
+        return redirect("home")
 
     return render(
         request,
         "driver/jobs.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
+@login_required
 def driver_my_jobs(request):
+
+    if request.user.role != User.Role.DRIVER:
+        return redirect("home")
 
     return render(
         request,
         "driver/my_jobs.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
+@login_required
 def driver_profile(request):
+
+    if request.user.role != User.Role.DRIVER:
+        return redirect("home")
 
     return render(
         request,
         "driver/profile.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
+@login_required
 def driver_earnings(request):
+
+    if request.user.role != User.Role.DRIVER:
+        return redirect("home")
 
     return render(
         request,
         "driver/earnings.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
+@login_required
 def driver_settings(request):
+
+    if request.user.role != User.Role.DRIVER:
+        return redirect("home")
 
     return render(
         request,
         "driver/settings.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
@@ -457,69 +386,81 @@ def driver_settings(request):
 # VEHICLE OWNER
 # ============================================================
 
+@login_required
 def owner_dashboard(request):
+
+    if request.user.role != User.Role.VEHICLE_OWNER:
+        return redirect("home")
 
     return render(
         request,
         "owner/dashboard.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
+@login_required
 def owner_vehicles(request):
+
+    if request.user.role != User.Role.VEHICLE_OWNER:
+        return redirect("home")
 
     return render(
         request,
         "owner/vehicles.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
+@login_required
 def owner_rental_requests(request):
+
+    if request.user.role != User.Role.VEHICLE_OWNER:
+        return redirect("home")
 
     return render(
         request,
         "owner/rental_requests.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
+@login_required
 def owner_rentals(request):
+
+    if request.user.role != User.Role.VEHICLE_OWNER:
+        return redirect("home")
 
     return render(
         request,
         "owner/rentals.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
+@login_required
 def owner_earnings(request):
+
+    if request.user.role != User.Role.VEHICLE_OWNER:
+        return redirect("home")
 
     return render(
         request,
         "owner/earnings.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
+@login_required
 def owner_profile(request):
+
+    if request.user.role != User.Role.VEHICLE_OWNER:
+        return redirect("home")
 
     return render(
         request,
         "owner/profile.html",
-        {
-            "user": request.user
-        }
+        {"user": request.user}
     )
 
 
@@ -527,49 +468,107 @@ def owner_profile(request):
 # SELLER
 # ============================================================
 
+@login_required
 def seller_dashboard(request):
 
+    if request.user.role != User.Role.SELLER:
+        return redirect("home")
+
     return render(
         request,
-        "seller/dashboard.html"
+        "seller/dashboard.html",
+        {"user": request.user}
     )
 
 
+@login_required
 def seller_materials(request):
 
+    if request.user.role != User.Role.SELLER:
+        return redirect("home")
+
+    material_listings = MaterialListing.objects.filter(
+        seller=request.user
+    ).select_related(
+        "material"
+    ).order_by("-created_at")
+
+    total_materials = material_listings.count()
+
+    active_listings = material_listings.filter(
+        is_available=True
+    ).count()
+
+    low_stock = material_listings.filter(
+        quantity_available__lt=40
+    ).count()
+
+    total_stock = sum(
+        listing.quantity_available
+        for listing in material_listings
+    )
+
     return render(
         request,
-        "seller/materials.html"
+        "seller/materials.html",
+        {
+            "user": request.user,
+            "material_listings": material_listings,
+            "total_materials": total_materials,
+            "active_listings": active_listings,
+            "low_stock": low_stock,
+            "total_stock": total_stock,
+        }
     )
 
 
+@login_required
 def seller_add_materials(request):
 
+    if request.user.role != User.Role.SELLER:
+        return redirect("home")
+
     return render(
         request,
-        "seller/add_materials.html"
+        "seller/add_materials.html",
+        {"user": request.user}
     )
 
 
+@login_required
 def seller_order(request):
 
+    if request.user.role != User.Role.SELLER:
+        return redirect("home")
+
     return render(
         request,
-        "seller/order.html"
+        "seller/order.html",
+        {"user": request.user}
     )
 
 
+@login_required
 def seller_earning(request):
 
+    if request.user.role != User.Role.SELLER:
+        return redirect("home")
+
     return render(
         request,
-        "seller/earning.html"
+        "seller/earning.html",
+        {"user": request.user}
     )
 
 
+@login_required
 def seller_profile(request):
+
+    if request.user.role != User.Role.SELLER:
+        return redirect("home")
 
     return render(
         request,
-        "seller/profile.html"
+        "seller/profile.html",
+        {"user": request.user}
     )
