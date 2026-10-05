@@ -1,8 +1,10 @@
 from django.contrib import messages
+from decimal import Decimal, InvalidOperation
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import (
     User,
@@ -483,15 +485,92 @@ def seller_dashboard(request):
 
 @login_required
 def seller_materials(request):
-
     if request.user.role != User.Role.SELLER:
         return redirect("home")
 
+    # =========================
+    # UPDATE MATERIAL
+    # =========================
+    if request.method == "POST":
+
+        listing_id = request.POST.get("listing_id", "").strip()
+
+        listing = get_object_or_404(
+            MaterialListing,
+            id=listing_id,
+            seller=request.user
+        )
+
+        price_raw = request.POST.get("price_per_unit", "").strip()
+        quantity_raw = request.POST.get("quantity_available", "").strip()
+        location = request.POST.get("location", "").strip()
+        description = request.POST.get("description", "").strip()
+
+        # Active checkbox
+        is_available = request.POST.get("is_available") == "on"
+
+        # Validate price
+        try:
+            price = Decimal(price_raw)
+
+            if price <= 0:
+                return JsonResponse({
+                    "success": False,
+                    "message": "Price must be greater than 0."
+                })
+
+        except (InvalidOperation, ValueError):
+            return JsonResponse({
+                "success": False,
+                "message": "Please enter a valid price."
+            })
+
+        # Validate quantity
+        try:
+            quantity = Decimal(quantity_raw)
+
+            if quantity < 0:
+                return JsonResponse({
+                    "success": False,
+                    "message": "Stock quantity cannot be negative."
+                })
+
+        except (InvalidOperation, ValueError):
+            return JsonResponse({
+                "success": False,
+                "message": "Please enter a valid stock quantity."
+            })
+
+        # Location is required
+        if not location:
+            return JsonResponse({
+                "success": False,
+                "message": "Location is required."
+            })
+
+        # =========================
+        # SAVE CHANGES
+        # =========================
+        listing.price_per_unit = price
+        listing.quantity_available = quantity
+        listing.location = location
+        listing.description = description
+        listing.is_available = is_available
+
+        listing.save()
+
+        return JsonResponse({
+            "success": True,
+            "message": f"{listing.material.name} updated successfully."
+        })
+
+    # =========================
+    # SELLER MATERIALS
+    # =========================
+
     material_listings = MaterialListing.objects.filter(
         seller=request.user
-    ).select_related(
-        "material"
-    ).order_by("-created_at")
+    ).select_related("material").order_by("-updated_at")
 
     total_materials = material_listings.count()
 
@@ -504,9 +583,71 @@ def seller_materials(request):
     ).count()
 
     total_stock = sum(
-        listing.quantity_available
-        for listing in material_listings
+        (
+            listing.quantity_available
+            for listing in material_listings
+        ),
+        Decimal("0")
     )
+
+    # =========================
+    # STOCK OVERVIEW
+    # =========================
+
+    stock_data = []
+
+    stock_colors = {
+        "Coal": "#70462B",
+        "Sand": "#D39A52",
+        "Crushed Stone": "#81766C",
+        "Fly Ash": "#A99B8C",
+        "Soil": "#5E4935",
+    }
+
+    dot_classes = {
+        "Coal": "coal-dot",
+        "Sand": "sand-dot",
+        "Crushed Stone": "stone-dot",
+        "Fly Ash": "flyash-dot",
+        "Soil": "soil-dot",
+    }
+
+    gradient_parts = []
+    current_percentage = Decimal("0")
+
+    for listing in material_listings:
+
+        if total_stock > 0:
+            percentage = (
+                listing.quantity_available / total_stock
+            ) * Decimal("100")
+        else:
+            percentage = Decimal("0")
+
+        stock_data.append({
+            "listing": listing,
+            "percentage": percentage,
+            "dot_class": dot_classes.get(
+                listing.material.name,
+                "soil-dot"
+            ),
+        })
+
+        if total_stock > 0:
+            next_percentage = current_percentage + percentage
+
+            gradient_parts.append(
+                f"{stock_colors.get(listing.material.name, '#81766C')} "
+                f"{current_percentage:.2f}% "
+                f"{next_percentage:.2f}%"
+            )
+
+            current_percentage = next_percentage
+
+    if gradient_parts:
+        stock_gradient = ", ".join(gradient_parts)
+    else:
+        stock_gradient = "#E8DED2 0% 100%"
 
     return render(
         request,
@@ -518,10 +659,10 @@ def seller_materials(request):
             "active_listings": active_listings,
             "low_stock": low_stock,
             "total_stock": total_stock,
+            "stock_data": stock_data,
+            "stock_gradient": stock_gradient,
         }
     )
-
-
 @login_required
 def seller_add_materials(request):
 

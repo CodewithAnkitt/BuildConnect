@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,9 +24,9 @@
     <aside class="sidebar" id="sidebar">
 
         <div class="brand-logo">
-    <img src="/static/images/nav-logo.png" alt="BuildConnect Logo">
-</div>
-            
+            <img src="{% static 'images/nav-logo.png' %}"
+                 alt="BuildConnect Logo">
+        </div>
 
         <nav class="sidebar-nav">
 
@@ -40,23 +41,23 @@
                 <span>My Materials</span>
             </a>
 
-            <a href="{% url 'seller_add_materials' %}" class="nav-item ">
+            <a href="{% url 'seller_add_materials' %}" class="nav-item">
                 <i class="bi bi-plus-circle-fill"></i>
                 <span>Add Material</span>
             </a>
 
-            <a href="{% url 'seller_order' %}" class="nav-item ">
+            <a href="{% url 'seller_order' %}" class="nav-item">
                 <i class="bi bi-receipt-cutoff"></i>
                 <span>Orders</span>
                 <span class="order-badge">5</span>
             </a>
 
-            <a href="{% url 'seller_earning' %}" class="nav-item ">
+            <a href="{% url 'seller_earning' %}" class="nav-item">
                 <i class="bi bi-bar-chart-fill"></i>
                 <span>Earnings</span>
             </a>
 
-            <a href="{% url 'seller_profile' %}" class="nav-item ">
+            <a href="{% url 'seller_profile' %}" class="nav-item">
                 <i class="bi bi-person-fill"></i>
                 <span>Profile</span>
             </a>
@@ -64,10 +65,12 @@
         </nav>
 
         <div class="sidebar-bottom">
+
             <a href="{% url 'logout' %}" class="nav-item logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Logout</span>
             </a>
+
         </div>
 
     </aside>
@@ -76,7 +79,7 @@
     <!-- ================= MAIN CONTENT ================= -->
     <main class="main-content">
 
-        <!-- TOP NAVBAR -->
+        <!-- TOPBAR -->
         <header class="topbar">
 
             <button class="mobile-menu" id="mobileMenu">
@@ -97,6 +100,7 @@
 
             </div>
 
+
             <div class="topbar-right">
 
                 <button class="notification-btn" id="notificationBtn">
@@ -104,15 +108,21 @@
                     <span></span>
                 </button>
 
+
                 <div class="user-profile">
 
                     <div class="user-avatar">
-                        AK
+                        {{ user.first_name|slice:":1" }}{{ user.last_name|slice:":1" }}
                     </div>
 
                     <div class="user-info">
-                        <strong>Ankit Kumar</strong>
+
+                        <strong>
+                            {{ user.get_full_name }}
+                        </strong>
+
                         <small>Seller</small>
+
                     </div>
 
                     <i class="bi bi-chevron-down"></i>
@@ -126,6 +136,7 @@
 
         <!-- ================= PAGE ================= -->
         <section class="page-container">
+
 
             <!-- HERO -->
             <section class="hero">
@@ -148,8 +159,9 @@
             </section>
 
 
-            <!-- ================= SUMMARY CARDS ================= -->
+            <!-- ================= SUMMARY ================= -->
             <section class="summary-grid">
+
 
                 <div class="summary-card">
 
@@ -158,15 +170,19 @@
                     </div>
 
                     <div>
+
                         <span class="summary-title">
                             Total Materials
                         </span>
 
-                        <strong>5</strong>
+                        <strong>
+                            {{ total_materials }}
+                        </strong>
 
                         <small>
                             All listed materials
                         </small>
+
                     </div>
 
                 </div>
@@ -179,15 +195,19 @@
                     </div>
 
                     <div>
+
                         <span class="summary-title">
                             Active Listings
                         </span>
 
-                        <strong>5</strong>
+                        <strong>
+                            {{ active_listings }}
+                        </strong>
 
                         <small>
                             Currently active
                         </small>
+
                     </div>
 
                 </div>
@@ -200,15 +220,19 @@
                     </div>
 
                     <div>
+
                         <span class="summary-title">
                             Low Stock
                         </span>
 
-                        <strong>1</strong>
+                        <strong>
+                            {{ low_stock }}
+                        </strong>
 
                         <small>
-                            Needs attention
+                            Below 40 Ton
                         </small>
+
                     </div>
 
                 </div>
@@ -221,15 +245,19 @@
                     </div>
 
                     <div>
+
                         <span class="summary-title">
                             Total Stock
                         </span>
 
-                        <strong>340 Ton</strong>
+                        <strong>
+                            {{ total_stock|floatformat:0 }} Ton
+                        </strong>
 
                         <small>
                             Across all materials
                         </small>
+
                     </div>
 
                 </div>
@@ -237,7 +265,7 @@
             </section>
 
 
-            <!-- ================= MATERIAL INVENTORY ================= -->
+            <!-- ================= INVENTORY ================= -->
             <section class="inventory-card">
 
                 <div class="section-heading">
@@ -249,29 +277,33 @@
                         </div>
 
                         <div>
+
                             <h2>Materials Inventory</h2>
 
                             <p>
                                 View and manage all your listed materials.
                             </p>
+
                         </div>
 
                     </div>
 
-                    <a href="/seller/add_materials/"
-   class="add-material-btn">
 
-    <i class="bi bi-plus-lg"></i>
+                    <a href="{% url 'seller_add_materials' %}"
+                       class="add-material-btn">
 
-    Add Material
+                        <i class="bi bi-plus-lg"></i>
 
-</a>
+                        Add Material
+
+                    </a>
 
                 </div>
 
 
                 <!-- FILTERS -->
                 <div class="filters">
+
 
                     <div class="material-search">
 
@@ -287,36 +319,77 @@
 
 
                     <select id="materialFilter">
-                        <option value="all">All Materials</option>
-                        <option value="Coal">Coal</option>
-                        <option value="Sand">Sand</option>
+
+                        <option value="all">
+                            All Materials
+                        </option>
+
+                        <option value="Coal">
+                            Coal
+                        </option>
+
+                        <option value="Sand">
+                            Sand
+                        </option>
+
                         <option value="Crushed Stone">
                             Crushed Stone
                         </option>
-                        <option value="Fly Ash">Fly Ash</option>
-                        <option value="Soil">Soil</option>
+
+                        <option value="Fly Ash">
+                            Fly Ash
+                        </option>
+
+                        <option value="Soil">
+                            Soil
+                        </option>
+
                     </select>
 
 
                     <select id="statusFilter">
-                        <option value="all">All Status</option>
-                        <option value="active">Active</option>
-                        <option value="low">Low Stock</option>
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="active">
+                            Active
+                        </option>
+
+                        <option value="low">
+                            Low Stock
+                        </option>
+
+                        <option value="inactive">
+                            Inactive
+                        </option>
+
                     </select>
 
 
                     <select id="sortFilter">
-                        <option value="latest">Sort by: Latest</option>
-                        <option value="oldest">Sort by: Oldest</option>
+
+                        <option value="latest">
+                            Sort by: Latest
+                        </option>
+
+                        <option value="oldest">
+                            Sort by: Oldest
+                        </option>
+
                         <option value="price-high">
                             Price: High to Low
                         </option>
+
                         <option value="price-low">
                             Price: Low to High
                         </option>
+
                         <option value="stock-high">
                             Stock: High to Low
                         </option>
+
                     </select>
 
                 </div>
@@ -328,6 +401,7 @@
                     <table class="materials-table">
 
                         <thead>
+
                             <tr>
 
                                 <th>#</th>
@@ -345,326 +419,237 @@
                                 <th>Actions</th>
 
                             </tr>
+
                         </thead>
 
 
                         <tbody id="materialsTable">
 
-                            <!-- COAL -->
+
+                            {% for listing in material_listings %}
+
                             <tr
-                                data-material="Coal"
-                                data-status="active"
-                                data-price="2400"
-                                data-stock="120"
-                                data-date="2026-09-12"
+
+                                data-material="{{ listing.material.name }}"
+
+                                data-price="{{ listing.price_per_unit }}"
+
+                                data-stock="{{ listing.quantity_available }}"
+
+                                data-timestamp="{{ listing.updated_at|date:'U' }}"
+
+                                {% if not listing.is_available %}
+                                    data-status="inactive"
+                                {% elif listing.quantity_available < 40 %}
+                                    data-status="low"
+                                {% else %}
+                                    data-status="active"
+                                {% endif %}
+
                             >
 
-                                <td>1</td>
+                                <td class="row-number">
+                                    {{ forloop.counter }}
+                                </td>
+
 
                                 <td>
+
                                     <div class="material-name">
 
-                                        <div class="material-image coal">
+                                        <div class="material-image
+                                            {% if listing.material.name == 'Coal' %}
+                                                coal
+                                            {% elif listing.material.name == 'Sand' %}
+                                                sand
+                                            {% elif listing.material.name == 'Crushed Stone' %}
+                                                stone
+                                            {% elif listing.material.name == 'Fly Ash' %}
+                                                flyash
+                                            {% else %}
+                                                soil
+                                            {% endif %}
+                                        ">
+
+                                            {% if listing.material.name == 'Coal' %}
+                                                <i class="bi bi-circle-fill"></i>
+
+                                            {% elif listing.material.name == 'Sand' %}
+                                                <i class="bi bi-triangle-fill"></i>
+
+                                            {% elif listing.material.name == 'Crushed Stone' %}
+                                                <i class="bi bi-circle-half"></i>
+
+                                            {% elif listing.material.name == 'Fly Ash' %}
+                                                <i class="bi bi-stack"></i>
+
+                                            {% else %}
+                                                <i class="bi bi-circle-fill"></i>
+                                            {% endif %}
+
+                                        </div>
+
+                                        <strong>
+                                            {{ listing.material.name }}
+                                        </strong>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    ₹{{ listing.price_per_unit|floatformat:0 }} / Ton
+                                </td>
+
+
+                                <td>
+                                    {{ listing.quantity_available|floatformat:0 }} Ton
+                                </td>
+
+
+                                <td>
+
+                                    {% if not listing.is_available %}
+
+                                        <span class="status inactive">
+
+                                            <i class="bi bi-x-circle-fill"></i>
+
+                                            Inactive
+
+                                        </span>
+
+                                    {% elif listing.quantity_available < 40 %}
+
+                                        <span class="status low">
+
                                             <i class="bi bi-circle-fill"></i>
-                                        </div>
 
-                                        <strong>Coal</strong>
+                                            Low Stock
 
-                                    </div>
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="status active">
+
+                                            <i class="bi bi-check-circle-fill"></i>
+
+                                            Active
+
+                                        </span>
+
+                                    {% endif %}
+
                                 </td>
 
-                                <td>₹2,400 / Ton</td>
-
-                                <td>120 Ton</td>
 
                                 <td>
-                                    <span class="status active">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                        Active
-                                    </span>
-                                </td>
 
-                                <td>
                                     <div class="updated">
+
                                         <i class="bi bi-calendar3"></i>
 
                                         <div>
-                                            <span>12 Sep 2026</span>
-                                            <small>10:30 AM</small>
+
+                                            <span>
+                                                {{ listing.updated_at|date:"d M Y" }}
+                                            </span>
+
+                                            <small>
+                                                {{ listing.updated_at|date:"h:i A" }}
+                                            </small>
+
                                         </div>
+
                                     </div>
+
                                 </td>
 
+
                                 <td>
+
                                     <div class="actions">
 
-                                        <button class="edit-btn"
-                                                data-material="Coal">
+                                        <button
+                                            type="button"
+                                            class="edit-btn"
+                                            data-id="{{ listing.id }}"
+                                            data-material="{{ listing.material.name }}"
+                                            data-price="{{ listing.price_per_unit }}"
+                                            data-stock="{{ listing.quantity_available }}"
+                                            data-location="{{ listing.location }}"
+                                            data-description="{{ listing.description }}"
+                                            data-active="{{ listing.is_available|yesno:'true,false' }}"
+                                        >
+
                                             <i class="bi bi-pencil-fill"></i>
+
                                             Edit
+
                                         </button>
 
-                                        <button class="more-btn">
+
+                                        <button
+                                            type="button"
+                                            class="more-btn"
+                                            data-material="{{ listing.material.name }}"
+                                        >
+
                                             <i class="bi bi-three-dots-vertical"></i>
+
                                         </button>
 
                                     </div>
+
                                 </td>
 
                             </tr>
 
+                            {% empty %}
 
-                            <!-- SAND -->
-                            <tr
-                                data-material="Sand"
-                                data-status="active"
-                                data-price="1500"
-                                data-stock="85"
-                                data-date="2026-09-11"
-                            >
+                            <tr>
 
-                                <td>2</td>
+                                <td colspan="7" class="empty-state">
 
-                                <td>
-                                    <div class="material-name">
+                                    <i class="bi bi-box-seam"></i>
 
-                                        <div class="material-image sand">
-                                            <i class="bi bi-triangle-fill"></i>
-                                        </div>
+                                    <h3>No materials listed yet</h3>
 
-                                        <strong>Sand</strong>
+                                    <p>
+                                        Add your first material to start selling.
+                                    </p>
 
-                                    </div>
-                                </td>
+                                    <a href="{% url 'seller_add_materials' %}"
+                                       class="add-material-btn">
 
-                                <td>₹1,500 / Ton</td>
+                                        <i class="bi bi-plus-lg"></i>
 
-                                <td>85 Ton</td>
+                                        Add Material
 
-                                <td>
-                                    <span class="status active">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                        Active
-                                    </span>
-                                </td>
+                                    </a>
 
-                                <td>
-                                    <div class="updated">
-                                        <i class="bi bi-calendar3"></i>
-
-                                        <div>
-                                            <span>11 Sep 2026</span>
-                                            <small>04:20 PM</small>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="actions">
-
-                                        <button class="edit-btn"
-                                                data-material="Sand">
-                                            <i class="bi bi-pencil-fill"></i>
-                                            Edit
-                                        </button>
-
-                                        <button class="more-btn">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </button>
-
-                                    </div>
                                 </td>
 
                             </tr>
 
-
-                            <!-- CRUSHED STONE -->
-                            <tr
-                                data-material="Crushed Stone"
-                                data-status="active"
-                                data-price="1800"
-                                data-stock="60"
-                                data-date="2026-09-10"
-                            >
-
-                                <td>3</td>
-
-                                <td>
-                                    <div class="material-name">
-
-                                        <div class="material-image stone">
-                                            <i class="bi bi-circle-half"></i>
-                                        </div>
-
-                                        <strong>Crushed Stone</strong>
-
-                                    </div>
-                                </td>
-
-                                <td>₹1,800 / Ton</td>
-
-                                <td>60 Ton</td>
-
-                                <td>
-                                    <span class="status active">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                        Active
-                                    </span>
-                                </td>
-
-                                <td>
-                                    <div class="updated">
-                                        <i class="bi bi-calendar3"></i>
-
-                                        <div>
-                                            <span>10 Sep 2026</span>
-                                            <small>01:15 PM</small>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="actions">
-
-                                        <button class="edit-btn"
-                                                data-material="Crushed Stone">
-                                            <i class="bi bi-pencil-fill"></i>
-                                            Edit
-                                        </button>
-
-                                        <button class="more-btn">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </button>
-
-                                    </div>
-                                </td>
-
-                            </tr>
+                            {% endfor %}
 
 
-                            <!-- FLY ASH -->
-                            <tr
-                                data-material="Fly Ash"
-                                data-status="active"
-                                data-price="900"
-                                data-stock="45"
-                                data-date="2026-09-09"
-                            >
+                            <!-- SEARCH EMPTY -->
+                            <tr id="noResultsRow" style="display:none;">
 
-                                <td>4</td>
+                                <td colspan="7" class="empty-state">
 
-                                <td>
-                                    <div class="material-name">
+                                    <i class="bi bi-search"></i>
 
-                                        <div class="material-image flyash">
-                                            <i class="bi bi-stack"></i>
-                                        </div>
+                                    <h3>No materials found</h3>
 
-                                        <strong>Fly Ash</strong>
+                                    <p>
+                                        Try changing your search or filters.
+                                    </p>
 
-                                    </div>
-                                </td>
-
-                                <td>₹900 / Ton</td>
-
-                                <td>45 Ton</td>
-
-                                <td>
-                                    <span class="status active">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                        Active
-                                    </span>
-                                </td>
-
-                                <td>
-                                    <div class="updated">
-                                        <i class="bi bi-calendar3"></i>
-
-                                        <div>
-                                            <span>09 Sep 2026</span>
-                                            <small>11:40 AM</small>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="actions">
-
-                                        <button class="edit-btn"
-                                                data-material="Fly Ash">
-                                            <i class="bi bi-pencil-fill"></i>
-                                            Edit
-                                        </button>
-
-                                        <button class="more-btn">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </button>
-
-                                    </div>
-                                </td>
-
-                            </tr>
-
-
-                            <!-- SOIL -->
-                            <tr
-                                data-material="Soil"
-                                data-status="low"
-                                data-price="800"
-                                data-stock="30"
-                                data-date="2026-09-08"
-                            >
-
-                                <td>5</td>
-
-                                <td>
-                                    <div class="material-name">
-
-                                        <div class="material-image soil">
-                                            <i class="bi bi-circle-fill"></i>
-                                        </div>
-
-                                        <strong>Soil</strong>
-
-                                    </div>
-                                </td>
-
-                                <td>₹800 / Ton</td>
-
-                                <td>30 Ton</td>
-
-                                <td>
-                                    <span class="status low">
-                                        <i class="bi bi-circle-fill"></i>
-                                        Low Stock
-                                    </span>
-                                </td>
-
-                                <td>
-                                    <div class="updated">
-                                        <i class="bi bi-calendar3"></i>
-
-                                        <div>
-                                            <span>08 Sep 2026</span>
-                                            <small>03:25 PM</small>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="actions">
-
-                                        <button class="edit-btn"
-                                                data-material="Soil">
-                                            <i class="bi bi-pencil-fill"></i>
-                                            Edit
-                                        </button>
-
-                                        <button class="more-btn">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </button>
-
-                                    </div>
                                 </td>
 
                             </tr>
@@ -681,6 +666,7 @@
             <!-- ================= BOTTOM SECTION ================= -->
             <section class="bottom-grid">
 
+
                 <!-- PERFORMANCE -->
                 <div class="performance-card">
 
@@ -693,20 +679,24 @@
                             </div>
 
                             <div>
+
                                 <h2>Material Performance</h2>
 
                                 <p>
                                     Sales and revenue for each material
                                     (Last 30 Days)
                                 </p>
+
                             </div>
 
                         </div>
 
                         <select>
+
                             <option>Last 30 Days</option>
                             <option>Last 7 Days</option>
                             <option>Last 90 Days</option>
+
                         </select>
 
                     </div>
@@ -714,12 +704,15 @@
 
                     <div class="performance-list">
 
+
                         <div class="performance-item">
+
                             <div class="performance-material coal">
                                 <i class="bi bi-circle-fill"></i>
                             </div>
 
                             <div class="performance-info">
+
                                 <strong>Coal</strong>
                                 <b>₹1,24,000</b>
                                 <span>35% of total</span>
@@ -727,16 +720,20 @@
                                 <div class="progress">
                                     <span style="width:35%"></span>
                                 </div>
+
                             </div>
+
                         </div>
 
 
                         <div class="performance-item">
+
                             <div class="performance-material sand">
                                 <i class="bi bi-triangle-fill"></i>
                             </div>
 
                             <div class="performance-info">
+
                                 <strong>Sand</strong>
                                 <b>₹86,500</b>
                                 <span>24% of total</span>
@@ -744,16 +741,20 @@
                                 <div class="progress">
                                     <span style="width:24%"></span>
                                 </div>
+
                             </div>
+
                         </div>
 
 
                         <div class="performance-item">
+
                             <div class="performance-material stone">
                                 <i class="bi bi-circle-half"></i>
                             </div>
 
                             <div class="performance-info">
+
                                 <strong>Crushed Stone</strong>
                                 <b>₹68,200</b>
                                 <span>19% of total</span>
@@ -761,16 +762,20 @@
                                 <div class="progress">
                                     <span style="width:19%"></span>
                                 </div>
+
                             </div>
+
                         </div>
 
 
                         <div class="performance-item">
+
                             <div class="performance-material flyash">
                                 <i class="bi bi-stack"></i>
                             </div>
 
                             <div class="performance-info">
+
                                 <strong>Fly Ash</strong>
                                 <b>₹42,300</b>
                                 <span>12% of total</span>
@@ -778,16 +783,20 @@
                                 <div class="progress">
                                     <span style="width:12%"></span>
                                 </div>
+
                             </div>
+
                         </div>
 
 
                         <div class="performance-item">
+
                             <div class="performance-material soil">
                                 <i class="bi bi-circle-fill"></i>
                             </div>
 
                             <div class="performance-info">
+
                                 <strong>Soil</strong>
                                 <b>₹35,200</b>
                                 <span>10% of total</span>
@@ -795,8 +804,11 @@
                                 <div class="progress">
                                     <span style="width:10%"></span>
                                 </div>
+
                             </div>
+
                         </div>
+
 
                     </div>
 
@@ -813,9 +825,13 @@
                         </div>
 
                         <div>
+
                             <h2>Stock Overview</h2>
 
-                            <p>Current stock distribution</p>
+                            <p>
+                                Current stock distribution
+                            </p>
+
                         </div>
 
                     </div>
@@ -823,12 +839,24 @@
 
                     <div class="stock-content">
 
-                        <div class="donut-chart">
+
+                        <div
+                            class="donut-chart"
+                            style="background: conic-gradient({{ stock_gradient }});"
+                        >
 
                             <div class="donut-inner">
-                                <strong>340</strong>
+
+                                <strong>
+                                    {{ total_stock|floatformat:0 }}
+                                </strong>
+
                                 <span>Ton</span>
-                                <small>Total Stock</small>
+
+                                <small>
+                                    Total Stock
+                                </small>
+
                             </div>
 
                         </div>
@@ -836,55 +864,35 @@
 
                         <div class="stock-legend">
 
-                            <div>
-                                <span>
-                                    <i class="dot coal-dot"></i>
-                                    Coal
-                                </span>
-
-                                <b>120 Ton</b>
-                                <small>35%</small>
-                            </div>
+                            {% for item in stock_data %}
 
                             <div>
+
                                 <span>
-                                    <i class="dot sand-dot"></i>
-                                    Sand
+
+                                    <i class="dot {{ item.dot_class }}"></i>
+
+                                    {{ item.listing.material.name }}
+
                                 </span>
 
-                                <b>85 Ton</b>
-                                <small>25%</small>
+                                <b>
+                                    {{ item.listing.quantity_available|floatformat:0 }} Ton
+                                </b>
+
+                                <small>
+                                    {{ item.percentage|floatformat:0 }}%
+                                </small>
+
                             </div>
 
-                            <div>
-                                <span>
-                                    <i class="dot stone-dot"></i>
-                                    Crushed Stone
-                                </span>
+                            {% empty %}
 
-                                <b>60 Ton</b>
-                                <small>18%</small>
+                            <div class="stock-empty">
+                                No stock available.
                             </div>
 
-                            <div>
-                                <span>
-                                    <i class="dot flyash-dot"></i>
-                                    Fly Ash
-                                </span>
-
-                                <b>45 Ton</b>
-                                <small>13%</small>
-                            </div>
-
-                            <div>
-                                <span>
-                                    <i class="dot soil-dot"></i>
-                                    Soil
-                                </span>
-
-                                <b>30 Ton</b>
-                                <small>9%</small>
-                            </div>
+                            {% endfor %}
 
                         </div>
 
@@ -901,14 +909,251 @@
 </div>
 
 
-<!-- TOAST -->
+<!-- ================= EDIT MATERIAL MODAL ================= -->
+
+<div class="edit-modal-overlay" id="editMaterialModal">
+
+    <div class="edit-material-modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="modal-label">
+                    MATERIAL MANAGEMENT
+                </span>
+
+                <h2>
+                    Edit Material
+                </h2>
+
+                <p>
+                    Update price, stock and listing details.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeEditModal"
+            >
+
+                <i class="bi bi-x-lg"></i>
+
+            </button>
+
+        </div>
+
+
+        <form
+            id="editMaterialForm"
+            method="POST"
+            action="{% url 'seller_materials' %}"
+        >
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="listing_id"
+                id="editListingId"
+            >
+
+
+            <div class="modal-material-name">
+
+                <div class="modal-material-icon">
+                    <i class="bi bi-box-seam-fill"></i>
+                </div>
+
+                <div>
+
+                    <span>Material</span>
+
+                    <strong id="editMaterialName">
+                        Material
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="editPrice">
+                        Price per Ton
+                    </label>
+
+                    <div class="input-with-icon">
+
+                        <i class="bi bi-currency-rupee"></i>
+
+                        <input
+                            type="number"
+                            id="editPrice"
+                            name="price_per_unit"
+                            min="1"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editStock">
+                        Available Stock
+                    </label>
+
+                    <div class="input-with-icon">
+
+                        <i class="bi bi-box-seam"></i>
+
+                        <input
+                            type="number"
+                            id="editStock"
+                            name="quantity_available"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+
+                        <span class="input-suffix">
+                            Ton
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label for="editLocation">
+                        Location
+                    </label>
+
+                    <div class="input-with-icon">
+
+                        <i class="bi bi-geo-alt-fill"></i>
+
+                        <input
+                            type="text"
+                            id="editLocation"
+                            name="location"
+                            maxlength="255"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label for="editDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="editDescription"
+                        name="description"
+                        rows="4"
+                        placeholder="Add details about this material..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="availability-box full-width">
+
+                    <div>
+
+                        <strong>
+                            Listing Status
+                        </strong>
+
+                        <small>
+                            Allow customers to see and order this material.
+                        </small>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="editIsAvailable"
+                            name="is_available"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="cancel-modal-btn"
+                    id="cancelEditModal"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="save-material-btn"
+                    id="saveMaterialBtn"
+                >
+
+                    <i class="bi bi-check-lg"></i>
+
+                    Save Changes
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
 <div class="toast" id="toast">
+
     <i class="bi bi-check-circle-fill"></i>
-    <span id="toastMessage">Action completed.</span>
+
+    <span id="toastMessage">
+        Action completed.
+    </span>
+
 </div>
 
 
 <script src="{% static 'seller/js/materials.js' %}"></script>
 
 </body>
+
 </html>

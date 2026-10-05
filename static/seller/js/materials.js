@@ -1,110 +1,129 @@
-/* =========================================================
-   BUILD CONNECT - SELLER MY MATERIALS
-========================================================= */
+document.addEventListener("DOMContentLoaded", function () {
 
-document.addEventListener("DOMContentLoaded", () => {
+    // =========================================
+    // ELEMENTS
+    // =========================================
 
-    const mobileMenu = document.getElementById("mobileMenu");
     const sidebar = document.getElementById("sidebar");
+    const mobileMenu = document.getElementById("mobileMenu");
 
-    const materialSearch =
-        document.getElementById("materialSearch");
+    const globalSearch = document.getElementById("globalSearch");
+    const materialSearch = document.getElementById("materialSearch");
 
-    const materialFilter =
-        document.getElementById("materialFilter");
+    const materialFilter = document.getElementById("materialFilter");
+    const statusFilter = document.getElementById("statusFilter");
+    const sortFilter = document.getElementById("sortFilter");
 
-    const statusFilter =
-        document.getElementById("statusFilter");
+    const tableBody = document.getElementById("materialsTable");
+    const noResultsRow = document.getElementById("noResultsRow");
 
-    const sortFilter =
-        document.getElementById("sortFilter");
+    const editModal = document.getElementById("editMaterialModal");
+    const editForm = document.getElementById("editMaterialForm");
 
-    const globalSearch =
-        document.getElementById("globalSearch");
+    const closeEditModal = document.getElementById("closeEditModal");
+    const cancelEditModal = document.getElementById("cancelEditModal");
 
-    const addMaterialBtn =
-        document.getElementById("addMaterialBtn");
+    const editListingId = document.getElementById("editListingId");
+    const editMaterialName = document.getElementById("editMaterialName");
+    const editPrice = document.getElementById("editPrice");
+    const editStock = document.getElementById("editStock");
+    const editLocation = document.getElementById("editLocation");
+    const editDescription = document.getElementById("editDescription");
+    const editIsAvailable = document.getElementById("editIsAvailable");
 
-    const notificationBtn =
-        document.getElementById("notificationBtn");
+    const saveMaterialBtn = document.getElementById("saveMaterialBtn");
 
-    const toast =
-        document.getElementById("toast");
-
-    const toastMessage =
-        document.getElementById("toastMessage");
-
-    const tableBody =
-        document.getElementById("materialsTable");
-
-
-    /* =====================================================
-       TOAST
-    ===================================================== */
-
-    function showToast(message) {
-
-        toastMessage.textContent = message;
-
-        toast.classList.add("show");
-
-        setTimeout(() => {
-            toast.classList.remove("show");
-        }, 2500);
-    }
+    const toast = document.getElementById("toast");
+    const toastMessage = document.getElementById("toastMessage");
 
 
-    /* =====================================================
-       MOBILE SIDEBAR
-    ===================================================== */
+    // =========================================
+    // MOBILE SIDEBAR
+    // =========================================
 
-    if (mobileMenu) {
+    if (mobileMenu && sidebar) {
 
-        mobileMenu.addEventListener("click", () => {
-
+        mobileMenu.addEventListener("click", function () {
             sidebar.classList.toggle("open");
-
         });
 
     }
 
 
-    /* =====================================================
-       FILTER MATERIALS
-    ===================================================== */
+    // =========================================
+    // TOAST
+    // =========================================
+
+    function showToast(message, type = "success") {
+
+        if (!toast || !toastMessage) {
+            return;
+        }
+
+        toastMessage.textContent = message;
+
+        toast.classList.remove("show", "error");
+
+        if (type === "error") {
+            toast.classList.add("error");
+        }
+
+        toast.classList.add("show");
+
+        setTimeout(function () {
+            toast.classList.remove("show");
+        }, 3000);
+    }
+
+
+    // =========================================
+    // TABLE FILTERING
+    // =========================================
 
     function filterMaterials() {
 
-        const searchValue =
-            materialSearch.value.toLowerCase().trim();
+        const searchText = (
+            materialSearch?.value ||
+            globalSearch?.value ||
+            ""
+        ).toLowerCase().trim();
 
-        const selectedMaterial =
-            materialFilter.value;
+        const materialValue = materialFilter
+            ? materialFilter.value
+            : "all";
 
-        const selectedStatus =
-            statusFilter.value;
+        const statusValue = statusFilter
+            ? statusFilter.value
+            : "all";
 
-        const rows =
-            Array.from(tableBody.querySelectorAll("tr"));
+        const rows = Array.from(
+            tableBody.querySelectorAll("tr[data-material]")
+        );
 
-        rows.forEach(row => {
+        let visibleCount = 0;
 
-            const material =
-                row.dataset.material.toLowerCase();
+        rows.forEach(function (row) {
 
-            const status =
-                row.dataset.status;
+            const material = (
+                row.dataset.material || ""
+            ).toLowerCase();
+
+            const status = row.dataset.status || "";
+
+            const rowText = row.textContent.toLowerCase();
 
             const matchesSearch =
-                material.includes(searchValue);
+                !searchText ||
+                material.includes(searchText) ||
+                rowText.includes(searchText);
 
             const matchesMaterial =
-                selectedMaterial === "all" ||
-                row.dataset.material === selectedMaterial;
+                materialValue === "all" ||
+                row.dataset.material === materialValue;
 
             const matchesStatus =
-                selectedStatus === "all" ||
-                status === selectedStatus;
+                statusValue === "all" ||
+                status === statusValue;
 
             if (
                 matchesSearch &&
@@ -114,6 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 row.style.display = "";
 
+                visibleCount++;
+
             } else {
 
                 row.style.display = "none";
@@ -122,39 +143,88 @@ document.addEventListener("DOMContentLoaded", () => {
 
         });
 
+
+        if (noResultsRow) {
+
+            if (visibleCount === 0 && rows.length > 0) {
+                noResultsRow.style.display = "";
+            } else {
+                noResultsRow.style.display = "none";
+            }
+
+        }
+
+        renumberRows();
+
     }
 
 
-    materialSearch.addEventListener(
-        "input",
-        filterMaterials
-    );
+    // =========================================
+    // RENUMBER TABLE
+    // =========================================
 
-    materialFilter.addEventListener(
-        "change",
-        filterMaterials
-    );
+    function renumberRows() {
 
-    statusFilter.addEventListener(
-        "change",
-        filterMaterials
-    );
+        const rows = Array.from(
+            tableBody.querySelectorAll("tr[data-material]")
+        );
+
+        let number = 1;
+
+        rows.forEach(function (row) {
+
+            if (row.style.display !== "none") {
+
+                const numberCell = row.querySelector(".row-number");
+
+                if (numberCell) {
+                    numberCell.textContent = number;
+                }
+
+                number++;
+
+            }
+
+        });
+
+    }
 
 
-    /* =====================================================
-       SORT
-    ===================================================== */
+    // =========================================
+    // SORTING
+    // =========================================
 
-    sortFilter.addEventListener("change", () => {
+    function sortMaterials() {
 
-        const rows =
-            Array.from(tableBody.querySelectorAll("tr"));
+        const sortValue = sortFilter
+            ? sortFilter.value
+            : "latest";
 
-        const value = sortFilter.value;
+        const rows = Array.from(
+            tableBody.querySelectorAll("tr[data-material]")
+        );
 
-        rows.sort((a, b) => {
+        rows.sort(function (a, b) {
 
-            if (value === "price-high") {
+            if (sortValue === "latest") {
+
+                return (
+                    Number(b.dataset.timestamp) -
+                    Number(a.dataset.timestamp)
+                );
+
+            }
+
+            if (sortValue === "oldest") {
+
+                return (
+                    Number(a.dataset.timestamp) -
+                    Number(b.dataset.timestamp)
+                );
+
+            }
+
+            if (sortValue === "price-high") {
 
                 return (
                     Number(b.dataset.price) -
@@ -163,7 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-            if (value === "price-low") {
+            if (sortValue === "price-low") {
 
                 return (
                     Number(a.dataset.price) -
@@ -172,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-            if (value === "stock-high") {
+            if (sortValue === "stock-high") {
 
                 return (
                     Number(b.dataset.stock) -
@@ -181,34 +251,83 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-            if (value === "oldest") {
-
-                return (
-                    new Date(a.dataset.date) -
-                    new Date(b.dataset.date)
-                );
-
-            }
-
-            return (
-                new Date(b.dataset.date) -
-                new Date(a.dataset.date)
-            );
+            return 0;
 
         });
 
-        rows.forEach(row => {
+
+        rows.forEach(function (row) {
             tableBody.appendChild(row);
         });
 
-    });
+        filterMaterials();
+
+    }
 
 
-    /* =====================================================
-       GLOBAL SEARCH
-    ===================================================== */
+    // =========================================
+    // SEARCH
+    // =========================================
 
-    document.addEventListener("keydown", (event) => {
+    if (materialSearch) {
+
+        materialSearch.addEventListener(
+            "input",
+            filterMaterials
+        );
+
+    }
+
+
+    if (globalSearch) {
+
+        globalSearch.addEventListener(
+            "input",
+            filterMaterials
+        );
+
+    }
+
+
+    // =========================================
+    // FILTERS
+    // =========================================
+
+    if (materialFilter) {
+
+        materialFilter.addEventListener(
+            "change",
+            filterMaterials
+        );
+
+    }
+
+
+    if (statusFilter) {
+
+        statusFilter.addEventListener(
+            "change",
+            filterMaterials
+        );
+
+    }
+
+
+    if (sortFilter) {
+
+        sortFilter.addEventListener(
+            "change",
+            sortMaterials
+        );
+
+    }
+
+
+    // =========================================
+    // CTRL + K SEARCH
+    // =========================================
+
+    document.addEventListener("keydown", function (event) {
 
         if (
             (event.ctrlKey || event.metaKey) &&
@@ -217,132 +336,246 @@ document.addEventListener("DOMContentLoaded", () => {
 
             event.preventDefault();
 
-            globalSearch.focus();
+            if (globalSearch) {
+                globalSearch.focus();
+            }
 
         }
 
     });
 
 
-    globalSearch.addEventListener("input", () => {
+    // =========================================
+    // OPEN EDIT MODAL
+    // =========================================
 
-        materialSearch.value =
-            globalSearch.value;
+    document.addEventListener("click", function (event) {
 
-        filterMaterials();
+        const editButton = event.target.closest(".edit-btn");
+
+        if (!editButton) {
+            return;
+        }
+
+        editListingId.value =
+            editButton.dataset.id || "";
+
+        editMaterialName.textContent =
+            editButton.dataset.material || "";
+
+        editPrice.value =
+            editButton.dataset.price || "";
+
+        editStock.value =
+            editButton.dataset.stock || "";
+
+        editLocation.value =
+            editButton.dataset.location || "";
+
+        editDescription.value =
+            editButton.dataset.description || "";
+
+        editIsAvailable.checked =
+            editButton.dataset.active === "true";
+
+
+        editModal.classList.add("show");
+
+        document.body.classList.add("modal-open");
 
     });
 
 
-    /* =====================================================
-       ADD MATERIAL
-    ===================================================== */
+    // =========================================
+    // CLOSE MODAL
+    // =========================================
 
-    addMaterialBtn.addEventListener("click", () => {
+    function closeModal() {
 
-        showToast(
-            "Add Material page will be connected next."
+        editModal.classList.remove("show");
+
+        document.body.classList.remove("modal-open");
+
+    }
+
+
+    if (closeEditModal) {
+
+        closeEditModal.addEventListener(
+            "click",
+            closeModal
         );
 
-    });
+    }
 
 
-    /* =====================================================
-       EDIT BUTTON
-    ===================================================== */
+    if (cancelEditModal) {
 
-    document.querySelectorAll(".edit-btn")
-        .forEach(button => {
-
-            button.addEventListener("click", () => {
-
-                const material =
-                    button.dataset.material;
-
-                showToast(
-                    `Edit ${material} listing selected.`
-                );
-
-            });
-
-        });
-
-
-    /* =====================================================
-       MORE OPTIONS
-    ===================================================== */
-
-    document.querySelectorAll(".more-btn")
-        .forEach(button => {
-
-            button.addEventListener("click", () => {
-
-                showToast(
-                    "More material options opened."
-                );
-
-            });
-
-        });
-
-
-    /* =====================================================
-       NOTIFICATION
-    ===================================================== */
-
-    notificationBtn.addEventListener("click", () => {
-
-        showToast(
-            "You have 1 new material notification."
+        cancelEditModal.addEventListener(
+            "click",
+            closeModal
         );
 
+    }
+
+
+    if (editModal) {
+
+        editModal.addEventListener(
+            "click",
+            function (event) {
+
+                if (event.target === editModal) {
+                    closeModal();
+                }
+
+            }
+        );
+
+    }
+
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            if (
+                editModal &&
+                editModal.classList.contains("show")
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+
     });
 
 
-    /* =====================================================
-       COMING SOON LINKS
-    ===================================================== */
+    // =========================================
+    // SAVE MATERIAL
+    // =========================================
 
-    document.querySelectorAll(".coming-soon")
-        .forEach(link => {
+    if (editForm) {
 
-            link.addEventListener("click", (event) => {
+        editForm.addEventListener(
+            "submit",
+            async function (event) {
 
                 event.preventDefault();
 
-                showToast(
-                    "This section will be connected next."
-                );
+                saveMaterialBtn.disabled = true;
 
-            });
-
-        });
+                saveMaterialBtn.innerHTML =
+                    '<i class="bi bi-arrow-repeat spin"></i> Saving...';
 
 
-    /* =====================================================
-       CARD ANIMATION
-    ===================================================== */
+                try {
 
-    const cards =
-        document.querySelectorAll(
-            ".summary-card, .inventory-card, .performance-card, .stock-card"
+                    const formData =
+                        new FormData(editForm);
+
+
+                    const response = await fetch(
+                        editForm.action,
+                        {
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                "X-Requested-With":
+                                    "XMLHttpRequest"
+                            }
+                        }
+                    );
+
+
+                    const data = await response.json();
+
+
+                    if (!data.success) {
+
+                        showToast(
+                            data.message ||
+                            "Unable to update material.",
+                            "error"
+                        );
+
+                        return;
+
+                    }
+
+
+                    closeModal();
+
+                    showToast(
+                        data.message ||
+                        "Material updated successfully."
+                    );
+
+
+                    // Reload so:
+                    // - table updates
+                    // - summary updates
+                    // - stock overview updates
+                    // - updated timestamp updates
+
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 700);
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    showToast(
+                        "Something went wrong while saving.",
+                        "error"
+                    );
+
+                } finally {
+
+                    saveMaterialBtn.disabled = false;
+
+                    saveMaterialBtn.innerHTML =
+                        '<i class="bi bi-check-lg"></i> Save Changes';
+
+                }
+
+            }
         );
 
-    cards.forEach((card, index) => {
+    }
 
-        card.style.opacity = "0";
-        card.style.transform = "translateY(12px)";
 
-        setTimeout(() => {
+    // =========================================
+    // MORE BUTTON
+    // =========================================
 
-            card.style.transition =
-                "opacity .45s ease, transform .45s ease";
+    document.addEventListener("click", function (event) {
 
-            card.style.opacity = "1";
-            card.style.transform = "translateY(0)";
+        const moreButton =
+            event.target.closest(".more-btn");
 
-        }, 100 + index * 80);
+        if (!moreButton) {
+            return;
+        }
+
+        const material =
+            moreButton.dataset.material || "Material";
+
+        showToast(
+            `Use Edit to manage ${material}.`
+        );
 
     });
+
+
+    // =========================================
+    // INITIAL STATE
+    // =========================================
+
+    filterMaterials();
 
 });
