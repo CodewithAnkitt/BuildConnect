@@ -1,18 +1,17 @@
 from django.contrib import messages
 from decimal import Decimal, InvalidOperation
-
+from django.db import transaction
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-
 from .models import (
     User,
     Order,
+    OrderItem,
     VehicleRental,
     MaterialListing,
 )
-
 
 # ============================================================
 # HOME
@@ -239,30 +238,256 @@ def customer_dashboard(request):
 
 @login_required
 def materials(request):
-
     if request.user.role != User.Role.CUSTOMER:
         return redirect("home")
+
+    listings = MaterialListing.objects.filter(
+        is_available=True,
+        quantity_available__gt=0
+    ).select_related(
+        "material",
+        "seller"
+    ).order_by("-created_at")
+
+    image_map = {
+        "coal": "/static/images/coal.png",
+        "sand": "/static/images/sand.png",
+        "crushed stone": "/static/images/crushed-stone.png",
+        "fly ash": "/static/images/fly-ash.png",
+        "soil": "/static/images/soil.png",
+    }
+
+    materials_data = []
+
+    for listing in listings:
+        material_name = listing.material.name.strip()
+
+        supplier_name = (
+            listing.seller.get_full_name().strip()
+            or listing.seller.username
+        )
+
+        materials_data.append({
+            "listing": listing,
+            "name": material_name,
+            "slug": material_name.lower().replace(" ", "-"),
+            "image": image_map.get(
+                material_name.lower(),
+                "/static/images/logo.png"
+            ),
+            "supplier": supplier_name,
+            "description": listing.description or (
+                f"Quality {material_name.lower()} "
+                "from trusted suppliers."
+            ),
+            "unit": listing.material.get_unit_display(),
+            "quantity": listing.quantity_available,
+            "price": listing.price_per_unit,
+            "location": listing.location,
+        })
+
+    locations = sorted(
+        set(
+            listing.location
+            for listing in listings
+            if listing.location
+        )
+    )
 
     return render(
         request,
         "customer/materials.html",
-        {"user": request.user}
+        {
+            "user": request.user,
+            "materials_data": materials_data,
+            "locations": locations,
+        }
     )
 
 
 @login_required
 def orders(request):
-
     if request.user.role != User.Role.CUSTOMER:
         return redirect("home")
+
+    customer_orders = (
+        Order.objects
+        .filter(customer=request.user)
+        .prefetch_related(
+            "items__listing__material",
+            "items__listing__seller"
+        )
+        .order_by("-created_at")
+    )
 
     return render(
         request,
         "customer/orders.html",
-        {"user": request.user}
+        {
+            "user": request.user,
+            "orders": customer_orders,
+        }
     )
+@login_required
+def create_order(request):
+    if request.user.role != User.Role.CUSTOMER:
+        return JsonResponse({
+            "success": False,
+            "message": "Only customers can place orders."
+        }, status=403)
 
+    if request.method != "POST":
+        return JsonResponse({
+            "success": False,
+            "message": "Invalid request method."
+        }, status=400)
 
+    listing_id = request.POST.get("listing_id", "").strip()
+    quantity_value = request.POST.get("quantity", "").strip()
+    delivery_address = request.POST.get(
+        "delivery_address",
+        ""
+    ).strip()
+
+    if not listing_id:
+        return JsonResponse({
+            "success": False,
+            "message": "Material listing was not found."
+        }, status=400)
+
+    if not quantity_value:
+        return JsonResponse({
+            "success": False,
+            "message": "Please provide a quantity."
+        }, status=400)
+
+    if not delivery_address:
+        return JsonResponse({
+            "success": False,
+            "message": "Please provide a delivery address."
+        }, status=400)
+
+    # ---------------------------------------------------------
+    # Convert quantity to Decimal
+    # ---------------------------------------------------------
+
+    try:
+        quantity = Decimal(quantity_value)
+
+    except InvalidOperation:
+        return JsonResponse({
+            "success": False,
+            "message": "Please enter a valid quantity."
+        }, status=400)
+
+    if quantity <= 0:
+        return JsonResponse({
+            "success": False,
+            "message": "Quantity must be greater than zero."
+        }, status=400)
+
+    # ---------------------------------------------------------
+    # Database transaction
+    # ---------------------------------------------------------
+
+    with transaction.atomic():
+
+        try:
+            listing = (
+                MaterialListing.objects
+                .select_for_update()
+                .select_related(
+                    "material",
+                    "seller"
+                )
+                .get(
+                    id=listing_id,
+                    is_available=True
+                )
+            )
+
+        except MaterialListing.DoesNotExist:
+            return JsonResponse({
+                "success": False,
+                "message": "This material is no longer available."
+            }, status=404)
+
+        # -----------------------------------------------------
+        # Check available stock
+        # -----------------------------------------------------
+
+        if quantity > listing.quantity_available:
+
+            return JsonResponse({
+                "success": False,
+                "message": (
+                    f"Only {listing.quantity_available} "
+                    f"{listing.material.get_unit_display()} "
+                    "is available."
+                )
+            }, status=400)
+
+        # -----------------------------------------------------
+        # Calculate order amount
+        # -----------------------------------------------------
+
+        unit_price = listing.price_per_unit
+
+        subtotal = unit_price * quantity
+
+        # -----------------------------------------------------
+        # Create Order
+        # -----------------------------------------------------
+
+        order = Order.objects.create(
+            customer=request.user,
+            status=Order.Status.PENDING,
+            total_amount=subtotal,
+            delivery_address=delivery_address
+        )
+
+        # -----------------------------------------------------
+        # Create Order Item
+        # -----------------------------------------------------
+
+        OrderItem.objects.create(
+            order=order,
+            listing=listing,
+            quantity=quantity,
+            unit_price=unit_price,
+            subtotal=subtotal
+        )
+
+        # -----------------------------------------------------
+        # Reduce seller stock
+        # -----------------------------------------------------
+
+        listing.quantity_available -= quantity
+
+        if listing.quantity_available <= 0:
+
+            listing.quantity_available = Decimal("0")
+
+            listing.is_available = False
+
+        listing.save(
+            update_fields=[
+                "quantity_available",
+                "is_available",
+                "updated_at"
+            ]
+        )
+
+    # ---------------------------------------------------------
+    # Success response
+    # ---------------------------------------------------------
+
+    return JsonResponse({
+        "success": True,
+        "message": "Your order has been placed successfully.",
+        "order_id": order.id,
+        "total_amount": str(order.total_amount)
+    })
 @login_required
 def vehicles(request):
 

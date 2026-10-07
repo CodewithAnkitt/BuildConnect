@@ -1,159 +1,170 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const cards = [...document.querySelectorAll(".material-card")];
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
 
-    const searchInput = document.getElementById("materialSearch");
-    const categoryFilter = document.getElementById("categoryFilter");
-    const locationFilter = document.getElementById("locationFilter");
-    const sortFilter = document.getElementById("sortFilter");
+    const cards = [
+        ...document.querySelectorAll(".material-card")
+    ];
 
-    const noResults = document.getElementById("noResults");
+    const searchInput =
+        document.getElementById("materialSearch");
 
-    const modal = document.getElementById("materialModal");
-    const modalClose = document.getElementById("modalClose");
-    const closeAction = document.getElementById("closeAction");
+    const categoryFilter =
+        document.getElementById("categoryFilter");
 
-    const modalImage = document.getElementById("modalImage");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalSubtitle = document.getElementById("modalSubtitle");
-    const modalPrice = document.getElementById("modalPrice");
-    const modalQuantityAvailable = document.getElementById("modalQuantityAvailable");
-    const modalType = document.getElementById("modalType");
-    const modalLocation = document.getElementById("modalLocation");
-    const modalSupplier = document.getElementById("modalSupplier");
-    const modalDescription = document.getElementById("modalDescription");
+    const locationFilter =
+        document.getElementById("locationFilter");
 
-    const thumb1 = document.getElementById("thumb1");
-    const thumb2 = document.getElementById("thumb2");
-    const thumb3 = document.getElementById("thumb3");
+    const sortFilter =
+        document.getElementById("sortFilter");
 
-    const minusBtn = document.getElementById("minusBtn");
-    const plusBtn = document.getElementById("plusBtn");
-    const orderQuantity = document.getElementById("orderQuantity");
+    const noResults =
+        document.getElementById("noResults");
 
-    const addToOrder = document.getElementById("addToOrder");
 
-    const toast = document.getElementById("toast");
-    const toastTitle = document.getElementById("toastTitle");
-    const toastMessage = document.getElementById("toastMessage");
+    /* =====================================================
+       MODAL ELEMENTS
+    ===================================================== */
 
-    const menuBtn = document.getElementById("menuBtn");
-    const sidebar = document.getElementById("sidebar");
-    const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const modal =
+        document.getElementById("materialModal");
+
+    const modalClose =
+        document.getElementById("modalClose");
+
+    const closeAction =
+        document.getElementById("closeAction");
+
+    const modalImage =
+        document.getElementById("modalImage");
+
+    const modalTitle =
+        document.getElementById("modalTitle");
+
+    const modalSubtitle =
+        document.getElementById("modalSubtitle");
+
+    const modalPrice =
+        document.getElementById("modalPrice");
+
+    const modalQuantityAvailable =
+        document.getElementById("modalQuantityAvailable");
+
+    const modalType =
+        document.getElementById("modalType");
+
+    const modalLocation =
+        document.getElementById("modalLocation");
+
+    const modalSupplier =
+        document.getElementById("modalSupplier");
+
+    const modalDescription =
+        document.getElementById("modalDescription");
+
+
+    /* =====================================================
+       THUMBNAILS
+    ===================================================== */
+
+    const thumb1 =
+        document.getElementById("thumb1");
+
+    const thumb2 =
+        document.getElementById("thumb2");
+
+    const thumb3 =
+        document.getElementById("thumb3");
+
+    const prevImage =
+        document.getElementById("prevImage");
+
+    const nextImage =
+        document.getElementById("nextImage");
+
+
+    /* =====================================================
+       QUANTITY
+    ===================================================== */
+
+    const minusBtn =
+        document.getElementById("minusBtn");
+
+    const plusBtn =
+        document.getElementById("plusBtn");
+
+    const orderQuantity =
+        document.getElementById("orderQuantity");
+
+    const addToOrderButton =
+    document.getElementById("addToOrder");
+
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    const toast =
+        document.getElementById("toast");
+
+    const toastTitle =
+        document.getElementById("toastTitle");
+
+    const toastMessage =
+        document.getElementById("toastMessage");
+
+
+    /* =====================================================
+       SIDEBAR
+    ===================================================== */
+
+    const menuBtn =
+        document.getElementById("menuBtn");
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const sidebarOverlay =
+        document.getElementById("sidebarOverlay");
+
+
+    /* =====================================================
+       CURRENT MATERIAL
+    ===================================================== */
 
     let currentMaterial = null;
-    let currentMaxQuantity = 500;
+
+    let currentMaterialCard = null;
+
+    let currentImages = [];
+
+    let currentImageIndex = 0;
+
+    let currentMaxQuantity = 1;
 
 
-    /* ================= MATERIAL DATA ================= */
-
-    const materialData = {
-
-        coal: {
-            title: "Coal",
-            subtitle: "Quality coal for industrial and construction requirements.",
-            price: "₹ 1,250",
-            available: "350 Ton",
-            type: "Industrial Coal",
-            location: "Dhanbad, Jharkhand",
-            supplier: "Eastern Coal Suppliers",
-            description:
-                "High-quality coal suitable for industrial applications and construction-related requirements. Carefully sourced from trusted suppliers.",
-            image: "/static/images/coal.png",
-            images: [
-                "/static/images/coal-thumn.png",
-                "/static/images/coalthumn1.png",
-                "/static/images/coalthumn2.png"
-            ]
-        },
-
-        sand: {
-            title: "Construction Sand",
-            subtitle: "High quality sand for all construction needs.",
-            price: "₹ 850",
-            available: "500 Ton",
-            type: "River Sand",
-            location: "Ranchi, Jharkhand",
-            supplier: "Sharma Enterprises",
-            description:
-                "Clean, high-quality construction sand suitable for residential, commercial, and infrastructure projects. Properly graded and free from major impurities.",
-            image: "/static/images/sand.png",
-            images: [
-                "/static/images/sand.png",
-                "/static/images/sand.png",
-                "/static/images/sand.png"
-            ]
-        },
-
-        "crushed-stone": {
-            title: "Crushed Stone",
-            subtitle: "Strong and durable stone for construction projects.",
-            price: "₹ 1,100",
-            available: "420 Ton",
-            type: "20mm Crushed Stone",
-            location: "Jamshedpur, Jharkhand",
-            supplier: "Singh Stone Suppliers",
-            description:
-                "Durable crushed stone suitable for concrete production, road construction, foundations and general infrastructure work.",
-            image: "/static/images/crushed-stone.png",
-            images: [
-                "/static/images/crushed-stone.png",
-                "/static/images/crushed-stone.png",
-                "/static/images/crushed-stone.png"
-            ]
-        },
-
-        "fly-ash": {
-            title: "Fly Ash",
-            subtitle: "Quality fly ash from trusted suppliers.",
-            price: "₹ 620",
-            available: "600 Ton",
-            type: "Class F Fly Ash",
-            location: "Dhanbad, Jharkhand",
-            supplier: "GreenBuild Materials",
-            description:
-                "High-quality fly ash suitable for cement production, concrete work, bricks and other construction applications.",
-            image: "/static/images/fly-ash.png",
-            images: [
-                "/static/images/fly-ash.png",
-                "/static/images/fly-ash.png",
-                "/static/images/fly-ash.png"
-            ]
-        },
-
-        soil: {
-            title: "Construction Soil",
-            subtitle: "Suitable soil for construction and site development.",
-            price: "₹ 300",
-            available: "750 Ton",
-            type: "Construction Fill Soil",
-            location: "Ranchi, Jharkhand",
-            supplier: "BuildEarth Suppliers",
-            description:
-                "Suitable quality soil for site filling, construction preparation, landscaping and general site development work.",
-            image: "/static/images/soil.png",
-            images: [
-                "/static/images/soil.png",
-                "/static/images/soil.png",
-                "/static/images/soil.png"
-            ]
-        }
-
-    };
-
-
-    /* ================= FILTER ================= */
+    /* =====================================================
+       FILTER MATERIALS
+    ===================================================== */
 
     function filterMaterials() {
 
         const searchValue =
-            searchInput.value.trim().toLowerCase();
+            searchInput
+                ? searchInput.value.trim().toLowerCase()
+                : "";
 
         const category =
-            categoryFilter.value;
+            categoryFilter
+                ? categoryFilter.value
+                : "all";
 
         const location =
-            locationFilter.value;
+            locationFilter
+                ? locationFilter.value
+                : "all";
 
         let visibleCards = [];
 
@@ -161,32 +172,44 @@ document.addEventListener("DOMContentLoaded", () => {
         cards.forEach(card => {
 
             const name =
-                card.dataset.name.toLowerCase();
+                (card.dataset.name || "")
+                    .toLowerCase();
+
+            const description =
+                (card.dataset.description || "")
+                    .toLowerCase();
 
             const cardCategory =
-                card.dataset.category;
+                card.dataset.category || "";
 
             const cardLocation =
-                card.dataset.location;
+                card.dataset.location || "";
+
 
             const matchesSearch =
-                name.includes(searchValue);
+                name.includes(searchValue) ||
+                description.includes(searchValue);
+
 
             const matchesCategory =
                 category === "all" ||
                 cardCategory === category;
 
+
             const matchesLocation =
                 location === "all" ||
                 cardLocation === location;
+
 
             const visible =
                 matchesSearch &&
                 matchesCategory &&
                 matchesLocation;
 
+
             card.style.display =
                 visible ? "" : "none";
+
 
             if (visible) {
                 visibleCards.push(card);
@@ -197,213 +220,409 @@ document.addEventListener("DOMContentLoaded", () => {
 
         sortCards(visibleCards);
 
-        noResults.style.display =
-            visibleCards.length === 0
-                ? "block"
-                : "none";
+
+        if (noResults) {
+
+            noResults.style.display =
+                visibleCards.length === 0
+                    ? "block"
+                    : "none";
+
+        }
+
     }
 
 
-    /* ================= SORT ================= */
+    /* =====================================================
+       SORT MATERIALS
+    ===================================================== */
 
     function sortCards(visibleCards) {
 
+        if (!sortFilter) {
+            return;
+        }
+
         const sortValue =
             sortFilter.value;
+
 
         if (sortValue === "default") {
             return;
         }
 
+
         visibleCards.sort((a, b) => {
 
             if (sortValue === "price-low") {
+
                 return (
-                    Number(a.dataset.price) -
-                    Number(b.dataset.price)
+                    Number(a.dataset.price || 0) -
+                    Number(b.dataset.price || 0)
                 );
+
             }
+
 
             if (sortValue === "price-high") {
+
                 return (
-                    Number(b.dataset.price) -
-                    Number(a.dataset.price)
+                    Number(b.dataset.price || 0) -
+                    Number(a.dataset.price || 0)
                 );
+
             }
 
+
             if (sortValue === "name") {
-                return a.dataset.name.localeCompare(
-                    b.dataset.name
+
+                return (
+                    (a.dataset.name || "")
+                        .localeCompare(
+                            b.dataset.name || ""
+                        )
                 );
+
             }
+
+
+            return 0;
 
         });
 
 
         const grid =
-            document.getElementById("materialsGrid");
+            document.getElementById(
+                "materialsGrid"
+            );
 
-        visibleCards.forEach(card => {
-            grid.appendChild(card);
-        });
+
+        if (grid) {
+
+            visibleCards.forEach(card => {
+                grid.appendChild(card);
+            });
+
+        }
 
     }
 
 
-    searchInput.addEventListener(
-        "input",
-        filterMaterials
-    );
+    /* =====================================================
+       FILTER EVENTS
+    ===================================================== */
 
-    categoryFilter.addEventListener(
-        "change",
-        filterMaterials
-    );
+    if (searchInput) {
 
-    locationFilter.addEventListener(
-        "change",
-        filterMaterials
-    );
+        searchInput.addEventListener(
+            "input",
+            filterMaterials
+        );
 
-    sortFilter.addEventListener(
-        "change",
-        filterMaterials
-    );
+    }
 
 
-    /* ================= OPEN MODAL ================= */
+    if (categoryFilter) {
+
+        categoryFilter.addEventListener(
+            "change",
+            filterMaterials
+        );
+
+    }
+
+
+    if (locationFilter) {
+
+        locationFilter.addEventListener(
+            "change",
+            filterMaterials
+        );
+
+    }
+
+
+    if (sortFilter) {
+
+        sortFilter.addEventListener(
+            "change",
+            filterMaterials
+        );
+
+    }
+
+
+    /* =====================================================
+       OPEN MATERIAL MODAL
+    ===================================================== */
 
     cards.forEach(card => {
 
         const button =
             card.querySelector(".details-btn");
 
-        button.addEventListener("click", () => {
 
-            const material =
-                card.dataset.material;
+        if (button) {
 
-            openMaterial(material);
+            button.addEventListener(
+                "click",
+                () => {
+                    openMaterial(card);
+                }
+            );
 
-        });
+        }
 
     });
 
 
-    function openMaterial(material) {
+    /* =====================================================
+       OPEN MATERIAL
+    ===================================================== */
 
-        currentMaterial =
-            materialData[material];
+    function openMaterial(card) {
 
-        if (!currentMaterial) {
+        /*
+           IMPORTANT:
+           Store the complete card so Add to Order
+           knows which database listing was selected.
+        */
+
+        currentMaterialCard = card;
+
+        currentMaterial = card.dataset;
+
+
+        const title =
+            currentMaterial.title ||
+            currentMaterial.name ||
+            "Material";
+
+
+        const description =
+            currentMaterial.description ||
+            "Quality construction material from a trusted seller.";
+
+
+        const price =
+            Number(
+                currentMaterial.price
+            ) || 0;
+
+
+        const quantity =
+            Number(
+                currentMaterial.quantity
+            ) || 0;
+
+
+        const unit =
+            currentMaterial.unit ||
+            "Ton";
+
+
+        const location =
+            currentMaterial.location ||
+            "Location not specified";
+
+
+        const supplier =
+            currentMaterial.supplier ||
+            "Trusted Seller";
+
+
+        const image =
+            currentMaterial.image ||
+            "/static/images/logo.png";
+
+
+        /* ---------------------------------------------
+           MODAL CONTENT
+        --------------------------------------------- */
+
+        if (modalTitle) {
+
+            modalTitle.textContent =
+                title;
+
+        }
+
+
+        if (modalSubtitle) {
+
+            modalSubtitle.textContent =
+                description;
+
+        }
+
+
+        if (modalPrice) {
+
+            modalPrice.textContent =
+                formatCurrency(price);
+
+        }
+
+
+        if (modalQuantityAvailable) {
+
+            modalQuantityAvailable.textContent =
+                `${formatNumber(quantity)} ${unit}`;
+
+        }
+
+
+        if (modalType) {
+
+            modalType.textContent =
+                unit;
+
+        }
+
+
+        if (modalLocation) {
+
+            modalLocation.textContent =
+                location;
+
+        }
+
+
+        if (modalSupplier) {
+
+            modalSupplier.textContent =
+                supplier;
+
+        }
+
+
+        if (modalDescription) {
+
+            modalDescription.textContent =
+                description;
+
+        }
+
+
+        /* ---------------------------------------------
+           IMAGES
+        --------------------------------------------- */
+
+        currentImages = [
+            image,
+            image,
+            image
+        ];
+
+        currentImageIndex = 0;
+
+        updateModalImage();
+
+
+        /* ---------------------------------------------
+           QUANTITY
+        --------------------------------------------- */
+
+        currentMaxQuantity =
+            Math.max(
+                1,
+                Math.floor(quantity)
+            );
+
+
+        if (orderQuantity) {
+
+            orderQuantity.value = 1;
+
+            orderQuantity.max =
+                currentMaxQuantity;
+
+        }
+
+
+        /* ---------------------------------------------
+           SHOW MODAL
+        --------------------------------------------- */
+
+        if (modal) {
+
+            modal.classList.add("show");
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       UPDATE MODAL IMAGE
+    ===================================================== */
+
+    function updateModalImage() {
+
+        if (!currentImages.length) {
             return;
         }
 
 
-        modalTitle.textContent =
-            currentMaterial.title;
+        if (modalImage) {
 
-        modalSubtitle.textContent =
-            currentMaterial.subtitle;
+            modalImage.src =
+                currentImages[currentImageIndex];
 
-        modalPrice.textContent =
-            currentMaterial.price;
+            modalImage.alt =
+                currentMaterial.title ||
+                currentMaterial.name ||
+                "Material";
 
-        modalQuantityAvailable.textContent =
-            currentMaterial.available;
-
-        modalType.textContent =
-            currentMaterial.type;
-
-        modalLocation.textContent =
-            currentMaterial.location;
-
-        modalSupplier.textContent =
-            currentMaterial.supplier;
-
-        modalDescription.textContent =
-            currentMaterial.description;
+        }
 
 
-        modalImage.src =
-            currentMaterial.image;
+        if (thumb1) {
 
-        modalImage.alt =
-            currentMaterial.title;
+            thumb1.src =
+                currentImages[0];
 
-
-        thumb1.src =
-            currentMaterial.images[0];
-
-        thumb2.src =
-            currentMaterial.images[1];
-
-        thumb3.src =
-            currentMaterial.images[2];
+        }
 
 
-        currentMaxQuantity =
-            parseInt(
-                currentMaterial.available
-            ) || 500;
+        if (thumb2) {
 
-        orderQuantity.value = 1;
-        orderQuantity.max =
-            currentMaxQuantity;
+            thumb2.src =
+                currentImages[1];
+
+        }
 
 
-        modal.classList.add("show");
+        if (thumb3) {
 
-        document.body.style.overflow =
-            "hidden";
+            thumb3.src =
+                currentImages[2];
+
+        }
+
+
+        document
+            .querySelectorAll(".thumbnail")
+            .forEach(
+                (thumbnail, index) => {
+
+                    thumbnail.classList.toggle(
+                        "active",
+                        index === currentImageIndex
+                    );
+
+                }
+            );
 
     }
 
 
-    /* ================= CLOSE MODAL ================= */
-
-    function closeModal() {
-
-        modal.classList.remove("show");
-
-        document.body.style.overflow =
-            "";
-
-    }
-
-    modalClose.addEventListener(
-        "click",
-        closeModal
-    );
-
-    closeAction.addEventListener(
-        "click",
-        closeModal
-    );
-
-
-    modal.addEventListener("click", event => {
-
-        if (event.target === modal) {
-            closeModal();
-        }
-
-    });
-
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (event.key === "Escape") {
-                closeModal();
-            }
-
-        }
-    );
-
-
-    /* ================= THUMBNAILS ================= */
+    /* =====================================================
+       THUMBNAIL CLICK
+    ===================================================== */
 
     const thumbnails = [
         thumb1,
@@ -411,156 +630,680 @@ document.addEventListener("DOMContentLoaded", () => {
         thumb3
     ];
 
-    thumbnails.forEach((thumbnail, index) => {
 
-        thumbnail.parentElement.addEventListener(
+    thumbnails.forEach(
+        (thumbnail, index) => {
+
+            if (!thumbnail) {
+                return;
+            }
+
+
+            if (!thumbnail.parentElement) {
+                return;
+            }
+
+
+            thumbnail.parentElement.addEventListener(
+                "click",
+                () => {
+
+                    currentImageIndex =
+                        index;
+
+                    updateModalImage();
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       PREVIOUS IMAGE
+    ===================================================== */
+
+    if (prevImage) {
+
+        prevImage.addEventListener(
             "click",
             () => {
 
-                modalImage.src =
-                    currentMaterial.images[index];
+                if (!currentImages.length) {
+                    return;
+                }
 
-                document
-                    .querySelectorAll(".thumbnail")
-                    .forEach(t =>
-                        t.classList.remove("active")
-                    );
 
-                thumbnail.parentElement
-                    .classList.add("active");
+                currentImageIndex--;
+
+
+                if (currentImageIndex < 0) {
+
+                    currentImageIndex =
+                        currentImages.length - 1;
+
+                }
+
+
+                updateModalImage();
 
             }
         );
 
-    });
+    }
 
 
-    /* ================= QUANTITY ================= */
+    /* =====================================================
+       NEXT IMAGE
+    ===================================================== */
 
-    minusBtn.addEventListener("click", () => {
+    if (nextImage) {
 
-        let value =
-            parseInt(orderQuantity.value) || 1;
+        nextImage.addEventListener(
+            "click",
+            () => {
 
-        if (value > 1) {
-            value--;
-        }
-
-        orderQuantity.value =
-            value;
-
-    });
+                if (!currentImages.length) {
+                    return;
+                }
 
 
-    plusBtn.addEventListener("click", () => {
-
-        let value =
-            parseInt(orderQuantity.value) || 1;
-
-        if (value < currentMaxQuantity) {
-            value++;
-        }
-
-        orderQuantity.value =
-            value;
-
-    });
+                currentImageIndex++;
 
 
-    orderQuantity.addEventListener(
-        "input",
-        () => {
+                if (
+                    currentImageIndex >=
+                    currentImages.length
+                ) {
 
-            let value =
-                parseInt(orderQuantity.value) || 1;
+                    currentImageIndex = 0;
 
-            if (value < 1) {
-                value = 1;
+                }
+
+
+                updateModalImage();
+
             }
-
-            if (value > currentMaxQuantity) {
-                value = currentMaxQuantity;
-            }
-
-            orderQuantity.value =
-                value;
-
-        }
-    );
-
-
-    /* ================= ADD TO ORDER ================= */
-
-    addToOrder.addEventListener(
-        "click",
-        () => {
-
-            const quantity =
-                orderQuantity.value;
-
-            showToast(
-                "Added to Order",
-                `${currentMaterial.title} × ${quantity} Ton added successfully.`
-            );
-
-            closeModal();
-
-        }
-    );
-
-
-    function showToast(title, message) {
-
-        toastTitle.textContent =
-            title;
-
-        toastMessage.textContent =
-            message;
-
-        toast.classList.add("show");
-
-        setTimeout(() => {
-            toast.classList.remove("show");
-        }, 3200);
+        );
 
     }
 
 
-    /* ================= SIDEBAR ================= */
+    /* =====================================================
+       CLOSE MODAL
+    ===================================================== */
 
-    menuBtn.addEventListener(
-        "click",
-        () => {
+    function closeModal() {
 
-            sidebar.classList.toggle("open");
+        if (modal) {
 
-            sidebarOverlay.classList.toggle(
-                "show"
-            );
+            modal.classList.remove("show");
+
+        }
+
+        document.body.style.overflow = "";
+
+    }
+
+
+    if (modalClose) {
+
+        modalClose.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
+
+
+    if (closeAction) {
+
+        closeAction.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
+
+
+    if (modal) {
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target === modal
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Escape") {
+
+                closeModal();
+
+            }
 
         }
     );
 
 
-    sidebarOverlay.addEventListener(
-        "click",
-        () => {
+    /* =====================================================
+       QUANTITY - MINUS
+    ===================================================== */
 
-            sidebar.classList.remove("open");
+    if (minusBtn) {
 
-            sidebarOverlay.classList.remove(
-                "show"
+        minusBtn.addEventListener(
+            "click",
+            () => {
+
+                let value =
+                    parseInt(
+                        orderQuantity.value
+                    ) || 1;
+
+
+                if (value > 1) {
+
+                    value--;
+
+                }
+
+
+                orderQuantity.value =
+                    value;
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       QUANTITY - PLUS
+    ===================================================== */
+
+    if (plusBtn) {
+
+        plusBtn.addEventListener(
+            "click",
+            () => {
+
+                let value =
+                    parseInt(
+                        orderQuantity.value
+                    ) || 1;
+
+
+                if (
+                    value <
+                    currentMaxQuantity
+                ) {
+
+                    value++;
+
+                }
+
+
+                orderQuantity.value =
+                    value;
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       QUANTITY INPUT
+    ===================================================== */
+
+    if (orderQuantity) {
+
+        orderQuantity.addEventListener(
+            "input",
+            () => {
+
+                let value =
+                    parseInt(
+                        orderQuantity.value
+                    ) || 1;
+
+
+                if (value < 1) {
+
+                    value = 1;
+
+                }
+
+
+                if (
+                    value >
+                    currentMaxQuantity
+                ) {
+
+                    value =
+                        currentMaxQuantity;
+
+                }
+
+
+                orderQuantity.value =
+                    value;
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       ADD TO ORDER
+    ===================================================== */
+
+    function addToOrder() {
+
+        /*
+           Make sure a material card is selected.
+        */
+
+        if (!currentMaterialCard) {
+
+            showToast(
+                "Order Error",
+                "Material information could not be found."
             );
 
+            return;
+
         }
+
+
+        /*
+           Get the actual MaterialListing ID
+           from the card.
+        */
+
+        const listingId =
+            currentMaterialCard.dataset.listingId;
+
+
+        /*
+           IMPORTANT:
+           Use orderQuantity.
+           quantityValue does NOT exist.
+        */
+
+        const quantity =
+            parseFloat(
+                orderQuantity.value
+            );
+
+
+        if (!listingId) {
+
+            showToast(
+                "Order Error",
+                "Material listing information is missing."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !quantity ||
+            quantity <= 0
+        ) {
+
+            showToast(
+                "Invalid Quantity",
+                "Please select a valid quantity."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            quantity >
+            currentMaxQuantity
+        ) {
+
+            showToast(
+                "Invalid Quantity",
+                `Only ${currentMaxQuantity} ${currentMaterial.unit || "Ton"} is available.`
+            );
+
+            return;
+
+        }
+
+
+        /*
+           Ask customer for delivery address.
+        */
+
+        const deliveryAddress =
+            window.prompt(
+                "Enter your complete delivery address:"
+            );
+
+
+        if (
+            !deliveryAddress ||
+            !deliveryAddress.trim()
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+           Prepare form data.
+        */
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "listing_id",
+            listingId
+        );
+
+
+        formData.append(
+            "quantity",
+            quantity
+        );
+
+
+        formData.append(
+            "delivery_address",
+            deliveryAddress.trim()
+        );
+
+
+        /*
+           Get Django CSRF token.
+        */
+
+        const csrfToken =
+            getCookie("csrftoken");
+
+
+        /*
+           Send order to Django backend.
+        */
+
+        fetch(
+            "/customer/order/create/",
+            {
+                method: "POST",
+
+                headers: {
+                    "X-CSRFToken":
+                        csrfToken
+                },
+
+                body: formData
+            }
+        )
+
+            .then(response => {
+
+                /*
+                   Convert Django JSON response.
+                */
+
+                return response.json();
+
+            })
+
+            .then(data => {
+
+                if (data.success) {
+
+                    showToast(
+                        "Order Placed",
+                        `Order #${data.order_id} has been placed successfully.`
+                    );
+
+
+                    closeModal();
+
+
+                    /*
+                       Go to My Orders
+                       after the toast appears.
+                    */
+
+                    setTimeout(
+                        () => {
+
+                            window.location.href =
+                                "/customer/orders/";
+
+                        },
+                        1200
+                    );
+
+
+                } else {
+
+                    showToast(
+                        "Order Failed",
+                        data.message ||
+                        "Unable to place your order."
+                    );
+
+                }
+
+            })
+
+            .catch(error => {
+
+                console.error(
+                    "Order Error:",
+                    error
+                );
+
+
+                showToast(
+                    "Order Error",
+                    "Something went wrong while placing the order."
+                );
+
+            });
+
+    }
+
+
+    /*
+       IMPORTANT:
+       Connect the Add to Order button
+       to the function above.
+    */
+
+    if (addToOrderButton) {
+
+    addToOrderButton.addEventListener(
+        "click",
+        addToOrder
     );
 
+}
 
-    /* ================= LOGOUT ================= */
 
-    document
-        .getElementById("logoutBtn")
-        .addEventListener(
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    function showToast(
+        title,
+        message
+    ) {
+
+        if (!toast) {
+            return;
+        }
+
+
+        if (toastTitle) {
+
+            toastTitle.textContent =
+                title;
+
+        }
+
+
+        if (toastMessage) {
+
+            toastMessage.textContent =
+                message;
+
+        }
+
+
+        toast.classList.add("show");
+
+
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3200
+        );
+
+    }
+
+
+    /* =====================================================
+       FORMAT CURRENCY
+    ===================================================== */
+
+    function formatCurrency(value) {
+
+        return "₹ " +
+            Number(value).toLocaleString(
+                "en-IN",
+                {
+                    maximumFractionDigits: 0
+                }
+            );
+
+    }
+
+
+    /* =====================================================
+       FORMAT NUMBER
+    ===================================================== */
+
+    function formatNumber(value) {
+
+        return Number(value).toLocaleString(
+            "en-IN",
+            {
+                maximumFractionDigits: 2
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       SIDEBAR
+    ===================================================== */
+
+    if (menuBtn) {
+
+        menuBtn.addEventListener(
+            "click",
+            () => {
+
+                if (sidebar) {
+
+                    sidebar.classList.toggle(
+                        "open"
+                    );
+
+                }
+
+
+                if (sidebarOverlay) {
+
+                    sidebarOverlay.classList.toggle(
+                        "show"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    if (sidebarOverlay) {
+
+        sidebarOverlay.addEventListener(
+            "click",
+            () => {
+
+                if (sidebar) {
+
+                    sidebar.classList.remove(
+                        "open"
+                    );
+
+                }
+
+
+                sidebarOverlay.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       LOGOUT
+    ===================================================== */
+
+    const logoutBtn =
+        document.getElementById(
+            "logoutBtn"
+        );
+
+
+    if (logoutBtn) {
+
+        logoutBtn.addEventListener(
             "click",
             () => {
 
@@ -569,17 +1312,85 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Are you sure you want to logout?"
                     );
 
+
                 if (confirmed) {
+
                     window.location.href =
-                        "/login/";
+                        "/logout/";
+
                 }
 
             }
         );
 
+    }
 
-    /* ================= INITIAL ================= */
+
+    /* =====================================================
+       INITIAL LOAD
+    ===================================================== */
 
     filterMaterials();
 
+
+    console.log(
+        "BuildConnect Customer Materials loaded successfully."
+    );
+
 });
+
+
+/* =========================================================
+   GET DJANGO CSRF COOKIE
+========================================================= */
+
+function getCookie(name) {
+
+    let cookieValue = null;
+
+
+    if (
+        document.cookie &&
+        document.cookie !== ""
+    ) {
+
+        const cookies =
+            document.cookie.split(";");
+
+
+        for (
+            let i = 0;
+            i < cookies.length;
+            i++
+        ) {
+
+            const cookie =
+                cookies[i].trim();
+
+
+            if (
+                cookie.substring(
+                    0,
+                    name.length + 1
+                ) ===
+                (name + "=")
+            ) {
+
+                cookieValue =
+                    decodeURIComponent(
+                        cookie.substring(
+                            name.length + 1
+                        )
+                    );
+
+                break;
+
+            }
+
+        }
+
+    }
+
+
+    return cookieValue;
+}

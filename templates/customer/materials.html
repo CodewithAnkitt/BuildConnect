@@ -169,21 +169,49 @@
 
 
         <select id="categoryFilter">
-            <option value="all">All Categories</option>
-            <option value="coal">Coal</option>
-            <option value="sand">Sand</option>
-            <option value="crushed-stone">Crushed Stone</option>
-            <option value="fly-ash">Fly Ash</option>
-            <option value="soil">Soil</option>
-        </select>
+
+    <option value="all">
+        All Categories
+    </option>
+
+    <option value="coal">
+        Coal
+    </option>
+
+    <option value="sand">
+        Sand
+    </option>
+
+    <option value="crushed-stone">
+        Crushed Stone
+    </option>
+
+    <option value="fly-ash">
+        Fly Ash
+    </option>
+
+    <option value="soil">
+        Soil
+    </option>
+
+</select> 
 
 
         <select id="locationFilter">
-            <option value="all">All Locations</option>
-            <option value="Ranchi">Ranchi, Jharkhand</option>
-            <option value="Dhanbad">Dhanbad, Jharkhand</option>
-            <option value="Jamshedpur">Jamshedpur, Jharkhand</option>
-        </select>
+
+    <option value="all">
+        All Locations
+    </option>
+
+    {% for location in locations %}
+
+    <option value="{{ location }}">
+        {{ location }}
+    </option>
+
+    {% endfor %}
+
+</select>
 
 
         <select id="sortFilter">
@@ -196,226 +224,108 @@
     </section>
 
 
-    <!-- ================= MATERIAL GRID ================= -->
     <section class="materials-grid" id="materialsGrid">
 
+    {% for item in materials_data %}
 
-        <!-- COAL -->
-        <article
-            class="material-card"
-            data-name="Coal"
-            data-category="coal"
-            data-location="Dhanbad"
-            data-price="1250"
-            data-material="coal"
-        >
+    <article
+    class="material-card"
+    data-listing-id="{{ item.listing.id }}"
+    data-name="{{ item.name }}"
+    data-category="{{ item.slug }}"
+    data-location="{{ item.location }}"
+    data-price="{{ item.price }}"
+    data-material="{{ item.name }}"
+    data-title="{{ item.name }}"
+    data-description="{{ item.description }}"
+    data-quantity="{{ item.quantity }}"
+    data-unit="{{ item.unit }}"
+    data-supplier="{{ item.supplier }}"
+    data-image="{{ item.image }}"
+>
 
-            <div class="material-image">
-                <img src="{% static 'images/coal.png' %}" alt="Coal">
-                <span class="stock-badge">● In Stock</span>
-            </div>
+        <div class="material-image">
 
-            <div class="material-info">
+            <img
+                src="{{ item.image }}"
+                alt="{{ item.name }}"
+            >
 
-                <h2>Coal</h2>
+            <span class="stock-badge">
+                ● In Stock
+            </span>
 
-                <p class="material-description">
-                    Quality coal suitable for industrial and construction requirements.
-                </p>
-
-                <div class="price">
-                    ₹ 1,250 <span>/ Ton</span>
-                </div>
-
-                <div class="location">
-                    <span>⌖</span>
-                    Dhanbad, Jharkhand
-                </div>
-
-                <button class="details-btn">
-                    View Details <span>→</span>
-                </button>
-
-            </div>
-
-        </article>
+        </div>
 
 
-        <!-- SAND -->
-        <article
-            class="material-card"
-            data-name="Sand"
-            data-category="sand"
-            data-location="Ranchi"
-            data-price="850"
-            data-material="sand"
-        >
+        <div class="material-info">
 
-            <div class="material-image">
-                <img src="{% static 'images/sand.png' %}" alt="Construction Sand">
-                <span class="stock-badge">● In Stock</span>
-            </div>
+            <h2>
+                {{ item.name }}
+            </h2>
 
-            <div class="material-info">
 
-                <h2>Construction Sand</h2>
+            <p class="material-description">
 
-                <p class="material-description">
-                    High-quality sand for residential, commercial and infrastructure projects.
-                </p>
+                {{ item.description|default:"Quality construction material from a trusted seller." }}
 
-                <div class="price">
-                    ₹ 850 <span>/ Ton</span>
-                </div>
+            </p>
 
-                <div class="location">
-                    <span>⌖</span>
-                    Ranchi, Jharkhand
-                </div>
 
-                <button class="details-btn">
-                    View Details <span>→</span>
-                </button>
+            <div class="price">
+
+                ₹ {{ item.listing.price_per_unit|floatformat:0 }}
+
+                <span>
+                    / {{ item.unit }}
+                </span>
 
             </div>
 
-        </article>
 
+            <div class="location">
 
-        <!-- CRUSHED STONE -->
-        <article
-            class="material-card"
-            data-name="Crushed Stone"
-            data-category="crushed-stone"
-            data-location="Jamshedpur"
-            data-price="1100"
-            data-material="crushed-stone"
-        >
+                <span>⌖</span>
 
-            <div class="material-image">
-                <img src="{% static 'images/crushed-stone.png' %}" alt="Crushed Stone">
-                <span class="stock-badge">● In Stock</span>
-            </div>
-
-            <div class="material-info">
-
-                <h2>Crushed Stone</h2>
-
-                <p class="material-description">
-                    Strong and durable crushed stone for concrete and road construction.
-                </p>
-
-                <div class="price">
-                    ₹ 1,100 <span>/ Ton</span>
-                </div>
-
-                <div class="location">
-                    <span>⌖</span>
-                    Jamshedpur, Jharkhand
-                </div>
-
-                <button class="details-btn">
-                    View Details <span>→</span>
-                </button>
+                {{ item.listing.location }}
 
             </div>
 
-        </article>
 
+            <button
+                type="button"
+                class="details-btn"
+            >
 
-        <!-- FLY ASH -->
-        <article
-            class="material-card"
-            data-name="Fly Ash"
-            data-category="fly-ash"
-            data-location="Dhanbad"
-            data-price="620"
-            data-material="fly-ash"
-        >
+                View Details
 
-            <div class="material-image">
-                <img src="{% static 'images/fly-ash.png' %}" alt="Fly Ash">
-                <span class="stock-badge">● In Stock</span>
-            </div>
+                <span>→</span>
 
-            <div class="material-info">
+            </button>
 
-                <h2>Fly Ash</h2>
+        </div>
 
-                <p class="material-description">
-                    High-quality fly ash from trusted suppliers for construction applications.
-                </p>
+    </article>
 
-                <div class="price">
-                    ₹ 620 <span>/ Ton</span>
-                </div>
+    {% empty %}
 
-                <div class="location">
-                    <span>⌖</span>
-                    Dhanbad, Jharkhand
-                </div>
+    <div class="no-results" style="display: block;">
 
-                <button class="details-btn">
-                    View Details <span>→</span>
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- SOIL -->
-        <article
-            class="material-card"
-            data-name="Soil"
-            data-category="soil"
-            data-location="Ranchi"
-            data-price="300"
-            data-material="soil"
-        >
-
-            <div class="material-image">
-                <img src="{% static 'images/soil.png' %}" alt="Construction Soil">
-                <span class="stock-badge">● In Stock</span>
-            </div>
-
-            <div class="material-info">
-
-                <h2>Construction Soil</h2>
-
-                <p class="material-description">
-                    Suitable soil for construction, filling and site development work.
-                </p>
-
-                <div class="price">
-                    ₹ 300 <span>/ Ton</span>
-                </div>
-
-                <div class="location">
-                    <span>⌖</span>
-                    Ranchi, Jharkhand
-                </div>
-
-                <button class="details-btn">
-                    View Details <span>→</span>
-                </button>
-
-            </div>
-
-        </article>
-
-
-    </section>
-
-
-    <div class="no-results" id="noResults">
         <div>⌕</div>
-        <h3>No materials found</h3>
-        <p>Try changing your search or filters.</p>
+
+        <h3>
+            No materials available
+        </h3>
+
+        <p>
+            There are currently no active materials available from sellers.
+        </p>
+
     </div>
 
-</main>
+    {% endfor %}
 
+</section>
 
 <!-- ================= DETAILS MODAL ================= -->
 <div class="modal-overlay" id="materialModal">
@@ -469,7 +379,7 @@
 
             <div class="modal-price-box">
 
-                <strong id="modalPrice">₹ 850</strong>
+               <strong id="modalPrice">₹ 0</strong>
 
                 <span>/ Ton</span>
 
@@ -482,7 +392,7 @@
 
                 <div class="detail-row">
                     <span class="detail-label">♙ &nbsp; Available Quantity</span>
-                    <strong id="modalQuantityAvailable">500 Ton</strong>
+                    <strong id="modalQuantityAvailable">0 Ton</strong>
                 </div>
 
                 <div class="detail-row">
