@@ -1,886 +1,1225 @@
-/* =========================================================
-   BUILD CONNECT
-   LOGIN / ROLE SELECTION / REGISTER
-========================================================= */
+/* ============================================================
+   BUILDCONNECT LOGIN.JS
+   Final version for current login.html
+============================================================ */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    /* =====================================================
-       SCREEN ELEMENTS
-    ====================================================== */
+    /* ========================================================
+       ROLE / SCREEN ELEMENTS
+    ======================================================== */
 
-    const roleScreen = document.getElementById("roleScreen");
-    const loginScreen = document.getElementById("loginScreen");
-    const registerScreen = document.getElementById("registerScreen");
+    const roleScreen =
+        document.getElementById("roleScreen");
+
+    const loginScreen =
+        document.getElementById("loginScreen");
+
+    const registerScreen =
+        document.getElementById("registerScreen");
 
 
-    /* =====================================================
-       ROLE ELEMENTS
-    ====================================================== */
+    const roleCards =
+        document.querySelectorAll(".role-card");
 
-    const roleCards = document.querySelectorAll(".role-card");
+
+    const changeRoleFromLogin =
+        document.getElementById("changeRoleFromLogin");
+
+    const changeRoleFromRegister =
+        document.getElementById("changeRoleFromRegister");
+
+
+    /* ========================================================
+       LOGIN ELEMENTS
+    ======================================================== */
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    const loginPhone =
+        document.getElementById("loginPhone");
+
+    const loginPassword =
+        document.getElementById("loginPassword");
+
+    const loginRole =
+        document.getElementById("loginRole");
+
+    const loginBtn =
+        document.getElementById("loginBtn");
 
     const loginRoleTitle =
         document.getElementById("loginRoleTitle");
 
+    const loginRoleBadgeText =
+        document.getElementById("loginRoleBadgeText");
+
+    const loginRoleIcon =
+        document.getElementById("loginRoleIcon");
+
+
+    /* ========================================================
+       REMEMBER ME
+    ======================================================== */
+
+    const rememberMe =
+        document.getElementById("bcRememberMe");
+
+
+    /* ========================================================
+       REGISTER ELEMENTS
+    ======================================================== */
+
+    const registerForm =
+        document.getElementById("registerForm");
+
+    const registerRole =
+        document.getElementById("registerRole");
+
     const registerRoleTitle =
         document.getElementById("registerRoleTitle");
 
-    const loginRoleBadge =
-        document.getElementById("loginRoleBadge");
+    const registerRoleBadgeText =
+        document.getElementById(
+            "registerRoleBadgeText"
+        );
 
-    const registerRoleBadge =
-        document.getElementById("registerRoleBadge");
+    const registerRoleIcon =
+        document.getElementById(
+            "registerRoleIcon"
+        );
+
+
+    const firstName =
+        document.getElementById("firstName");
+
+    const lastName =
+        document.getElementById("lastName");
+
+    const registerPhone =
+        document.getElementById("registerPhone");
+
+    const sameWhatsapp =
+        document.getElementById("sameWhatsapp");
+
+    const whatsappNumber =
+        document.getElementById("whatsappNumber");
+
+    const registerEmail =
+        document.getElementById("registerEmail");
+
+    const registerPassword =
+        document.getElementById("registerPassword");
+
+    const confirmPassword =
+        document.getElementById("confirmPassword");
+
+    const termsCheck =
+        document.getElementById("termsCheck");
+
+    const createAccountBtn =
+        document.getElementById(
+            "createAccountBtn"
+        );
+
+
+    /* ========================================================
+       OTHER BUTTONS
+    ======================================================== */
+
+    const goRegister =
+        document.getElementById("goRegister");
+
+    const goLogin =
+        document.getElementById("goLogin");
+
+
+    /* ========================================================
+       CURRENT ROLE
+    ======================================================== */
 
     let selectedRole = "";
 
 
-    /* =====================================================
+    /* ========================================================
        ROLE ICONS
-    ====================================================== */
+    ======================================================== */
 
     const roleIcons = {
 
-        "Seller": "bi-shop",
+        "Seller":
+            "bi-shop",
 
-        "Customer": "bi-cart3",
+        "Customer":
+            "bi-cart3",
 
-        "Driver": "bi-person-fill",
+        "Driver":
+            "bi-person-fill",
 
-        "Vehicle Owner": "bi-truck-front-fill"
+        "Vehicle Owner":
+            "bi-truck-front-fill"
 
     };
 
 
-    /* =====================================================
-       CHANGE ROLE
-    ====================================================== */
+    /* ========================================================
+       SCREEN FUNCTIONS
+    ======================================================== */
 
     function showRoleScreen() {
 
-        roleScreen.classList.add("active");
+        if (roleScreen) {
 
-        loginScreen.classList.remove("active");
+            roleScreen.classList.add("active");
 
-        registerScreen.classList.remove("active");
+        }
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+        if (loginScreen) {
+
+            loginScreen.classList.remove("active");
+
+        }
+
+        if (registerScreen) {
+
+            registerScreen.classList.remove("active");
+
+        }
+
     }
 
 
-    /* =====================================================
-       SHOW LOGIN
-    ====================================================== */
+    function showLoginScreen() {
 
-    function showLogin() {
+        if (roleScreen) {
 
-        roleScreen.classList.remove("active");
+            roleScreen.classList.remove("active");
 
-        registerScreen.classList.remove("active");
+        }
 
-        loginScreen.classList.add("active");
+        if (loginScreen) {
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+            loginScreen.classList.add("active");
 
-        resetLoginForm();
+        }
+
+        if (registerScreen) {
+
+            registerScreen.classList.remove("active");
+
+        }
+
+        loadRememberedPhone();
+
     }
 
 
-    /* =====================================================
-       SHOW REGISTER
-    ====================================================== */
+    function showRegisterScreen() {
 
-    function showRegister() {
+        if (roleScreen) {
 
-        roleScreen.classList.remove("active");
+            roleScreen.classList.remove("active");
 
-        loginScreen.classList.remove("active");
+        }
 
-        registerScreen.classList.add("active");
+        if (loginScreen) {
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+            loginScreen.classList.remove("active");
 
-        resetRegisterForm();
+        }
+
+        if (registerScreen) {
+
+            registerScreen.classList.add("active");
+
+        }
+
     }
 
 
-    /* =====================================================
+    /* ========================================================
        SET ROLE
-    ====================================================== */
+    ======================================================== */
 
     function setRole(role) {
 
         selectedRole = role;
 
-        loginRoleTitle.textContent = role;
 
-        registerRoleTitle.textContent = role;
+        /* Login hidden role */
 
-        const iconClass =
-            roleIcons[role] || "bi-person-fill";
+        if (loginRole) {
 
+            loginRole.value = role;
 
-        loginRoleBadge.innerHTML = `
-            <i class="bi ${iconClass}"></i>
-            <span>${role}</span>
-        `;
+        }
 
 
-        registerRoleBadge.innerHTML = `
-            <i class="bi ${iconClass}"></i>
-            <span>${role}</span>
-        `;
+        /* Register hidden role */
+
+        if (registerRole) {
+
+            registerRole.value = role;
+
+        }
+
+
+        /* Login heading */
+
+        if (loginRoleTitle) {
+
+            loginRoleTitle.textContent =
+                role;
+
+        }
+
+
+        /* Login badge */
+
+        if (loginRoleBadgeText) {
+
+            loginRoleBadgeText.textContent =
+                role;
+
+        }
+
+
+        /* Register heading */
+
+        if (registerRoleTitle) {
+
+            registerRoleTitle.textContent =
+                role;
+
+        }
+
+
+        /* Register badge */
+
+        if (registerRoleBadgeText) {
+
+            registerRoleBadgeText.textContent =
+                role;
+
+        }
+
+
+        /* Login icon */
+
+        if (loginRoleIcon) {
+
+            loginRoleIcon.className =
+                "bi " +
+                (
+                    roleIcons[role] ||
+                    "bi-person-fill"
+                );
+
+        }
+
+
+        /* Register icon */
+
+        if (registerRoleIcon) {
+
+            registerRoleIcon.className =
+                "bi " +
+                (
+                    roleIcons[role] ||
+                    "bi-person-fill"
+                );
+
+        }
 
     }
 
 
-    /* =====================================================
+    /* ========================================================
        ROLE CARD CLICK
-    ====================================================== */
+    ======================================================== */
 
-    roleCards.forEach(card => {
+    roleCards.forEach(function (card) {
 
-        card.addEventListener("click", () => {
+        card.addEventListener(
+            "click",
+            function () {
 
-            const role =
-                card.getAttribute("data-role");
-
-            setRole(role);
-
-            showLogin();
-
-        });
-
-    });
+                const role =
+                    card.getAttribute(
+                        "data-role"
+                    );
 
 
-    /* =====================================================
-       CHANGE ROLE BUTTONS
-    ====================================================== */
-
-    document
-        .getElementById("changeRoleFromLogin")
-        .addEventListener("click", showRoleScreen);
-
-
-    document
-        .getElementById("changeRoleFromRegister")
-        .addEventListener("click", showRoleScreen);
-
-
-    /* =====================================================
-       LOGIN -> REGISTER
-    ====================================================== */
-
-    document
-        .getElementById("goRegister")
-        .addEventListener("click", showRegister);
-
-
-    /* =====================================================
-       REGISTER -> LOGIN
-    ====================================================== */
-
-    document
-        .getElementById("goLogin")
-        .addEventListener("click", showLogin);
-
-
-    /* =====================================================
-       PHONE NUMBER ONLY
-    ====================================================== */
-
-    const phoneInputs =
-        document.querySelectorAll(
-            'input[type="tel"]'
-        );
-
-
-    phoneInputs.forEach(input => {
-
-        input.addEventListener("input", () => {
-
-            input.value =
-                input.value.replace(/\D/g, "");
-
-            if (input.value.length > 10) {
-
-                input.value =
-                    input.value.substring(0, 10);
-
-            }
-
-        });
-
-    });
-
-
-    /* =====================================================
-       LOGIN WHATSAPP CHECKBOX
-    ====================================================== */
-
-    const loginWhatsappCheck =
-        document.getElementById(
-            "loginWhatsappCheck"
-        );
-
-    loginWhatsappCheck.addEventListener(
-        "change",
-        () => {
-
-            const phone =
-                document.getElementById(
-                    "loginPhone"
-                ).value.trim();
-
-            if (
-                loginWhatsappCheck.checked &&
-                phone.length !== 10
-            ) {
-
-                loginWhatsappCheck.checked = false;
-
-                showMessage(
-                    "Enter a valid 10-digit mobile number first.",
-                    "error"
-                );
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       REGISTER WHATSAPP
-    ====================================================== */
-
-    const sameWhatsapp =
-        document.getElementById(
-            "sameWhatsapp"
-        );
-
-    const whatsappBox =
-        document.getElementById(
-            "whatsappBox"
-        );
-
-    const registerPhone =
-        document.getElementById(
-            "registerPhone"
-        );
-
-    const whatsappNumber =
-        document.getElementById(
-            "whatsappNumber"
-        );
-
-
-    sameWhatsapp.addEventListener(
-        "change",
-        () => {
-
-            if (sameWhatsapp.checked) {
-
-                const phone =
-                    registerPhone.value.trim();
-
-                if (phone.length !== 10) {
-
-                    sameWhatsapp.checked = false;
-
-                    whatsappBox.classList.add("show");
-
-                    whatsappNumber.focus();
-
+                if (!role) {
                     return;
                 }
 
-                whatsappNumber.value = phone;
 
-                whatsappBox.classList.remove("show");
+                setRole(role);
 
-            } else {
-
-                whatsappNumber.value = "";
-
-                whatsappBox.classList.add("show");
-
-                whatsappNumber.focus();
+                showLoginScreen();
 
             }
+        );
 
-        }
-    );
+    });
 
 
-    registerPhone.addEventListener(
-        "input",
-        () => {
+    /* ========================================================
+       CHANGE ROLE
+    ======================================================== */
 
-            if (sameWhatsapp.checked) {
+    if (changeRoleFromLogin) {
 
-                whatsappNumber.value =
-                    registerPhone.value;
+        changeRoleFromLogin.addEventListener(
+            "click",
+            function () {
+
+                showRoleScreen();
 
             }
+        );
 
-        }
-    );
-
-
-    /* =====================================================
-       INITIAL WHATSAPP BOX
-    ====================================================== */
-
-    whatsappBox.classList.remove("show");
-
-
-    /* =====================================================
-   PASSWORD LOGIN
-   ====================================================== */
-
-const loginBtn = document.getElementById("loginBtn");
-
-const loginPassword = document.getElementById("loginPassword");
-
-const loginPasswordError =
-    document.getElementById("loginPasswordError");
-
-
-loginBtn.addEventListener("click", () => {
-
-    const phone = loginPhone.value.trim();
-    const password = loginPassword.value;
-
-    // ---------------------------------------------
-    // Validate phone number
-    // ---------------------------------------------
-
-    if (phone.length !== 10) {
-
-        loginPhoneError.textContent =
-            "Please enter a valid 10-digit mobile number.";
-
-        loginPhone.focus();
-
-        return;
     }
 
-    loginPhoneError.textContent = "";
 
+    if (changeRoleFromRegister) {
 
-    // ---------------------------------------------
-    // Validate password
-    // ---------------------------------------------
+        changeRoleFromRegister.addEventListener(
+            "click",
+            function () {
 
-    if (!password) {
+                showRoleScreen();
 
-        loginPasswordError.textContent =
-            "Please enter your password.";
+            }
+        );
 
-        loginPassword.focus();
-
-        return;
     }
 
-    loginPasswordError.textContent = "";
+
+    /* ========================================================
+       LOGIN → REGISTER
+    ======================================================== */
+
+    if (goRegister) {
+
+        goRegister.addEventListener(
+            "click",
+            function () {
+
+                showRegisterScreen();
+
+            }
+        );
+
+    }
 
 
-    // ---------------------------------------------
-    // Send login request to Django
-    // ---------------------------------------------
+    /* ========================================================
+       REGISTER → LOGIN
+    ======================================================== */
 
-    const formData = new FormData();
+    if (goLogin) {
 
-    formData.append(
-        "phone_number",
-        phone
-    );
+        goLogin.addEventListener(
+            "click",
+            function () {
 
-    formData.append(
-        "password",
-        password
-    );
+                showLoginScreen();
 
-    formData.append(
-        "role",
-        selectedRole
-    );
+            }
+        );
+
+    }
 
 
-    fetch("/login/", {
+    /* ========================================================
+       PASSWORD SHOW / HIDE
+    ======================================================== */
 
-        method: "POST",
+    document
+        .querySelectorAll(".password-toggle")
+        .forEach(function (button) {
 
-        body: formData,
+            button.addEventListener(
+                "click",
+                function () {
 
-        headers: {
-            "X-CSRFToken":
-                document.querySelector(
-                    "[name=csrfmiddlewaretoken]"
-                )?.value || ""
-        }
+                    const targetId =
+                        button.getAttribute(
+                            "data-target"
+                        );
 
-    })
 
-    .then(response => {
+                    const input =
+                        document.getElementById(
+                            targetId
+                        );
 
-        if (response.redirected) {
 
-            window.location.href =
-                response.url;
+                    const icon =
+                        button.querySelector(
+                            "i"
+                        );
 
-            return null;
-        }
 
-        return response.text();
+                    if (!input) {
+                        return;
+                    }
 
-    })
 
-    .then(data => {
+                    if (
+                        input.type ===
+                        "password"
+                    ) {
 
-        if (data === null) {
+                        input.type =
+                            "text";
+
+
+                        if (icon) {
+
+                            icon.className =
+                                "bi bi-eye-slash";
+
+                        }
+
+                    } else {
+
+                        input.type =
+                            "password";
+
+
+                        if (icon) {
+
+                            icon.className =
+                                "bi bi-eye";
+
+                        }
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    /* ========================================================
+       PHONE NUMBER - ONLY DIGITS
+    ======================================================== */
+
+    function setupPhoneInput(input) {
+
+        if (!input) {
             return;
         }
 
-        showMessage(
-            "Invalid phone number, password, or role.",
-            "error"
-        );
 
-    })
+        input.addEventListener(
+            "input",
+            function () {
 
-    .catch(error => {
-
-        console.error(
-            "Login Error:",
-            error
-        );
-
-        showMessage(
-            "Something went wrong. Please try again.",
-            "error"
-        );
-
-    });
-
-});
-
-    /* =====================================================
-       PASSWORD SHOW / HIDE
-    ====================================================== */
-
-    const passwordToggles =
-        document.querySelectorAll(
-            ".password-toggle"
-        );
-
-
-    passwordToggles.forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const targetId =
-                    button.getAttribute(
-                        "data-target"
+                this.value =
+                    this.value.replace(
+                        /\D/g,
+                        ""
                     );
-
-                const input =
-                    document.getElementById(
-                        targetId
-                    );
-
-                const icon =
-                    button.querySelector("i");
 
 
                 if (
-                    input.type === "password"
+                    this.value.length > 10
                 ) {
 
-                    input.type = "text";
-
-                    icon.classList.remove(
-                        "bi-eye"
-                    );
-
-                    icon.classList.add(
-                        "bi-eye-slash"
-                    );
-
-                } else {
-
-                    input.type = "password";
-
-                    icon.classList.remove(
-                        "bi-eye-slash"
-                    );
-
-                    icon.classList.add(
-                        "bi-eye"
-                    );
+                    this.value =
+                        this.value.substring(
+                            0,
+                            10
+                        );
 
                 }
 
             }
         );
 
-    });
-
-
-    /* =====================================================
-       CREATE ACCOUNT
-    ====================================================== */
-
-    document
-        .getElementById("createAccountBtn")
-        .addEventListener(
-            "click",
-            () => {
-
-                const firstName =
-                    document
-                        .getElementById(
-                            "firstName"
-                        )
-                        .value.trim();
-
-
-                const lastName =
-                    document
-                        .getElementById(
-                            "lastName"
-                        )
-                        .value.trim();
-
-
-                const phone =
-                    registerPhone
-                        .value.trim();
-
-
-                const whatsapp =
-                    whatsappNumber
-                        .value.trim();
-
-
-                const email =
-                    document
-                        .getElementById(
-                            "registerEmail"
-                        )
-                        .value.trim();
-
-
-                const password =
-                    document
-                        .getElementById(
-                            "registerPassword"
-                        )
-                        .value;
-
-
-                const confirmPassword =
-                    document
-                        .getElementById(
-                            "confirmPassword"
-                        )
-                        .value;
-
-
-                const terms =
-                    document
-                        .getElementById(
-                            "termsCheck"
-                        )
-                        .checked;
-
-
-                if (!firstName || !lastName) {
-
-                    showMessage(
-                        "Please enter your first and last name.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                if (phone.length !== 10) {
-
-                    showMessage(
-                        "Please enter a valid 10-digit mobile number.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                if (
-                    whatsapp.length !== 10
-                ) {
-
-                    showMessage(
-                        "Please enter a valid 10-digit WhatsApp number.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                if (
-                    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-                ) {
-
-                    showMessage(
-                        "Please enter a valid email address.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                if (password.length < 8) {
-
-                    showMessage(
-                        "Password must contain at least 8 characters.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                if (
-                    password !==
-                    confirmPassword
-                ) {
-
-                    showMessage(
-                        "Passwords do not match.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                if (!terms) {
-
-                    showMessage(
-                        "Please accept the Terms & Conditions.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                
-                const formData = new FormData();
-
-formData.append("first_name", firstName);
-formData.append("last_name", lastName);
-formData.append("phone_number", phone);
-formData.append("whatsapp_number", whatsapp);
-formData.append("email", email);
-formData.append("password", password);
-formData.append("role", selectedRole);
-
-fetch("/signup/", {
-    method: "POST",
-    body: formData,
-    headers: {
-        "X-CSRFToken": document.querySelector(
-            "[name=csrfmiddlewaretoken]"
-        )?.value || ""
-    }
-})
-.then(response => response.json())
-.then(data => {
-
-    if (data.success) {
-        showMessage(
-            "Account created successfully. Please login.",
-            "success"
-        );
-
-        setTimeout(() => {
-            showLogin();
-        }, 1500);
-
-    } else {
-        showMessage(
-            data.message || "Unable to create account.",
-            "error"
-        );
-    }
-
-})
-.catch(error => {
-
-    console.error("Signup Error:", error);
-
-    showMessage(
-        "Something went wrong. Please try again.",
-        "error"
-    );
-
-});
-
-            }
-        );
-
-
-    /* =====================================================
-       RESET LOGIN
-    ====================================================== */
-
-    function resetLoginForm() {
-
-    loginPhone.value = "";
-
-    loginPhoneError.textContent = "";
-
-    loginPassword.value = "";
-
-    loginPasswordError.textContent = "";
-
-}
-
-
-    /* =====================================================
-       RESET REGISTER
-    ====================================================== */
-
-    function resetRegisterForm() {
-
-        document
-            .getElementById("firstName")
-            .value = "";
-
-        document
-            .getElementById("lastName")
-            .value = "";
-
-        registerPhone.value = "";
-
-        whatsappNumber.value = "";
-
-        document
-            .getElementById("registerEmail")
-            .value = "";
-
-        document
-            .getElementById("registerPassword")
-            .value = "";
-
-        document
-            .getElementById("confirmPassword")
-            .value = "";
-
-        document
-            .getElementById("termsCheck")
-            .checked = false;
-
-        sameWhatsapp.checked = false;
-
-        whatsappBox.classList.remove("show");
-
     }
 
 
-    /* =====================================================
-       MESSAGE TOAST
-    ====================================================== */
+    setupPhoneInput(loginPhone);
 
-    function showMessage(message, type) {
+    setupPhoneInput(registerPhone);
 
-        const oldToast =
-            document.querySelector(
-                ".auth-toast"
-            );
+    setupPhoneInput(whatsappNumber);
 
-        if (oldToast) {
-            oldToast.remove();
+
+    /* ========================================================
+       REMEMBER ME - LOAD PHONE
+    ======================================================== */
+
+    function loadRememberedPhone() {
+
+        if (!loginPhone) {
+            return;
         }
 
 
-        const toast =
-            document.createElement("div");
-
-        toast.className =
-            `auth-toast ${type}`;
-
-
-        toast.innerHTML = `
-            <i class="bi ${
-                type === "success"
-                    ? "bi-check-circle-fill"
-                    : "bi-exclamation-circle-fill"
-            }"></i>
-
-            <span>${message}</span>
-        `;
-
-
-        document.body.appendChild(toast);
-
-
-        setTimeout(() => {
-
-            toast.classList.add(
-                "hide"
+        const savedPhone =
+            localStorage.getItem(
+                "buildconnect_login_phone"
             );
 
-            setTimeout(() => {
-                toast.remove();
-            }, 300);
 
-        }, 3000);
+        if (savedPhone) {
+
+            loginPhone.value =
+                savedPhone;
+
+
+            if (rememberMe) {
+
+                rememberMe.checked =
+                    true;
+
+            }
+
+        }
 
     }
 
 
-    /* =====================================================
-       TERMS BUTTON
-    ====================================================== */
+    /* ========================================================
+       REMEMBER ME - CHECKBOX
+    ======================================================== */
 
-    const termsButton =
-        document.querySelector(
-            ".terms-link"
-        );
+    if (rememberMe) {
 
-    if (termsButton) {
+        rememberMe.addEventListener(
+            "change",
+            function () {
 
-        termsButton.addEventListener(
-            "click",
-            () => {
+                if (this.checked) {
 
-                showMessage(
-                    "Terms & Conditions will be available here.",
-                    "success"
-                );
+                    if (
+                        loginPhone &&
+                        loginPhone.value.trim()
+                    ) {
+
+                        localStorage.setItem(
+                            "buildconnect_login_phone",
+                            loginPhone.value.trim()
+                        );
+
+                    }
+
+                } else {
+
+                    localStorage.removeItem(
+                        "buildconnect_login_phone"
+                    );
+
+                }
 
             }
         );
 
     }
+
+
+    /* ========================================================
+       REMEMBER ME - PHONE INPUT
+    ======================================================== */
+
+    if (loginPhone) {
+
+        loginPhone.addEventListener(
+            "input",
+            function () {
+
+                if (
+                    rememberMe &&
+                    rememberMe.checked
+                ) {
+
+                    localStorage.setItem(
+                        "buildconnect_login_phone",
+                        this.value.trim()
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* ========================================================
+       SAME PHONE AS WHATSAPP
+    ======================================================== */
+
+    if (sameWhatsapp) {
+
+        sameWhatsapp.addEventListener(
+            "change",
+            function () {
+
+                if (!registerPhone) {
+                    return;
+                }
+
+
+                if (this.checked) {
+
+                    if (whatsappNumber) {
+
+                        whatsappNumber.value =
+                            registerPhone.value;
+
+                        whatsappNumber.readOnly =
+                            true;
+
+                    }
+
+                } else {
+
+                    if (whatsappNumber) {
+
+                        whatsappNumber.readOnly =
+                            false;
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+
+    if (registerPhone) {
+
+        registerPhone.addEventListener(
+            "input",
+            function () {
+
+                if (
+                    sameWhatsapp &&
+                    sameWhatsapp.checked &&
+                    whatsappNumber
+                ) {
+
+                    whatsappNumber.value =
+                        this.value;
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* ========================================================
+       LOGIN VALIDATION
+    ======================================================== */
+
+    function validateLogin() {
+
+        if (!selectedRole) {
+
+            alert(
+                "Please select your role first."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !loginPhone ||
+            !/^[0-9]{10}$/.test(
+                loginPhone.value.trim()
+            )
+        ) {
+
+            const error =
+                document.getElementById(
+                    "loginPhoneError"
+                );
+
+
+            if (error) {
+
+                error.textContent =
+                    "Please enter a valid 10-digit mobile number.";
+
+            }
+
+            return false;
+
+        }
+
+
+        const phoneError =
+            document.getElementById(
+                "loginPhoneError"
+            );
+
+
+        if (phoneError) {
+
+            phoneError.textContent = "";
+
+        }
+
+
+        if (
+            !loginPassword ||
+            !loginPassword.value
+        ) {
+
+            const error =
+                document.getElementById(
+                    "loginPasswordError"
+                );
+
+
+            if (error) {
+
+                error.textContent =
+                    "Please enter your password.";
+
+            }
+
+            return false;
+
+        }
+
+
+        const passwordError =
+            document.getElementById(
+                "loginPasswordError"
+            );
+
+
+        if (passwordError) {
+
+            passwordError.textContent = "";
+
+        }
+
+
+        return true;
+
+    }
+
+
+    /* ========================================================
+       REAL DJANGO LOGIN
+    ======================================================== */
+
+    if (loginForm) {
+
+        loginForm.addEventListener(
+            "submit",
+            function (event) {
+
+                if (!validateLogin()) {
+
+                    event.preventDefault();
+
+                    return;
+
+                }
+
+
+                /*
+                   Make sure the selected role is sent
+                   to Django.
+                */
+
+                if (loginRole) {
+
+                    loginRole.value =
+                        selectedRole;
+
+                }
+
+
+                /*
+                   Remember phone number.
+                */
+
+                if (
+                    rememberMe &&
+                    rememberMe.checked &&
+                    loginPhone
+                ) {
+
+                    localStorage.setItem(
+                        "buildconnect_login_phone",
+                        loginPhone.value.trim()
+                    );
+
+                }
+
+
+                /*
+                   If Remember Me is unchecked,
+                   remove saved phone.
+                */
+
+                if (
+                    rememberMe &&
+                    !rememberMe.checked
+                ) {
+
+                    localStorage.removeItem(
+                        "buildconnect_login_phone"
+                    );
+
+                }
+
+
+                /*
+                   Allow normal Django form submission.
+
+                   DO NOT use fetch here.
+                   Django will process:
+                   phone_number
+                   password
+                   role
+                   remember_me
+                   csrfmiddlewaretoken
+                */
+
+                if (loginBtn) {
+
+                    loginBtn.disabled =
+                        true;
+
+
+                    const buttonText =
+                        loginBtn.querySelector(
+                            "span"
+                        );
+
+
+                    if (buttonText) {
+
+                        buttonText.innerHTML =
+                            '<i class="bi bi-hourglass-split"></i> Logging in...';
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* ========================================================
+       REGISTRATION VALIDATION
+    ======================================================== */
+
+    function validateRegistration() {
+
+        if (!selectedRole) {
+
+            alert(
+                "Please select your role first."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !firstName ||
+            !firstName.value.trim()
+        ) {
+
+            alert(
+                "Please enter your first name."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !lastName ||
+            !lastName.value.trim()
+        ) {
+
+            alert(
+                "Please enter your last name."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !registerPhone ||
+            !/^[0-9]{10}$/.test(
+                registerPhone.value.trim()
+            )
+        ) {
+
+            alert(
+                "Please enter a valid 10-digit mobile number."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !whatsappNumber ||
+            !/^[0-9]{10}$/.test(
+                whatsappNumber.value.trim()
+            )
+        ) {
+
+            alert(
+                "Please enter a valid 10-digit WhatsApp number."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !registerEmail ||
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                registerEmail.value.trim()
+            )
+        ) {
+
+            alert(
+                "Please enter a valid email address."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !registerPassword ||
+            registerPassword.value.length < 8
+        ) {
+
+            alert(
+                "Password must contain at least 8 characters."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !confirmPassword ||
+            registerPassword.value !==
+            confirmPassword.value
+        ) {
+
+            alert(
+                "Passwords do not match."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !termsCheck ||
+            !termsCheck.checked
+        ) {
+
+            alert(
+                "Please accept the Terms & Conditions."
+            );
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+
+    /* ========================================================
+       REAL DJANGO REGISTRATION
+    ======================================================== */
+
+    if (registerForm) {
+
+        registerForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                if (!validateRegistration()) {
+                    return;
+                }
+
+
+                if (createAccountBtn) {
+
+                    createAccountBtn.disabled =
+                        true;
+
+                    const buttonText =
+                        createAccountBtn.querySelector(
+                            "span"
+                        );
+
+
+                    if (buttonText) {
+
+                        buttonText.innerHTML =
+                            '<i class="bi bi-hourglass-split"></i> Creating Account...';
+
+                    }
+
+                }
+
+
+                const formData =
+                    new FormData(
+                        registerForm
+                    );
+
+
+                /*
+                   Make sure selected role is current.
+                */
+
+                formData.set(
+                    "role",
+                    selectedRole
+                );
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            registerForm.action,
+                            {
+                                method: "POST",
+                                body: formData,
+                                credentials: "same-origin"
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (data.success) {
+
+                        alert(
+                            data.message ||
+                            "Your account has been created successfully."
+                        );
+
+
+                        /*
+                           Put the registered phone
+                           into login.
+                        */
+
+                        if (
+                            loginPhone &&
+                            registerPhone
+                        ) {
+
+                            loginPhone.value =
+                                registerPhone.value;
+
+                        }
+
+
+                        showLoginScreen();
+
+
+                    } else {
+
+                        alert(
+                            data.message ||
+                            "Unable to create account."
+                        );
+
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Registration error:",
+                        error
+                    );
+
+
+                    alert(
+                        "Something went wrong while creating your account."
+                    );
+
+                }
+
+
+                if (createAccountBtn) {
+
+                    createAccountBtn.disabled =
+                        false;
+
+
+                    const buttonText =
+                        createAccountBtn.querySelector(
+                            "span"
+                        );
+
+
+                    if (buttonText) {
+
+                        buttonText.innerHTML =
+                            '<i class="bi bi-person-plus-fill"></i> Create Account';
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* ========================================================
+       INITIAL STATE
+    ======================================================== */
+
+    showRoleScreen();
+
+    loadRememberedPhone();
 
 });

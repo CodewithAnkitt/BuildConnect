@@ -172,18 +172,7 @@
         </a>
 
 
-        {% comment %} <a
-            href="#"
-            class="sidebar-link"
-            data-coming-soon
-        >
-
-            <i class="bi bi-gear"></i>
-
-            <span>Settings</span>
-
-        </a> {% endcomment %}
-
+        
     </nav>
 
 
@@ -565,10 +554,7 @@
 
             <div class="vehicle-count">
 
-                Showing
-                <strong id="vehicleCount">12</strong>
-                vehicles
-
+                Showing <strong id="vehicleCount">{{ vehicle_count }}</strong> vehicles
             </div>
 
 
@@ -620,933 +606,109 @@
              VEHICLE GRID
         ================================================= -->
 
-        <section
-            class="vehicle-grid"
-            id="vehicleGrid"
-        >
+        <section class="vehicle-grid" id="vehicleGrid">
 
+    {% for item in vehicle_cards %}
 
-            <!-- 1 -->
+    <article
+        class="vehicle-card"
+        data-category="{{ item.vehicle.vehicle_type|lower }}"
+        data-name="{{ item.vehicle.model_name|lower }}"
+        data-price="{{ item.vehicle.rental_price_per_day }}"
+    >
 
-            <article
-                class="vehicle-card"
-                data-category="excavator"
-                data-name="Excavator 20 Ton"
-                data-price="2500"
+        <div class="vehicle-image">
+
+            <img
+                src="{{ item.image_url }}"
+                alt="{{ item.vehicle.model_name }}"
             >
 
-                <div class="vehicle-image">
+            <span class="availability">
+                Available
+            </span>
 
-                    <img
-                        src="{% static 'customer/vehicle_images/excavator(20ton).png' %}"
-                        alt="Excavator"
-                    >
-
-                    <span class="availability">
-                        Available
-                    </span>
-
-                    <button class="favorite">
-
-                        <i class="bi bi-heart"></i>
-
-                    </button>
-
-                </div>
-
-
-                <div class="vehicle-content">
-
-                    <h3>Excavator (20 Ton)</h3>
-
-                    <p class="vehicle-brand">
-                        CAT 320D
-                    </p>
-
-
-                    <div class="spec-row">
-
-                        <span>
-                            <i class="bi bi-box"></i>
-                            20 Ton
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-
-                    <p class="location">
-
-                        <i class="bi bi-geo-alt"></i>
-
-                        Ranchi, Jharkhand
-
-                    </p>
-
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 2,500
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- 2 -->
-
-            <article
-                class="vehicle-card"
-                data-category="loader"
-                data-name="JCB Wheel Loader"
-                data-price="2000"
+            <button
+                class="favorite"
+                type="button"
+                aria-label="Add to favourites"
             >
+                <i class="bi bi-heart"></i>
+            </button>
 
-                <div class="vehicle-image">
+        </div>
 
-                    <img
-                        src="{% static 'customer/vehicle_images/jcbloader.png' %}"
-                        alt="JCB Wheel Loader"
-                    >
+        <div class="vehicle-content">
 
-                    <span class="availability">
-                        Available
-                    </span>
+            <h3>
+                {{ item.vehicle.vehicle_type|title }}
+                {% if item.vehicle.capacity %}
+                    ({{ item.vehicle.capacity }})
+                {% endif %}
+            </h3>
 
-                    <button class="favorite">
+            <p class="vehicle-brand">
+                {{ item.vehicle.model_name }}
+            </p>
 
-                        <i class="bi bi-heart"></i>
+            <div class="spec-row">
 
-                    </button>
+                {% if item.vehicle.capacity %}
+                <span>
+                    <i class="bi bi-box"></i>
+                    {{ item.vehicle.capacity }}
+                </span>
+                {% endif %}
 
-                </div>
+                <span>
+                    <i class="bi bi-fuel-pump"></i>
+                    {{ item.vehicle.get_fuel_type_display }}
+                </span>
 
+            </div>
 
-                <div class="vehicle-content">
+            <p class="location">
+                <i class="bi bi-geo-alt"></i>
+                {{ item.vehicle.location }}
+            </p>
 
-                    <h3>JCB Wheel Loader</h3>
+            <div class="vehicle-bottom">
 
-                    <p class="vehicle-brand">
-                        JCB 432ZX
-                    </p>
+                <strong>
+                    ₹ {{ item.vehicle.rental_price_per_day|floatformat:0 }}
+                    <small>/ day</small>
+                </strong>
 
-                    <div class="spec-row">
+            </div>
 
-                        <span>
-                            <i class="bi bi-box"></i>
-                            10 Ton
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-                    <p class="location">
-                        <i class="bi bi-geo-alt"></i>
-                        Dhanbad, Jharkhand
-                    </p>
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 2,000
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- 3 -->
-
-            <article
-                class="vehicle-card"
-                data-category="dumper"
-                data-name="10 Wheeler Dumper"
-                data-price="2200"
+            <button
+                class="details-button"
+                type="button"
+                data-vehicle-id="{{ item.vehicle.id }}"
+                data-vehicle-name="{{ item.vehicle.vehicle_type|title }} {{ item.vehicle.model_name }}"
+                data-vehicle-price="{{ item.vehicle.rental_price_per_day }}"
             >
+                View Details
+                <i class="bi bi-arrow-right"></i>
+            </button>
 
-                <div class="vehicle-image">
+        </div>
 
-                    <img
-                        src="{% static 'customer/vehicle_images/10wheeldumper.png' %}"
-                        alt="Dumper"
-                    >
+    </article>
 
-                    <span class="availability">
-                        Available
-                    </span>
+    {% empty %}
 
-                    <button class="favorite">
+    <div class="no-results" style="display:block;">
+        <i class="bi bi-truck"></i>
+        <h3>No vehicles available</h3>
+        <p>
+            There are currently no vehicles available for rent.
+        </p>
+    </div>
 
-                        <i class="bi bi-heart"></i>
+    {% endfor %}
 
-                    </button>
-
-                </div>
-
-
-                <div class="vehicle-content">
-
-                    <h3>10 Wheeler Dumper</h3>
-
-                    <p class="vehicle-brand">
-                        Tata Prima
-                    </p>
-
-                    <div class="spec-row">
-
-                        <span>
-                            <i class="bi bi-box"></i>
-                            25 Ton
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-                    <p class="location">
-                        <i class="bi bi-geo-alt"></i>
-                        Ranchi, Jharkhand
-                    </p>
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 2,200
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- 4 -->
-
-            <article
-                class="vehicle-card"
-                data-category="crane"
-                data-name="Mobile Crane"
-                data-price="8000"
-            >
-
-                <div class="vehicle-image">
-
-                    <img
-                        src="{% static 'customer/vehicle_images/crane.png' %}"
-                        alt="Mobile Crane"
-                    >
-
-                    <span class="availability">
-                        Available
-                    </span>
-
-                    <button class="favorite">
-
-                        <i class="bi bi-heart"></i>
-
-                    </button>
-
-                </div>
-
-
-                <div class="vehicle-content">
-
-                    <h3>Mobile Crane (25 Ton)</h3>
-
-                    <p class="vehicle-brand">
-                        Sany SCS250
-                    </p>
-
-                    <div class="spec-row">
-
-                        <span>
-                            <i class="bi bi-box"></i>
-                            25 Ton
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-                    <p class="location">
-                        <i class="bi bi-geo-alt"></i>
-                        Jamshedpur, Jharkhand
-                    </p>
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 8,000
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- 5 -->
-
-            <article
-                class="vehicle-card"
-                data-category="roller"
-                data-name="Road Roller"
-                data-price="2000"
-            >
-
-                <div class="vehicle-image">
-
-                    <img
-                        src="{% static 'customer/vehicle_images/roller.png' %}"
-                        alt="Road Roller"
-                    >
-
-                    <span class="availability">
-                        Available
-                    </span>
-
-                    <button class="favorite">
-
-                        <i class="bi bi-heart"></i>
-
-                    </button>
-
-                </div>
-
-
-                <div class="vehicle-content">
-
-                    <h3>Road Roller</h3>
-
-                    <p class="vehicle-brand">
-                        Dynapac CA250
-                    </p>
-
-                    <div class="spec-row">
-
-                        <span>
-                            <i class="bi bi-box"></i>
-                            10 Ton
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-                    <p class="location">
-                        <i class="bi bi-geo-alt"></i>
-                        Bokaro, Jharkhand
-                    </p>
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 2,000
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- 6 -->
-
-            <article
-                class="vehicle-card"
-                data-category="tipper"
-                data-name="Tipper 6 Wheeler"
-                data-price="1600"
-            >
-
-                <div class="vehicle-image">
-
-                    <img
-                        src="{% static 'customer/vehicle_images/tipper.png' %}"
-                        alt="Tipper"
-                    >
-
-                    <span class="availability">
-                        Available
-                    </span>
-
-                    <button class="favorite">
-
-                        <i class="bi bi-heart"></i>
-
-                    </button>
-
-                </div>
-
-
-                <div class="vehicle-content">
-
-                    <h3>Tipper (6 Wheeler)</h3>
-
-                    <p class="vehicle-brand">
-                        Eicher Pro 2059
-                    </p>
-
-                    <div class="spec-row">
-
-                        <span>
-                            <i class="bi bi-box"></i>
-                            10 Ton
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-                    <p class="location">
-                        <i class="bi bi-geo-alt"></i>
-                        Dhanbad, Jharkhand
-                    </p>
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 1,600
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- 7 -->
-
-            <article
-                class="vehicle-card"
-                data-category="backhoe"
-                data-name="Backhoe Loader"
-                data-price="1800"
-            >
-
-                <div class="vehicle-image">
-
-                    <img
-                        src="{% static 'customer/vehicle_images/backhoeloader.png' %}"
-                        alt="Backhoe Loader"
-                    >
-
-                    <span class="availability">
-                        Available
-                    </span>
-
-                    <button class="favorite">
-
-                        <i class="bi bi-heart"></i>
-
-                    </button>
-
-                </div>
-
-
-                <div class="vehicle-content">
-
-                    <h3>Backhoe Loader</h3>
-
-                    <p class="vehicle-brand">
-                        JCB 3DX
-                    </p>
-
-                    <div class="spec-row">
-
-                        <span>
-                            <i class="bi bi-box"></i>
-                            7.5 Ton
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-                    <p class="location">
-                        <i class="bi bi-geo-alt"></i>
-                        Ranchi, Jharkhand
-                    </p>
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 1,800
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- 8 -->
-
-            <article
-                class="vehicle-card"
-                data-category="tractor"
-                data-name="Tractor"
-                data-price="1000"
-            >
-
-                <div class="vehicle-image">
-
-                    <img
-                        src="{% static 'customer/vehicle_images/tractor.png' %}"
-                        alt="Tractor"
-                    >
-
-                    <span class="availability">
-                        Available
-                    </span>
-
-                    <button class="favorite">
-
-                        <i class="bi bi-heart"></i>
-
-                    </button>
-
-                </div>
-
-
-                <div class="vehicle-content">
-
-                    <h3>Tractor</h3>
-
-                    <p class="vehicle-brand">
-                        Mahindra 575 DI
-                    </p>
-
-                    <div class="spec-row">
-
-                        <span>
-                            <i class="bi bi-speedometer2"></i>
-                            55 HP
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-                    <p class="location">
-                        <i class="bi bi-geo-alt"></i>
-                        Hazaribagh, Jharkhand
-                    </p>
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 1,000
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- 9 -->
-
-            <article
-                class="vehicle-card"
-                data-category="others"
-                data-name="Forklift"
-                data-price="2200"
-            >
-
-                <div class="vehicle-image">
-
-                    <img
-                        src="{% static 'customer/vehicle_images/forklift.png' %}"
-                        alt="Forklift"
-                    >
-
-                    <span class="availability">
-                        Available
-                    </span>
-
-                    <button class="favorite">
-
-                        <i class="bi bi-heart"></i>
-
-                    </button>
-
-                </div>
-
-
-                <div class="vehicle-content">
-
-                    <h3>Forklift</h3>
-
-                    <p class="vehicle-brand">
-                        Toyota 3 Ton
-                    </p>
-
-                    <div class="spec-row">
-
-                        <span>
-                            <i class="bi bi-box"></i>
-                            3 Ton
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-                    <p class="location">
-                        <i class="bi bi-geo-alt"></i>
-                        Jamshedpur, Jharkhand
-                    </p>
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 2,200
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- 10 -->
-
-            <article
-                class="vehicle-card"
-                data-category="others"
-                data-name="Water Tanker"
-                data-price="1500"
-            >
-
-                <div class="vehicle-image">
-
-                    <img
-                        src="{% static 'customer/vehicle_images/watertanker.png' %}"
-                        alt="Water Tanker"
-                    >
-
-                    <span class="availability">
-                        Available
-                    </span>
-
-                    <button class="favorite">
-
-                        <i class="bi bi-heart"></i>
-
-                    </button>
-
-                </div>
-
-
-                <div class="vehicle-content">
-
-                    <h3>Water Tanker</h3>
-
-                    <p class="vehicle-brand">
-                        Tata LPT
-                    </p>
-
-                    <div class="spec-row">
-
-                        <span>
-                            <i class="bi bi-droplet"></i>
-                            12 KL
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-                    <p class="location">
-                        <i class="bi bi-geo-alt"></i>
-                        Bokaro, Jharkhand
-                    </p>
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 1,500
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- 11 -->
-
-            <article
-                class="vehicle-card"
-                data-category="excavator"
-                data-name="Mini Excavator"
-                data-price="1800"
-            >
-
-                <div class="vehicle-image">
-
-                    <img
-                        src="{% static 'customer/vehicle_images/miniexcavator.png' %}"
-                        alt="Mini Excavator"
-                    >
-
-                    <span class="availability">
-                        Available
-                    </span>
-
-                    <button class="favorite">
-
-                        <i class="bi bi-heart"></i>
-
-                    </button>
-
-                </div>
-
-
-                <div class="vehicle-content">
-
-                    <h3>Mini Excavator</h3>
-
-                    <p class="vehicle-brand">
-                        Komatsu PC30
-                    </p>
-
-                    <div class="spec-row">
-
-                        <span>
-                            <i class="bi bi-box"></i>
-                            3 Ton
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-                    <p class="location">
-                        <i class="bi bi-geo-alt"></i>
-                        Ranchi, Jharkhand
-                    </p>
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 1,800
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- 12 -->
-
-            <article
-                class="vehicle-card"
-                data-category="others"
-                data-name="Motor Grader"
-                data-price="3500"
-            >
-
-                <div class="vehicle-image">
-
-                    <img
-                        src="{% static 'customer/vehicle_images/motor-grader.png' %}"
-                        alt="Motor Grader"
-                    >
-
-                    <span class="availability">
-                        Available
-                    </span>
-
-                    <button class="favorite">
-
-                        <i class="bi bi-heart"></i>
-
-                    </button>
-
-                </div>
-
-
-                <div class="vehicle-content">
-
-                    <h3>Motor Grader</h3>
-
-                    <p class="vehicle-brand">
-                        CAT 120K
-                    </p>
-
-                    <div class="spec-row">
-
-                        <span>
-                            <i class="bi bi-box"></i>
-                            15 Ton
-                        </span>
-
-                        <span>
-                            <i class="bi bi-fuel-pump"></i>
-                            Diesel
-                        </span>
-
-                    </div>
-
-                    <p class="location">
-                        <i class="bi bi-geo-alt"></i>
-                        Dhanbad, Jharkhand
-                    </p>
-
-                    <div class="vehicle-bottom">
-
-                        <strong>
-                            ₹ 3,500
-                            <small>/ day</small>
-                        </strong>
-
-                    </div>
-
-                    <button class="details-button">
-                        View Details
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </article>
-
-
-        </section>
-
-
+</section>
         <!-- NO RESULTS -->
 
         <div
@@ -1583,6 +745,128 @@
 
 </div>
 
+<!-- RENTAL MODAL -->
+
+<div class="rental-modal" id="rentalModal">
+
+    <div class="rental-modal-overlay" id="rentalModalOverlay"></div>
+
+    <div class="rental-modal-box">
+
+        <button
+            type="button"
+            class="rental-close"
+            id="rentalClose"
+        >
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+        <div class="rental-modal-header">
+
+            <span class="modal-label">
+                VEHICLE RENTAL
+            </span>
+
+            <h2 id="modalVehicleName">
+                Vehicle
+            </h2>
+
+            <p>
+                Select your rental dates to send a booking request.
+            </p>
+
+        </div>
+
+        <div class="rental-price-box">
+
+            <span>Rental Price</span>
+
+            <strong>
+                ₹ <span id="modalVehiclePrice">0</span>
+                <small>/ day</small>
+            </strong>
+
+        </div>
+
+        <form
+            id="rentalForm"
+            data-url="{% url 'create_vehicle_rental' %}"
+        >
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                id="modalVehicleId"
+                name="vehicle_id"
+            >
+
+            <div class="rental-date-grid">
+
+                <div class="rental-field">
+
+                    <label for="startDate">
+                        Start Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="startDate"
+                        name="start_date"
+                        min="{{ today|date:'Y-m-d' }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="rental-field">
+
+                    <label for="endDate">
+                        End Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="endDate"
+                        name="end_date"
+                        min="{{ today|date:'Y-m-d' }}"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+            <div class="rental-summary">
+
+                <div>
+                    <span>Rental Days</span>
+                    <strong id="rentalDays">0</strong>
+                </div>
+
+                <div>
+                    <span>Total Amount</span>
+                    <strong>
+                        ₹ <span id="rentalTotal">0</span>
+                    </strong>
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="confirm-rental-button"
+                id="confirmRentalButton"
+            >
+                <i class="bi bi-calendar-check"></i>
+                Send Rental Request
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
 
 <script
     src="{% static 'customer/js/vehicles.js' %}"

@@ -1950,3 +1950,57 @@ button {
     backdrop-filter: blur(22px) saturate(130%);
     -webkit-backdrop-filter: blur(22px) saturate(130%);
 }
+
+/* ============================================================
+   REMEMBER ME
+============================================================ */
+
+.remember-me-row {
+    display: flex;
+    align-items: center;
+    margin: 12px 0 18px;
+}
+
+.remember-me-label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #273047;
+    user-select: none;
+}
+
+.remember-me-label input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.remember-checkbox {
+    width: 17px;
+    height: 17px;
+    border: 1.5px solid #b7b9c2;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.7);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+}
+
+.remember-me-label input:checked + .remember-checkbox {
+    background: #7434dc;
+    border-color: #7434dc;
+}
+
+.remember-me-label input:checked + .remember-checkbox::after {
+    content: "✓";
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.remember-me-label:hover .remember-checkbox {
+    border-color: #7434dc;
+}

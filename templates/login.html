@@ -2,8 +2,11 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>BuildConnect - Login</title>
@@ -11,6 +14,7 @@
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
@@ -22,15 +26,19 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
 
+    <!-- Login CSS -->
     <link
         rel="stylesheet"
         href="{% static 'css/login.css' %}"
     >
+
 </head>
+
 
 <body>
 
 <div class="auth-page">
+
 
     <!-- =====================================================
          LEFT BRAND SIDEBAR
@@ -42,86 +50,131 @@
 
         <div class="sidebar-content">
 
+
             <!-- LOGO -->
-            <a href="/" class="brand-logo">
+
+            <a href="{% url 'home' %}" class="brand-logo">
+
                 <img
                     src="{% static 'images/logo.png' %}"
                     alt="BuildConnect"
                 >
+
             </a>
 
+
             <!-- Decorative line -->
+
             <div class="brand-line">
                 <span></span>
             </div>
 
+
             <!-- Main heading -->
+
             <h1>
+
                 India's Trusted Platform for
+
                 <strong>
                     Materials, Vehicles
                     <span>&amp; Opportunities.</span>
                 </strong>
+
             </h1>
 
+
             <p class="brand-description">
+
                 Connecting suppliers, customers, vehicle
                 owners and drivers — building a stronger
                 tomorrow together.
+
             </p>
+
 
             <!-- FEATURES -->
 
             <div class="brand-features">
 
+
                 <div class="brand-feature">
+
                     <div class="feature-icon orange">
                         <i class="bi bi-box-seam-fill"></i>
                     </div>
 
                     <div>
+
                         <h3>Quality Network</h3>
-                        <p>Verified suppliers &amp; service providers</p>
+
+                        <p>
+                            Verified suppliers &amp; service providers
+                        </p>
+
                     </div>
+
                 </div>
 
 
                 <div class="brand-feature">
+
                     <div class="feature-icon purple">
                         <i class="bi bi-shield-check-fill"></i>
                     </div>
 
                     <div>
+
                         <h3>Safe &amp; Secure</h3>
-                        <p>Trusted and verified users</p>
+
+                        <p>
+                            Trusted and verified users
+                        </p>
+
                     </div>
+
                 </div>
 
 
                 <div class="brand-feature">
+
                     <div class="feature-icon teal">
                         <i class="bi bi-people-fill"></i>
                     </div>
 
                     <div>
+
                         <h3>Nationwide Reach</h3>
-                        <p>Opportunities across India</p>
+
+                        <p>
+                            Opportunities across India
+                        </p>
+
                     </div>
+
                 </div>
 
+
             </div>
 
-           
 
             <!-- COPYRIGHT -->
+
             <div class="sidebar-footer">
+
                 <span></span>
-                <p>© 2025 BuildConnect. All rights reserved.</p>
+
+                <p>
+                    © 2025 BuildConnect. All rights reserved.
+                </p>
+
             </div>
+
 
         </div>
 
     </aside>
+
 
 
     <!-- =====================================================
@@ -130,10 +183,14 @@
 
     <main class="auth-main">
 
+
         <!-- Background decorative shapes -->
+
         <div class="bg-shape shape-one"></div>
         <div class="bg-shape shape-two"></div>
         <div class="bg-shape shape-three"></div>
+
+
 
         <!-- =================================================
              SCREEN 1 : ROLE SELECTION
@@ -145,6 +202,7 @@
         >
 
             <div class="role-wrapper">
+
 
                 <div class="role-heading">
 
@@ -167,9 +225,11 @@
                 </div>
 
 
+
                 <!-- ROLE GRID -->
 
                 <div class="role-grid">
+
 
                     <!-- SELLER -->
 
@@ -198,14 +258,18 @@
 
                         </div>
 
+
                         <div class="role-card-image">
+
                             <img
                                 src="{% static 'images/seller-role.png' %}"
                                 alt="Seller"
                             >
+
                         </div>
 
                     </button>
+
 
 
                     <!-- CUSTOMER -->
@@ -235,14 +299,18 @@
 
                         </div>
 
+
                         <div class="role-card-image">
+
                             <img
                                 src="{% static 'images/customer-role.png' %}"
                                 alt="Customer"
                             >
+
                         </div>
 
                     </button>
+
 
 
                     <!-- DRIVER -->
@@ -272,14 +340,18 @@
 
                         </div>
 
+
                         <div class="role-card-image">
+
                             <img
                                 src="{% static 'images/driver-role.png' %}"
                                 alt="Driver"
                             >
+
                         </div>
 
                     </button>
+
 
 
                     <!-- VEHICLE OWNER -->
@@ -309,20 +381,25 @@
 
                         </div>
 
+
                         <div class="role-card-image">
+
                             <img
                                 src="{% static 'images/owner-role.png' %}"
                                 alt="Vehicle Owner"
                             >
+
                         </div>
 
                     </button>
+
 
                 </div>
 
             </div>
 
         </section>
+
 
 
         <!-- =================================================
@@ -336,43 +413,63 @@
 
             <div class="form-wrapper">
 
+
                 <!-- TOP BAR -->
 
                 <div class="form-topbar">
+
 
                     <button
                         type="button"
                         class="change-role-btn"
                         id="changeRoleFromLogin"
                     >
+
                         <i class="bi bi-arrow-left"></i>
+
                         Change Role
+
                     </button>
+
 
                     <div
                         class="selected-role"
                         id="loginRoleBadge"
                     >
-                        <i class="bi bi-shop"></i>
-                        <span>Seller</span>
+
+                        <i
+                            class="bi bi-shop"
+                            id="loginRoleIcon"
+                        ></i>
+
+                        <span id="loginRoleBadgeText">
+                            Seller
+                        </span>
+
                     </div>
 
+
                 </div>
+
 
 
                 <!-- LOGIN GLASS CARD -->
 
                 <div class="glass-card login-card">
 
+
                     <div class="form-heading">
 
                         <p>Welcome to BuildConnect</p>
 
                         <h2>
+
                             Login as
+
                             <span id="loginRoleTitle">
                                 Seller
                             </span>
+
                         </h2>
 
                         <span>
@@ -382,114 +479,171 @@
                     </div>
 
 
-                    <!-- PHONE -->
 
-                    <div class="form-group">
+                    <!-- LOGIN FORM -->
 
-                        <label for="loginPhone">
-                            <i class="bi bi-phone-fill"></i>
-                            Mobile Number
-                        </label>
+                    <form
+                        id="loginForm"
+                        method="POST"
+                        action="{% url 'login' %}"
+                        autocomplete="on"
+                        novalidate
+                    >
 
-                        <div class="phone-input">
+                        {% csrf_token %}
 
-                            <span class="country-code">
-                                +91
-                            </span>
 
-                            <input
-                                type="tel"
-                                id="loginPhone"
-                                maxlength="10"
-                                inputmode="numeric"
-                                placeholder="Enter 10-digit mobile number"
-                                autocomplete="tel"
-                            >
+                        <!-- ROLE -->
+
+                        <input
+                            type="hidden"
+                            id="loginRole"
+                            name="role"
+                            value="Seller"
+                        >
+
+
+                        <!-- PHONE -->
+
+                        <div class="form-group">
+
+                            <label for="loginPhone">
+
+                                <i class="bi bi-phone-fill"></i>
+
+                                Mobile Number
+
+                            </label>
+
+
+                            <div class="phone-input">
+
+                                <span class="country-code">
+                                    +91
+                                </span>
+
+
+                                <input
+                                    type="tel"
+                                    id="loginPhone"
+                                    name="phone_number"
+                                    maxlength="10"
+                                    inputmode="numeric"
+                                    placeholder="Enter 10-digit mobile number"
+                                    autocomplete="tel"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <small
+                                class="field-error"
+                                id="loginPhoneError"
+                            ></small>
 
                         </div>
 
-                        <small
-                            class="field-error"
-                            id="loginPhoneError"
-                        ></small>
-
-                    </div>
 
 
-                    <!-- WHATSAPP CHECKBOX -->
+                        <!-- PASSWORD -->
 
-                    <label class="whatsapp-check">
+                        <div class="form-group">
 
-                        <input
-                            type="checkbox"
-                            id="loginWhatsappCheck"
+                            <label for="loginPassword">
+
+                                <i class="bi bi-lock-fill"></i>
+
+                                Password
+
+                            </label>
+
+
+                            <div class="password-input">
+
+                                <input
+                                    type="password"
+                                    id="loginPassword"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    autocomplete="current-password"
+                                    required
+                                >
+
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-target="loginPassword"
+                                    aria-label="Show password"
+                                >
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button>
+
+                            </div>
+
+
+                            <small
+                                class="field-error"
+                                id="loginPasswordError"
+                            ></small>
+
+                        </div>
+
+
+
+                        <!-- REMEMBER ME -->
+
+                        <div class="remember-me-row">
+
+                            <label
+                                for="bcRememberMe"
+                                class="remember-me-label"
+                            >
+
+                                <input
+                                    type="checkbox"
+                                    id="bcRememberMe"
+                                    name="remember_me"
+                                >
+
+                                <span class="remember-checkbox"></span>
+
+                                <span>
+                                    Remember me
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- LOGIN BUTTON -->
+
+                        <button
+                            type="submit"
+                            class="primary-btn"
+                            id="loginBtn"
                         >
 
-                        <span class="custom-checkbox">
-                            <i class="bi bi-check"></i>
-                        </span>
+                            <span>
 
-                        <span>
-                            Use this number as my WhatsApp number
-                        </span>
+                                <i class="bi bi-box-arrow-in-right"></i>
 
-                        <i class="bi bi-whatsapp whatsapp-icon"></i>
+                                Login
 
-                    </label>
+                            </span>
 
+                            <i class="bi bi-arrow-right"></i>
 
-                    <!-- PASSWORD -->
-
-<div class="form-group">
-
-    <label for="loginPassword">
-        <i class="bi bi-lock-fill"></i>
-        Password
-    </label>
-
-    <div class="password-input">
-
-        <input
-            type="password"
-            id="loginPassword"
-            placeholder="Enter your password"
-            autocomplete="current-password"
-        >
-
-        <button
-            type="button"
-            class="password-toggle"
-            data-target="loginPassword"
-        >
-            <i class="bi bi-eye"></i>
-        </button>
-
-    </div>
-
-    <small
-        class="field-error"
-        id="loginPasswordError"
-    ></small>
-
-</div>
+                        </button>
 
 
-<!-- LOGIN BUTTON -->
+                    </form>
 
-<button
-    type="button"
-    class="primary-btn"
-    id="loginBtn"
->
-
-    <span>
-        <i class="bi bi-box-arrow-in-right"></i>
-        Login
-    </span>
-
-    <i class="bi bi-arrow-right"></i>
-
-</button>
 
 
                     <!-- REGISTER -->
@@ -509,11 +663,13 @@
 
                     </div>
 
+
                 </div>
 
             </div>
 
         </section>
+
 
 
         <!-- =================================================
@@ -527,42 +683,61 @@
 
             <div class="form-wrapper register-wrapper">
 
+
                 <!-- TOP BAR -->
 
                 <div class="form-topbar">
+
 
                     <button
                         type="button"
                         class="change-role-btn"
                         id="changeRoleFromRegister"
                     >
+
                         <i class="bi bi-arrow-left"></i>
+
                         Change Role
+
                     </button>
+
 
                     <div
                         class="selected-role"
                         id="registerRoleBadge"
                     >
-                        <i class="bi bi-shop"></i>
-                        <span>Seller</span>
+
+                        <i
+                            class="bi bi-shop"
+                            id="registerRoleIcon"
+                        ></i>
+
+                        <span id="registerRoleBadgeText">
+                            Seller
+                        </span>
+
                     </div>
 
+
                 </div>
+
 
 
                 <!-- REGISTER GLASS CARD -->
 
                 <div class="glass-card register-card">
 
+
                     <div class="form-heading">
 
                         <p>Create Account as</p>
 
                         <h2>
+
                             <span id="registerRoleTitle">
                                 Seller
                             </span>
+
                         </h2>
 
                         <span>
@@ -572,259 +747,380 @@
                     </div>
 
 
-                    <!-- FIRST + LAST NAME -->
 
-                    <div class="two-column">
+                    <!-- REGISTER FORM -->
 
-                        <div class="form-group">
-
-                            <label for="firstName">
-                                <i class="bi bi-person-fill"></i>
-                                First Name
-                            </label>
-
-                            <input
-                                type="text"
-                                id="firstName"
-                                placeholder="Enter first name"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="lastName">
-                                <i class="bi bi-person-fill"></i>
-                                Last Name
-                            </label>
-
-                            <input
-                                type="text"
-                                id="lastName"
-                                placeholder="Enter last name"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- PHONE -->
-
-                    <div class="form-group">
-
-                        <label for="registerPhone">
-                            <i class="bi bi-phone-fill"></i>
-                            Mobile Number
-                        </label>
-
-                        <div class="phone-input">
-
-                            <span class="country-code">
-                                +91
-                            </span>
-
-                            <input
-                                type="tel"
-                                id="registerPhone"
-                                maxlength="10"
-                                inputmode="numeric"
-                                placeholder="Enter 10-digit mobile number"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- WHATSAPP OPTION -->
-
-                    <label class="whatsapp-check register-whatsapp">
-
-                        <input
-                            type="checkbox"
-                            id="sameWhatsapp"
-                        >
-
-                        <span class="custom-checkbox">
-                            <i class="bi bi-check"></i>
-                        </span>
-
-                        <span>
-                            Use this number as my WhatsApp number
-                        </span>
-
-                        <i class="bi bi-whatsapp whatsapp-icon"></i>
-
-                    </label>
-
-
-                    <!-- WHATSAPP NUMBER -->
-
-                    <div
-                        class="whatsapp-box"
-                        id="whatsappBox"
+                    <form
+                        id="registerForm"
+                        method="POST"
+                        action="{% url 'signup' %}"
+                        autocomplete="on"
+                        novalidate
                     >
 
-                        <div class="whatsapp-box-heading">
-
-                            <i class="bi bi-whatsapp"></i>
-
-                            <strong>
-                                WhatsApp Number
-                            </strong>
-
-                        </div>
+                        {% csrf_token %}
 
 
-                        <div class="phone-input">
-
-                            <span class="country-code">
-                                +91
-                            </span>
-
-                            <input
-                                type="tel"
-                                id="whatsappNumber"
-                                maxlength="10"
-                                inputmode="numeric"
-                                placeholder="Enter 10-digit WhatsApp number"
-                            >
-
-                        </div>
-
-
-                        <p>
-                            <i class="bi bi-info-circle-fill"></i>
-                            Please enter your WhatsApp number.
-                        </p>
-
-                    </div>
-
-
-                    <!-- EMAIL -->
-
-                    <div class="form-group">
-
-                        <label for="registerEmail">
-                            <i class="bi bi-envelope-fill"></i>
-                            Email Address
-                        </label>
+                        <!-- ROLE -->
 
                         <input
-                            type="email"
-                            id="registerEmail"
-                            placeholder="you@example.com"
+                            type="hidden"
+                            id="registerRole"
+                            name="role"
+                            value="Seller"
                         >
 
-                    </div>
 
 
-                    <!-- PASSWORD -->
+                        <!-- FIRST + LAST NAME -->
 
-                    <div class="two-column">
+                        <div class="two-column">
+
+
+                            <div class="form-group">
+
+                                <label for="firstName">
+
+                                    <i class="bi bi-person-fill"></i>
+
+                                    First Name
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    name="first_name"
+                                    placeholder="Enter first name"
+                                    autocomplete="given-name"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label for="lastName">
+
+                                    <i class="bi bi-person-fill"></i>
+
+                                    Last Name
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="lastName"
+                                    name="last_name"
+                                    placeholder="Enter last name"
+                                    autocomplete="family-name"
+                                    required
+                                >
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- PHONE -->
 
                         <div class="form-group">
 
-                            <label for="registerPassword">
-                                <i class="bi bi-lock-fill"></i>
-                                Password
+                            <label for="registerPhone">
+
+                                <i class="bi bi-phone-fill"></i>
+
+                                Mobile Number
+
                             </label>
 
-                            <div class="password-input">
+
+                            <div class="phone-input">
+
+                                <span class="country-code">
+                                    +91
+                                </span>
+
 
                                 <input
-                                    type="password"
-                                    id="registerPassword"
-                                    placeholder="Create password"
+                                    type="tel"
+                                    id="registerPhone"
+                                    name="phone_number"
+                                    maxlength="10"
+                                    inputmode="numeric"
+                                    placeholder="Enter 10-digit mobile number"
+                                    autocomplete="tel"
+                                    required
                                 >
-
-                                <button
-                                    type="button"
-                                    class="password-toggle"
-                                    data-target="registerPassword"
-                                >
-                                    <i class="bi bi-eye"></i>
-                                </button>
 
                             </div>
 
                         </div>
 
 
-                        <div class="form-group">
 
-                            <label for="confirmPassword">
-                                <i class="bi bi-lock-fill"></i>
-                                Confirm Password
-                            </label>
+                        <!-- WHATSAPP OPTION -->
 
-                            <div class="password-input">
+                        <label
+                            class="whatsapp-check register-whatsapp"
+                            for="sameWhatsapp"
+                        >
 
-                                <input
-                                    type="password"
-                                    id="confirmPassword"
-                                    placeholder="Re-enter password"
-                                >
+                            <input
+                                type="checkbox"
+                                id="sameWhatsapp"
+                            >
 
-                                <button
-                                    type="button"
-                                    class="password-toggle"
-                                    data-target="confirmPassword"
-                                >
-                                    <i class="bi bi-eye"></i>
-                                </button>
+                            <span class="custom-checkbox">
+
+                                <i class="bi bi-check"></i>
+
+                            </span>
+
+
+                            <span>
+                                Use this number as my WhatsApp number
+                            </span>
+
+
+                            <i class="bi bi-whatsapp whatsapp-icon"></i>
+
+                        </label>
+
+
+
+                        <!-- WHATSAPP NUMBER -->
+
+                        <div
+                            class="whatsapp-box"
+                            id="whatsappBox"
+                        >
+
+                            <div class="whatsapp-box-heading">
+
+                                <i class="bi bi-whatsapp"></i>
+
+                                <strong>
+                                    WhatsApp Number
+                                </strong>
 
                             </div>
 
+
+                            <div class="phone-input">
+
+                                <span class="country-code">
+                                    +91
+                                </span>
+
+
+                                <input
+                                    type="tel"
+                                    id="whatsappNumber"
+                                    name="whatsapp_number"
+                                    maxlength="10"
+                                    inputmode="numeric"
+                                    placeholder="Enter 10-digit WhatsApp number"
+                                    autocomplete="tel"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <p>
+
+                                <i class="bi bi-info-circle-fill"></i>
+
+                                Please enter your WhatsApp number.
+
+                            </p>
+
                         </div>
 
-                    </div>
 
 
-                    <!-- TERMS -->
+                        <!-- EMAIL -->
 
-                    <label class="terms-check">
+                        <div class="form-group">
 
-                        <input
-                            type="checkbox"
-                            id="termsCheck"
+                            <label for="registerEmail">
+
+                                <i class="bi bi-envelope-fill"></i>
+
+                                Email Address
+
+                            </label>
+
+
+                            <input
+                                type="email"
+                                id="registerEmail"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="two-column">
+
+
+                            <div class="form-group">
+
+                                <label for="registerPassword">
+
+                                    <i class="bi bi-lock-fill"></i>
+
+                                    Password
+
+                                </label>
+
+
+                                <div class="password-input">
+
+                                    <input
+                                        type="password"
+                                        id="registerPassword"
+                                        name="password"
+                                        placeholder="Create password"
+                                        autocomplete="new-password"
+                                        required
+                                    >
+
+
+                                    <button
+                                        type="button"
+                                        class="password-toggle"
+                                        data-target="registerPassword"
+                                        aria-label="Show password"
+                                    >
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label for="confirmPassword">
+
+                                    <i class="bi bi-lock-fill"></i>
+
+                                    Confirm Password
+
+                                </label>
+
+
+                                <div class="password-input">
+
+                                    <input
+                                        type="password"
+                                        id="confirmPassword"
+                                        name="confirm_password"
+                                        placeholder="Re-enter password"
+                                        autocomplete="new-password"
+                                        required
+                                    >
+
+
+                                    <button
+                                        type="button"
+                                        class="password-toggle"
+                                        data-target="confirmPassword"
+                                        aria-label="Show password"
+                                    >
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- TERMS -->
+
+                        <label
+                            class="terms-check"
+                            for="termsCheck"
                         >
 
-                        <span class="custom-checkbox">
-                            <i class="bi bi-check"></i>
-                        </span>
-
-                        <span>
-                            I agree to the
-                            <button
-                                type="button"
-                                class="terms-link"
+                            <input
+                                type="checkbox"
+                                id="termsCheck"
+                                required
                             >
-                                Terms &amp; Conditions
-                            </button>
-                        </span>
-
-                    </label>
 
 
-                    <!-- CREATE ACCOUNT -->
+                            <span class="custom-checkbox">
 
-                    <button
-                        type="button"
-                        class="primary-btn register-btn"
-                        id="createAccountBtn"
-                    >
+                                <i class="bi bi-check"></i>
 
-                        <span>
-                            <i class="bi bi-person-plus-fill"></i>
-                            Create Account
-                        </span>
+                            </span>
 
-                        <i class="bi bi-arrow-right"></i>
 
-                    </button>
+                            <span>
+
+                                I agree to the
+
+                                <button
+                                    type="button"
+                                    class="terms-link"
+                                >
+                                    Terms &amp; Conditions
+                                </button>
+
+                            </span>
+
+                        </label>
+
+
+
+                        <!-- CREATE ACCOUNT -->
+
+                        <button
+                            type="submit"
+                            class="primary-btn register-btn"
+                            id="createAccountBtn"
+                        >
+
+                            <span>
+
+                                <i class="bi bi-person-plus-fill"></i>
+
+                                Create Account
+
+                            </span>
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </button>
+
+
+                    </form>
+
 
 
                     <!-- LOGIN -->
@@ -844,18 +1140,26 @@
 
                     </div>
 
+
                 </div>
 
             </div>
 
         </section>
 
+
     </main>
 
 </div>
-<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+
+
+<!-- =====================================================
+     LOGIN JS
+====================================================== -->
 
 <script src="{% static 'js/login.js' %}"></script>
 
 </body>
+
 </html>

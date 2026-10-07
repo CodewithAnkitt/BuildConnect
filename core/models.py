@@ -260,8 +260,22 @@ class OrderItem(models.Model):
 class Vehicle(models.Model):
 
     class VehicleType(models.TextChoices):
-        TRUCK = "TRUCK", "Truck"
+        EXCAVATOR = "EXCAVATOR", "Excavator"
+        LOADER = "LOADER", "Loader"
+        DUMPER = "DUMPER", "Dumper"
+        CRANE = "CRANE", "Crane"
+        BACKHOE = "BACKHOE", "Backhoe"
+        ROLLER = "ROLLER", "Roller"
+        TRACTOR = "TRACTOR", "Tractor"
+        TIPPER = "TIPPER", "Tipper"
         JCB = "JCB", "JCB"
+        TRUCK = "TRUCK", "Truck"
+        OTHER = "OTHER", "Other"
+
+    class FuelType(models.TextChoices):
+        DIESEL = "DIESEL", "Diesel"
+        PETROL = "PETROL", "Petrol"
+        ELECTRIC = "ELECTRIC", "Electric"
 
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -282,11 +296,23 @@ class Vehicle(models.Model):
     model_name = models.CharField(
         max_length=100
     )
+
+    capacity = models.CharField(
+        max_length=50,
+        blank=True
+    )
+
+    fuel_type = models.CharField(
+        max_length=20,
+        choices=FuelType.choices,
+        default=FuelType.DIESEL
+    )
+
     vehicle_image = models.ImageField(
-    upload_to="vehicles/",
-    blank=True,
-    null=True
-)
+        upload_to="vehicles/",
+        blank=True,
+        null=True
+    )
 
     rental_price_per_day = models.DecimalField(
         max_digits=12,
@@ -311,8 +337,6 @@ class Vehicle(models.Model):
 
     def __str__(self):
         return f"{self.registration_number} - {self.vehicle_type}"
-
-
 # ============================================================
 # VEHICLE RENTAL
 # ============================================================

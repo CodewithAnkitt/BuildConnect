@@ -2,82 +2,66 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>My Orders | BuildConnect</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons only -->
     <link
         rel="stylesheet"
-        href="{% static 'customer/css/orders.css' %}"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-        rel="stylesheet"
-    >
-
+    <link rel="stylesheet" href="{% static 'customer/css/orders.css' %}">
 </head>
 
 <body>
+
+<!-- =========================================================
+     TOP HEADER
+========================================================= -->
 
 <header class="top-header">
 
     <div class="header-left">
 
-        <button
-            class="menu-btn"
-            id="menuBtn"
-        >
-            ☰
+        <button class="menu-btn" id="menuBtn">
+            <i class="bi bi-list"></i>
         </button>
 
-        <a
-            href="{% url 'customer_dashboard' %}"
-            class="header-logo"
-        >
-
-            <img
-                src="{% static 'images/nav-logo.png' %}"
-                alt="BuildConnect"
-            >
-
-        </a>
+        <div class="mobile-page-title">
+            My Orders
+        </div>
 
     </div>
 
-    <div class="header-user">
+    <div class="header-right">
 
-        <div class="avatar">
-            {{ request.user.first_name|default:"C"|first|upper }}
-        </div>
+        <button class="notification-btn" title="Notifications">
+            <i class="bi bi-bell"></i>
+            <span class="notification-dot"></span>
+        </button>
 
-        <div>
+        <div class="header-user">
 
-            <strong>
-                {{ request.user.first_name|default:"Customer" }}
-                {{ request.user.last_name }}
-            </strong>
+            <div class="header-avatar">
+                {{ user.first_name|default:user.username|slice:":1"|upper }}
+            </div>
 
-            <span>Customer</span>
+            <div class="header-user-info">
+                <strong>
+                    {{ user.get_full_name|default:user.username }}
+                </strong>
+
+                <span>Customer</span>
+            </div>
 
         </div>
 
@@ -86,23 +70,38 @@
 </header>
 
 
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
 <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <div class="logo-mark">
+            <i class="bi bi-box-seam"></i>
+        </div>
+
+        <div>
+            <h2>BuildConnect</h2>
+            <p>Build Today. Better Tomorrow.</p>
+        </div>
+
+    </div>
+
 
     <div class="sidebar-profile">
 
         <div class="profile-avatar">
-            {{ request.user.first_name|default:"C"|first|upper }}
+            {{ user.first_name|default:user.username|slice:":1"|upper }}
         </div>
 
         <div>
-
             <strong>
-                {{ request.user.first_name|default:"Customer" }}
-                {{ request.user.last_name }}
+                {{ user.get_full_name|default:user.username }}
             </strong>
 
             <span>Customer Account</span>
-
         </div>
 
     </div>
@@ -111,30 +110,33 @@
     <nav class="sidebar-nav">
 
         <a href="{% url 'customer_dashboard' %}">
-            Dashboard
+            <i class="bi bi-grid-1x2"></i>
+            <span>Dashboard</span>
         </a>
 
         <a href="{% url 'materials' %}">
-            Browse Materials
+            <i class="bi bi-box-seam"></i>
+            <span>Browse Materials</span>
         </a>
 
-        <a
-            href="{% url 'orders' %}"
-            class="active"
-        >
-            My Orders
+        <a href="{% url 'orders' %}" class="active">
+            <i class="bi bi-receipt"></i>
+            <span>My Orders</span>
         </a>
 
         <a href="{% url 'vehicles' %}">
-            Rent Vehicles
+            <i class="bi bi-truck"></i>
+            <span>Rent Vehicles</span>
         </a>
 
         <a href="{% url 'rentals' %}">
-            My Rentals
+            <i class="bi bi-calendar-check"></i>
+            <span>My Rentals</span>
         </a>
 
         <a href="{% url 'profile' %}">
-            Profile
+            <i class="bi bi-person"></i>
+            <span>Profile</span>
         </a>
 
     </nav>
@@ -142,8 +144,17 @@
 
     <div class="sidebar-bottom">
 
-        <a href="{% url 'logout' %}">
-            Logout
+        <div class="sidebar-tagline">
+            <span></span>
+            <p>
+                Connecting Materials<br>
+                For A Better Tomorrow.
+            </p>
+        </div>
+
+        <a href="{% url 'logout' %}" class="logout-link">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
         </a>
 
     </div>
@@ -151,191 +162,479 @@
 </aside>
 
 
+<!-- =========================================================
+     OVERLAY FOR MOBILE
+========================================================= -->
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
 <main class="main-content">
 
+    <!-- Breadcrumb -->
+
     <div class="breadcrumb">
-        Dashboard &nbsp; / &nbsp; My Orders
+        <a href="{% url 'customer_dashboard' %}">
+            Customer Dashboard
+        </a>
+
+        <i class="bi bi-chevron-right"></i>
+
+        <span>My Orders</span>
     </div>
+
+
+    <!-- Page Header -->
 
     <section class="page-header">
 
         <div>
 
-            <p class="eyebrow">
+            <div class="eyebrow">
                 CUSTOMER ORDERS
-            </p>
+            </div>
 
             <h1>
-                My Orders
+                My <span>Orders</span>
             </h1>
 
             <p>
-                Track your material orders and deliveries
-                in one place.
+                Track your material orders and deliveries in one place.
             </p>
 
         </div>
 
-        <a
-            href="{% url 'materials' %}"
-            class="browse-btn"
-        >
-            Browse Materials →
+        <a href="{% url 'materials' %}" class="browse-btn">
+            <i class="bi bi-plus-lg"></i>
+            Browse Materials
         </a>
 
     </section>
 
 
-    {% if orders %}
+    <!-- =====================================================
+         SUMMARY CARDS
+    ====================================================== -->
 
-        <div class="orders-summary">
+    <section class="summary-grid">
 
-            <div class="summary-card">
+        <div class="summary-card">
 
-                <span>Total Orders</span>
-
-                <strong>
-                    {{ orders|length }}
-                </strong>
-
+            <div class="summary-icon total">
+                <i class="bi bi-receipt"></i>
             </div>
 
-            <div class="summary-card">
+            <div>
+                <span>Total Orders</span>
+                <strong>{{ total_orders }}</strong>
+            </div>
 
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon pending">
+                <i class="bi bi-clock-history"></i>
+            </div>
+
+            <div>
                 <span>Pending</span>
+                <strong>{{ pending_orders }}</strong>
+            </div>
 
-                <strong>
-                    {{ orders|dictsort:"status"|length }}
-                </strong>
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon confirmed">
+                <i class="bi bi-check-circle"></i>
+            </div>
+
+            <div>
+                <span>Confirmed</span>
+                <strong>{{ confirmed_orders }}</strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon delivered">
+                <i class="bi bi-check2-all"></i>
+            </div>
+
+            <div>
+                <span>Delivered</span>
+                <strong>{{ delivered_orders }}</strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon cancelled">
+                <i class="bi bi-x-circle"></i>
+            </div>
+
+            <div>
+                <span>Cancelled</span>
+                <strong>{{ cancelled_orders }}</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FILTERS
+    ====================================================== -->
+
+    {% if orders %}
+
+    <section class="orders-section">
+
+        <div class="section-top">
+
+            <div>
+
+                <h2>Order History</h2>
+
+                <p>
+                    {{ total_orders }} order{{ total_orders|pluralize }}
+                    found
+                </p>
 
             </div>
 
         </div>
 
 
-        <section class="orders-list">
+        <!-- Status Tabs -->
+
+        <div class="status-tabs">
+
+            <button
+                class="status-tab active"
+                data-status="all"
+            >
+                All Orders
+                <span>{{ total_orders }}</span>
+            </button>
+
+            <button
+                class="status-tab"
+                data-status="PENDING"
+            >
+                Pending
+                <span>{{ pending_orders }}</span>
+            </button>
+
+            <button
+                class="status-tab"
+                data-status="CONFIRMED"
+            >
+                Confirmed
+                <span>{{ confirmed_orders }}</span>
+            </button>
+
+            <button
+                class="status-tab"
+                data-status="DELIVERED"
+            >
+                Delivered
+                <span>{{ delivered_orders }}</span>
+            </button>
+
+            <button
+                class="status-tab"
+                data-status="CANCELLED"
+            >
+                Cancelled
+                <span>{{ cancelled_orders }}</span>
+            </button>
+
+        </div>
+
+
+        <!-- Search -->
+
+        <div class="filter-row">
+
+            <div class="search-box">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="orderSearch"
+                    placeholder="Search order, material or seller..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <select id="materialFilter" class="filter-select">
+
+                <option value="all">
+                    All Materials
+                </option>
+
+                {% for order in orders %}
+                    {% for item in order.items.all %}
+
+                        <option value="{{ item.listing.material.name|lower }}">
+                            {{ item.listing.material.name }}
+                        </option>
+
+                    {% endfor %}
+                {% endfor %}
+
+            </select>
+
+
+            <select id="sortFilter" class="filter-select">
+
+                <option value="newest">
+                    Newest First
+                </option>
+
+                <option value="oldest">
+                    Oldest First
+                </option>
+
+                <option value="high">
+                    Highest Amount
+                </option>
+
+                <option value="low">
+                    Lowest Amount
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- =================================================
+             ORDERS LIST
+        ================================================== -->
+
+        <div class="orders-list" id="ordersList">
 
             {% for order in orders %}
 
-                <article class="order-card">
+            <article
+                class="order-card"
+                data-status="{{ order.status }}"
+                data-date="{{ order.created_at|date:'Y-m-d H:i:s' }}"
+                data-total="{{ order.total_amount }}"
+                data-search="
+                    order {{ order.id }}
+                    {% for item in order.items.all %}
+                        {{ item.listing.material.name }}
+                        {{ item.listing.seller.get_full_name }}
+                        {{ item.listing.seller.username }}
+                    {% endfor %}
+                "
+            >
 
-                    <div class="order-top">
+                <!-- Order Top -->
 
-                        <div>
+                <div class="order-top">
 
-                            <span class="order-number">
-                                Order #{{ order.id }}
-                            </span>
+                    <div class="order-number">
 
-                            <span class="order-date">
-                                {{ order.created_at|date:"d M Y, h:i A" }}
-                            </span>
+                        <span>ORDER</span>
 
-                        </div>
-
-                        <span
-                            class="status
-                            status-{{ order.status|lower }}"
-                        >
-                            {{ order.get_status_display }}
-                        </span>
+                        <strong>
+                            #BC{{ order.id|stringformat:"04d" }}
+                        </strong>
 
                     </div>
 
 
+                    <div class="order-date">
+
+                        <i class="bi bi-calendar3"></i>
+
+                        {{ order.created_at|date:"d M Y, h:i A" }}
+
+                    </div>
+
+
+                    <div class="order-status status-{{ order.status|lower }}">
+
+                        {% if order.status == "PENDING" %}
+                            <i class="bi bi-clock"></i>
+                            Pending
+
+                        {% elif order.status == "CONFIRMED" %}
+                            <i class="bi bi-check-circle"></i>
+                            Confirmed
+
+                        {% elif order.status == "DELIVERED" %}
+                            <i class="bi bi-check2-all"></i>
+                            Delivered
+
+                        {% elif order.status == "CANCELLED" %}
+                            <i class="bi bi-x-circle"></i>
+                            Cancelled
+
+                        {% else %}
+                            {{ order.get_status_display }}
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- Order Body -->
+
+                <div class="order-body">
+
                     {% for item in order.items.all %}
 
-                        <div class="order-item">
+                    <div
+                        class="order-item"
+                        data-material="{{ item.listing.material.name|lower }}"
+                    >
 
-                            <div class="material-image">
+                        <div class="material-image">
 
-                                {% with name=item.listing.material.name|lower %}
+                            {% with material_name=item.listing.material.name|lower %}
 
-                                    {% if name == "coal" %}
-                                        <img
-                                            src="{% static 'images/coal.png' %}"
-                                            alt="Coal"
-                                        >
+                                {% if material_name == "coal" %}
 
-                                    {% elif name == "sand" %}
-                                        <img
-                                            src="{% static 'images/sand.png' %}"
-                                            alt="Sand"
-                                        >
+                                    <img
+                                        src="{% static 'images/coal.png' %}"
+                                        alt="Coal"
+                                    >
 
-                                    {% elif name == "crushed stone" %}
-                                        <img
-                                            src="{% static 'images/crushed-stone.png' %}"
-                                            alt="Crushed Stone"
-                                        >
+                                {% elif material_name == "sand" %}
 
-                                    {% elif name == "fly ash" %}
-                                        <img
-                                            src="{% static 'images/fly-ash.png' %}"
-                                            alt="Fly Ash"
-                                        >
+                                    <img
+                                        src="{% static 'images/sand.png' %}"
+                                        alt="Sand"
+                                    >
 
-                                    {% elif name == "soil" %}
-                                        <img
-                                            src="{% static 'images/soil.png' %}"
-                                            alt="Soil"
-                                        >
+                                {% elif material_name == "crushed stone" %}
 
-                                    {% endif %}
+                                    <img
+                                        src="{% static 'images/crushed-stone.png' %}"
+                                        alt="Crushed Stone"
+                                    >
 
-                                {% endwith %}
+                                {% elif material_name == "fly ash" %}
 
-                            </div>
+                                    <img
+                                        src="{% static 'images/fly-ash.png' %}"
+                                        alt="Fly Ash"
+                                    >
+
+                                {% elif material_name == "soil" %}
+
+                                    <img
+                                        src="{% static 'images/soil.png' %}"
+                                        alt="Soil"
+                                    >
+
+                                {% else %}
+
+                                    <div class="image-placeholder">
+                                        <i class="bi bi-box-seam"></i>
+                                    </div>
+
+                                {% endif %}
+
+                            {% endwith %}
+
+                        </div>
 
 
-                            <div class="item-info">
+                        <div class="material-details">
 
-                                <h3>
-                                    {{ item.listing.material.name }}
-                                </h3>
+                            <span class="material-label">
+                                MATERIAL
+                            </span>
 
-                                <p>
-                                    Seller:
-                                    <strong>
-                                        {{ item.listing.seller.get_full_name|default:item.listing.seller.username }}
-                                    </strong>
-                                </p>
+                            <h3>
+                                {{ item.listing.material.name }}
+                            </h3>
 
-                                <p>
-                                    Quantity:
+                            <p class="seller-name">
+                                <i class="bi bi-shop"></i>
+
+                                {{ item.listing.seller.get_full_name|default:item.listing.seller.username }}
+                            </p>
+
+                            <p class="seller-location">
+                                <i class="bi bi-geo-alt"></i>
+
+                                {{ item.listing.location }}
+                            </p>
+
+                        </div>
+
+
+                        <div class="item-info">
+
+                            <div>
+                                <span>Quantity</span>
+                                <strong>
                                     {{ item.quantity }}
                                     {{ item.listing.material.get_unit_display }}
-                                </p>
-
-                                <p>
-                                    Price:
-                                    ₹{{ item.unit_price }}
-                                    / {{ item.listing.material.get_unit_display }}
-                                </p>
-
+                                </strong>
                             </div>
 
-
-                            <div class="item-total">
-
-                                <span>Total Amount</span>
-
+                            <div>
+                                <span>Price / Unit</span>
                                 <strong>
-                                    ₹{{ item.subtotal }}
+                                    ₹{{ item.unit_price|floatformat:0 }}
                                 </strong>
-
                             </div>
 
                         </div>
 
+
+                        <div class="item-total">
+
+                            <span>Total</span>
+
+                            <strong>
+                                ₹{{ item.subtotal|floatformat:0 }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
                     {% endfor %}
 
+                </div>
 
-                    <div class="delivery-box">
 
-                        <span>
-                            Delivery Address
-                        </span>
+                <!-- Delivery -->
+
+                <div class="delivery-box">
+
+                    <div class="delivery-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+
+                    <div>
+
+                        <span>DELIVERY ADDRESS</span>
 
                         <p>
                             {{ order.delivery_address }}
@@ -343,58 +642,150 @@
 
                     </div>
 
+                </div>
 
-                    <div class="order-bottom">
 
-                        <span>
-                            Order Total
-                        </span>
+                <!-- Order Footer -->
+
+                <div class="order-footer">
+
+                    <div class="order-total">
+
+                        <span>Order Total</span>
 
                         <strong>
-                            ₹{{ order.total_amount }}
+                            ₹{{ order.total_amount|floatformat:0 }}
                         </strong>
 
                     </div>
 
-                </article>
+
+                    <div class="order-actions">
+
+                        <button
+                            type="button"
+                            class="view-details-btn"
+                            data-order-id="{{ order.id }}"
+                        >
+                            View Details
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+
+                        {% if order.status == "PENDING" %}
+
+                        <button
+                            type="button"
+                            class="cancel-order-btn"
+                            data-order-id="{{ order.id }}"
+                        >
+                            <i class="bi bi-x-lg"></i>
+                            Cancel Order
+                        </button>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </article>
 
             {% endfor %}
 
-        </section>
+        </div>
+
+
+        <!-- No Filter Results -->
+
+        <div
+            class="no-results"
+            id="noResults"
+            style="display:none;"
+        >
+
+            <div class="no-results-icon">
+                <i class="bi bi-search"></i>
+            </div>
+
+            <h3>No matching orders</h3>
+
+            <p>
+                Try changing your search or filter.
+            </p>
+
+            <button id="clearFilters">
+                Clear Filters
+            </button>
+
+        </div>
+
+    </section>
 
     {% else %}
 
-        <section class="empty-orders">
+    <!-- =================================================
+         EMPTY STATE
+    ================================================== -->
 
-            <div class="empty-icon">
-                📦
-            </div>
+    <section class="empty-orders">
 
-            <h2>
-                No orders yet
-            </h2>
+        <div class="empty-icon">
+            <i class="bi bi-receipt"></i>
+        </div>
 
-            <p>
-                Your material orders will appear here
-                once you place your first order.
-            </p>
+        <h2>No Orders Yet</h2>
 
-            <a
-                href="{% url 'materials' %}"
-                class="browse-btn"
-            >
-                Browse Materials →
-            </a>
+        <p>
+            You haven't placed any material orders yet.
+            Browse available materials and place your first order.
+        </p>
 
-        </section>
+        <a href="{% url 'materials' %}" class="browse-btn">
+            <i class="bi bi-box-seam"></i>
+            Browse Materials
+        </a>
+
+    </section>
 
     {% endif %}
 
 </main>
 
 
+<!-- =========================================================
+     ORDER DETAILS MODAL
+========================================================= -->
+
+<div class="modal-overlay" id="detailsModal">
+
+    <div class="details-modal">
+
+        <button
+            class="modal-close"
+            id="modalClose"
+        >
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+        <div class="modal-icon">
+            <i class="bi bi-receipt"></i>
+        </div>
+
+        <h2>Order Details</h2>
+
+        <p class="modal-order-id">
+            Order #BC<span id="modalOrderId"></span>
+        </p>
+
+        <div class="modal-content" id="modalContent">
+        </div>
+
+    </div>
+
+</div>
+
+
 <script src="{% static 'customer/js/orders.js' %}"></script>
 
 </body>
-
 </html>

@@ -5,42 +5,62 @@ from . import views
 
 urlpatterns = [
 
+    # =========================================================
+    # HOME
+    # =========================================================
+
     path(
         "",
         views.home,
         name="home"
     ),
 
+    # =========================================================
+    # LOGIN / SIGNUP / LOGOUT
+    # =========================================================
+
     path(
         "login/",
         views.login_view,
         name="login"
     ),
+
     path(
-    "signup/",
-    views.signup_view,
-    name="signup"
+        "signup/",
+        views.signup_view,
+        name="signup"
+    ),
+
+    path(
+        "logout/",
+        views.logout_view,
+        name="logout"
+    ),
+
+    # =========================================================
+    # CUSTOMER
+    # =========================================================
+
+    # CUSTOMER
+
+path(
+    "customer/dashboard/",
+    views.customer_dashboard,
+    name="customer_dashboard"
 ),
 
-    #customer 
+path(
+    "customer/materials/",
+    views.materials,
+    name="materials"
+),
 
-    path(
-        "customer/dashboard/",
-        views.customer_dashboard,
-        name="customer_dashboard"
-    ),
-
-    path(
-        "customer/materials/",
-        views.materials,
-        name="materials"
-    ),
-
-    path(
+path(
     "customer/orders/",
     views.orders,
     name="orders"
 ),
+
 path(
     "customer/order/create/",
     views.create_order,
@@ -48,15 +68,22 @@ path(
 ),
 
 path(
+    "customer/order/<int:order_id>/cancel/",
+    views.cancel_order,
+    name="cancel_order"
+),
+
+path(
     "customer/vehicles/",
     views.vehicles,
     name="vehicles"
 ),
+
 path(
-        "logout/",
-        views.logout_view,
-        name="logout"
-    ),
+    "customer/vehicle-rental/create/",
+    views.create_vehicle_rental,
+    name="create_vehicle_rental"
+),
 
 path(
     "customer/rentals/",
@@ -70,47 +97,51 @@ path(
     name="profile"
 ),
 
-# Driver
+    # =========================================================
+    # DRIVER
+    # =========================================================
 
-path(
-    "driver/dashboard/",
-    views.driver_dashboard,
-    name="driver_dashboard"
-),
+    path(
+        "driver/dashboard/",
+        views.driver_dashboard,
+        name="driver_dashboard"
+    ),
 
-path(
-    "driver/jobs/",
-    views.driver_jobs,
-    name="driver_jobs"
-),
+    path(
+        "driver/jobs/",
+        views.driver_jobs,
+        name="driver_jobs"
+    ),
 
-path(
-    "driver/my-jobs/",
-    views.driver_my_jobs,
-    name="driver_my_jobs"
-),
+    path(
+        "driver/my-jobs/",
+        views.driver_my_jobs,
+        name="driver_my_jobs"
+    ),
 
-path(
-    "driver/profile/",
-    views.driver_profile,
-    name="driver_profile"
-),
+    path(
+        "driver/profile/",
+        views.driver_profile,
+        name="driver_profile"
+    ),
 
-path(
-    "driver/earnings/",
-    views.driver_earnings,
-    name="driver_earnings"
-),
+    path(
+        "driver/earnings/",
+        views.driver_earnings,
+        name="driver_earnings"
+    ),
 
-path(
-    "driver/settings/",
-    views.driver_settings,
-    name="driver_settings"
-),
+    path(
+        "driver/settings/",
+        views.driver_settings,
+        name="driver_settings"
+    ),
 
-#vechile_owner
+    # =========================================================
+    # VEHICLE OWNER
+    # =========================================================
 
-path(
+    path(
         "owner/dashboard/",
         views.owner_dashboard,
         name="owner_dashboard"
@@ -146,40 +177,44 @@ path(
         name="owner_profile"
     ),
 
-    #seller browser
+    # =========================================================
+    # SELLER
+    # =========================================================
 
     path(
-    "seller/dashboard/",
-    views.seller_dashboard,
-    name="seller_dashboard"
-),
+        "seller/dashboard/",
+        views.seller_dashboard,
+        name="seller_dashboard"
+    ),
 
- path(
-    "seller/materials/",
-    views.seller_materials,
-    name="seller_materials"
-),
-path(
-    "seller/add_materials/",
-    views.seller_add_materials,
-    name="seller_add_materials"
-),
+    path(
+        "seller/materials/",
+        views.seller_materials,
+        name="seller_materials"
+    ),
 
-path(
-    "seller/order/",
-    views.seller_order,
-    name="seller_order"
-),
-path(
-    "seller/earning/",
-    views.seller_earning,
-    name="seller_earning"
-),
+    path(
+        "seller/add_materials/",
+        views.seller_add_materials,
+        name="seller_add_materials"
+    ),
 
-path(
-    "seller/profile/",
-    views.seller_profile,
-    name="seller_profile"
-),
+    path(
+        "seller/order/",
+        views.seller_order,
+        name="seller_order"
+    ),
+
+    path(
+        "seller/earning/",
+        views.seller_earning,
+        name="seller_earning"
+    ),
+
+    path(
+        "seller/profile/",
+        views.seller_profile,
+        name="seller_profile"
+    ),
 
 ]
